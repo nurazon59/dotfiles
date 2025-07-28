@@ -1,0 +1,15 @@
+[credential]
+	helper = store
+[user]
+	name = Itsuki54
+	email = 5shi.icyu@gmail.com
+[push]
+	default = current
+[core]
+	excludesFile = /Users/itsuki/.gitignore
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[pull]
+	default = current
