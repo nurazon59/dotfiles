@@ -2,7 +2,7 @@
 export PATH="$HOME/.local/bin:$PATH"
 
 eval "$(sheldon source)"
-eval "$(/Users/itsuki/.local/bin/mise activate zsh)"
+eval "$(/Users/itsuki54/.local/bin/mise activate zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --hook prompt)"
