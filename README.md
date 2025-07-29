@@ -5,8 +5,14 @@ My personal development environment configuration files.
 ## Quick Start
 
 ```bash
-git clone https://github.com/itsuki54/dotfiles.git ~/src/dotfiles
-cd ~/src/dotfiles
+# Using ghq (recommended)
+ghq get itsuki54/dotfiles
+cd $(ghq root)/github.com/itsuki54/dotfiles
+./install.sh
+
+# Or manual clone
+git clone https://github.com/itsuki54/dotfiles.git ~/src/github.com/itsuki54/dotfiles
+cd ~/src/github.com/itsuki54/dotfiles
 ./install.sh
 ```
 
