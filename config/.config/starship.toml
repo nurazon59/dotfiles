@@ -12,7 +12,7 @@ $character"""
 when = true
 require_repo = true
 command = 'git rev-parse --show-toplevel | sed -e "s,$(ghq root)/\(github\.com/\)\?,,"'
-style = 'bold blue'
+style = 'bold cyan'
 format = '[$output]($style) '
 
 [directory]
