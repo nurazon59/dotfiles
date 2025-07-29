@@ -55,6 +55,11 @@ echo "Installing tools with mise..."
 cd ~
 mise install
 
+if command -v go &> /dev/null; then
+    echo "Installing Go packages..."
+    bash "$DOTFILES_DIR/bin/install-go-packages.sh"
+fi
+
 echo "dotfiles installation completed!"
 echo "To apply the new settings, restart your terminal or run:"
 echo "   source ~/.zshrc"
