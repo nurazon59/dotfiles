@@ -19,8 +19,6 @@ source "$(dirname "$0")/dock.sh"
 # Finder設定
 source "$(dirname "$0")/finder.sh"
 
-# Safari設定
-source "$(dirname "$0")/safari.sh"
 
 # スクリーンショット設定
 source "$(dirname "$0")/screenshot.sh"
