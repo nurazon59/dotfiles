@@ -38,16 +38,17 @@ ln -sf "$DOTFILES_DIR/root/.zshrc" ~/.zshrc
 echo "Creating symlinks for .config directory..."
 mkdir -p ~/.config
 
-for config_dir in "$DOTFILES_DIR"/config/.config/*; do
-    target_dir=~/.config/$(basename "$config_dir")
+for config_item in "$DOTFILES_DIR"/config/.config/*; do
+    item_name=$(basename "$config_item")
+    target_path=~/.config/"$item_name"
 
-    if [ -e "$target_dir" ] && [ ! -L "$target_dir" ]; then
-        echo "Warning: $target_dir already exists. Creating backup..."
-        mv "$target_dir" "${target_dir}.backup.$(date +%Y%m%d%H%M%S)"
+    if [ -e "$target_path" ] && [ ! -L "$target_path" ]; then
+        echo "Warning: $target_path already exists. Creating backup..."
+        mv "$target_path" "${target_path}.backup.$(date +%Y%m%d%H%M%S)"
     fi
 
-    ln -sfn "$config_dir" "$target_dir"
-    echo "  -> Linked $(basename "$config_dir")"
+    ln -sfn "$config_item" "$target_path"
+    echo "  -> Linked $item_name"
 done
 
 echo "Installing tools with mise..."
