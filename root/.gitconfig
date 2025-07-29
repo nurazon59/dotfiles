@@ -5,11 +5,27 @@
 	email = 5shi.icyu@gmail.com
 [push]
 	default = current
-[core]
-	excludesFile = /Users/itsuki/.gitignore
 [init]
 	defaultBranch = main
 [color]
 	ui = auto
 [pull]
 	default = current
+[ghq]
+root = ~/src/
+
+[ghq "https://github.com/algo-method"]
+root = ~/algo-method/
+
+[core]
+  	pager = delta
+  	excludesFile = /Users/itsuki/.gitignore
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    side-by-side = true
+    dark = true
+    true-color = always
+    features = catppuccin-frappe
+
