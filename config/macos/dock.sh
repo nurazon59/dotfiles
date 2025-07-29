@@ -22,7 +22,7 @@ defaults write com.apple.dock static-only -bool false
 
 # アニメーション速度を速くする
 defaults write com.apple.dock autohide-delay -float 0.0
-defaults write com.apple.dock autohide-time-modifier -float 0.15
+defaults write com.apple.dock autohide-time-modifier -float 0.5
 
 # ゴミ箱を空にした時の警告を無効化
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
