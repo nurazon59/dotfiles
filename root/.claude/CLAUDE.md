@@ -14,10 +14,26 @@
 - **設定ファイル**: リンター・フォーマッター・テストなどの設定ファイル（.eslintrc、.prettierrc、jest.config.js等）は変更せず、既存の設定に従うこと
 - **Markdown**: Markdownファイル（\*.md）を修正した場合は必ずtextlintを実行し、エラーを修正すること
 
+### ファイル命名規則
+
+- **既存プロジェクト**: 既存のプロジェクトでは、そのプロジェクトのファイル命名規則に従うこと
+- **言語の推奨がある場合**: 各言語の推奨規則に従うこと
+  - Python: スネークケース（snake_case） 例: `user_profile.py`
+  - Go: スネークケース（snake_case） 例: `user_service.go`
+- **言語の推奨がない場合**: ケバブケース（kebab-case）を使用すること
+  - JavaScript/TypeScript: `user-profile.ts`、`api-client.js`
+  - HTML/CSS: `user-profile.html`、`main-style.css`
+
 ### ルール管理
 
 - **動的ルール追加**: ユーザーの指示や作業中に新たなルールが必要と判断した場合は、このuserルールセクションに自動的に追記すること
 - **ルール適用**: 追加されたルールは即座に適用し、以降の作業で一貫して守ること
+
+### gitブランチ
+
+- itsuki54/をプレフィックスとして使用すること
+- ブランチ名はケバブケース（kebab-case）を使用すること
+  - 例: `itsuki54/feature/add-user-profile`
 
 ### 検索
 
