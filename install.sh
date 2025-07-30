@@ -6,25 +6,26 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "Starting dotfiles installation..."
 
-# macOS-specific installation is disabled
-# To enable macOS installation, uncomment the following block:
-# if [[ "$OSTYPE" == "darwin"* ]]; then
-#     echo "Detected macOS environment"
-#
-#     if ! command -v brew &> /dev/null; then
-#         echo "Installing Homebrew..."
-#         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-#     fi
-#
-#     echo "Installing dependencies from Brewfile..."
-#     brew bundle --file="$DOTFILES_DIR/Brewfile"
-#
-#     echo "Applying macOS default settings..."
-#     for script in "$DOTFILES_DIR"/config/macos/*.sh; do
-#         echo "  -> Running $(basename "$script")..."
-#         bash "$script"
-#     done
-# fi
+# macOS-specific installation
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "Detected macOS environment"
+
+    if ! command -v brew &> /dev/null; then
+        echo "Installing Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
+
+    echo "Installing dependencies from Brewfile..."
+    brew bundle --file="$DOTFILES_DIR/Brewfile"
+
+    # macOS default settings are skipped
+    # To enable macOS settings, uncomment the following block:
+    # echo "Applying macOS default settings..."
+    # for script in "$DOTFILES_DIR"/config/macos/*.sh; do
+    #     echo "  -> Running $(basename "$script")..."
+    #     bash "$script"
+    # done
+fi
 
 if ! command -v mise &> /dev/null; then
     echo "Installing mise..."
