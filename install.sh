@@ -38,6 +38,13 @@ ln -sf "$DOTFILES_DIR/root/.gitconfig" ~/.gitconfig
 ln -sf "$DOTFILES_DIR/root/.gitignore" ~/.gitignore
 ln -sf "$DOTFILES_DIR/root/.zshrc" ~/.zshrc
 
+echo "Creating symlink for .claude directory..."
+if [ -e ~/.claude ] && [ ! -L ~/.claude ]; then
+    echo "Warning: ~/.claude already exists. Creating backup..."
+    mv ~/.claude ~/.claude.backup.$(date +%Y%m%d%H%M%S)
+fi
+ln -sfn "$DOTFILES_DIR/root/.claude" ~/.claude
+
 echo "Creating symlinks for .config directory..."
 mkdir -p ~/.config
 

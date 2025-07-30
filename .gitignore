@@ -1,0 +1,6 @@
+# Claude directory ignores
+root/.claude/statsig/
+root/.claude/todos/
+root/.claude/projects/
+root/.claude/shell-snapshots/
+root/.claude/ide/
