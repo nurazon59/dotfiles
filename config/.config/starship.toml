@@ -11,7 +11,7 @@ $character"""
 [custom.git_repo]
 when = true
 require_repo = true
-command = 'git rev-parse --show-toplevel | sed -e "s,$(ghq root)/\(github\.com/\)\?,,"'
+command = 'git rev-parse --show-toplevel | sed "s|$(ghq root)/github.com/||"'
 style = 'bold cyan'
 format = '[$output]($style) '
 
