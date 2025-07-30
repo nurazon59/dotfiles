@@ -14,9 +14,6 @@
 [ghq]
 root = ~/src/
 
-[ghq "https://github.com/algo-method"]
-root = ~/algo-method/
-
 [core]
   	pager = delta
   	excludesFile = /Users/itsuki/.gitignore
