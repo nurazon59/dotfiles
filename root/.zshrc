@@ -52,8 +52,8 @@ function gcr() {
   # ghqのパスを作成
   local repo_path="$(ghq root)/github.com/$github_user/$repo_name"
   
-  # GitHubにリポジトリ作成（デフォルトでREADMEとMITライセンス追加）
-  gh repo create "$repo_name" --add-readme --license mit "$@"
+  # GitHubにリポジトリ作成（デフォルトでプライベート、READMEとMITライセンス追加）
+  gh repo create "$repo_name" --private --add-readme --license mit "$@"
   
   # ghqでクローン
   ghq get "$github_user/$repo_name"
