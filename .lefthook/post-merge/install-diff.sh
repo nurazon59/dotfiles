@@ -29,7 +29,7 @@ if echo "$CHANGED_FILES" | grep -q "^Brewfile$"; then
     fi
 fi
 
-# mise設定ファイルが変更された場合
+# mise設定ファイルが変更された場合（プロジェクトルート）
 if echo "$CHANGED_FILES" | grep -qE "^(\.mise\.toml|\.tool-versions)$"; then
     echo "🔧 mise configuration changed. Updating tools..."
     
