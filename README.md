@@ -33,5 +33,19 @@ dotfiles/
 │   ├── .gitconfig
 │   ├── .gitignore
 │   └── .zshrc
+├── lefthook.yml        # Git hooks configuration
+├── .lefthook/          # Hook scripts
 └── install.sh          # Installation script
 ```
+
+## Features
+
+### Automatic Differential Installation
+
+When you pull changes from the repository, lefthook automatically detects and installs only the changes:
+
+- **Brewfile changes**: Installs only new packages
+- **mise configuration**: Updates development tools
+- **Config files**: Updates only modified symlinks
+
+This feature is enabled automatically after running `install.sh`.
