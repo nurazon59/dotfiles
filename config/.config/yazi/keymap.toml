@@ -18,6 +18,10 @@ prepend_keymap = [
 
   # 表示切り替え
   { on = ["."], run = "hidden toggle", desc = "隠しファイル切り替え" },
+
+  # Vimライクな移動
+  { on = ["g", "g"], run = "arrow -99999", desc = "リスト先頭へ" },
+  { on = ["G"], run = "arrow 99999", desc = "リスト末尾へ" },
 ]
 
 [input]
@@ -26,13 +30,9 @@ prepend_keymap = [
     "<Esc>",
   ], run = "close", desc = "キャンセル" },
   { on = [
-    "<C-u>",
-  ], run = "move -999", desc = "行頭へ" },
-  { on = [
     "<C-a>",
   ], run = "move -999", desc = "行頭へ" },
   { on = [
     "<C-e>",
   ], run = "move 999", desc = "行末へ" },
 ]
-
