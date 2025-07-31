@@ -94,6 +94,7 @@ setopt pushd_ignore_dups
 zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
 zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
+
 _comp_options+=(globdots)
 
 HISTSIZE=10000    # メモリに保存される履歴の件数
