@@ -82,6 +82,8 @@ setopt pushd_ignore_dups
 zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
 zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
+_comp_options+=(globdots)
+
 HISTSIZE=10000    # メモリに保存される履歴の件数
 SAVEHIST=1000000  # 保存される履歴の件数
 # https://github.com/rothgar/mastering-zsh/blob/921766e642bcf02d0f1be8fc57d0159a867299b0/docs/config/history.md
