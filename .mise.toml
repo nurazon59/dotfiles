@@ -1,0 +1,32 @@
+[tools]
+# Node.js runtime
+node = "lts"
+
+# EditorConfig linting tool
+"npm:eclint" = "latest"
+
+[tasks.lint-editorconfig]
+description = "EditorConfigに基づいてファイルをチェック"
+run = "eclint check ."
+
+[tasks.fix-editorconfig]
+description = "EditorConfigに基づいてファイルを修正"
+run = "eclint fix ."
+
+# Claude Code hook用のタスク
+[tasks.format-changed-files]
+description = "変更されたファイルのみをEditorConfigでフォーマット"
+run = '''
+#!/bin/bash
+if [ $# -eq 0 ]; then
+  echo "Usage: mise run format-changed-files <file1> [file2] ..."
+  exit 1
+fi
+
+for file in "$@"; do
+  if [ -f "$file" ]; then
+    echo "Formatting: $file"
+    eclint fix "$file"
+  fi
+done
+'''

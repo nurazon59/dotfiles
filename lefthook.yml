@@ -2,3 +2,16 @@ post-merge:
   scripts:
     "install-diff.sh":
       runner: bash
+
+pre-commit:
+  commands:
+    editorconfig-check:
+      glob: "*.{js,ts,json,yaml,yml,py,sh,bash,md,txt}"
+      run: mise run lint-editorconfig {staged_files}
+      stage_fixed: true
+
+pre-push:
+  commands:
+    editorconfig-full-check:
+      run: mise run lint-editorconfig
+      fail_text: "EditorConfig violations found. Run 'mise run fix-editorconfig' to fix them."
