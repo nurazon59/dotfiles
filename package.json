@@ -1,0 +1,21 @@
+{
+  "name": "dotfiles",
+  "version": "1.0.0",
+  "description": "Personal dotfiles configuration",
+  "scripts": {
+    "lint:editorconfig": "eclint check .",
+    "fix:editorconfig": "eclint fix .",
+    "lint:editorconfig:staged": "eclint check $(git diff --cached --name-only --diff-filter=ACM)",
+    "postinstall": "echo 'Dependencies installed successfully'"
+  },
+  "devDependencies": {
+    "eclint": "^4.0.3"
+  },
+  "keywords": [
+    "dotfiles",
+    "configuration",
+    "editorconfig"
+  ],
+  "author": "itsuki54",
+  "license": "MIT"
+}

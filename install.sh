@@ -65,8 +65,16 @@ echo "Installing tools with mise..."
 cd ~
 mise install
 
-echo "Setting up lefthook for automatic updates..."
+echo "Installing npm dependencies..."
 cd "$DOTFILES_DIR"
+if command -v npm &> /dev/null; then
+    npm install
+    echo "  -> npm dependencies installed successfully"
+else
+    echo "  -> npm not found. Please install Node.js first"
+fi
+
+echo "Setting up lefthook for automatic updates..."
 if command -v lefthook &> /dev/null; then
     lefthook install
     echo "  -> lefthook installed successfully"

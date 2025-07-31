@@ -1,4 +1,5 @@
 brew "sheldon"
+brew "node"
 
 cask "font-0xproto-nerd-font"
 cask "karabiner-elements"

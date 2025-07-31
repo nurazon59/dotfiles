@@ -2,3 +2,17 @@ post-merge:
   scripts:
     "install-diff.sh":
       runner: bash
+
+pre-commit:
+  parallel: true
+  commands:
+    eclint-check:
+      glob: "**/*.{js,ts,jsx,tsx,py,sh,yml,yaml,json,md,html,css,scss,sass,less,rb,go}"
+      run: npx eclint check {staged_files}
+      stage_fixed: true
+
+pre-push:
+  commands:
+    eclint-full-check:
+      run: npx eclint check .
+      fail_text: "EditorConfig violations found. Run 'npx eclint fix .' to fix them."
