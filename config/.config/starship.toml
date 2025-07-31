@@ -11,16 +11,25 @@ $character"""
 [custom.git_repo]
 when = true
 require_repo = true
-command = 'git rev-parse --show-toplevel | sed "s|$(ghq root)/github.com/||"'
+command = '''
+repo_path=$(git rev-parse --show-toplevel 2>/dev/null)
+current_path=$(pwd)
+relative_path=$(echo "$current_path" | sed "s|^$repo_path||" | sed 's|^/||')
+owner_repo=$(echo "$repo_path" | sed "s|$(ghq root)/github.com/||")
+if [ -z "$relative_path" ]; then
+  echo "$owner_repo"
+else
+  echo "$owner_repo $relative_path"
+fi
+'''
 style = 'bold cyan'
 format = '[$output]($style) '
 
 [directory]
 truncation_length = 3
-truncate_to_repo = true
+truncate_to_repo = false
 style = 'cyan'
-format = '[$path]($style) '
-repo_root_format = ''
+format = ''
 
 [git_branch]
 format = "[$symbol$branch]($style) "
