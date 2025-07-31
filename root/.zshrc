@@ -46,7 +46,7 @@ function ghq-fzf() {
   zle -R -c
 }
 zle -N ghq-fzf
-bindkey '^g' ghq-fzf
+bindkey '^]' ghq-fzf
 
 # ghqでリポジトリを作成する関数
 function gcr() {
