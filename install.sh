@@ -65,6 +65,15 @@ echo "Installing tools with mise..."
 cd ~
 mise install
 
+echo "Setting up lefthook for automatic updates..."
+cd "$DOTFILES_DIR"
+if command -v lefthook &> /dev/null; then
+    lefthook install
+    echo "  -> lefthook installed successfully"
+else
+    echo "  -> lefthook not found. Please install it manually with: brew install lefthook"
+fi
+
 echo "dotfiles installation completed!"
 echo "To apply the new settings, restart your terminal or run:"
 echo "   source ~/.zshrc"
