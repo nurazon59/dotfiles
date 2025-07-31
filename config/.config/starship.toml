@@ -2,7 +2,7 @@
 
 format = """
 ${custom.git_repo}\
-$directory\
+${custom.non_git_dir}\
 $git_branch\
 $git_status\
 $line_break\
@@ -15,7 +15,17 @@ command = '''
 repo_path=$(git rev-parse --show-toplevel 2>/dev/null)
 current_path=$(pwd)
 relative_path=$(echo "$current_path" | sed "s|^$repo_path||" | sed 's|^/||')
-owner_repo=$(echo "$repo_path" | sed "s|$(ghq root)/github.com/||")
+
+# ghqで管理されているか確認
+ghq_root=$(ghq root 2>/dev/null)
+if [ -n "$ghq_root" ] && echo "$repo_path" | grep -q "^$ghq_root/github.com/"; then
+  # ghq管理下のリポジトリ
+  owner_repo=$(echo "$repo_path" | sed "s|$ghq_root/github.com/||")
+else
+  # ghq管理外のリポジトリ - リポジトリ名のみ表示
+  owner_repo=$(basename "$repo_path")
+fi
+
 if [ -z "$relative_path" ]; then
   echo "$owner_repo"
 else
@@ -25,11 +35,11 @@ fi
 style = 'bold cyan'
 format = '[$output]($style) '
 
-[directory]
-truncation_length = 3
-truncate_to_repo = false
+[custom.non_git_dir]
+when = '! git rev-parse --show-toplevel &>/dev/null'
+command = 'pwd | sed "s|$HOME|~|"'
 style = 'cyan'
-format = ''
+format = '[$output]($style) '
 
 [git_branch]
 format = "[$symbol$branch]($style) "
