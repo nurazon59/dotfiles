@@ -1,0 +1,38 @@
+[mgr]
+prepend_keymap = [
+  # クイックナビゲーション
+  { on = ["g", "h"], run = "cd ~", desc = "ホームへ移動" },
+  { on = ["g", "c"], run = "cd ~/.config", desc = "設定ディレクトリへ" },
+  { on = ["g", "d"], run = "cd ~/Downloads", desc = "ダウンロードへ" },
+  { on = ["g", "D"], run = "cd ~/Desktop", desc = "デスクトップへ" },
+  { on = ["g", "p"], run = "cd ~/src", desc = "プロジェクトへ" },
+
+  # エディタで開く
+  { on = ["e"], run = "shell '$EDITOR $0' --confirm", desc = "エディタで開く" },
+  { on = ["<C-n>"], run = "shell 'nvim $0' --confirm", desc = "Neovimで開く" },
+
+  # ファイル操作
+  { on = ["<C-c>"], run = "copy", desc = "コピー" },
+  { on = ["<C-x>"], run = "cut", desc = "カット" },
+  { on = ["<C-v>"], run = "paste", desc = "ペースト" },
+
+  # 表示切り替え
+  { on = ["."], run = "hidden toggle", desc = "隠しファイル切り替え" },
+]
+
+[input]
+prepend_keymap = [
+  { on = [
+    "<Esc>",
+  ], run = "close", desc = "キャンセル" },
+  { on = [
+    "<C-u>",
+  ], run = "move -999", desc = "行頭へ" },
+  { on = [
+    "<C-a>",
+  ], run = "move -999", desc = "行頭へ" },
+  { on = [
+    "<C-e>",
+  ], run = "move 999", desc = "行末へ" },
+]
+
