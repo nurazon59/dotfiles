@@ -38,7 +38,7 @@ function gwadd() {
 
 # ghqとfzfでリポジトリ移動
 function ghq-fzf() {
-  local src=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*")
+  local src=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*" --bind="tab:down,btab:up")
   if [ -n "$src" ]; then
     BUFFER="cd $(ghq root)/$src"
     zle accept-line
