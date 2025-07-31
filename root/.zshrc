@@ -36,6 +36,32 @@ function gwadd() {
   git worktree add "$dir" "$branch"
 }
 
+# ghqでリポジトリを作成する関数
+function gcr() {
+  local repo_name=$1
+  shift
+  
+  if [[ -z "$repo_name" ]]; then
+    echo "使い方: gcr <repository-name> [gh repo create options]"
+    return 1
+  fi
+  
+  # GitHubユーザー名を取得
+  local github_user=$(gh api user --jq .login)
+  
+  # ghqのパスを作成
+  local repo_path="$(ghq root)/github.com/$github_user/$repo_name"
+  
+  # GitHubにリポジトリ作成（デフォルトでプライベート、READMEとMITライセンス追加）
+  gh repo create "$repo_name" --private --add-readme --license mit "$@"
+  
+  # ghqでクローン
+  ghq get "$github_user/$repo_name"
+  
+  # 作成したディレクトリに移動
+  cd "$repo_path"
+}
+
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
 export PAGER='less'
