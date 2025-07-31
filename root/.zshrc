@@ -36,6 +36,18 @@ function gwadd() {
   git worktree add "$dir" "$branch"
 }
 
+# ghqとfzfでリポジトリ移動
+function ghq-fzf() {
+  local src=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*" --bind="tab:down,btab:up")
+  if [ -n "$src" ]; then
+    BUFFER="cd $(ghq root)/$src"
+    zle accept-line
+  fi
+  zle -R -c
+}
+zle -N ghq-fzf
+bindkey '^g' ghq-fzf
+
 # ghqでリポジトリを作成する関数
 function gcr() {
   local repo_name=$1
