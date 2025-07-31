@@ -1,0 +1,28 @@
+[mgr]
+ratio = [1, 4, 3]
+sort_by = "alphabetical"
+sort_sensitive = false
+sort_reverse = false
+sort_dir_first = true
+show_hidden = true
+show_symlink = true
+scrolloff = 5
+
+[preview]
+wrap = "no"
+tab_size = 2
+max_width = 1200
+max_height = 1800
+image_filter = "lanczos3"
+image_quality = 80
+
+[tasks]
+micro_workers = 5
+macro_workers = 10
+image_alloc = 536870912
+
+[input]
+cursor_blink = true
+
+[which]
+sort_by = "none"
