@@ -1,0 +1,17 @@
+[tools]
+node = "lts"
+"npm:eclint" = "latest"
+
+[tasks.lint-editorconfig]
+run = "eclint check ."
+description = "EditorConfigルールのチェック"
+
+[tasks.fix-editorconfig]
+run = "eclint fix ."
+description = "EditorConfigルールの自動修正"
+
+[tasks.format-changed-files]
+run = [
+    "for file in $@; do eclint fix \"$file\"; done"
+]
+description = "指定されたファイルのみフォーマット"

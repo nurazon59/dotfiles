@@ -2,3 +2,16 @@ post-merge:
   scripts:
     "install-diff.sh":
       runner: bash
+
+pre-commit:
+  commands:
+    eclint:
+      run: mise exec -- eclint check {staged_files}
+      glob: "*"
+      stage_fixed: true
+
+pre-push:
+  commands:
+    eclint:
+      run: mise exec -- eclint check .
+      description: "EditorConfig全体チェック"

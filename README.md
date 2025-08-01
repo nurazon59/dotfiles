@@ -49,3 +49,28 @@ When you pull changes from the repository, lefthook automatically detects and in
 - **Config files**: Updates only modified symlinks
 
 This feature is enabled automatically after running `install.sh`.
+
+### EditorConfig自動フォーマット
+
+Claude Code hookとGit hookを使用した自動フォーマット機能:
+
+#### 自動実行
+- **Claude Code**: ファイル変更後に自動でEditorConfigルールを適用
+- **Git pre-commit**: コミット前にステージファイルをチェック
+- **Git pre-push**: プッシュ前にプロジェクト全体をチェック
+
+#### 手動実行
+```bash
+# プロジェクト全体をチェック
+mise run lint-editorconfig
+
+# プロジェクト全体を修正
+mise run fix-editorconfig
+
+# 特定ファイルを修正
+mise run format-changed-files file1.js file2.py
+```
+
+#### 必要な設定
+- [mise](https://mise.jdx.dev/) がインストールされていること
+- `.mise.toml` でnpm:eclintが設定済み
