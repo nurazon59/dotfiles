@@ -14,7 +14,7 @@ compinit
 
 . "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
-alias ls='eza --icons --git --group-directories-first'
+alias ls='eza --icons --git --group-directories-first --all'
 alias bat='nocorrect bat'
 alias cat='bat --paging=never'
 alias tree='eza --icons --git --group-directories-first --tree --git-ignore'
