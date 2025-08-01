@@ -44,6 +44,37 @@
   - クォータ切れ時のみWebSearchツールを使用
 - **ライブラリ調査**: 必ずcontext7 mcpを使用
 
+## Claude Code設定管理
+
+### 設定ファイル共有戦略
+`.claude/settings.json`はgitignoreされているため、以下の方法で設定を共有：
+
+#### 1. テンプレートファイル (`settings.template.json`)
+```bash
+# 初回セットアップ時
+cp root/.claude/settings.template.json root/.claude/settings.json
+```
+
+#### 2. 環境変数 (`.env.example`)
+```bash
+# 環境変数を使用する場合
+cp root/.claude/.env.example root/.claude/.env
+# または、システム環境変数として設定
+export CLAUDE_LANGUAGE=ja
+export CLAUDE_PACKAGE_MANAGER=mise
+```
+
+#### 3. hooks設定
+Claude Code hooksを使用する場合：
+- **postUse**: ファイル変更後の自動フォーマット
+- **設定場所**: `root/.claude/hooks/`
+- **実行タイミング**: Edit/Write/MultiEdit後
+
+### 設定値の優先順位
+1. `settings.json` (個人設定)
+2. 環境変数 (`CLAUDE_*`)
+3. `CLAUDE.md` (デフォルト値)
+
 ## ルール管理
 - **動的ルール追加**: 必要に応じてこのファイルに自動追記
 - **ルール適用**: 追加されたルールは即座に適用

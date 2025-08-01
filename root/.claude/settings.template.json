@@ -1,0 +1,25 @@
+{
+  "claude": {
+    "language": "ja",
+    "commit_format": "<type>(<scope>): <subject>",
+    "tools": {
+      "package_manager": "mise",
+      "git_cli": "gh",
+      "search": "gemini"
+    },
+    "hooks": {
+      "postUse": {
+        "enabled": true,
+        "script": "./root/.claude/hooks/postUse.js"
+      }
+    },
+    "lint": {
+      "auto_format": true,
+      "tools": ["eclint", "prettier", "eslint"]
+    },
+    "file_naming": {
+      "python_go": "snake_case",
+      "default": "kebab-case"
+    }
+  }
+}
