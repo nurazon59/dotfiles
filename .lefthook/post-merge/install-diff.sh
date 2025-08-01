@@ -29,13 +29,19 @@ if echo "$CHANGED_FILES" | grep -q "^Brewfile$"; then
     fi
 fi
 
-# mise設定ファイルが変更された場合（プロジェクトルート）
-if echo "$CHANGED_FILES" | grep -qE "^(\.mise\.toml|\.tool-versions)$"; then
+# mise設定ファイルが変更された場合
+if echo "$CHANGED_FILES" | grep -qE "(^\.mise\.toml$|^\.tool-versions$|^config/.config/mise/config\.toml$)"; then
     echo "🔧 mise configuration changed. Updating tools..."
     
     if command -v mise &> /dev/null; then
+        # ホームディレクトリでmiseをインストール（グローバルツール用）
         cd ~
         mise install
+        # プロジェクトディレクトリでもmiseをインストール（プロジェクト固有ツール用）
+        cd "$DOTFILES_DIR"
+        if [ -f ".mise.toml" ] || [ -f ".tool-versions" ]; then
+            mise install
+        fi
     else
         echo "  ⚠️  mise not found. Skipping tool update."
     fi
