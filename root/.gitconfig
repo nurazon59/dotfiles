@@ -25,5 +25,5 @@ root = ~/src/
     dark = true
     true-color = always
     features = catppuccin-frappe
-    syntax-theme = Nord
+    syntax-theme = Sublime Snazzy
 
