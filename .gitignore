@@ -9,3 +9,9 @@ root/.claude/settings.json
 # Working directory
 zzz/
 
+# Karabiner backup
+config/.config/karabiner/automatic_backups/
+
+# Local files
+.local.*
+
