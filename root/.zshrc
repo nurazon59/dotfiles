@@ -12,6 +12,9 @@ export PATH="$HOME/.local/share/aquaproj-aqua/pkgs/github_release/golang/go/1.22
 autoload -Uz compinit
 compinit
 
+# ghの補完を有効化
+eval "$(gh completion -s zsh)"
+
 . "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
 alias ls='eza --icons --git --group-directories-first --all'
@@ -93,6 +96,15 @@ setopt pushd_ignore_dups
 
 zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
 zstyle ':completion:*' menu yes select  # 矢印で選択できるように
+
+# fzf-tabの詳細設定
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
+
+# ghコマンドの補完でヘルプを表示
+zstyle ':fzf-tab:complete:gh:*' fzf-preview 'gh help $word 2>/dev/null || echo "No help available"'
+zstyle ':fzf-tab:complete:gh-*:*' fzf-preview 'gh $word --help 2>/dev/null || echo "No help available"'
 
 _comp_options+=(globdots)
 
