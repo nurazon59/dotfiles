@@ -107,12 +107,14 @@ zstyle ':fzf-tab:complete:*:*' fzf-preview \
     # ファイルの場合はgit statusアイコン付きでプレビュー
     git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
     status_icon=""
-    [[ "$git_status" =~ "M" ]] && status_icon="● "
-    [[ "$git_status" =~ "A" ]] && status_icon="✚ "
-    [[ "$git_status" =~ "D" ]] && status_icon="✖ "
-    [[ "$git_status" =~ "R" ]] && status_icon="➜ "
-    [[ "$git_status" =~ "\\?\\?" ]] && status_icon="? "
-    echo -e "\033[1;33m${status_icon}$(basename $realpath)\033[0m"
+    case "$git_status" in
+      *M*) status_icon="● " ;;
+      *A*) status_icon="✚ " ;;
+      *D*) status_icon="✖ " ;;
+      *R*) status_icon="➜ " ;;
+      *"??"*) status_icon="? " ;;
+    esac
+    printf "\033[1;33m${status_icon}$(basename $realpath)\033[0m\n"
     file --mime $realpath 2>/dev/null
     echo "────────────────────────────────────────"
     # テキストファイルの場合は内容を表示
@@ -149,12 +151,14 @@ zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
     # ファイルの場合はgit statusを取得して表示
     git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
     status_icon=""
-    [[ "$git_status" =~ "M" ]] && status_icon="● "  # 変更
-    [[ "$git_status" =~ "A" ]] && status_icon="✚ "  # 追加
-    [[ "$git_status" =~ "D" ]] && status_icon="✖ "  # 削除
-    [[ "$git_status" =~ "R" ]] && status_icon="➜ "  # リネーム
-    [[ "$git_status" =~ "\\?\\?" ]] && status_icon="? "  # 未追跡
-    echo -e "\033[1;33m${status_icon}$(basename $realpath)\033[0m"
+    case "$git_status" in
+      *M*) status_icon="● " ;;  # 変更
+      *A*) status_icon="✚ " ;;  # 追加
+      *D*) status_icon="✖ " ;;  # 削除
+      *R*) status_icon="➜ " ;;  # リネーム
+      *"??"*) status_icon="? " ;;  # 未追跡
+    esac
+    printf "\033[1;33m${status_icon}$(basename $realpath)\033[0m\n"
     echo "────────────────────────────────────────"
     bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null
   else
@@ -205,6 +209,24 @@ setopt APPEND_HISTORY            # append to history file
 setopt HIST_NO_STORE             # Don't store history commands
 
 bindkey '^K' autosuggest-accept
+
+# fzf-tabプレビューのデバッグ用関数
+function test-fzf-preview() {
+  local realpath="$1"
+  if [[ -f $realpath ]]; then
+    git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
+    status_icon=""
+    case "$git_status" in
+      *M*) status_icon="● " ;;
+      *A*) status_icon="✚ " ;;
+      *D*) status_icon="✖ " ;;
+      *R*) status_icon="➜ " ;;
+      *"??"*) status_icon="? " ;;
+    esac
+    printf "\033[1;33m${status_icon}$(basename $realpath)\033[0m\n"
+    echo "Git status: '$git_status'"
+  fi
+}
 
 # brew installの個別実行を禁止
 brew() {
