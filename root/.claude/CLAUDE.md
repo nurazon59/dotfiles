@@ -37,7 +37,7 @@
 ### Git操作
 - **GitHub CLI優先**: PR作成、issue管理等はghコマンドを使用
 - **ステージング制限**: `git add .`や`git add -A`は使用禁止（個別指定のみ）
-- **ブランチ命名**: `itsuki54/`プレフィックス + ケバブケース（例: `itsuki54/feature/add-auth`）
+- **ブランチ命名**: `nurazon59/`プレフィックス + ケバブケース（例: `nurazon59/feature/add-auth`）
 
 ### 検索・調査
 - **Web検索**: geminiを最優先で使用（`gemini -p "WebSearch: {検索内容}"`）
