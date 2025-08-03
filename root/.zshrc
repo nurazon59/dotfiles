@@ -98,8 +98,33 @@ zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
 zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
 # fzf-tabの詳細設定
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --git --git-ignore $realpath 2>/dev/null || ls -la $realpath'
+zstyle ':fzf-tab:complete:*:*' fzf-preview \
+  'if [[ -d $realpath ]]; then
+    # ディレクトリの場合
+    eza -la --color=always --git --git-ignore $realpath 2>/dev/null || ls -la $realpath
+  elif [[ -f $realpath ]]; then
+    # ファイルの場合はgit statusアイコン付きでプレビュー
+    git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
+    status_icon=""
+    [[ "$git_status" =~ "M" ]] && status_icon="● "
+    [[ "$git_status" =~ "A" ]] && status_icon="✚ "
+    [[ "$git_status" =~ "D" ]] && status_icon="✖ "
+    [[ "$git_status" =~ "R" ]] && status_icon="➜ "
+    [[ "$git_status" =~ "\\?\\?" ]] && status_icon="? "
+    echo -e "\033[1;33m${status_icon}$(basename $realpath)\033[0m"
+    file --mime $realpath 2>/dev/null
+    echo "────────────────────────────────────────"
+    # テキストファイルの場合は内容を表示
+    if file --mime-type $realpath 2>/dev/null | grep -q "text/"; then
+      bat --color=always --style=plain --line-range=:100 $realpath 2>/dev/null || head -100 $realpath
+    else
+      echo "Binary file"
+    fi
+  else
+    # その他（コマンドなど）
+    echo $realpath
+  fi'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
 # ghコマンドの補完でヘルプを表示
@@ -118,9 +143,24 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
     *) echo $word ;;
   esac'
 
-# ファイル操作系コマンドでファイル内容をプレビュー
+# ファイル操作系コマンドでファイル内容をプレビュー（git status付き）
 zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
-  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath 2>/dev/null'
+  'if [[ -f $realpath ]]; then
+    # ファイルの場合はgit statusを取得して表示
+    git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
+    status_icon=""
+    [[ "$git_status" =~ "M" ]] && status_icon="● "  # 変更
+    [[ "$git_status" =~ "A" ]] && status_icon="✚ "  # 追加
+    [[ "$git_status" =~ "D" ]] && status_icon="✖ "  # 削除
+    [[ "$git_status" =~ "R" ]] && status_icon="➜ "  # リネーム
+    [[ "$git_status" =~ "\\?\\?" ]] && status_icon="? "  # 未追跡
+    echo -e "\033[1;33m${status_icon}$(basename $realpath)\033[0m"
+    echo "────────────────────────────────────────"
+    bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null
+  else
+    # ディレクトリの場合はezaでgit status付きで表示
+    eza -la --color=always --git --git-ignore $realpath 2>/dev/null || ls -la $realpath
+  fi'
 
 # killコマンドでプロセス情報を表示
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
