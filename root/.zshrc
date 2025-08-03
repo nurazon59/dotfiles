@@ -97,47 +97,6 @@ setopt pushd_ignore_dups
 zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
 zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
-# fzf-tabでgit statusをファイル名の横に表示
-zstyle ':fzf-tab:*' prefix ''
-zstyle ':fzf-tab:*' switch-group ',' '.'
-zstyle ':fzf-tab:*' continuous-trigger 'tab'
-zstyle ':fzf-tab:complete:*:*' fzf-preview-window 'right:50%:wrap'
-
-# git状態を含む補完リストの生成
-zstyle -e ':completion:*' list-colors 'reply=("${(@s.:.)LS_COLORS}")'
-zstyle ':fzf-tab:complete:*' extra-opts --ansi
-
-# fzf-tabでファイル名の横にgit statusを表示
-zstyle ':fzf-tab:complete:*' fzf-search-display true
-
-# git statusアイコンを追加する関数
-_fzf_tab_apply_git_status() {
-  local desc=$1
-  local realpath=$2
-  
-  if [[ -f $realpath ]]; then
-    local git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
-    local status_icon=""
-    case "$git_status" in
-      *M*) status_icon=$'\033[1;33m● \033[0m' ;;  # 変更
-      *A*) status_icon=$'\033[1;32m✚ \033[0m' ;;  # 追加
-      *D*) status_icon=$'\033[1;31m✖ \033[0m' ;;  # 削除
-      *R*) status_icon=$'\033[1;34m➜ \033[0m' ;;  # リネーム
-      *"??"*) status_icon=$'\033[1;37m? \033[0m' ;;  # 未追跡
-      *) status_icon="  " ;;
-    esac
-    echo -n "$status_icon$desc"
-  elif [[ -d $realpath ]]; then
-    echo -n "📁 $desc"
-  else
-    echo -n "$desc"
-  fi
-}
-
-# 補完候補の表示を変換
-zstyle ':fzf-tab:complete:*' query-string input
-zstyle ':fzf-tab:complete:(cd|ls|nvim|vim|code|cat|bat):*' fzf-search-display true
-zstyle ':fzf-tab:complete:(cd|ls|nvim|vim|code|cat|bat):*' display-transformer '_fzf_tab_apply_git_status $word $realpath'
 
 # fzf-tabの詳細設定
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --git --git-ignore $realpath 2>/dev/null || ls -la $realpath'
