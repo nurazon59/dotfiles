@@ -1,7 +1,7 @@
 [credential]
 	helper = store
 [user]
-	name = Itsuki54
+	name = nurazon59
 	email = 5shi.icyu@gmail.com
 [push]
 	default = current
@@ -16,7 +16,7 @@ root = ~/src/
 
 [core]
   	pager = delta
-  	excludesFile = /Users/itsuki/.gitignore
+  	excludesFile = /Users/itsuki54/.gitignore
 [interactive]
     diffFilter = delta --color-only
 [delta]
