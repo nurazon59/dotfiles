@@ -65,6 +65,21 @@ echo "Installing tools with mise..."
 cd ~
 mise install
 
+echo "Setting up Docker Compose CLI plugin..."
+mkdir -p ~/.docker/cli-plugins
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS用のDocker Composeダウンロード
+    ARCH=$(uname -m)
+    if [[ "$ARCH" == "arm64" ]]; then
+        COMPOSE_ARCH="aarch64"
+    else
+        COMPOSE_ARCH="x86_64"
+    fi
+    curl -L "https://github.com/docker/compose/releases/download/v2.32.4/docker-compose-darwin-${COMPOSE_ARCH}" -o ~/.docker/cli-plugins/docker-compose
+    chmod +x ~/.docker/cli-plugins/docker-compose
+    echo "  -> Docker Compose v2.32.4 installed"
+fi
+
 echo "Setting up lefthook for automatic updates..."
 cd "$DOTFILES_DIR"
 if command -v lefthook &> /dev/null; then
