@@ -135,17 +135,6 @@ zstyle ':fzf-tab:complete:docker-container-*:*' fzf-preview \
 zstyle ':fzf-tab:complete:docker-image-*:*' fzf-preview \
   'docker image inspect $word 2>/dev/null | jq ".[0] | {RepoTags, Size}" || echo "Image not found"'
 
-# manコマンドでマニュアルの冒頭を表示
-zstyle ':fzf-tab:complete:man:*' fzf-preview \
-  'man -P cat $word 2>/dev/null | head -20 || echo "No manual entry for $word"'
-
-# sshコマンドでホスト情報を表示
-zstyle ':fzf-tab:complete:ssh:*' fzf-preview \
-  '[[ -f ~/.ssh/config ]] && grep -A 5 -B 1 "^Host $word" ~/.ssh/config 2>/dev/null || echo "Host: $word"'
-
-# npmスクリプトのプレビュー
-zstyle ':fzf-tab:complete:npm:*' fzf-preview \
-  '[[ $words[2] == "run" && -f package.json ]] && cat package.json | jq -r ".scripts[\"$word\"] // \"Script not found\"" 2>/dev/null || echo "$word"'
 
 _comp_options+=(globdots)
 
