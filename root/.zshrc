@@ -99,35 +99,8 @@ zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
 
 # fzf-tabの詳細設定
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always --git --git-ignore $realpath 2>/dev/null || ls -la $realpath'
-zstyle ':fzf-tab:complete:*:*' fzf-preview \
-  'if [[ -d $realpath ]]; then
-    # ディレクトリの場合
-    eza -la --color=always --git --git-ignore $realpath 2>/dev/null || ls -la $realpath
-  elif [[ -f $realpath ]]; then
-    # ファイルの場合はgit statusアイコン付きでプレビュー
-    git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
-    status_icon=""
-    case "$git_status" in
-      *M*) status_icon="● " ;;
-      *A*) status_icon="✚ " ;;
-      *D*) status_icon="✖ " ;;
-      *R*) status_icon="➜ " ;;
-      *"??"*) status_icon="? " ;;
-    esac
-    printf "\033[1;33m${status_icon}$(basename $realpath)\033[0m\n"
-    file --mime $realpath 2>/dev/null
-    echo "────────────────────────────────────────"
-    # テキストファイルの場合は内容を表示
-    if file --mime-type $realpath 2>/dev/null | grep -q "text/"; then
-      bat --color=always --style=plain --line-range=:100 $realpath 2>/dev/null || head -100 $realpath
-    else
-      echo "Binary file"
-    fi
-  else
-    # その他（コマンドなど）
-    echo $realpath
-  fi'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
 # ghコマンドの補完でヘルプを表示
@@ -146,26 +119,9 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
     *) echo $word ;;
   esac'
 
-# ファイル操作系コマンドでファイル内容をプレビュー（git status付き）
+# ファイル操作系コマンドでファイル内容をプレビュー
 zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
-  'if [[ -f $realpath ]]; then
-    # ファイルの場合はgit statusを取得して表示
-    git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
-    status_icon=""
-    case "$git_status" in
-      *M*) status_icon="● " ;;  # 変更
-      *A*) status_icon="✚ " ;;  # 追加
-      *D*) status_icon="✖ " ;;  # 削除
-      *R*) status_icon="➜ " ;;  # リネーム
-      *"??"*) status_icon="? " ;;  # 未追跡
-    esac
-    printf "\033[1;33m${status_icon}$(basename $realpath)\033[0m\n"
-    echo "────────────────────────────────────────"
-    bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null
-  else
-    # ディレクトリの場合はezaでgit status付きで表示
-    eza -la --color=always --git --git-ignore $realpath 2>/dev/null || ls -la $realpath
-  fi'
+  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath 2>/dev/null'
 
 # killコマンドでプロセス情報を表示
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
@@ -211,23 +167,6 @@ setopt HIST_NO_STORE             # Don't store history commands
 
 bindkey '^K' autosuggest-accept
 
-# fzf-tabプレビューのデバッグ用関数
-function test-fzf-preview() {
-  local realpath="$1"
-  if [[ -f $realpath ]]; then
-    git_status=$(cd $(dirname $realpath) 2>/dev/null && git status --porcelain $(basename $realpath) 2>/dev/null | cut -c1-2)
-    status_icon=""
-    case "$git_status" in
-      *M*) status_icon="● " ;;
-      *A*) status_icon="✚ " ;;
-      *D*) status_icon="✖ " ;;
-      *R*) status_icon="➜ " ;;
-      *"??"*) status_icon="? " ;;
-    esac
-    printf "\033[1;33m${status_icon}$(basename $realpath)\033[0m\n"
-    echo "Git status: '$git_status'"
-  fi
-}
 
 # brew installの個別実行を禁止
 brew() {
