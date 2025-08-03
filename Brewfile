@@ -1,4 +1,5 @@
 brew "sheldon"
+brew "colima"
 
 cask "font-0xproto-nerd-font"
 cask "karabiner-elements"
