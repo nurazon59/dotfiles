@@ -118,6 +118,34 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
     *) echo $word ;;
   esac'
 
+# ファイル操作系コマンドでファイル内容をプレビュー
+zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
+  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath 2>/dev/null'
+
+# killコマンドでプロセス情報を表示
+zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
+  '[[ $IPREFIX =~ "^-" ]] && echo "signal: $word" || ps aux | grep -E "^[^ ]+ +$word"'
+
+# dockerコマンドのプレビュー
+zstyle ':fzf-tab:complete:docker:argument-1' fzf-preview \
+  'docker help $word 2>/dev/null | head -20'
+zstyle ':fzf-tab:complete:docker-container-*:*' fzf-preview \
+  'docker container inspect $word 2>/dev/null | jq ".[0] | {Name, State, Image}" || echo "Container not found"'
+zstyle ':fzf-tab:complete:docker-image-*:*' fzf-preview \
+  'docker image inspect $word 2>/dev/null | jq ".[0] | {RepoTags, Size}" || echo "Image not found"'
+
+# manコマンドでマニュアルの冒頭を表示
+zstyle ':fzf-tab:complete:man:*' fzf-preview \
+  'man -P cat $word 2>/dev/null | head -20 || echo "No manual entry for $word"'
+
+# sshコマンドでホスト情報を表示
+zstyle ':fzf-tab:complete:ssh:*' fzf-preview \
+  '[[ -f ~/.ssh/config ]] && grep -A 5 -B 1 "^Host $word" ~/.ssh/config 2>/dev/null || echo "Host: $word"'
+
+# npmスクリプトのプレビュー
+zstyle ':fzf-tab:complete:npm:*' fzf-preview \
+  '[[ $words[2] == "run" && -f package.json ]] && cat package.json | jq -r ".scripts[\"$word\"] // \"Script not found\"" 2>/dev/null || echo "$word"'
+
 _comp_options+=(globdots)
 
 HISTSIZE=10000    # メモリに保存される履歴の件数
