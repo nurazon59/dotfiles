@@ -97,7 +97,6 @@ setopt pushd_ignore_dups
 zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
 zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
-
 # fzf-tabの詳細設定
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
 zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
@@ -135,7 +134,6 @@ zstyle ':fzf-tab:complete:docker-container-*:*' fzf-preview \
 zstyle ':fzf-tab:complete:docker-image-*:*' fzf-preview \
   'docker image inspect $word 2>/dev/null | jq ".[0] | {RepoTags, Size}" || echo "Image not found"'
 
-
 _comp_options+=(globdots)
 
 HISTSIZE=10000    # メモリに保存される履歴の件数
@@ -155,7 +153,6 @@ setopt APPEND_HISTORY            # append to history file
 setopt HIST_NO_STORE             # Don't store history commands
 
 bindkey '^K' autosuggest-accept
-
 
 # brew installの個別実行を禁止
 brew() {
