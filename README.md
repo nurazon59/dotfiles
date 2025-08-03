@@ -7,16 +7,16 @@ My personal development environment configuration files.
 ### Using ghq (recommended)
 
 ```bash
-ghq get itsuki54/dotfiles
-cd $(ghq root)/github.com/itsuki54/dotfiles
+ghq get nurazon59/dotfiles
+cd $(ghq root)/github.com/nurazon59/dotfiles
 ./install.sh
 ```
 
 ### Manual clone
 
 ```bash
-git clone https://github.com/itsuki54/dotfiles.git ~/src/github.com/itsuki54/dotfiles
-cd ~/src/github.com/itsuki54/dotfiles
+git clone https://github.com/nurazon59/dotfiles.git ~/src/github.com/nurazon59/dotfiles
+cd ~/src/github.com/nurazon59/dotfiles
 ./install.sh
 ```
 
