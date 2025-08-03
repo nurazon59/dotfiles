@@ -106,6 +106,34 @@ zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl
 zstyle ':fzf-tab:complete:gh:*' fzf-preview 'gh help $word 2>/dev/null || echo "No help available"'
 zstyle ':fzf-tab:complete:gh-*:*' fzf-preview 'gh $word --help 2>/dev/null || echo "No help available"'
 
+# Git関連の補完で色付きプレビュー表示
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
+  'git diff --color=always -- $realpath 2>/dev/null || git ls-files --error-unmatch $realpath 2>/dev/null && echo "$realpath (tracked)" || echo "$realpath (untracked)"'
+zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
+  'case "$group" in
+    "modified file") git diff --color=always -- $realpath ;;
+    "recent commit object name") git show --color=always $word ;;
+    "branch") git log --color=always --oneline -n 10 $word ;;
+    *) echo $word ;;
+  esac'
+
+# ファイル操作系コマンドでファイル内容をプレビュー
+zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
+  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath 2>/dev/null'
+
+# killコマンドでプロセス情報を表示
+zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
+  '[[ $IPREFIX =~ "^-" ]] && echo "signal: $word" || ps aux | grep -E "^[^ ]+ +$word"'
+
+# dockerコマンドのプレビュー
+zstyle ':fzf-tab:complete:docker:argument-1' fzf-preview \
+  'docker help $word 2>/dev/null | head -20'
+zstyle ':fzf-tab:complete:docker-container-*:*' fzf-preview \
+  'docker container inspect $word 2>/dev/null | jq ".[0] | {Name, State, Image}" || echo "Container not found"'
+zstyle ':fzf-tab:complete:docker-image-*:*' fzf-preview \
+  'docker image inspect $word 2>/dev/null | jq ".[0] | {RepoTags, Size}" || echo "Image not found"'
+
 _comp_options+=(globdots)
 
 HISTSIZE=10000    # メモリに保存される履歴の件数
