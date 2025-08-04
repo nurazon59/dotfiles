@@ -183,3 +183,33 @@ pip3() {
   echo "エラー: pip3は禁止されています。代わりにuvを使用してください。"
   return 1
 }
+
+# venvとvirtualenvの使用を禁止し、uv venvを推奨
+venv() {
+  echo "エラー: venvは禁止されています。代わりに'uv venv'を使用してください。"
+  return 1
+}
+
+virtualenv() {
+  echo "エラー: virtualenvは禁止されています。代わりに'uv venv'を使用してください。"
+  return 1
+}
+
+# pythonコマンドで仮想環境作成を試みた場合も警告
+python() {
+  if [[ "$1" == "-m" && "$2" == "venv" ]]; then
+    echo "エラー: 'python -m venv'は禁止されています。代わりに'uv venv'を使用してください。"
+    return 1
+  else
+    command python "$@"
+  fi
+}
+
+python3() {
+  if [[ "$1" == "-m" && "$2" == "venv" ]]; then
+    echo "エラー: 'python3 -m venv'は禁止されています。代わりに'uv venv'を使用してください。"
+    return 1
+  else
+    command python3 "$@"
+  fi
+}
