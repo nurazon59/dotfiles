@@ -165,3 +165,21 @@ brew() {
     command brew "$@"
   fi
 }
+
+# npmの使用を禁止し、pnpmを推奨
+npm() {
+  echo "エラー: npmは禁止されています。代わりにpnpmを使用してください。"
+  return 1
+}
+
+# pipの使用を禁止し、uvを推奨
+pip() {
+  echo "エラー: pipは禁止されています。代わりにuvを使用してください。"
+  return 1
+}
+
+# pip3も同様に禁止
+pip3() {
+  echo "エラー: pip3は禁止されています。代わりにuvを使用してください。"
+  return 1
+}
