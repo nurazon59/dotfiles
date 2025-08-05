@@ -6,8 +6,8 @@ echo "Finder設定を適用中..."
 defaults write com.apple.finder NewWindowTarget -string "PfLo"
 defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/"
 
-# 隠しファイルを表示
-defaults write com.apple.finder AppleShowAllFiles -bool true
+# 隠しファイルを非表示
+defaults write com.apple.finder AppleShowAllFiles -bool false
 
 # 拡張子を常に表示
 defaults write -g AppleShowAllExtensions -bool true
@@ -39,6 +39,15 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 # .DS_Storeファイルをネットワークドライブに作成しない
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 defaults write com.apple.desktopservices DSDontWriteUSBStores -bool true
+
+# ファイル名をTerminal準拠で表示（実際のファイル名を表示）
+# 日本語ファイル名の濁点・半濁点を正しく表示
+defaults write -g AppleTextDirection -bool false
+defaults write -g NSTextShowsControlCharacters -bool true
+
+# Finderでのファイル名エンコーディング設定
+# UTF-8で統一し、NFD（分解形式）ではなくNFC（合成形式）を優先
+defaults write com.apple.finder StringEncoding -int 4
 
 # Finderの再起動
 killall Finder

@@ -23,6 +23,18 @@ source "$(dirname "$0")/finder.sh"
 # スクリーンショット設定
 source "$(dirname "$0")/screenshot.sh"
 
+# トラックパッド設定
+source "$(dirname "$0")/trackpad.sh"
+
+# メニューバー設定
+source "$(dirname "$0")/menu.sh"
+
+# セキュリティ設定
+source "$(dirname "$0")/security.sh"
+
+# アニメーション高速化設定
+source "$(dirname "$0")/animation.sh"
+
 echo ""
 echo "設定が完了しました！"
 echo "一部の設定は再起動後に反映されます。"

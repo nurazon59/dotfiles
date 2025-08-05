@@ -29,5 +29,15 @@ defaults write -g NSAutomaticDashSubstitutionEnabled -bool false
 # テキスト置換を無効化
 defaults write -g NSAutomaticTextReplacementEnabled -bool false
 
-# fnキーの動作（F1、F2などをファンクションキーとして使用）
-defaults write -g com.apple.keyboard.fnState -bool true
+# fnキーの動作（F1、F2などを標準のファンクションキーとして使用）
+# false = メディアキーがデフォルト（fnキーを押しながらでF1-F12）
+# true = F1-F12がデフォルト（fnキーを押しながらでメディアキー）
+defaults write -g com.apple.keyboard.fnState -bool false
+
+# スペースキーを常に半角スペースに設定
+# 日本語入力中でも半角スペースを入力
+defaults write com.apple.inputmethod.Kotoeri JIMPrefFullWidthNumeralKey -bool false
+defaults write com.apple.inputmethod.Kotoeri JIMPrefFullWidthSpaceKey -bool false
+
+# Google日本語入力でも半角スペースをデフォルトに
+defaults write com.google.inputmethod.Japanese JIMPrefFullWidthSpaceKey -bool false

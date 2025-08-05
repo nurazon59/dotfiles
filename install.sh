@@ -18,13 +18,11 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Installing dependencies from Brewfile..."
     brew bundle --file="$DOTFILES_DIR/Brewfile"
 
-    # macOS default settings are skipped
-    # To enable macOS settings, uncomment the following block:
-    # echo "Applying macOS default settings..."
-    # for script in "$DOTFILES_DIR"/config/macos/*.sh; do
-    #     echo "  -> Running $(basename "$script")..."
-    #     bash "$script"
-    # done
+    echo "Applying macOS default settings..."
+    for script in "$DOTFILES_DIR"/config/macos/*.sh; do
+        echo "  -> Running $(basename "$script")..."
+        bash "$script"
+    done
 fi
 
 if ! command -v mise &> /dev/null; then
