@@ -9,10 +9,6 @@ $max_repeat = 5;
 
 $pdf_mode = 3;
 
-# buildディレクトリ設定
-$aux_dir = 'build';
-$out_dir = 'build';
-
 $pvc_view_file_via_temporary = 0;
 $pdf_previewer = 'open -a Skim';
 
