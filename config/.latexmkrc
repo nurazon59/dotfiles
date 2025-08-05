@@ -11,11 +11,9 @@ $pdf_mode = 3;
 
 $pvc_view_file_via_temporary = 0;
 
-# macOS用のSkim設定
-if ($^O eq 'darwin') {
-    $pdf_previewer = 'open -a Skim';
-    $pdf_update_method = 0;
-}
+# Zathura設定
+$pdf_previewer = 'zathura';
+$pdf_update_method = 0;
 
 $clean_ext = 'synctex.gz';
 
@@ -23,12 +21,4 @@ $ENV{TZ} = 'Asia/Tokyo';
 $ENV{OPENTYPEFONTS} = '/usr/share/fonts//:';
 $ENV{TTFONTS} = '/usr/share/fonts//:';
 
-# Skim用の自動リロード設定
-sub skim_reload {
-    return unless $pdf_mode;
-    if ($^O eq 'darwin') {
-        system('osascript', '-e', 'tell application "Skim" to revert front document');
-    }
-}
-
-$compiling_cmd = 'skim_reload';
+# Zathuraは自動的にPDFを更新するため、特別なリロード処理は不要

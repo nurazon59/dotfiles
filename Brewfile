@@ -13,4 +13,8 @@ cask "slack"
 
 # TeX環境
 cask "basictex"
-cask "skim"
+
+# Zathura PDFビューワー
+tap "homebrew-zathura/zathura"
+brew "zathura"
+brew "zathura-pdf-mupdf"
