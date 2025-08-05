@@ -3,14 +3,9 @@ return {
     "lervag/vimtex",
     lazy = false,
     init = function()
-      -- Skim設定（macOS）
-      if vim.fn.has("mac") == 1 then
-        vim.g.vimtex_view_method = "skim"
-        vim.g.vimtex_view_skim_sync = 1
-        vim.g.vimtex_view_skim_activate = 1
-        -- Skimのパスを明示的に設定
-        vim.g.vimtex_view_skim_reading_bar = 0
-      end
+      -- Zathura設定
+      vim.g.vimtex_view_method = "zathura"
+      vim.g.vimtex_view_zathura_options = ""
       
       vim.g.vimtex_compiler_method = "latexmk"
       

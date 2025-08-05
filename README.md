@@ -57,11 +57,11 @@ This feature is enabled automatically after running `install.sh`.
 The dotfiles include an optional TeX environment setup:
 
 - **BasicTeX**: Minimal TeX distribution for macOS
-- **Skim**: PDF viewer with SyncTeX support for live preview
+- **Zathura**: Lightweight PDF viewer with automatic reload support
 - **vimtex**: Neovim plugin for LaTeX editing with automatic compilation
 - **latexmk**: Build automation with Japanese support (platex + dvipdfmx)
 
-During `install.sh`, you'll be asked if you want to install the TeX environment. If you choose yes, BasicTeX, Skim, and TeX packages listed in `config/tex-packages.txt` will be installed automatically.
+During `install.sh`, you'll be asked if you want to install the TeX environment. If you choose yes, BasicTeX, Zathura, and TeX packages listed in `config/tex-packages.txt` will be installed automatically.
 
 #### Manual TeX Setup
 
