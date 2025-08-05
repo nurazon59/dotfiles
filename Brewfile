@@ -10,7 +10,3 @@ cask "discord"
 cask "google-japanese-ime"
 cask "linearmouse"
 cask "slack"
-
-# TeX環境
-cask "basictex"
-cask "skim"

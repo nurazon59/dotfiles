@@ -35,7 +35,6 @@ echo "Creating symlinks for home directory files..."
 ln -sf "$DOTFILES_DIR/root/.gitconfig" ~/.gitconfig
 ln -sf "$DOTFILES_DIR/root/.gitignore" ~/.gitignore
 ln -sf "$DOTFILES_DIR/root/.zshrc" ~/.zshrc
-ln -sf "$DOTFILES_DIR/config/.latexmkrc" ~/.latexmkrc
 
 echo "Creating symlink for .claude directory..."
 if [ -e ~/.claude ] && [ ! -L ~/.claude ]; then
@@ -79,16 +78,34 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "  -> Docker Compose v2.32.4 installed"
 fi
 
-echo "Setting up TeX environment..."
-if command -v tlmgr &> /dev/null; then
-    echo "  -> Installing TeX packages..."
-    while IFS= read -r package; do
-        echo "    -> Installing $package..."
-        sudo tlmgr install "$package" || echo "    -> Warning: Failed to install $package"
-    done < "$DOTFILES_DIR/config/tex-packages.txt"
-    echo "  -> TeX packages installation completed"
+echo "TeX environment setup (optional)..."
+read -p "Do you want to install TeX environment? (y/N): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+    echo "Setting up TeX environment..."
+    
+    # macOSの場合、BasicTeXとSkimをインストール
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        echo "  -> Installing BasicTeX and Skim..."
+        brew bundle --file="$DOTFILES_DIR/Brewfile.tex"
+    fi
+    
+    # .latexmkrcのシンボリックリンクは常に作成（TeX使用時のみ必要）
+    ln -sf "$DOTFILES_DIR/config/.latexmkrc" ~/.latexmkrc
+    echo "  -> Created .latexmkrc symlink"
+    
+    if command -v tlmgr &> /dev/null; then
+        echo "  -> Installing TeX packages..."
+        while IFS= read -r package; do
+            echo "    -> Installing $package..."
+            sudo tlmgr install "$package" || echo "    -> Warning: Failed to install $package"
+        done < "$DOTFILES_DIR/config/tex-packages.txt"
+        echo "  -> TeX packages installation completed"
+    else
+        echo "  -> tlmgr not found. Please install BasicTeX first and run 'sudo tlmgr update --self' before running this script again."
+    fi
 else
-    echo "  -> tlmgr not found. Please install BasicTeX first and run 'sudo tlmgr update --self' before running this script again."
+    echo "  -> Skipping TeX environment setup"
 fi
 
 echo "Setting up lefthook for automatic updates..."
