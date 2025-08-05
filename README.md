@@ -28,6 +28,8 @@ dotfiles/
 ├── bin/                # Utility scripts
 ├── config/
 │   ├── .config/        # .config symlink
+│   ├── .latexmkrc      # LaTeX build configuration
+│   ├── tex-packages.txt # TeX packages list
 │   └── macos/          # macOS settings
 ├── root/               # Home directory files
 │   ├── .gitconfig
@@ -49,3 +51,26 @@ When you pull changes from the repository, lefthook automatically detects and in
 - **Config files**: Updates only modified symlinks
 
 This feature is enabled automatically after running `install.sh`.
+
+### TeX Environment
+
+The dotfiles include a complete TeX environment setup:
+
+- **BasicTeX**: Minimal TeX distribution for macOS (installed via Brewfile)
+- **Skim**: PDF viewer with SyncTeX support for live preview
+- **vimtex**: Neovim plugin for LaTeX editing with automatic compilation
+- **latexmk**: Build automation with Japanese support (platex + dvipdfmx)
+
+After running `install.sh`, TeX packages listed in `config/tex-packages.txt` will be installed automatically.
+
+#### Manual TeX Setup
+
+If you need to install TeX packages manually:
+
+```bash
+# Update tlmgr itself
+sudo tlmgr update --self
+
+# Install packages from the list
+cat config/tex-packages.txt | xargs sudo tlmgr install
+```
