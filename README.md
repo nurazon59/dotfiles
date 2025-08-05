@@ -57,7 +57,7 @@ This feature is enabled automatically after running `install.sh`.
 The dotfiles include a complete TeX environment setup:
 
 - **BasicTeX**: Minimal TeX distribution for macOS (installed via Brewfile)
-- **Zathura**: Lightweight PDF viewer with automatic reload support
+- **Skim**: PDF viewer with SyncTeX support for macOS
 - **vimtex**: Neovim plugin for LaTeX editing with automatic compilation
 - **latexmk**: Build automation with Japanese support (platex + dvipdfmx)
 
