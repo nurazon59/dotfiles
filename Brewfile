@@ -13,3 +13,6 @@ cask "slack"
 
 # TeX環境
 cask "basictex"
+tap "zegervdv/zathura"
+brew "zathura"
+brew "zathura-pdf-poppler"

@@ -80,16 +80,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 fi
 
 echo "Setting up TeX environment..."
-
-# macOSでZathuraをインストール
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "  -> Installing Zathura for macOS..."
-    # Homebrewのzathuraフォーミュラをタップ
-    brew tap zegervdv/zathura || true
-    brew install zathura --with-synctex || echo "  -> Warning: Failed to install zathura"
-    brew install zathura-pdf-poppler || echo "  -> Warning: Failed to install zathura-pdf-poppler"
-fi
-
 if command -v tlmgr &> /dev/null; then
     echo "  -> Installing TeX packages..."
     while IFS= read -r package; do
