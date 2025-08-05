@@ -15,8 +15,8 @@ defaults write com.apple.screencapture disable-shadow -bool true
 # 保存形式をPNGに設定（他のオプション: BMP, GIF, JPG, PDF, TIFF）
 defaults write com.apple.screencapture type -string "png"
 
-# スクリーンショット後にサムネイルを表示しない
-defaults write com.apple.screencapture show-thumbnail -bool false
+# スクリーンショット後にサムネイルを表示する
+defaults write com.apple.screencapture show-thumbnail -bool true
 
 # SystemUIServerを再起動して設定を反映
 killall SystemUIServer
