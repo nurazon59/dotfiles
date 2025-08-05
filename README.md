@@ -52,16 +52,16 @@ When you pull changes from the repository, lefthook automatically detects and in
 
 This feature is enabled automatically after running `install.sh`.
 
-### TeX Environment (Optional)
+### TeX Environment
 
-The dotfiles include an optional TeX environment setup:
+The dotfiles include a complete TeX environment setup:
 
-- **BasicTeX**: Minimal TeX distribution for macOS
+- **BasicTeX**: Minimal TeX distribution for macOS (installed via Brewfile)
 - **Zathura**: Lightweight PDF viewer with automatic reload support
 - **vimtex**: Neovim plugin for LaTeX editing with automatic compilation
 - **latexmk**: Build automation with Japanese support (platex + dvipdfmx)
 
-During `install.sh`, you'll be asked if you want to install the TeX environment. If you choose yes, BasicTeX, Zathura, and TeX packages listed in `config/tex-packages.txt` will be installed automatically.
+After running `install.sh`, TeX packages listed in `config/tex-packages.txt` will be installed automatically.
 
 #### Manual TeX Setup
 
