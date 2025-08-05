@@ -13,18 +13,6 @@ return {
       end
       
       vim.g.vimtex_compiler_method = "latexmk"
-      vim.g.vimtex_compiler_latexmk = {
-        callback = 1,
-        continuous = 1,
-        executable = "latexmk",
-        options = {
-          "-pdfdvi",
-          "-verbose",
-          "-file-line-error",
-          "-synctex=1",
-          "-interaction=nonstopmode",
-        },
-      }
       
       vim.g.vimtex_quickfix_mode = 2
       vim.g.vimtex_quickfix_open_on_warning = 0
