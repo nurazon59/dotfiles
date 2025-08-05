@@ -81,13 +81,19 @@ fi
 
 echo "Setting up TeX environment..."
 
+# 古いzathura tapをアンタップ（存在する場合）
+if brew tap | grep -q "zegervdv/zathura"; then
+    echo "  -> Removing old zathura tap..."
+    brew untap zegervdv/zathura
+fi
+
 # Zathuraプラグインのリンク設定（macOS）
 if [[ "$OSTYPE" == "darwin"* ]] && command -v zathura &> /dev/null; then
     echo "  -> Setting up Zathura plugins..."
-    d=$(brew --prefix zathura)/lib/zathura
+    d=$(brew --prefix homebrew-zathura/zathura/zathura)/lib/zathura
     mkdir -p $d
     for n in cb djvu pdf-mupdf pdf-poppler ps ; do
-        p=$(brew --prefix zathura-$n 2>/dev/null)/lib$n.dylib
+        p=$(brew --prefix homebrew-zathura/zathura/zathura-$n 2>/dev/null)/lib$n.dylib
         [[ -f $p ]] && ln -s $p $d && echo "    -> Linked $n plugin"
     done
 fi

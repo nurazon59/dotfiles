@@ -16,5 +16,5 @@ cask "basictex"
 
 # Zathura PDFビューワー
 tap "homebrew-zathura/zathura"
-brew "zathura"
-brew "zathura-pdf-mupdf"
+brew "homebrew-zathura/zathura/zathura"
+brew "homebrew-zathura/zathura/zathura-pdf-mupdf"
