@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 
 set -e
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "Starting dotfiles installation..."
 
@@ -78,8 +78,10 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "  -> Docker Compose v2.32.4 installed"
 fi
 
+echo
 echo "TeX environment setup (optional)..."
-read -p "Do you want to install TeX environment? (y/N): " -n 1 -r
+echo -n "Do you want to install TeX environment? (y/N): "
+read -k 1 REPLY
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
     echo "Setting up TeX environment..."
