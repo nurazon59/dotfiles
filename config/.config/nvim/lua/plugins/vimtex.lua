@@ -3,9 +3,14 @@ return {
     "lervag/vimtex",
     lazy = false,
     init = function()
-      vim.g.vimtex_view_method = "skim"
-      vim.g.vimtex_view_skim_sync = 1
-      vim.g.vimtex_view_skim_activate = 1
+      -- Skim設定（macOS）
+      if vim.fn.has("mac") == 1 then
+        vim.g.vimtex_view_method = "skim"
+        vim.g.vimtex_view_skim_sync = 1
+        vim.g.vimtex_view_skim_activate = 1
+        -- Skimのパスを明示的に設定
+        vim.g.vimtex_view_skim_reading_bar = 0
+      end
       
       vim.g.vimtex_compiler_method = "latexmk"
       vim.g.vimtex_compiler_latexmk = {
@@ -30,6 +35,17 @@ return {
       vim.g.vimtex_format_enabled = 1
       
       vim.g.vimtex_indent_on_ampersands = 0
+      
+      -- 日本語ファイル名対応
+      vim.g.vimtex_compiler_latexmk_engines = {
+        _ = '-pdfdvi',
+        pdfdvi = '-pdfdvi',
+        pdfps = '-pdfps',
+        pdflatex = '-pdf',
+        luatex = '-lualatex',
+        lualatex = '-lualatex',
+        xelatex = '-xelatex',
+      }
     end,
     config = function()
       vim.api.nvim_create_autocmd("FileType", {

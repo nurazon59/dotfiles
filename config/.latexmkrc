@@ -10,7 +10,13 @@ $max_repeat = 5;
 $pdf_mode = 3;
 
 $pvc_view_file_via_temporary = 0;
-$pdf_previewer = 'open -a Skim';
+
+# macOS用のSkim設定
+if ($^O eq 'darwin') {
+    $pdf_previewer = 'open -a Skim';
+    # SyncTeX対応
+    $pdf_update_method = 0;
+}
 
 $clean_ext = 'synctex.gz';
 
