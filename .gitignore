@@ -4,7 +4,9 @@ root/.claude/todos/
 root/.claude/projects/
 root/.claude/shell-snapshots/
 root/.claude/ide/
-root/.claude/settings.json
+# settings.jsonとhooksは管理対象なのでignoreから除外
+# root/.claude/settings.json
+# root/.claude/hooks/
 
 # Working directory
 zzz/
