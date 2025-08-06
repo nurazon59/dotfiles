@@ -1,0 +1,70 @@
+{
+  "version": "1.0.0",
+  "name": "Pre-Write Check Configuration",
+  "description": "書き込み前のコード品質チェック設定",
+  
+  "blocking": {
+    "asAny": true,
+    "console": false,
+    "debugger": true,
+    "todo": false
+  },
+  
+  "allowed": {
+    "paths": [
+      "/__tests__/",
+      "/.test.",
+      "/.spec.",
+      "/test/",
+      "/tests/"
+    ],
+    "patterns": []
+  },
+  
+  "ignore": {
+    "paths": [
+      "node_modules/",
+      "dist/",
+      "build/",
+      ".next/",
+      "coverage/",
+      "public/",
+      "*.config.js",
+      "*.config.ts",
+      ".claude/hooks/"
+    ]
+  },
+  
+  "customPatterns": [
+    {
+      "pattern": "as\\s+unknown",
+      "message": "'as unknown'の使用は禁止されています。適切な型定義を使用してください",
+      "severity": "error"
+    },
+    {
+      "pattern": ":\\s*any(\\s|\\[|\\)|,|;|$)",
+      "message": ": any型アノテーションは禁止されています。適切な型定義を使用してください",
+      "severity": "error"
+    },
+    {
+      "pattern": "localStorage\\.",
+      "message": "localStorageの直接使用は避けてください。ストレージサービスを使用してください",
+      "severity": "warning"
+    },
+    {
+      "pattern": "process\\.env\\.",
+      "message": "環境変数の直接参照は避けてください。設定サービスを使用してください",
+      "severity": "warning"
+    },
+    {
+      "pattern": "\\/\\/\\s*@ts-ignore",
+      "message": "@ts-ignoreの使用は避けてください",
+      "severity": "error"
+    },
+    {
+      "pattern": "eval\\(",
+      "message": "eval()の使用は禁止されています",
+      "severity": "error"
+    }
+  ]
+}
