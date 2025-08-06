@@ -1,5 +1,7 @@
 # PATH設定
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/share/mise/installs/tree-sitter/latest:$PATH"
+export PATH="/Library/TeX/texbin:$PATH"
 
 eval "$(sheldon source)"
 eval "$(/Users/itsuki54/.local/bin/mise activate zsh)"
