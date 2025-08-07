@@ -81,8 +81,9 @@ function gcr() {
 
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
-export PAGER='less'
-export LESS='-R'
+export PAGER='bat'
+export BAT_PAGER='less -R'
+alias less='bat --paging=always'
 export FZF_DEFAULT_OPTS='--height 40% --reverse'
 
 setopt interactivecomments
