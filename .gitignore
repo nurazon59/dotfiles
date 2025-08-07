@@ -4,6 +4,7 @@ root/.claude/todos/
 root/.claude/projects/
 root/.claude/shell-snapshots/
 root/.claude/ide/
+root/.claude/hooks/*/tsconfig-cache.json
 
 # Working directory
 zzz/
