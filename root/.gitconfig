@@ -26,4 +26,5 @@ root = ~/src/
     true-color = always
     features = catppuccin-frappe
     syntax-theme = Sublime Snazzy
+	paging = never
 
