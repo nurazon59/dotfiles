@@ -168,10 +168,15 @@ brew() {
   fi
 }
 
-# npmの使用を禁止し、pnpmを推奨
+# npmの使用を制限（publishとloginのみ許可）
 npm() {
-  echo "エラー: npmは禁止されています。代わりにpnpmを使用してください。"
-  return 1
+  if [[ "$1" == "publish" || "$1" == "login" ]]; then
+    command npm "$@"
+  else
+    echo "エラー: npmは禁止されています。代わりにpnpmを使用してください。"
+    echo "ただし、'npm publish'と'npm login'は許可されています。"
+    return 1
+  fi
 }
 
 # pipの使用を禁止し、uvを推奨
