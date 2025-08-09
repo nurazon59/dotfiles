@@ -1,0 +1,24 @@
+# EditorConfig設定ファイル
+# https://editorconfig.org
+
+# トップレベルの設定（親ディレクトリを探さない）
+root = true
+
+# すべてのファイルに適用
+[*]
+# 改行コードをLFに統一
+end_of_line = lf
+# 末尾の空白を削除
+trim_trailing_whitespace = true
+# ファイル末尾に改行を追加
+insert_final_newline = true
+# UTF-8エンコーディング
+charset = utf-8
+
+# Makefileではタブが必要
+[Makefile]
+indent_style = tab
+
+# Markdown ファイルでは末尾の空白を保持（改行で使用）
+[*.md]
+trim_trailing_whitespace = false

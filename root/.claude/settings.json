@@ -1,27 +1,18 @@
 {
+  "env": {
+    "MAX_THINKING_TOKENS": "31999"
+  },
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/.claude/hooks/react-app/pre-write-check.js"
-          }
-        ]
-      }
-    ],
     "PostToolUse": [
       {
         "matcher": "Write|Edit|MultiEdit",
         "hooks": [
           {
             "type": "command",
-            "command": "node ~/.claude/hooks/react-app/quality-check.js"
+            "command": "~/.claude/hooks/editorconfig/post-use-format.sh"
           }
         ]
       }
     ]
   }
 }
-
