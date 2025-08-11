@@ -10,18 +10,9 @@
           }
         ]
       }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Write|Edit|MultiEdit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node ~/.claude/hooks/react-app/quality-check.js"
-          }
-        ]
-      }
     ]
+  },
+  "env": {
+    "MAX_THINKING_TOKENS": "31999"
   }
 }
-
