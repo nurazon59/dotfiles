@@ -50,12 +50,15 @@ Updates CHANGELOG.md with changes since the last version, checks README.md for n
 ## [1.2.0] - 2024-01-15
 
 ### Added
+
 - New feature X for improved performance
 - Support for Y configuration
 
 ### Changed
+
 - Updated dependency Z to version 2.0
 
 ### Fixed
+
 - Bug in feature A that caused B
 ```

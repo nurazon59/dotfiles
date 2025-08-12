@@ -48,7 +48,7 @@
 ### 検索・調査ツールの使い分け
 
 - **gemini-search**: 一般的なWeb検索・最新情報（高速3-5秒、日本語対応）
-- **o3-search**: 複雑な技術問題・設計相談（深い推論、GitHub/StackOverflow検索）  
+- **o3-search**: 複雑な技術問題・設計相談（深い推論、GitHub/StackOverflow検索）
 - **context7**: ライブラリ/フレームワークの公式ドキュメント（最新版、コード例付き）
 - **deepwiki**: GitHubリポジトリの調査・OSS分析（構造理解、Markdown変換）
 - **WebSearch**: geminiクォータ切れ時のバックアップ
