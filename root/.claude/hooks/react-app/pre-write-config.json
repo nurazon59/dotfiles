@@ -2,25 +2,19 @@
   "version": "1.0.0",
   "name": "Pre-Write Check Configuration",
   "description": "書き込み前のコード品質チェック設定",
-  
+
   "blocking": {
     "asAny": true,
     "console": false,
     "debugger": true,
     "todo": false
   },
-  
+
   "allowed": {
-    "paths": [
-      "/__tests__/",
-      "/.test.",
-      "/.spec.",
-      "/test/",
-      "/tests/"
-    ],
+    "paths": ["/__tests__/", "/.test.", "/.spec.", "/test/", "/tests/"],
     "patterns": []
   },
-  
+
   "ignore": {
     "paths": [
       "node_modules/",
@@ -34,7 +28,7 @@
       ".claude/hooks/"
     ]
   },
-  
+
   "customPatterns": [
     {
       "pattern": "as\\s+unknown",
