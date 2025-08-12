@@ -44,6 +44,16 @@ if [ -e ~/.claude ] && [ ! -L ~/.claude ]; then
 fi
 ln -sfn "$DOTFILES_DIR/root/.claude" ~/.claude
 
+echo "Creating symlinks for AI tool configuration files..."
+mkdir -p ~/.gemini
+mkdir -p ~/.codex
+
+echo "  -> Linking GEMINI.md..."
+ln -sf "$DOTFILES_DIR/root/.gemini/GEMINI.md" ~/.gemini/GEMINI.md
+
+echo "  -> Linking instructions.md..."
+ln -sf "$DOTFILES_DIR/root/.codex/instructions.md" ~/.codex/instructions.md
+
 echo "Creating symlinks for .config directory..."
 mkdir -p ~/.config
 

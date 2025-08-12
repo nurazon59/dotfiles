@@ -45,11 +45,13 @@
 - **ステージング制限**: `git add .`や`git add -A`は使用禁止（個別指定のみ）
 - **ブランチ命名**: `nurazon59/`プレフィックス + ケバブケース（例: `nurazon59/feature/add-auth`）
 
-### 検索・調査
+### 検索・調査ツールの使い分け
 
-- **Web検索**: geminiを最優先で使用（`gemini -p "WebSearch: {検索内容}"`）
-  - クォータ切れ時のみWebSearchツールを使用
-- **ライブラリ調査**: 必ずcontext7 mcpを使用
+- **gemini-search**: 一般的なWeb検索・最新情報（高速3-5秒、日本語対応）
+- **o3-search**: 複雑な技術問題・設計相談（深い推論、GitHub/StackOverflow検索）  
+- **context7**: ライブラリ/フレームワークの公式ドキュメント（最新版、コード例付き）
+- **deepwiki**: GitHubリポジトリの調査・OSS分析（構造理解、Markdown変換）
+- **WebSearch**: geminiクォータ切れ時のバックアップ
 
 ## ルール管理
 
