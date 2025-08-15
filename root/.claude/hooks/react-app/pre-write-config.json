@@ -59,6 +59,36 @@
       "pattern": "eval\\(",
       "message": "eval()の使用は禁止されています",
       "severity": "error"
+    },
+    {
+      "pattern": "\\/\\/\\s*eslint-disable",
+      "message": "eslint-disableコメントは使用禁止です。根本的な解決を行ってください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\/\\*\\s*eslint-disable",
+      "message": "eslint-disableコメントは使用禁止です。根本的な解決を行ってください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\/\\/\\s*semgrep-ignore",
+      "message": "semgrep-ignoreコメントは使用禁止です。根本的な解決を行ってください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\/\\/\\s*tslint:disable",
+      "message": "tslint:disableコメントは使用禁止です。根本的な解決を行ってください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\/\\/\\s*prettier-ignore",
+      "message": "prettier-ignoreコメントは使用禁止です。根本的な解決を行ってください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\/\\/\\s*@typescript-eslint\\/no-",
+      "message": "TypeScript ESLint無視コメントは使用禁止です。根本的な解決を行ってください",
+      "severity": "error"
     }
   ]
 }

@@ -7,7 +7,6 @@ cask "clipy"
 cask "whatsapp"
 cask "arc"
 cask "discord"
-cask "google-japanese-ime"
 cask "linearmouse"
 cask "slack"
 
