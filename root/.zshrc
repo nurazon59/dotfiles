@@ -221,3 +221,34 @@ python3() {
     command python3 "$@"
   fi
 }
+# find のラッパー
+find() {
+  # 引数がない場合は fd をそのまま実行
+  if [ $# -eq 0 ]; then
+    command fd
+    return
+  fi
+
+  # -name を使った検索を fd にマッピング
+  if [[ "$1" == "-name" && -n "$2" ]]; then
+    pattern="$2"
+    shift 2
+    command fd "$pattern" "$@"
+    return
+  fi
+
+  # -type f / -type d を fd にマッピング
+  if [[ "$1" == "-type" && "$2" == "f" ]]; then
+    shift 2
+    command fd -t f "$@"
+    return
+  elif [[ "$1" == "-type" && "$2" == "d" ]]; then
+    shift 2
+    command fd -t d "$@"
+    return
+  fi
+
+  # それ以外はオリジナル find を実行
+  command find "$@"
+}
+
