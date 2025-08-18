@@ -24,13 +24,19 @@ alias bat='nocorrect bat'
 alias cat='bat --paging=never'
 alias tree='eza --icons --git --group-directories-first --tree --git-ignore'
 
-function gwadd() {
+function wt() {
   if [ -z "$1" ]; then
-    echo "Usage: gwadd <branch-name>"
+    echo "Usage: wt <branch-name>"
     return 1
   fi
 
-  branch="$1"
+  # nurazon59/プレフィックスを追加（すでに付いている場合は重複しない）
+  if [[ "$1" == nurazon59/* ]]; then
+    branch="$1"
+  else
+    branch="nurazon59/$1"
+  fi
+  
   dir="../${branch//\//-}"
 
   # すでに存在するブランチか確認
