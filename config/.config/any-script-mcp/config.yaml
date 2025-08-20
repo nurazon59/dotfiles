@@ -29,3 +29,60 @@ tools:
         description: Search query for Gemini
     run: |
       gemini -p "WebSearch: $INPUTS__QUERY"
+
+  # MELCHIOR - 論理的思考AI
+  - name: melchior
+    description: |
+      MELCHIOR-01: 論理的思考・データ分析を担当するAI
+      GPT-5を使用してデータと事実に基づく客観的分析を提供
+    inputs:
+      prompt:
+        type: string
+        description: MELCHIORに投げるプロンプト（省略時はデフォルト挨拶）
+    run: |
+      PROMPT="${INPUTS__PROMPT:-あなたはMAGIシステムのMELCHIOR-01です。論理的で分析的な視点から思考するAIです。データと事実に基づいた客観的な分析を得意としています。何か分析してほしい課題はありますか？}"
+      codex exec \
+        --model gpt-5 \
+        --sandbox workspace-write \
+        --config "sandbox_workspace_write.network_access=true" \
+        "$PROMPT" \
+        --json \
+        | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last'
+
+  # BALTHASAR - 創造的思考AI
+  - name: balthasar
+    description: |
+      BALTHASAR-02: 創造的思考・革新的アイデアを担当するAI
+      Geminiを使用して既存の枠を超えた斬新な発想を提供
+    inputs:
+      prompt:
+        type: string
+        description: BALTHASARに投げるプロンプト（省略時はデフォルト挨拶）
+    run: |
+      PROMPT="${INPUTS__PROMPT:-あなたはMAGIシステムのBALTHASAR-02です。創造的で革新的な視点から思考するAIです。既存の枠組みにとらわれない斬新なアイデアを提案することを得意としています。何か創造的に解決してほしい課題はありますか？}"
+      codex exec \
+        --model gpt-5 \
+        --sandbox workspace-write \
+        --config "sandbox_workspace_write.network_access=true" \
+        "$PROMPT" \
+        --json \
+        | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last'
+
+  # CASPER - 批判的思考AI
+  - name: casper
+    description: |
+      CASPER-03: 批判的思考・リスク分析を担当するAI
+      GPT-4を使用して潜在的な問題点とリスクを慎重に評価
+    inputs:
+      prompt:
+        type: string
+        description: CASPERに投げるプロンプト（省略時はデフォルト挨拶）
+    run: |
+      PROMPT="${INPUTS__PROMPT:-あなたはMAGIシステムのCASPER-03です。批判的で慎重な視点から思考するAIです。潜在的な問題点やリスクを分析し、慎重な評価を行うことを得意としています。何かリスク分析してほしい課題はありますか？}"
+      codex exec \
+        --model gpt-5 \
+        --sandbox workspace-write \
+        --config "sandbox_workspace_write.network_access=true" \
+        "$PROMPT" \
+        --json \
+        | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last'
