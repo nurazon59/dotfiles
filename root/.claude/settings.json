@@ -7,7 +7,6 @@
   },
   "includeCoAuthoredBy": true,
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Read(~/src)",
       "Edit(~/src)",
@@ -139,7 +138,8 @@
       "Write(/etc/passwd)",
       "Write(/etc/shadow)",
       "Write(/etc/sudoers)"
-    ]
+    ],
+    "defaultMode": "acceptEdits"
   },
   "model": "opus",
   "hooks": {
@@ -154,5 +154,9 @@
         ]
       }
     ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash ~/.claude/statusline.sh"
   }
 }
