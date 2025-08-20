@@ -30,110 +30,59 @@ tools:
     run: |
       gemini -p "WebSearch: $INPUTS__QUERY"
 
-  # MAGI System風のAI議論
-  - name: magi-discussion
+  # MELCHIOR - 論理的思考AI
+  - name: melchior
     description: |
-      MAGI System-style AI discussion with three perspectives:
-      - MELCHIOR (Logical thinking) - Uses GPT-5 for analytical reasoning
-      - BALTHASAR (Creative thinking) - Uses Gemini for innovative ideas  
-      - CASPER (Critical thinking) - Uses codex for risk analysis
-      Provides comprehensive analysis through multi-AI consensus building.
+      MELCHIOR-01: 論理的思考・データ分析を担当するAI
+      GPT-5を使用してデータと事実に基づく客観的分析を提供
     inputs:
-      topic:
+      prompt:
         type: string
-        description: Topic or question to discuss through MAGI system
-      turn:
-        type: number
-        description: Turn number (1-10) for progressive discussion
-      history:
-        type: string
-        description: Previous discussion history to build upon
+        description: MELCHIORに投げるプロンプト（省略時はデフォルト挨拶）
     run: |
-      TURN=${INPUTS__TURN:-1}
-      HISTORY="${INPUTS__HISTORY:-}"
-      
-      echo "╔════════════════════════════════════════════════════════════╗"
-      echo "║              MAGI SYSTEM - TURN $TURN/10                    ║"
-      echo "╚════════════════════════════════════════════════════════════╝"
-      echo ""
-      echo "【議題】 $INPUTS__TOPIC"
-      echo ""
-      
-      # ターンに応じたプロンプトを生成
-      case $TURN in
-        1)
-          MELCHIOR_PROMPT="あなたはMAGIシステムのMELCHIOR-01です。論理的で分析的な視点から、議題「$INPUTS__TOPIC」について初期見解を述べてください。データと事実に基づいた客観的な分析を3つのポイントにまとめてください。"
-          BALTHASAR_PROMPT="あなたはMAGIシステムのBALTHASAR-02です。創造的で革新的な視点から、議題「$INPUTS__TOPIC」について初期見解を述べてください。既存の枠組みにとらわれない斬新なアイデアを3つのポイントにまとめてください。"
-          CASPER_PROMPT="あなたはMAGIシステムのCASPER-03です。批判的で慎重な視点から、議題「$INPUTS__TOPIC」について初期見解を述べてください。潜在的なリスクや問題点を3つのポイントで指摘してください。"
-          ;;
-        2)
-          MELCHIOR_PROMPT="MELCHIORです。ターン2です。前回の議論を踏まえて追加分析します。\n\n議題: $INPUTS__TOPIC\n\n前回の議論:\n$HISTORY\n\n他の意見に対して、データと論理に基づいた検証と反論を述べてください。"
-          BALTHASAR_PROMPT="BALTHASARです。ターン2です。前回の議論を発展させます。\n\n議題: $INPUTS__TOPIC\n\n前回の議論:\n$HISTORY\n\n制約を創造的に回避する新しいアプローチを提案してください。"
-          CASPER_PROMPT="CASPERです。ターン2です。楽観的な見解の問題点を指摘します。\n\n議題: $INPUTS__TOPIC\n\n前回の議論:\n$HISTORY\n\n見落とされているリスクを指摘してください。"
-          ;;
-        5)
-          MELCHIOR_PROMPT="MELCHIORです。ターン5の中間まとめです。\n\n議題: $INPUTS__TOPIC\n\nこれまでの議論:\n$HISTORY\n\n5ターンの議論から導かれる論理的な中間結論を述べてください。"
-          BALTHASAR_PROMPT="BALTHASARです。ターン5の中間まとめです。\n\n議題: $INPUTS__TOPIC\n\nこれまでの議論:\n$HISTORY\n\n議論から生まれた革新的な洞察とブレイクスルーを提示してください。"
-          CASPER_PROMPT="CASPERです。ターン5の中間まとめです。\n\n議題: $INPUTS__TOPIC\n\nこれまでの議論:\n$HISTORY\n\n本質的な課題と注意すべき重要ポイントを再定義してください。"
-          ;;
-        10)
-          MELCHIOR_PROMPT="MELCHIORです。最終ターン10です。\n\n議題: $INPUTS__TOPIC\n\n全議論:\n$HISTORY\n\n10ターンの議論を踏まえた最終的な論理的結論と推奨事項を述べてください。"
-          BALTHASAR_PROMPT="BALTHASARです。最終ターン10です。\n\n議題: $INPUTS__TOPIC\n\n全議論:\n$HISTORY\n\n革新的な可能性と長期的ビジョンを含む最終提言を行ってください。"
-          CASPER_PROMPT="CASPERです。最終ターン10です。\n\n議題: $INPUTS__TOPIC\n\n全議論:\n$HISTORY\n\n実行前の最終警告と絶対に守るべき条件を提示してください。"
-          ;;
-        *)
-          MELCHIOR_PROMPT="MELCHIORです。ターン$TURNです。\n\n議題: $INPUTS__TOPIC\n\n前回までの議論:\n$HISTORY\n\nさらなる論理的分析と洞察を提供してください。"
-          BALTHASAR_PROMPT="BALTHASARです。ターン$TURNです。\n\n議題: $INPUTS__TOPIC\n\n前回までの議論:\n$HISTORY\n\n新たな創造的アプローチを提案してください。"
-          CASPER_PROMPT="CASPERです。ターン$TURNです。\n\n議題: $INPUTS__TOPIC\n\n前回までの議論:\n$HISTORY\n\n新たに見えてきたリスクと課題を指摘してください。"
-          ;;
-      esac
-      
-      # MELCHIOR (論理的思考)
-      echo "▼ MELCHIOR-01 (論理的思考)"
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-      MELCHIOR=$(codex exec \
+      PROMPT="${INPUTS__PROMPT:-あなたはMAGIシステムのMELCHIOR-01です。論理的で分析的な視点から思考するAIです。データと事実に基づいた客観的な分析を得意としています。何か分析してほしい課題はありますか？}"
+      codex exec \
         --model gpt-5 \
         --sandbox workspace-write \
         --config "sandbox_workspace_write.network_access=true" \
-        "$MELCHIOR_PROMPT" \
-        --json 2>/dev/null \
-        | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last' 2>/dev/null || echo "[MELCHIOR] 論理的分析を実行中...")
-      echo "$MELCHIOR"
-      echo ""
-      
-      # BALTHASAR (創造的思考)
-      echo "▼ BALTHASAR-02 (創造的思考)"
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-      BALTHASAR=$(gemini -p "$BALTHASAR_PROMPT" 2>/dev/null || echo "[BALTHASAR] 創造的提案を生成中...")
-      echo "$BALTHASAR"
-      echo ""
-      
-      # CASPER (批判的思考)
-      echo "▼ CASPER-03 (批判的思考)"
-      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-      CASPER=$(codex exec \
-        --model gpt-4 \
+        "$PROMPT" \
+        --json \
+        | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last'
+
+  # BALTHASAR - 創造的思考AI
+  - name: balthasar
+    description: |
+      BALTHASAR-02: 創造的思考・革新的アイデアを担当するAI
+      Geminiを使用して既存の枠を超えた斬新な発想を提供
+    inputs:
+      prompt:
+        type: string
+        description: BALTHASARに投げるプロンプト（省略時はデフォルト挨拶）
+    run: |
+      PROMPT="${INPUTS__PROMPT:-あなたはMAGIシステムのBALTHASAR-02です。創造的で革新的な視点から思考するAIです。既存の枠組みにとらわれない斬新なアイデアを提案することを得意としています。何か創造的に解決してほしい課題はありますか？}"
+      codex exec \
+        --model gpt-5 \
         --sandbox workspace-write \
-        "$CASPER_PROMPT" \
-        --json 2>/dev/null \
-        | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last' 2>/dev/null || echo "[CASPER] 批判的分析を実行中...")
-      echo "$CASPER"
-      echo ""
-      
-      # ターン10の場合は最終統合
-      if [ "$TURN" = "10" ]; then
-        echo "╔════════════════════════════════════════════════════════════╗"
-        echo "║                      MAGI CONSENSUS                         ║"
-        echo "╚════════════════════════════════════════════════════════════╝"
-        echo ""
-        
-        CONSENSUS=$(codex exec \
-          --model gpt-5 \
-          --sandbox workspace-write \
-          "MAGIシステムの統合判断です。10ターンの議論を統合して最終結論を導いてください。\n\n議題: $INPUTS__TOPIC\n\n【最終見解】\nMELCHIOR: $MELCHIOR\n\nBALTHASAR: $BALTHASAR\n\nCASPER: $CASPER\n\n全議論の履歴:\n$HISTORY\n\nバランスの取れた最終推奨事項を提示してください。" \
-          --json 2>/dev/null \
-          | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last' 2>/dev/null || echo "統合結論を生成中...")
-        
-        echo "【最終結論】"
-        echo "$CONSENSUS"
-      fi
+        --config "sandbox_workspace_write.network_access=true" \
+        "$PROMPT" \
+        --json \
+        | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last'
+
+  # CASPER - 批判的思考AI
+  - name: casper
+    description: |
+      CASPER-03: 批判的思考・リスク分析を担当するAI
+      GPT-4を使用して潜在的な問題点とリスクを慎重に評価
+    inputs:
+      prompt:
+        type: string
+        description: CASPERに投げるプロンプト（省略時はデフォルト挨拶）
+    run: |
+      PROMPT="${INPUTS__PROMPT:-あなたはMAGIシステムのCASPER-03です。批判的で慎重な視点から思考するAIです。潜在的な問題点やリスクを分析し、慎重な評価を行うことを得意としています。何かリスク分析してほしい課題はありますか？}"
+      codex exec \
+        --model gpt-5 \
+        --sandbox workspace-write \
+        --config "sandbox_workspace_write.network_access=true" \
+        "$PROMPT" \
+        --json \
+        | jq -sr 'map(select(.msg.type == "agent_message") | .msg.message) | last'
