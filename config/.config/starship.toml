@@ -5,6 +5,13 @@ ${custom.git_repo}\
 ${custom.non_git_dir}\
 $git_branch\
 $git_status\
+$nodejs\
+$python\
+$ruby\
+$rust\
+$golang\
+$terraform\
+$docker_context\
 $line_break\
 $character"""
 
@@ -65,3 +72,60 @@ error_symbol = "[❯](bold red)"
 
 [aws]
 disabled = true
+
+# 言語バージョン表示設定
+[nodejs]
+format = "[$symbol($version)]($style) "
+symbol = "⬢ "
+style = "bold green"
+detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "jsx", "tsx"]
+detect_files = ["package.json", ".node-version", ".nvmrc"]
+detect_folders = ["node_modules"]
+
+[python]
+format = "[$symbol($version)]($style) "
+symbol = "🐍 "
+style = "bold yellow"
+detect_extensions = ["py"]
+detect_files = [".python-version", "Pipfile", "pyproject.toml", "requirements.txt", "setup.py", "tox.ini"]
+detect_folders = ["__pycache__", ".venv", "venv"]
+
+[ruby]
+format = "[$symbol($version)]($style) "
+symbol = "💎 "
+style = "bold red"
+detect_extensions = ["rb"]
+detect_files = [".ruby-version", "Gemfile"]
+detect_folders = []
+
+[rust]
+format = "[$symbol($version)]($style) "
+symbol = "🦀 "
+style = "bold red"
+detect_extensions = ["rs"]
+detect_files = ["Cargo.toml"]
+detect_folders = []
+
+[golang]
+format = "[$symbol($version)]($style) "
+symbol = "🐹 "
+style = "bold cyan"
+detect_extensions = ["go"]
+detect_files = ["go.mod", "go.sum", "glide.yaml", "Gopkg.yml", "Gopkg.lock"]
+detect_folders = ["Godeps"]
+
+[terraform]
+format = "[$symbol($version)]($style) "
+symbol = "💠 "
+style = "bold purple"
+detect_extensions = ["tf", "tfplan", "tfstate"]
+detect_files = ["terraform.rc", ".terraform-version"]
+detect_folders = [".terraform"]
+
+[docker_context]
+format = "[$symbol$context]($style) "
+symbol = "🐳 "
+style = "bold blue"
+only_with_files = true
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+detect_folders = []
