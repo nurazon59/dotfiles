@@ -23,10 +23,10 @@ if [ -n "$transcript_file" ] && [ -f "$transcript_file" ]; then
     total_tokens=0
     if command -v jq >/dev/null; then
         # 実際のコンテキスト消費トークンのみを合計
-        # キャッシュトークンは除外（Zenn記事に合わせる）
+        # キャッシュから読み込んだトークンは除外し、新規トークンのみカウント
         total_tokens=$(cat "$transcript_file" | jq -r '
             if .message.usage then
-                (.message.usage.input_tokens // 0) +
+                ((.message.usage.input_tokens // 0) - (.message.usage.cache_read_input_tokens // 0)) +
                 (.message.usage.output_tokens // 0)
             else
                 0
