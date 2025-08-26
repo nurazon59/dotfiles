@@ -40,4 +40,5 @@
   default-branch = "!f() { git get-branch-cache default || (git refresh-default-branch; git get-branch-cache default); }; f"
   pr = "gh pr create --web"
   dft = difftool
+	log = log --reverse
 

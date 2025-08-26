@@ -9,6 +9,7 @@ cask "arc"
 cask "discord"
 cask "linearmouse"
 cask "slack"
+cask "nikitabobko/tap/aerospace"
 
 # TeX環境
 cask "basictex"

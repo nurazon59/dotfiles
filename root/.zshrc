@@ -24,6 +24,15 @@ alias bat='nocorrect bat'
 alias cat='bat --paging=never'
 alias tree='eza --icons --git --group-directories-first --tree --git-ignore'
 
+# git log をデフォルトでreverse表示
+git() {
+  if [[ "$1" == "log" ]]; then
+    command git log --reverse "${@:2}"
+  else
+    command git "$@"
+  fi
+}
+
 function wt() {
   if [ -z "$1" ]; then
     echo "Usage: wt <branch-name>"
