@@ -1,5 +1,8 @@
+tap "FelixKratz/formulae"
+
 brew "sheldon"
 brew "colima"
+brew "borders"
 
 cask "font-0xproto-nerd-font"
 cask "karabiner-elements"
