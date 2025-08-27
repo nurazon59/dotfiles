@@ -35,6 +35,7 @@ echo "Creating symlinks for home directory files..."
 ln -sf "$DOTFILES_DIR/root/.gitconfig" ~/.gitconfig
 ln -sf "$DOTFILES_DIR/root/.gitignore" ~/.gitignore
 ln -sf "$DOTFILES_DIR/root/.zshrc" ~/.zshrc
+ln -sf "$DOTFILES_DIR/root/.tool-versions" ~/.tool-versions
 ln -sf "$DOTFILES_DIR/config/.latexmkrc" ~/.latexmkrc
 
 echo "Creating symlink for .claude directory..."
@@ -54,21 +55,13 @@ ln -sf "$DOTFILES_DIR/root/.gemini/GEMINI.md" ~/.gemini/GEMINI.md
 echo "  -> Linking instructions.md..."
 ln -sf "$DOTFILES_DIR/root/.codex/instructions.md" ~/.codex/instructions.md
 
-echo "Creating symlinks for .config directory..."
-mkdir -p ~/.config
-
-for config_item in "$DOTFILES_DIR"/config/.config/*; do
-    item_name=$(basename "$config_item")
-    target_path=~/.config/"$item_name"
-
-    if [ -e "$target_path" ] && [ ! -L "$target_path" ]; then
-        echo "Warning: $target_path already exists. Creating backup..."
-        mv "$target_path" "${target_path}.backup.$(date +%Y%m%d%H%M%S)"
-    fi
-
-    ln -sfn "$config_item" "$target_path"
-    echo "  -> Linked $item_name"
-done
+echo "Creating symlink for .config directory..."
+if [ -e ~/.config ] && [ ! -L ~/.config ]; then
+    echo "Warning: ~/.config already exists. Creating backup..."
+    mv ~/.config ~/.config.backup.$(date +%Y%m%d%H%M%S)
+fi
+ln -sfn "$DOTFILES_DIR/config/.config" ~/.config
+echo "  -> Linked .config directory"
 
 echo "Installing tools with mise..."
 cd ~

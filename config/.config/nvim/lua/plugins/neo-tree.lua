@@ -2,7 +2,7 @@ return {
   "nvim-neo-tree/neo-tree.nvim",
   opts = {
     window = {
-      width = 25,  -- デフォルトは40なので、25に縮小
+      width = 30,  -- デフォルトは40なので、30に拡大
     },
     filesystem = {
       filtered_items = {
