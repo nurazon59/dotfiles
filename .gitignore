@@ -14,4 +14,4 @@ config/.config/karabiner/automatic_backups/
 
 # Local files
 .local.*
-
+config/.config/github-copilot/apps.json
