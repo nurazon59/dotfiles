@@ -7,33 +7,44 @@ set -e
 
 echo "macOS のシステム設定を適用しています..."
 
+# エラーが発生しても継続できるようにエラー処理を追加
+run_script() {
+    local script="$1"
+    local name="$(basename "$script" .sh)"
+    echo "  -> $name 設定を適用中..."
+    if source "$script" 2>/dev/null; then
+        echo "     ✓ $name 設定完了"
+    else
+        echo "     ⚠ $name 設定でエラーが発生しましたが継続します"
+    fi
+}
+
 # グローバル設定
-source "$(dirname "$0")/system.sh"
+run_script "$(dirname "$0")/system.sh"
 
 # キーボード設定
-source "$(dirname "$0")/keyboard.sh"
+run_script "$(dirname "$0")/keyboard.sh"
 
 # Dock設定
-source "$(dirname "$0")/dock.sh"
+run_script "$(dirname "$0")/dock.sh"
 
 # Finder設定
-source "$(dirname "$0")/finder.sh"
-
+run_script "$(dirname "$0")/finder.sh"
 
 # スクリーンショット設定
-source "$(dirname "$0")/screenshot.sh"
+run_script "$(dirname "$0")/screenshot.sh"
 
 # トラックパッド設定
-source "$(dirname "$0")/trackpad.sh"
+run_script "$(dirname "$0")/trackpad.sh"
 
 # メニューバー設定
-source "$(dirname "$0")/menu.sh"
+run_script "$(dirname "$0")/menu.sh"
 
 # セキュリティ設定
-source "$(dirname "$0")/security.sh"
+run_script "$(dirname "$0")/security.sh"
 
 # アニメーション高速化設定
-source "$(dirname "$0")/animation.sh"
+run_script "$(dirname "$0")/animation.sh"
 
 echo ""
 echo "設定が完了しました！"

@@ -21,7 +21,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     echo "Applying macOS default settings..."
     for script in "$DOTFILES_DIR"/config/macos/*.sh; do
         echo "  -> Running $(basename "$script")..."
-        bash "$script"
+        bash "$script" || echo "    Warning: $(basename "$script") encountered an issue but continuing..."
     done
 fi
 
