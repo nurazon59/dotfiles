@@ -66,6 +66,23 @@ echo "Installing tools with mise..."
 cd ~
 mise install
 
+echo "Setting up Kitty terminal..."
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # macOS用のKittyインストール
+    if ! command -v kitty &> /dev/null; then
+        echo "  -> Installing Kitty with curl..."
+        curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+        
+        # Create a symbolic link to run kitty from anywhere
+        ln -sf ~/Applications/kitty.app/Contents/MacOS/kitty ~/.local/bin/kitty
+        ln -sf ~/Applications/kitty.app/Contents/MacOS/kitten ~/.local/bin/kitten
+        
+        echo "  -> Kitty installed successfully"
+    else
+        echo "  -> Kitty is already installed"
+    fi
+fi
+
 echo "Setting up Docker Compose CLI plugin..."
 mkdir -p ~/.docker/cli-plugins
 if [[ "$OSTYPE" == "darwin"* ]]; then
