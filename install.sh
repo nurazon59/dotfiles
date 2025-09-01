@@ -103,6 +103,32 @@ else
     echo "  -> lefthook not found. Please install it manually with: brew install lefthook"
 fi
 
+# macOS-specific services startup
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "Starting macOS services..."
+    
+    # Start AeroSpace if installed
+    if command -v aerospace &> /dev/null; then
+        echo "  -> Starting AeroSpace..."
+        aerospace --start-at-login
+        echo "  -> AeroSpace started"
+    fi
+    
+    # Start JankyBorders if installed
+    if command -v borders &> /dev/null; then
+        echo "  -> Starting JankyBorders..."
+        brew services start jankeyborders
+        echo "  -> JankyBorders started"
+    fi
+    
+    # Start SketchyBar if installed
+    if command -v sketchybar &> /dev/null; then
+        echo "  -> Starting SketchyBar..."
+        brew services start sketchybar
+        echo "  -> SketchyBar started"
+    fi
+fi
+
 echo "dotfiles installation completed!"
 echo "To apply the new settings, restart your terminal or run:"
 echo "   source ~/.zshrc"
