@@ -4,7 +4,7 @@ export PATH="$HOME/.local/share/mise/installs/tree-sitter/latest:$PATH"
 export PATH="/Library/TeX/texbin:$PATH"
 
 eval "$(sheldon source)"
-eval "$(/Users/itsuki54/.local/bin/mise activate zsh)"
+eval "$(${HOME}/.local/bin/mise activate zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --hook prompt)"
