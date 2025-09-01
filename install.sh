@@ -36,7 +36,6 @@ ln -sf "$DOTFILES_DIR/root/.gitconfig" ~/.gitconfig
 ln -sf "$DOTFILES_DIR/root/.gitignore" ~/.gitignore
 ln -sf "$DOTFILES_DIR/root/.zshrc" ~/.zshrc
 ln -sf "$DOTFILES_DIR/root/.tool-versions" ~/.tool-versions
-ln -sf "$DOTFILES_DIR/config/.latexmkrc" ~/.latexmkrc
 
 echo "Creating symlink for .claude directory..."
 if [ -e ~/.claude ] && [ ! -L ~/.claude ]; then
@@ -80,18 +79,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     curl -L "https://github.com/docker/compose/releases/download/v2.32.4/docker-compose-darwin-${COMPOSE_ARCH}" -o ~/.docker/cli-plugins/docker-compose
     chmod +x ~/.docker/cli-plugins/docker-compose
     echo "  -> Docker Compose v2.32.4 installed"
-fi
-
-echo "Setting up TeX environment..."
-if command -v tlmgr &> /dev/null; then
-    echo "  -> Installing TeX packages..."
-    while IFS= read -r package; do
-        echo "    -> Installing $package..."
-        sudo tlmgr install "$package" || echo "    -> Warning: Failed to install $package"
-    done < "$DOTFILES_DIR/config/tex-packages.txt"
-    echo "  -> TeX packages installation completed"
-else
-    echo "  -> tlmgr not found. Please install BasicTeX first and run 'sudo tlmgr update --self' before running this script again."
 fi
 
 echo "Setting up lefthook for automatic updates..."
