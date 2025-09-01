@@ -1,0 +1,1 @@
+/Users/itsuki54/src/github.com/nurazon59/dotfiles/config/.config/nvim/lua/plugins/copilot.lua

@@ -79,7 +79,6 @@ local function addWorkspaceItem(workspaceName, monitorId, isSelected)
                 corner_radius = 9,
             },
             click_script = "aerospace workspace " .. workspaceName,
-            display = monitorId,
         })
 
         -- Create bracket for double border effect
@@ -115,19 +114,16 @@ local function addWorkspaceItem(workspaceName, monitorId, isSelected)
 end
 
 local function drawSpaces()
-    sbar.exec(LIST_MONITORS, function(monitorsOutput)
+    -- Get all workspaces from all monitors
+    sbar.exec(LIST_ALL, function(allWorkspacesOutput)
         -- Cache the focused workspace to avoid multiple `LIST_CURRENT` queries
         sbar.exec(LIST_CURRENT, function(focusedWorkspaceOutput)
             local focusedWorkspace = focusedWorkspaceOutput:match("[^\r\n]+")
 
-            -- Iterate through monitors and workspaces
-            for monitorId in monitorsOutput:gmatch("[^\r\n]+") do
-                sbar.exec(LIST_WORKSPACES:format(monitorId), function(workspacesOutput)
-                    for workspaceName in workspacesOutput:gmatch("[^\r\n]+") do
-                        local isSelected = workspaceName == focusedWorkspace
-                        addWorkspaceItem(workspaceName, monitorId, isSelected)
-                    end
-                end)
+            -- Show all workspaces on all monitors
+            for workspaceName in allWorkspacesOutput:gmatch("[^\r\n]+") do
+                local isSelected = workspaceName == focusedWorkspace
+                addWorkspaceItem(workspaceName, nil, isSelected)
             end
         end)
     end)
