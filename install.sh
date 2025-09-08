@@ -54,13 +54,51 @@ ln -sf "$DOTFILES_DIR/root/.gemini/GEMINI.md" ~/.gemini/GEMINI.md
 echo "  -> Linking instructions.md..."
 ln -sf "$DOTFILES_DIR/root/.codex/instructions.md" ~/.codex/instructions.md
 
-echo "Creating symlink for .config directory..."
-if [ -e ~/.config ] && [ ! -L ~/.config ]; then
-    echo "Warning: ~/.config already exists. Creating backup..."
-    mv ~/.config ~/.config.backup.$(date +%Y%m%d%H%M%S)
+echo "Creating symlinks for .config directories..."
+mkdir -p ~/.config
+
+# 必要な設定ディレクトリのリスト
+CONFIG_DIRS=(
+    "aerospace"
+    "any-script-mcp"
+    "better-auth"
+    "borders"
+    "direnv"
+    "gh"
+    "gh-dash"
+    "git"
+    "github-copilot"
+    "karabiner"
+    "kitty"
+    "lazygit"
+    "linearmouse"
+    "mise"
+    "nvim"
+    "sheldon"
+    "sketchybar"
+    "sketchybar-kainoa"
+    "sketchybar-prajinkhadka"
+    "tex"
+    "yazi"
+)
+
+# 各ディレクトリに対してシンボリックリンクを作成
+for dir in "${CONFIG_DIRS[@]}"; do
+    if [ -d "$DOTFILES_DIR/config/.config/$dir" ]; then
+        echo "  -> Linking $dir..."
+        if [ -e ~/.config/"$dir" ] && [ ! -L ~/.config/"$dir" ]; then
+            echo "    Warning: ~/.config/$dir already exists. Creating backup..."
+            mv ~/.config/"$dir" ~/.config/"$dir".backup.$(date +%Y%m%d%H%M%S)
+        fi
+        ln -sfn "$DOTFILES_DIR/config/.config/$dir" ~/.config/"$dir"
+    fi
+done
+
+# starship.tomlのシンボリックリンク
+if [ -f "$DOTFILES_DIR/config/.config/starship.toml" ]; then
+    echo "  -> Linking starship.toml..."
+    ln -sf "$DOTFILES_DIR/config/.config/starship.toml" ~/.config/starship.toml
 fi
-ln -sfn "$DOTFILES_DIR/config/.config" ~/.config
-echo "  -> Linked .config directory"
 
 echo "Installing tools with mise..."
 cd ~
