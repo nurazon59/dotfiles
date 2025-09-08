@@ -218,7 +218,6 @@ python() {
   fi
 }
 
-
 python3() {
   if [[ "$1" == "-m" && "$2" == "venv" ]]; then
     echo "エラー: 'python3 -m venv'は禁止されています。代わりに'uv venv'を使用してください。"
