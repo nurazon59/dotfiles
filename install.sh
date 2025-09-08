@@ -76,8 +76,6 @@ CONFIG_DIRS=(
     "nvim"
     "sheldon"
     "sketchybar"
-    "sketchybar-kainoa"
-    "sketchybar-prajinkhadka"
     "tex"
     "yazi"
 )
