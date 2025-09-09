@@ -18,12 +18,9 @@ return {
 
     -- カスタムキーマッピング
     local keymap = {
-      -- 半画面スクロール
-      ["J"] = function() neoscroll.ctrl_d({ duration = 100 }) end,
-      ["K"] = function() neoscroll.ctrl_u({ duration = 100 }) end,
-      -- 1画面分スクロール（Ctrl+j/kを使用）
-      ["<C-j>"] = function() neoscroll.ctrl_f({ duration = 150 }) end,
-      ["<C-k>"] = function() neoscroll.ctrl_b({ duration = 150 }) end,
+      -- 半画面スクロール（Ctrl+j/k）
+      ["<C-j>"] = function() neoscroll.ctrl_d({ duration = 100 }) end,
+      ["<C-k>"] = function() neoscroll.ctrl_u({ duration = 100 }) end,
     }
 
     local modes = { "n", "v", "x" }
