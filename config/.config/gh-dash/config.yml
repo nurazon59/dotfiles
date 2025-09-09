@@ -64,7 +64,19 @@ defaults:
 keybindings:
   universal: []
   issues: []
-  prs: []
+  prs:
+    - key: d
+      command: |-
+        kitty @ launch --type=tab --tab-title="{{.RepoName}}#{{.PrNumber}}" --cwd={{.RepoPath}} sh -c '
+          gh pr checkout {{.PrNumber}} &&
+          nvim -c ":DiffviewOpen origin/$(gh pr status --json baseRefName -q .currentBranch.baseRefName)...{{.HeadRefName}}"
+        '
+    - key: C
+      command: |-
+        kitty @ launch --type=tab --tab-title="{{.RepoName}}#{{.PrNumber}}" --cwd={{.RepoPath}} sh -c '
+          gh pr checkout {{.PrNumber}} &&
+          nvim -c ":Octo pr edit {{.PrNumber}}"
+        '
   branches: []
 repoPaths:
   :owner/:repo: ~/src/github.com/:owner/:repo
