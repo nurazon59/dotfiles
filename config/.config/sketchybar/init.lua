@@ -1,4 +1,5 @@
--- Require the sketchybar module
+-- why: SbarLuaの.soを見つけるためにpackage.cpathを通す
+require("helpers.init")
 sbar = require("sketchybar")
 
 -- Set the bar name, if you are using another bar instance than sketchybar
