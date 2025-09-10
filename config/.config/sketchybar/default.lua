@@ -6,7 +6,8 @@ sbar.default({
   updates = "when_shown",
   icon = {
     font = {
-      family = settings.font.text,
+      -- why: SF Symbols使用時はアイコンフォントをSF Proに固定しないとPUAが描画されない
+      family = "SF Pro",
       style = settings.font.style_map["Bold"],
       size = 14.0
     },
