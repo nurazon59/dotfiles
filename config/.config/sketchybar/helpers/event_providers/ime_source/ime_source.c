@@ -26,6 +26,7 @@ static void get_current_source_state(char* type_buf, size_t type_len,
   CFStringRef id = TISGetInputSourceProperty(src, kTISPropertyInputSourceID);
   if (id) CFStringGetCString(id, id_buf, id_len, kCFStringEncodingUTF8);
 
+  // why: TISGet... は所有権を移譲しないためプロパティ(CFStringRef)は解放不要
   CFRelease(src);
 }
 
@@ -48,10 +49,18 @@ static void notify_cb(CFNotificationCenterRef center,
   char type[128], mode_id[256], id[256];
   get_current_source_state(type, sizeof(type), mode_id, sizeof(mode_id), id, sizeof(id));
   const char* mode = map_mode_from_state(type, mode_id, id);
-  char trigger[768];
-  snprintf(trigger, sizeof(trigger), "--trigger '%s' mode='%s' id='%s' type='%s' input_mode='%s'",
+  // why: 固定長バッファでのsnprintfは切り詰めの恐れがあるため動的確保に変更
+  int trigger_len = snprintf(NULL, 0,
+                             "--trigger '%s' mode='%s' id='%s' type='%s' input_mode='%s'",
+                             g_event_name, mode, id, type, mode_id);
+  if (trigger_len < 0) return;
+  size_t alloc = (size_t)trigger_len + 1;
+  char* trigger = (char*)malloc(alloc);
+  if (!trigger) return;
+  snprintf(trigger, alloc, "--trigger '%s' mode='%s' id='%s' type='%s' input_mode='%s'",
            g_event_name, mode, id, type, mode_id);
   sketchybar(trigger);
+  free(trigger);
 }
 
 int main (int argc, char** argv) {
