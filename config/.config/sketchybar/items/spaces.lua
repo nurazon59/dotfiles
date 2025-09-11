@@ -12,7 +12,8 @@ local LIST_APPS = "aerospace list-windows --workspace %s | awk -F'|' '{gsub(/^ *
 local spaces = {}
 
 local function getIconForApp(appName)
-    return app_icons[appName] or "?"
+    -- why: 未知アプリで"?"が出ないように空文字を返す
+    return app_icons[appName] or ""
 end
 
 local function updateSpaceIcons(spaceId, workspaceName)
@@ -21,18 +22,21 @@ local function updateSpaceIcons(spaceId, workspaceName)
     local paddingRight = 12  -- デフォルトの右余白
 
     sbar.exec(LIST_APPS:format(workspaceName), function(appsOutput)
-        local appFound = false
+        local hasIcons = false
 
         for app in appsOutput:gmatch("[^\r\n]+") do
             local appName = app:match("^%s*(.-)%s*$")  -- Trim whitespace
             if appName and appName ~= "" then
-                icon_strip = icon_strip .. " " .. getIconForApp(appName)
-                appFound = true
-                shouldDraw = true
+                local icon = getIconForApp(appName)
+                if icon and icon ~= "" then
+                    icon_strip = icon_strip .. " " .. icon
+                    hasIcons = true
+                    shouldDraw = true
+                end
             end
         end
 
-        if not appFound then
+        if not hasIcons then
             shouldDraw = false
             paddingRight = 8  -- アプリアイコンがない時は右余白を少し増やす
         end

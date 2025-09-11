@@ -13,7 +13,7 @@ return {
       end,
       open_mapping = [[<C-\>]],
       hide_numbers = true,
-      shade_terminals = true,
+      shade_terminals = false,
       shade_factor = 0.3,
       start_in_insert = true,
       insert_mappings = true,
@@ -84,14 +84,21 @@ return {
       cmd = "lazygit",
       dir = "git_dir",
       direction = "float",
-      float_opts = {
-        border = "double",
-      },
+      float_opts = { border = "single" },
       count = 4,
       -- 閉じた時の動作
       on_exit = function(t)
         -- リフレッシュが必要な場合のコマンド
       end,
+    })
+
+    -- lazygit（水平レイアウト比較用）
+    local lazygit_h = Terminal:new({
+      cmd = "lazygit",
+      dir = "git_dir",
+      direction = "horizontal",
+      size = 15,
+      count = 6,
     })
 
     -- htopターミナル
@@ -118,7 +125,9 @@ return {
       
       -- 特殊ターミナル
       vim.keymap.set("n", "<leader>tg", function() lazygit:toggle() end, 
-        { desc = "Toggle Lazygit", unpack(opts) })
+        { desc = "Toggle Lazygit (Float)", unpack(opts) })
+      vim.keymap.set("n", "<leader>tG", function() lazygit_h:toggle() end, 
+        { desc = "Toggle Lazygit (Horizontal)", unpack(opts) })
       vim.keymap.set("n", "<leader>tt", function() htop:toggle() end, 
         { desc = "Toggle Htop", unpack(opts) })
       
@@ -134,7 +143,7 @@ return {
     function _G.set_terminal_keymaps()
       local opts = { buffer = 0 }
       vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-      vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
+      vim.keymap.set("t", "kj", [[<C-\><C-n>]], opts)
       vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
       vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
       vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
