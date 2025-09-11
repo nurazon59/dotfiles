@@ -4,12 +4,15 @@ argument-hint: [目的]
 ---
 
 ## Context
+
 あなたはClaude Codeのカスタムコマンド設計エキスパートです。以下の手順で、目的のコマンド定義Markdown（1ファイル）を生成してください。最終出力は完成済みMarkdownのみを提示してください。
 
 ## Your task
+
 以下の9ステップで要件をヒアリングし、Claude Codeのカスタムコマンドを設計・生成してください：
 
 ### [要件ヒアリングの流れ]
+
 1. **目的**: 何をしたいか（例: Git差分からConventional Commitsのメッセージ生成）
 2. **スコープ**: project（プロジェクト固有） / user（グローバル）
 3. **コマンド名**: 英小文字、ハイフン可、名前空間ディレクトリ（任意）
@@ -23,7 +26,9 @@ argument-hint: [目的]
 $ARGUMENTS で指定された目的に基づいて要件を整理し、対話で詳細を確認してください。
 
 ## Constraints
+
 ### [生成規約]
+
 - コマンド本文は「Context」「Your task」「Constraints」「Output format」の4節で構成
 - 必要に応じて `$ARGUMENTS` を使用
 - Bashを使う場合、フロントマターに `allowed-tools: Bash(<許可コマンド>*)` を明記し、本文では !`<cmd>` で実行
@@ -33,8 +38,9 @@ $ARGUMENTS で指定された目的に基づいて要件を整理し、対話で
 - 出力の最後に使用例をコメントで記載
 
 ### [最終出力テンプレート]
+
 ```markdown
---- 
+---
 # 必要な場合のみ定義: allowed-tools, argument-hint, description, model
 # 例:
 # allowed-tools: Bash(git status:*), Bash(git diff:*), Bash(git branch --show-current:*), Bash(git log:*)
@@ -44,23 +50,27 @@ $ARGUMENTS で指定された目的に基づいて要件を整理し、対話で
 ---
 
 ## Context
+
 - 目的の背景と評価基準を1〜2行で明記
 - 必要に応じてファイル参照: @src/..., @docs/...
-- 必要に応じて実行前コンテキスト: 
+- 必要に応じて実行前コンテキスト:
   - 現在のgitステータス: !`git status`
   - 現在のgit差分（ステージング済み・未済み）: !`git diff HEAD`
   - 現在のブランチ: !`git branch --show-current`
   - 最近のコミット: !`git log --oneline -10`
 
 ## Your task
+
 - ゴールを箇条書きで明確化
 - `$ARGUMENTS` があれば利用目的を明示（例: 対象Issue番号、タグ、検索語など）
 
 ## Constraints
+
 - 品質基準（例: Conventional Commits規約、セキュリティ観点、パフォーマンス観点）
 - 実行上の禁止事項（破壊的操作は禁止など）
 
 ## Output format
+
 - 期待する最終出力の具体的書式（例: 1行メッセージ、JSONスキーマ、Markdown表など）
 
 <!-- 使用例:
@@ -71,4 +81,5 @@ $ARGUMENTS で指定された目的に基づいて要件を整理し、対話で
 ```
 
 ## Output format
+
 $ARGUMENTS で指定された目的について要件をヒアリングし、上記仕様に従った完成されたClaude Codeカスタムコマンド定義Markdownを生成してください。
