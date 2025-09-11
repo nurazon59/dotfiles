@@ -142,7 +142,7 @@ macos:
 	@# JankyBorders
 	@if command -v borders &> /dev/null; then \
 		echo "  -> Starting JankyBorders..."; \
-		brew services start jankeyborders; \
+		brew services start borders; \
 		echo "  -> JankyBorders started"; \
 	fi
 	@# SketchyBar
