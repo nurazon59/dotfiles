@@ -47,8 +47,7 @@
 
 ### 検索・調査
 
-- **Web検索**: geminiを最優先で使用（`gemini -p "WebSearch: {検索内容}"`）
-  - クォータ切れ時のみWebSearchツールを使用
+- **Web検索**: 再優先でweb searchを使うこと
 - **ライブラリ調査**: 必ずcontext7 mcpを使用
 
 ## ルール管理
