@@ -17,10 +17,6 @@ return {
     { "<leader>gc", "<cmd>DiffviewClose<cr>", desc = "Close diffview" },
     { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "File history" },
     { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Project history" },
-    -- PR比較用
-    { "<leader>gp", "<cmd>DiffviewOpen origin/main...HEAD --imply-local<cr>", desc = "PR diff vs main" },
-    -- 編集用ショートカット
-    { "<leader>ge", "<cmd>DiffviewOpen<cr><cmd>wincmd l<cr>", desc = "Open diffview for edit" },
   },
   config = function()
     local actions = require("diffview.actions")
@@ -87,7 +83,6 @@ return {
       },
       hooks = {
         diff_buf_read = function(bufnr)
-          -- 差分バッファでの行番号表示
           vim.opt_local.relativenumber = false
           vim.opt_local.number = true
         end,
