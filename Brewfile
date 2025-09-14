@@ -5,6 +5,7 @@ brew "colima"
 brew "borders"
 brew "sketchybar"
 brew "switchaudio-osx"
+brew "lsd"
 
 cask "font-0xproto-nerd-font"
 cask "font-jetbrains-mono-nerd-font"

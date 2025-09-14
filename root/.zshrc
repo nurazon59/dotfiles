@@ -19,10 +19,10 @@ eval "$(gh completion -s zsh)"
 
 . "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
-alias ls='eza --icons --git --group-directories-first --all'
+alias ls='lsd --icon always --git --group-directories-first --all'
 alias bat='nocorrect bat'
 alias cat='bat --paging=never'
-alias tree='eza --icons --git --group-directories-first --tree --git-ignore'
+alias tree='lsd --icon always --git --group-directories-first --tree'
 
 # git log をデフォルトでreverse表示
 git() {
