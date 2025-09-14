@@ -9,3 +9,4 @@ return {
     { "<leader>gB", "<cmd>GitLink! blame<cr>", mode = { "n", "v" }, desc = "Open git blame" },
   },
 }
+

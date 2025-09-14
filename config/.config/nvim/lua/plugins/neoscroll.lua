@@ -3,7 +3,7 @@ return {
   event = "BufRead",
   config = function()
     local neoscroll = require("neoscroll")
-    
+
     neoscroll.setup({
       mappings = {}, -- デフォルトマッピングを無効化
       hide_cursor = false,
@@ -19,8 +19,12 @@ return {
     -- カスタムキーマッピング
     local keymap = {
       -- 半画面スクロール（Ctrl+j/k）
-      ["<C-j>"] = function() neoscroll.ctrl_d({ duration = 100 }) end,
-      ["<C-k>"] = function() neoscroll.ctrl_u({ duration = 100 }) end,
+      ["<C-j>"] = function()
+        neoscroll.ctrl_d({ duration = 100 })
+      end,
+      ["<C-k>"] = function()
+        neoscroll.ctrl_u({ duration = 100 })
+      end,
     }
 
     local modes = { "n", "v", "x" }
@@ -29,3 +33,4 @@ return {
     end
   end,
 }
+

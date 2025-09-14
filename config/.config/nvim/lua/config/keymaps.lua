@@ -4,3 +4,4 @@
 vim.keymap.set("i", "jj", "<Esc>", { noremap = true, silent = true, desc = "Escape insert mode with jj" })
 
 -- スクロールキーマッピングはneoscroll.nvimで定義
+

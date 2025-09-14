@@ -24,7 +24,7 @@ return {
       close_on_exit = true,
       shell = vim.o.shell,
       auto_scroll = true,
-      
+
       -- フロートターミナル設定
       float_opts = {
         border = "rounded",
@@ -40,7 +40,7 @@ return {
           background = "Normal",
         },
       },
-      
+
       -- ターミナルごとのキーマップ
       on_create = function(term)
         local opts = { buffer = term.bufnr, noremap = true, silent = true }
@@ -55,7 +55,7 @@ return {
 
     -- カスタムターミナル関数
     local Terminal = require("toggleterm.terminal").Terminal
-    
+
     -- 浮動ターミナル
     local float_term = Terminal:new({
       direction = "float",
@@ -64,21 +64,21 @@ return {
       },
       count = 1,
     })
-    
+
     -- 水平ターミナル
     local horizontal_term = Terminal:new({
       direction = "horizontal",
       size = 15,
       count = 2,
     })
-    
+
     -- 垂直ターミナル
     local vertical_term = Terminal:new({
       direction = "vertical",
       size = vim.o.columns * 0.4,
       count = 3,
     })
-    
+
     -- lazygitターミナル
     local lazygit = Terminal:new({
       cmd = "lazygit",
@@ -114,31 +114,36 @@ return {
     -- キーマップ設定関数
     local function set_terminal_keymaps()
       local opts = { noremap = true, silent = true }
-      
+
       -- 基本操作
-      vim.keymap.set("n", "<leader>tf", function() float_term:toggle() end, 
-        { desc = "Toggle Float Terminal", unpack(opts) })
-      vim.keymap.set("n", "<leader>th", function() horizontal_term:toggle() end, 
-        { desc = "Toggle Horizontal Terminal", unpack(opts) })
-      vim.keymap.set("n", "<leader>tv", function() vertical_term:toggle() end, 
-        { desc = "Toggle Vertical Terminal", unpack(opts) })
-      
+      vim.keymap.set("n", "<leader>tf", function()
+        float_term:toggle()
+      end, { desc = "Toggle Float Terminal", unpack(opts) })
+      vim.keymap.set("n", "<leader>th", function()
+        horizontal_term:toggle()
+      end, { desc = "Toggle Horizontal Terminal", unpack(opts) })
+      vim.keymap.set("n", "<leader>tv", function()
+        vertical_term:toggle()
+      end, { desc = "Toggle Vertical Terminal", unpack(opts) })
+
       -- 特殊ターミナル
-      vim.keymap.set("n", "<leader>tg", function() lazygit:toggle() end, 
-        { desc = "Toggle Lazygit (Float)", unpack(opts) })
-      vim.keymap.set("n", "<leader>tG", function() lazygit_h:toggle() end, 
-        { desc = "Toggle Lazygit (Horizontal)", unpack(opts) })
-      vim.keymap.set("n", "<leader>tt", function() htop:toggle() end, 
-        { desc = "Toggle Htop", unpack(opts) })
-      
+      vim.keymap.set("n", "<leader>tg", function()
+        lazygit:toggle()
+      end, { desc = "Toggle Lazygit (Float)", unpack(opts) })
+      vim.keymap.set("n", "<leader>tG", function()
+        lazygit_h:toggle()
+      end, { desc = "Toggle Lazygit (Horizontal)", unpack(opts) })
+      vim.keymap.set("n", "<leader>tt", function()
+        htop:toggle()
+      end, { desc = "Toggle Htop", unpack(opts) })
+
       -- 全ターミナルを閉じる
-      vim.keymap.set("n", "<leader>tq", "<cmd>ToggleTermToggleAll<cr>", 
-        { desc = "Toggle All Terminals", unpack(opts) })
+      vim.keymap.set("n", "<leader>tq", "<cmd>ToggleTermToggleAll<cr>", { desc = "Toggle All Terminals", unpack(opts) })
     end
 
     -- キーマップを設定
     set_terminal_keymaps()
-    
+
     -- ターミナルモードでのキーマップ
     function _G.set_terminal_keymaps()
       local opts = { buffer = 0 }

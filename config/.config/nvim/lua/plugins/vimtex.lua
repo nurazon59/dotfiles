@@ -7,28 +7,28 @@ return {
       vim.g.vimtex_view_method = "skim"
       vim.g.vimtex_view_skim_sync = 1
       vim.g.vimtex_view_skim_activate = 1
-      
+
       vim.g.vimtex_compiler_method = "latexmk"
-      
+
       vim.g.vimtex_quickfix_mode = 2
       vim.g.vimtex_quickfix_open_on_warning = 0
-      
+
       vim.g.vimtex_syntax_enabled = 1
       vim.g.vimtex_fold_enabled = 0
-      
+
       vim.g.vimtex_format_enabled = 1
-      
+
       vim.g.vimtex_indent_on_ampersands = 0
-      
+
       -- 日本語ファイル名対応
       vim.g.vimtex_compiler_latexmk_engines = {
-        _ = '-pdfdvi',
-        pdfdvi = '-pdfdvi',
-        pdfps = '-pdfps',
-        pdflatex = '-pdf',
-        luatex = '-lualatex',
-        lualatex = '-lualatex',
-        xelatex = '-xelatex',
+        _ = "-pdfdvi",
+        pdfdvi = "-pdfdvi",
+        pdfps = "-pdfps",
+        pdflatex = "-pdf",
+        luatex = "-lualatex",
+        lualatex = "-lualatex",
+        xelatex = "-xelatex",
       }
     end,
     config = function()
@@ -45,7 +45,7 @@ return {
       })
     end,
   },
-  
+
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
