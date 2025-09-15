@@ -17,6 +17,9 @@ compinit
 # ghの補完を有効化
 eval "$(gh completion -s zsh)"
 
+# dockerの補完を有効化
+eval "$(docker completion zsh)"
+
 . "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
 alias ls='lsd --icon always --git --group-directories-first --all'
@@ -138,7 +141,7 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 
 # ファイル操作系コマンドでファイル内容をプレビュー
 zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
-  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath 2>/dev/null'
+  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || lsd -la --color=always $realpath 2>/dev/null'
 
 # killコマンドでプロセス情報を表示
 zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
