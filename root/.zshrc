@@ -14,11 +14,8 @@ export PATH="$HOME/.local/share/aquaproj-aqua/pkgs/github_release/golang/go/1.22
 autoload -Uz compinit
 compinit
 
-# ghの補完を有効化
-eval "$(gh completion -s zsh)"
-
-# dockerの補完を有効化
-eval "$(docker completion zsh)"
+export CARAPACE_BRIDGES='zsh' # オプション: 他シェルの補完も使用
+source <(carapace _carapace)
 
 . "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
@@ -115,11 +112,11 @@ setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 
+# fzf-tabの基本設定
 zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
-zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
-# fzf-tabの詳細設定
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
+zstyle ':completion:*' menu yes select  # 矢印で選択できるように
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --all --color=always $realpath'
 zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
@@ -140,20 +137,10 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
   esac'
 
 # ファイル操作系コマンドでファイル内容をプレビュー
-zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
-  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || lsd -la --color=always $realpath 2>/dev/null'
+zstyle ':fzf-tab:*' fzf-preview \
+  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || lsd -la --all --color=always $realpath 2>/dev/null'
 
-# killコマンドでプロセス情報を表示
-zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
-  '[[ $IPREFIX =~ "^-" ]] && echo "signal: $word" || ps aux | grep -E "^[^ ]+ +$word"'
 
-# dockerコマンドのプレビュー
-zstyle ':fzf-tab:complete:docker:argument-1' fzf-preview \
-  'docker help $word 2>/dev/null | head -20'
-zstyle ':fzf-tab:complete:docker-container-*:*' fzf-preview \
-  'docker container inspect $word 2>/dev/null | jq ".[0] | {Name, State, Image}" || echo "Container not found"'
-zstyle ':fzf-tab:complete:docker-image-*:*' fzf-preview \
-  'docker image inspect $word 2>/dev/null | jq ".[0] | {RepoTags, Size}" || echo "Image not found"'
 
 _comp_options+=(globdots)
 
