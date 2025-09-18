@@ -8,8 +8,6 @@ eval "$(${HOME}/.local/bin/mise activate zsh)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --hook prompt)"
-export FPATH="<path_to_eza>/completions/zsh:$FPATH"
-export PATH="$HOME/.local/share/aquaproj-aqua/pkgs/github_release/golang/go/1.22.0/go/bin:$PATH"
 
 autoload -Uz compinit
 compinit
@@ -102,13 +100,10 @@ alias less='bat --paging=always'
 export FZF_DEFAULT_OPTS='--height 40% --reverse'
 
 setopt interactivecomments
-setopt sharehistory
-setopt histignorealldups
 setopt autocd
 setopt nocaseglob
 unsetopt beep
 setopt auto_menu
-setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 
@@ -157,7 +152,6 @@ setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
 setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
-setopt APPEND_HISTORY            # append to history file
 setopt HIST_NO_STORE             # Don't store history commands
 
 bindkey '^K' autosuggest-accept
