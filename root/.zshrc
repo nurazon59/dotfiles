@@ -12,8 +12,24 @@ eval "$(zoxide init zsh --hook prompt)"
 autoload -Uz compinit
 compinit
 
-export CARAPACE_BRIDGES='zsh' # オプション: 他シェルの補完も使用
+# Carapaceの設定
+# CARAPACE_BRIDGESの問題：zshブリッジは一部のコマンド(mv,cp等)で問題を起こす
+# 公式推奨：フレームワークブリッジを優先、シェルブリッジは避ける
+
+# 方法1: 全体有効化 + 問題のあるコマンドを除外（推奨）
+export CARAPACE_EXCLUDES='mv,cp,rm,ls,cat,grep,find,sed,awk,cut,sort,uniq,head,tail,less,more,vi,vim,nvim,nano,emacs'
+# フレームワークブリッジのみ使用（zshブリッジは除外）
+export CARAPACE_BRIDGES='cobra,argcomplete,click,complete,fish,bash'
 source <(carapace _carapace)
+
+# 方法2: 個別有効化（より安全だが手間）- 現在はコメントアウト
+# _carapace_loader() {
+#   source <(carapace "$1")
+# }
+# compdef '_carapace_loader gh' gh
+# compdef '_carapace_loader docker' docker
+# compdef '_carapace_loader kubectl' kubectl
+# compdef '_carapace_loader terraform' terraform
 
 . "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
