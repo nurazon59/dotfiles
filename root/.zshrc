@@ -18,6 +18,7 @@ eval "$(gh completion -s zsh)"
 # dockerの補完を有効化
 eval "$(docker completion zsh)"
 
+
 . "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
 alias ls='lsd --icon always --git --group-directories-first --all'
@@ -114,13 +115,7 @@ zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
 zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
 # fzf-tabの詳細設定
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-
-# ghコマンドの補完でヘルプを表示
-zstyle ':fzf-tab:complete:gh:*' fzf-preview 'gh help $word 2>/dev/null || echo "No help available"'
-zstyle ':fzf-tab:complete:gh-*:*' fzf-preview 'gh $word --help 2>/dev/null || echo "No help available"'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
 
 # Git関連の補完で色付きプレビュー表示
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -128,9 +123,9 @@ zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
   'git diff --color=always -- $realpath 2>/dev/null || git ls-files --error-unmatch $realpath 2>/dev/null && echo "$realpath (tracked)" || echo "$realpath (untracked)"'
 zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
   'case "$group" in
-    "modified file") git diff --color=always -- $realpath ;;
-    "recent commit object name") git show --color=always $word ;;
-    "branch") git log --color=always --oneline -n 10 $word ;;
+    "modified file") git diff --color=always -- $realpath 2>/dev/null ;;
+    "recent commit object name") git show --color=always $word 2>/dev/null ;;
+    "branch") git log --color=always --oneline -n 10 $word 2>/dev/null ;;
     *) echo $word ;;
   esac'
 
@@ -138,17 +133,7 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
   '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || lsd -la --color=always $realpath 2>/dev/null'
 
-# killコマンドでプロセス情報を表示
-zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
-  '[[ $IPREFIX =~ "^-" ]] && echo "signal: $word" || ps aux | grep -E "^[^ ]+ +$word"'
 
-# dockerコマンドのプレビュー
-zstyle ':fzf-tab:complete:docker:argument-1' fzf-preview \
-  'docker help $word 2>/dev/null | head -20'
-zstyle ':fzf-tab:complete:docker-container-*:*' fzf-preview \
-  'docker container inspect $word 2>/dev/null | jq ".[0] | {Name, State, Image}" || echo "Container not found"'
-zstyle ':fzf-tab:complete:docker-image-*:*' fzf-preview \
-  'docker image inspect $word 2>/dev/null | jq ".[0] | {RepoTags, Size}" || echo "Image not found"'
 
 _comp_options+=(globdots)
 
