@@ -1,0 +1,6 @@
+# 最小テスト用のローカル設定
+packages = ["minimal"]
+
+[files]
+
+[variables]

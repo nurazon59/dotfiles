@@ -1,0 +1,10 @@
+# マシン固有の設定は共有しない
+local.toml
+
+# Dotterキャッシュ
+cache.toml
+cache/
+
+# pre/postデプロイスクリプト（マシン固有の場合）
+pre_deploy.sh
+post_deploy.sh

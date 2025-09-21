@@ -1,0 +1,66 @@
+# Dotterグローバル設定ファイル
+# 全マシン共通の設定を定義
+
+[helpers]
+
+# デフォルトパッケージ - 全環境共通
+[default]
+depends = []
+
+[default.files]
+# ホームディレクトリ直下のファイル
+"root/.gitconfig" = "~/.gitconfig"
+"root/.gitignore" = "~/.gitignore"
+"root/.zshrc" = "~/.zshrc"
+"root/.tool-versions" = "~/.tool-versions"
+
+# .claudeディレクトリ全体
+"root/.claude" = "~/.claude"
+
+# AIツール設定
+"root/.gemini" = "~/.gemini"
+"root/.codex" = "~/.codex"
+
+# 共通の.config配下
+"config/.config/nvim" = "~/.config/nvim"
+# "config/.config/git" = "~/.config/git"  # 存在しない
+"config/.config/gh" = "~/.config/gh"
+"config/.config/gh-dash" = "~/.config/gh-dash"
+"config/.config/mise" = "~/.config/mise"
+"config/.config/sheldon" = "~/.config/sheldon"
+"config/.config/yazi" = "~/.config/yazi"
+"config/.config/lazygit" = "~/.config/lazygit"
+"config/.config/direnv" = "~/.config/direnv"
+"config/.config/github-copilot" = "~/.config/github-copilot"
+"config/.config/any-script-mcp" = "~/.config/any-script-mcp"
+"config/.config/starship.toml" = "~/.config/starship.toml"
+
+[default.variables]
+
+# macOS固有の設定パッケージ
+[macos]
+depends = ["default"]
+
+[macos.files]
+"config/.config/aerospace" = "~/.config/aerospace"
+"config/.config/borders" = "~/.config/borders"
+"config/.config/karabiner" = "~/.config/karabiner"
+"config/.config/kitty" = "~/.config/kitty"
+"config/.config/linearmouse" = "~/.config/linearmouse"
+"config/.config/sketchybar" = "~/.config/sketchybar"
+# "config/.config/sketchybar-kainoa" = "~/.config/sketchybar-kainoa"
+# "config/.config/sketchybar-prajinkhadka" = "~/.config/sketchybar-prajinkhadka"
+# "config/.config/better-auth" = "~/.config/better-auth"
+
+[macos.variables]
+os = "macos"
+
+# TeX設定パッケージ（オプション）
+[tex]
+depends = []
+
+[tex.files]
+"root/.latexmkrc" = "~/.latexmkrc"
+"config/.config/tex" = "~/.config/tex"
+
+[tex.variables]
