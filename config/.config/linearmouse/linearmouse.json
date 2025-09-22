@@ -1,53 +1,53 @@
 {
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.1",
-  "schemes" : [
+  "$schema": "https:\/\/schema.linearmouse.app\/0.10.1",
+  "schemes": [
     {
-      "if" : {
-        "device" : {
-          "category" : "mouse",
-          "productID" : "0xfaa0",
-          "productName" : "ProtoArc EM04",
-          "vendorID" : "0x25a7"
+      "if": {
+        "device": {
+          "category": "mouse",
+          "productID": "0xfaa0",
+          "productName": "ProtoArc EM04",
+          "vendorID": "0x25a7"
         }
       },
-      "pointer" : {
-        "acceleration" : 0.9609,
-        "disableAcceleration" : false,
-        "redirectsToScroll" : false,
-        "speed" : 0.1869
+      "pointer": {
+        "acceleration": 0.9609,
+        "disableAcceleration": false,
+        "redirectsToScroll": false,
+        "speed": 0.1869
       },
-      "scrolling" : {
-        "modifiers" : {
-          "vertical" : {
-            "command" : {
-              "type" : "pinchZoom"
+      "scrolling": {
+        "modifiers": {
+          "vertical": {
+            "command": {
+              "type": "pinchZoom"
             }
           }
         },
-        "reverse" : {
-          "vertical" : true
+        "reverse": {
+          "vertical": true
         },
-        "speed" : {
-          "vertical" : 14.67
+        "speed": {
+          "vertical": 14.67
         }
       }
     },
     {
-      "if" : {
-        "device" : {
-          "category" : "mouse",
-          "productID" : "0xb027",
-          "productName" : "ERGO M575",
-          "serialNumber" : "5485088AC15265F9",
-          "vendorID" : "0x46d"
+      "if": {
+        "device": {
+          "category": "mouse",
+          "productID": "0xb027",
+          "productName": "ERGO M575",
+          "serialNumber": "5485088AC15265F9",
+          "vendorID": "0x46d"
         }
       },
-      "pointer" : {
-        "speed" : 0.1421
+      "pointer": {
+        "speed": 0.1421
       },
-      "scrolling" : {
-        "reverse" : {
-          "vertical" : true
+      "scrolling": {
+        "reverse": {
+          "vertical": true
         }
       }
     }

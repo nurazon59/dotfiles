@@ -39,3 +39,4 @@ return {
     vim.keymap.set("n", "<leader>mt", ":PeekToggle<CR>", { desc = "Markdown Preview Toggle" })
   end,
 }
+

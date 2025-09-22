@@ -6,10 +6,11 @@ export PATH="/Library/TeX/texbin:$PATH"
 eval "$(sheldon source)"
 eval "$(${HOME}/.local/bin/mise activate zsh)"
 eval "$(direnv hook zsh)"
+
+# Starship configuration
+export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --hook prompt)"
-export FPATH="<path_to_eza>/completions/zsh:$FPATH"
-export PATH="$HOME/.local/share/aquaproj-aqua/pkgs/github_release/golang/go/1.22.0/go/bin:$PATH"
 
 autoload -Uz compinit
 compinit
@@ -17,12 +18,16 @@ compinit
 # ghの補完を有効化
 eval "$(gh completion -s zsh)"
 
+# dockerの補完を有効化
+eval "$(docker completion zsh)"
+
+
 . "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
-alias ls='eza --icons --git --group-directories-first --all'
+alias ls='lsd --icon always --git --group-directories-first --all'
 alias bat='nocorrect bat'
 alias cat='bat --paging=never'
-alias tree='eza --icons --git --group-directories-first --tree --git-ignore'
+alias tree='lsd --icon always --git --group-directories-first --tree'
 
 # git log をデフォルトでreverse表示
 git() {
@@ -102,13 +107,10 @@ alias less='bat --paging=always'
 export FZF_DEFAULT_OPTS='--height 40% --reverse'
 
 setopt interactivecomments
-setopt sharehistory
-setopt histignorealldups
 setopt autocd
 setopt nocaseglob
 unsetopt beep
 setopt auto_menu
-setopt auto_cd
 setopt auto_pushd
 setopt pushd_ignore_dups
 
@@ -116,13 +118,7 @@ zstyle ':fzf-tab:*' fzf-flags --layout=reverse --height=40%
 zstyle ':completion:*' menu yes select  # 矢印で選択できるように
 
 # fzf-tabの詳細設定
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --color=always $realpath'
-zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${(Q)realpath}'
-zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
-
-# ghコマンドの補完でヘルプを表示
-zstyle ':fzf-tab:complete:gh:*' fzf-preview 'gh help $word 2>/dev/null || echo "No help available"'
-zstyle ':fzf-tab:complete:gh-*:*' fzf-preview 'gh $word --help 2>/dev/null || echo "No help available"'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'lsd -1 --color=always $realpath'
 
 # Git関連の補完で色付きプレビュー表示
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -130,27 +126,17 @@ zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
   'git diff --color=always -- $realpath 2>/dev/null || git ls-files --error-unmatch $realpath 2>/dev/null && echo "$realpath (tracked)" || echo "$realpath (untracked)"'
 zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
   'case "$group" in
-    "modified file") git diff --color=always -- $realpath ;;
-    "recent commit object name") git show --color=always $word ;;
-    "branch") git log --color=always --oneline -n 10 $word ;;
+    "modified file") git diff --color=always -- $realpath 2>/dev/null ;;
+    "recent commit object name") git show --color=always $word 2>/dev/null ;;
+    "branch") git log --color=always --oneline -n 10 $word 2>/dev/null ;;
     *) echo $word ;;
   esac'
 
 # ファイル操作系コマンドでファイル内容をプレビュー
 zstyle ':fzf-tab:complete:(nvim|vim|code|cat|bat):*' fzf-preview \
-  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || eza -la --color=always $realpath 2>/dev/null'
+  '[[ -f $realpath ]] && bat --color=always --style=numbers --line-range=:500 $realpath 2>/dev/null || lsd -la --color=always $realpath 2>/dev/null'
 
-# killコマンドでプロセス情報を表示
-zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview \
-  '[[ $IPREFIX =~ "^-" ]] && echo "signal: $word" || ps aux | grep -E "^[^ ]+ +$word"'
 
-# dockerコマンドのプレビュー
-zstyle ':fzf-tab:complete:docker:argument-1' fzf-preview \
-  'docker help $word 2>/dev/null | head -20'
-zstyle ':fzf-tab:complete:docker-container-*:*' fzf-preview \
-  'docker container inspect $word 2>/dev/null | jq ".[0] | {Name, State, Image}" || echo "Container not found"'
-zstyle ':fzf-tab:complete:docker-image-*:*' fzf-preview \
-  'docker image inspect $word 2>/dev/null | jq ".[0] | {RepoTags, Size}" || echo "Image not found"'
 
 _comp_options+=(globdots)
 
@@ -167,7 +153,6 @@ setopt HIST_FIND_NO_DUPS         # Do not display a previously found event.
 setopt HIST_IGNORE_SPACE         # Do not record an event starting with a space.
 setopt HIST_SAVE_NO_DUPS         # Do not write a duplicate event to the history file.
 setopt HIST_VERIFY               # Do not execute immediately upon history expansion.
-setopt APPEND_HISTORY            # append to history file
 setopt HIST_NO_STORE             # Don't store history commands
 
 bindkey '^K' autosuggest-accept

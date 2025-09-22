@@ -19,6 +19,7 @@ cask "discord"
 cask "linearmouse"
 cask "slack"
 cask "nikitabobko/tap/aerospace"
+cask "monitorcontrol"
 
 # TeX環境
 cask "basictex"

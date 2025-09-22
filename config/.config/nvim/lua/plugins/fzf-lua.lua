@@ -47,3 +47,4 @@ return {
     vim.keymap.set("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
   end,
 }
+
