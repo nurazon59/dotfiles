@@ -6,6 +6,9 @@ export PATH="/Library/TeX/texbin:$PATH"
 eval "$(sheldon source)"
 eval "$(${HOME}/.local/bin/mise activate zsh)"
 eval "$(direnv hook zsh)"
+
+# Starship configuration
+export STARSHIP_CONFIG="${HOME}/.config/starship/starship.toml"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh --hook prompt)"
 
