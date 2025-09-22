@@ -22,7 +22,6 @@ eval "$(gh completion -s zsh)"
 eval "$(docker completion zsh)"
 
 
-. "$HOME/.local/bin/env"
 alias yolo="claude --dangerously-skip-permissions"
 alias ls='lsd --icon always --git --group-directories-first --all'
 alias bat='nocorrect bat'
@@ -38,66 +37,8 @@ git() {
   fi
 }
 
-function wt() {
-  if [ -z "$1" ]; then
-    echo "Usage: wt <branch-name>"
-    return 1
-  fi
 
-  # nurazon59/プレフィックスを追加（すでに付いている場合は重複しない）
-  if [[ "$1" == nurazon59/* ]]; then
-    branch="$1"
-  else
-    branch="nurazon59/$1"
-  fi
-  
-  dir="../${branch//\//-}"
 
-  # すでに存在するブランチか確認
-  if ! git show-ref --quiet "refs/heads/$branch"; then
-    git branch "$branch"
-  fi
-
-  git worktree add "$dir" "$branch"
-}
-
-# ghqとfzfでリポジトリ移動
-function ghq-fzf() {
-  local src=$(ghq list | fzf --preview "bat --color=always --style=header,grid --line-range :80 $(ghq root)/{}/README.*" --bind="tab:down,btab:up")
-  if [ -n "$src" ]; then
-    BUFFER="cd $(ghq root)/$src"
-    zle accept-line
-  fi
-  zle -R -c
-}
-zle -N ghq-fzf
-bindkey '^g' ghq-fzf
-
-# ghqでリポジトリを作成する関数
-function gcr() {
-  local repo_name=$1
-  shift
-  
-  if [[ -z "$repo_name" ]]; then
-    echo "使い方: gcr <repository-name> [gh repo create options]"
-    return 1
-  fi
-  
-  # GitHubユーザー名を取得
-  local github_user=$(gh api user --jq .login)
-  
-  # ghqのパスを作成
-  local repo_path="$(ghq root)/github.com/$github_user/$repo_name"
-  
-  # GitHubにリポジトリ作成（デフォルトでプライベート、READMEとMITライセンス追加）
-  gh repo create "$repo_name" --private --add-readme --license mit "$@"
-  
-  # ghqでクローン
-  ghq get "$github_user/$repo_name"
-  
-  # 作成したディレクトリに移動
-  cd "$repo_path"
-}
 
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
@@ -210,35 +151,5 @@ python3() {
   else
     command python3 "$@"
   fi
-}
-# find のラッパー
-find() {
-  # 引数がない場合は fd をそのまま実行
-  if [ $# -eq 0 ]; then
-    command fd
-    return
-  fi
-
-  # -name を使った検索を fd にマッピング
-  if [[ "$1" == "-name" && -n "$2" ]]; then
-    pattern="$2"
-    shift 2
-    command fd "$pattern" "$@"
-    return
-  fi
-
-  # -type f / -type d を fd にマッピング
-  if [[ "$1" == "-type" && "$2" == "f" ]]; then
-    shift 2
-    command fd -t f "$@"
-    return
-  elif [[ "$1" == "-type" && "$2" == "d" ]]; then
-    shift 2
-    command fd -t d "$@"
-    return
-  fi
-
-  # それ以外はオリジナル find を実行
-  command find "$@"
 }
 

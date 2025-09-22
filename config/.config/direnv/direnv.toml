@@ -1,1 +1,9 @@
-/Users/itsuki54/src/github.com/nurazon59/dotfiles/config/.config/direnv/direnv.toml
+# direnv global configuration
+
+[whitelist]
+# プロジェクトディレクトリの.envrcを自動承認
+prefix = ["~/src/"]
+
+[global]
+# ログレベル設定
+warn_timeout = "1h"
