@@ -1,4 +1,0 @@
-post-merge:
-  scripts:
-    'install-diff.sh':
-      runner: bash

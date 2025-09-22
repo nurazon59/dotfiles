@@ -98,14 +98,6 @@ install:
 		chmod +x ~/.docker/cli-plugins/docker-compose; \
 		echo "  -> Docker Compose v2.32.4 installed"; \
 	fi
-	@# Lefthookのセットアップ
-	@echo "Setting up lefthook for automatic updates..."
-	@if command -v lefthook &> /dev/null; then \
-		cd $(DOTFILES_DIR) && lefthook install; \
-		echo "  -> lefthook installed successfully"; \
-	else \
-		echo "  -> lefthook not found. Please install it manually with: brew install lefthook"; \
-	fi
 	@echo "dotfiles installation completed!"
 	@echo "To apply the new settings, restart your terminal or run:"
 	@echo "   source ~/.zshrc"
