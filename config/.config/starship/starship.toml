@@ -1,0 +1,131 @@
+# Starship configuration
+
+format = """
+${custom.git_repo}\
+${custom.non_git_dir}\
+$git_branch\
+$git_status\
+$nodejs\
+$python\
+$ruby\
+$rust\
+$golang\
+$terraform\
+$docker_context\
+$line_break\
+$character"""
+
+[custom.git_repo]
+when = true
+require_repo = true
+command = '''
+repo_path=$(git rev-parse --show-toplevel 2>/dev/null)
+current_path=$(pwd)
+relative_path=$(echo "$current_path" | sed "s|^$repo_path||" | sed 's|^/||')
+
+# ghqで管理されているか確認
+ghq_root=$(ghq root 2>/dev/null)
+if [ -n "$ghq_root" ] && echo "$repo_path" | grep -q "^$ghq_root/github.com/"; then
+  # ghq管理下のリポジトリ
+  owner_repo=$(echo "$repo_path" | sed "s|$ghq_root/github.com/||")
+else
+  # ghq管理外のリポジトリ - リポジトリ名のみ表示
+  owner_repo=$(basename "$repo_path")
+fi
+
+if [ -z "$relative_path" ]; then
+  echo "$owner_repo"
+else
+  echo "$owner_repo $relative_path"
+fi
+'''
+style = 'bold cyan'
+format = '[$output]($style) '
+
+[custom.non_git_dir]
+when = '! git rev-parse --show-toplevel &>/dev/null'
+command = 'pwd | sed "s|$HOME|~|"'
+style = 'cyan'
+format = '[$output]($style) '
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+style = "bold purple"
+
+[git_status]
+format = '([$all_status$ahead_behind]($style))'
+style = ""
+conflicted = "[~${count}](bold red) "
+ahead = "[⇡${count}](bold green) "
+behind = "[⇣${count}](bold red) "
+diverged = "[⇕⇡${ahead_count}⇣${behind_count}](bold red) "
+untracked = "[?${count}](blue) "
+stashed = "[*${count}](cyan) "
+modified = "[!${count}](yellow) "
+staged = "[+${count}](green) "
+renamed = "[»${count}](blue) "
+deleted = "[✘${count}](red) "
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"
+
+[aws]
+disabled = true
+
+# 言語バージョン表示設定
+[nodejs]
+format = "[$symbol($version)]($style) "
+symbol = "⬢ "
+style = "bold green"
+detect_extensions = ["js", "mjs", "cjs", "ts", "mts", "jsx", "tsx"]
+detect_files = ["package.json", ".node-version", ".nvmrc"]
+detect_folders = ["node_modules"]
+
+[python]
+format = "[$symbol($version)]($style) "
+symbol = "🐍 "
+style = "bold yellow"
+detect_extensions = ["py"]
+detect_files = [".python-version", "Pipfile", "pyproject.toml", "requirements.txt", "setup.py", "tox.ini"]
+detect_folders = ["__pycache__", ".venv", "venv"]
+
+[ruby]
+format = "[$symbol($version)]($style) "
+symbol = "💎 "
+style = "bold red"
+detect_extensions = ["rb"]
+detect_files = [".ruby-version", "Gemfile"]
+detect_folders = []
+
+[rust]
+format = "[$symbol($version)]($style) "
+symbol = "🦀 "
+style = "bold red"
+detect_extensions = ["rs"]
+detect_files = ["Cargo.toml"]
+detect_folders = []
+
+[golang]
+format = "[$symbol($version)]($style) "
+symbol = "🐹 "
+style = "bold cyan"
+detect_extensions = ["go"]
+detect_files = ["go.mod", "go.sum", "glide.yaml", "Gopkg.yml", "Gopkg.lock"]
+detect_folders = ["Godeps"]
+
+[terraform]
+format = "[$symbol($version)]($style) "
+symbol = "💠 "
+style = "bold purple"
+detect_extensions = ["tf", "tfplan", "tfstate"]
+detect_files = ["terraform.rc", ".terraform-version"]
+detect_folders = [".terraform"]
+
+[docker_context]
+format = "[$symbol$context]($style) "
+symbol = "🐳 "
+style = "bold blue"
+only_with_files = true
+detect_files = ["docker-compose.yml", "docker-compose.yaml", "Dockerfile"]
+detect_folders = []
