@@ -75,15 +75,11 @@ function _prompt_git_status
     set -l git_status (git status --porcelain 2>/dev/null)
     test -z "$git_status"; and return
 
-    set -l staged (echo "$git_status" | grep '^[MADRC]' | wc -l | string trim)
-    set -l modified (echo "$git_status" | grep '^.M' | wc -l | string trim)
-    set -l untracked (echo "$git_status" | grep '^??' | wc -l | string trim)
-    set -l deleted (echo "$git_status" | grep '^.D' | wc -l | string trim)
+    set -l staged (printf "%s\n" $git_status | grep -c '^[MADRC]')
+    set -l modified (printf "%s\n" $git_status | grep -c '^.M')
+    set -l untracked (printf "%s\n" $git_status | grep -c '^??')
+    set -l deleted (printf "%s\n" $git_status | grep -c '^.D')
 
-    test -z "$staged"; and set staged 0
-    test -z "$modified"; and set modified 0
-    test -z "$untracked"; and set untracked 0
-    test -z "$deleted"; and set deleted 0
 
     if test $staged -gt 0
         set_color green
