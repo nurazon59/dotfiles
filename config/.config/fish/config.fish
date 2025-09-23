@@ -56,13 +56,13 @@ set -g __fish_git_prompt_showcolorhints 1
 # viモードを使用する場合（オプション）
 fish_vi_key_bindings
 
-# starshipを完全に無効化してネイティブプロンプトを使用
-if functions -q fish_prompt
-    functions -e fish_prompt
-end
-source ~/.config/fish/functions/fish_prompt.fish
+# viモードでjjをEscとして使用
+bind -M insert jj 'set fish_bind_mode default; commandline -f repaint'
 
-if functions -q fish_right_prompt  
-    functions -e fish_right_prompt
-end
-source ~/.config/fish/functions/fish_right_prompt.fish
+# viモードでもCtrl+Kが動作するように
+bind -M insert \ck accept-autosuggestion
+
+# Catppuccin Frappeテーマを適用
+source ~/.config/fish/functions/catppuccin_frappe.fish
+catppuccin_frappe
+

@@ -190,6 +190,58 @@ function checkContent(content, filePath) {
     });
   }
 
+  // any型アノテーションのチェック
+  lines.forEach((line, index) => {
+    // : any パターンをチェック（関数パラメータ、変数宣言、戻り値など）
+    if (/:\s*any\b/.test(line)) {
+      errors.push({
+        type: 'any_type',
+        line: index + 1,
+        message: `any型アノテーションは禁止されています。適切な型定義を使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // ジェネリックでの<any>チェック
+  lines.forEach((line, index) => {
+    // <any> パターンをチェック
+    if (/<any>/.test(line)) {
+      errors.push({
+        type: 'generic_any',
+        line: index + 1,
+        message: `ジェネリックでの<any>は禁止されています。適切な型パラメータを使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // unknown型のチェック
+  lines.forEach((line, index) => {
+    // : unknown パターンとas unknownパターンをチェック
+    if (/:\s*unknown\b/.test(line) || /\bas\s+unknown\b/.test(line)) {
+      errors.push({
+        type: 'unknown_type',
+        line: index + 1,
+        message: `unknown型は禁止されています。具体的な型定義を使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // class構文のチェック
+  lines.forEach((line, index) => {
+    // class宣言をチェック（classキーワードの後にスペースと識別子）
+    if (/\bclass\s+[A-Z]\w*/.test(line)) {
+      errors.push({
+        type: 'class_syntax',
+        line: index + 1,
+        message: `class構文は禁止されています。関数型コンポーネントまたはファクトリー関数を使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
   // console文のチェック
   if (config.blockOnConsole) {
     lines.forEach((line, index) => {
@@ -305,16 +357,36 @@ function printSummary(errors, warnings, filePath) {
 
     if (errorTypes.includes('as_any')) {
       console.error(
-        `  1. ${colors.yellow}"as any"${colors.reset} → 適切な型定義を使用するか、${colors.green}"as unknown"${colors.reset} に変更`
+        `  1. ${colors.yellow}"as any"${colors.reset} → 適切な型定義を使用してください`
+      );
+    }
+    if (errorTypes.includes('any_type')) {
+      console.error(
+        `  2. ${colors.yellow}": any"${colors.reset} → 適切な型定義を使用してください`
+      );
+    }
+    if (errorTypes.includes('generic_any')) {
+      console.error(
+        `  3. ${colors.yellow}"<any>"${colors.reset} → 適切な型パラメータを使用してください`
+      );
+    }
+    if (errorTypes.includes('unknown_type')) {
+      console.error(
+        `  4. ${colors.yellow}"unknown"${colors.reset} → 具体的な型定義を使用してください`
+      );
+    }
+    if (errorTypes.includes('class_syntax')) {
+      console.error(
+        `  5. ${colors.yellow}"class"${colors.reset} → 関数型コンポーネントまたはファクトリー関数を使用`
       );
     }
     if (errorTypes.includes('console')) {
       console.error(
-        `  2. ${colors.yellow}"console.*"${colors.reset} → 削除するか、適切なロギングライブラリを使用`
+        `  6. ${colors.yellow}"console.*"${colors.reset} → 削除するか、適切なロギングライブラリを使用`
       );
     }
     if (errorTypes.includes('debugger')) {
-      console.error(`  3. ${colors.yellow}"debugger"${colors.reset} → デバッグ文を削除`);
+      console.error(`  7. ${colors.yellow}"debugger"${colors.reset} → デバッグ文を削除`);
     }
 
     console.error('');
