@@ -502,6 +502,66 @@ function checkContent(content, filePath) {
     }
   });
 
+  // require文の禁止
+  lines.forEach((line, index) => {
+    // 現在のファイル内でのrequireは許可（pre-write-check.js自体など）
+    if (/\brequire\s*\(/.test(line) && !line.includes('__dirname')) {
+      errors.push({
+        type: 'require_forbidden',
+        line: index + 1,
+        message: `requireは禁止されています。ES6 importを使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // == / != 禁止
+  lines.forEach((line, index) => {
+    // === や !== は除外
+    if (/[^=!]==[^=]/.test(line)) {
+      errors.push({
+        type: 'loose_equality',
+        line: index + 1,
+        message: `==演算子は禁止されています。===を使用してください`,
+        content: line.trim(),
+      });
+    }
+    if (/[^=!]!=[^=]/.test(line)) {
+      errors.push({
+        type: 'loose_inequality',
+        line: index + 1,
+        message: `!=演算子は禁止されています。!==を使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // 型アサーション制限（as const以外）
+  lines.forEach((line, index) => {
+    // as constは許可、それ以外のasは禁止
+    if (/\bas\s+(?!const\b)\w+/.test(line)) {
+      errors.push({
+        type: 'type_assertion_forbidden',
+        line: index + 1,
+        message: `型アサーション（as）は禁止されています。as const以外は適切な型定義を使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // 非nullアサーション（!）禁止
+  lines.forEach((line, index) => {
+    // obj!.method() や value! のパターンを検出
+    if (/[a-zA-Z_$][a-zA-Z0-9_$]*!\./g.test(line) || /[a-zA-Z_$][a-zA-Z0-9_$]*!\s*[;,\)\}]/g.test(line)) {
+      errors.push({
+        type: 'non_null_assertion',
+        line: index + 1,
+        message: `非nullアサーション（!）は禁止されています。適切なnullチェックを行ってください`,
+        content: line.trim(),
+      });
+    }
+  })
+
   // I/Tプレフィックス禁止チェック
   lines.forEach((line, index) => {
     // interface Iプレフィックス
@@ -537,6 +597,42 @@ function checkContent(content, filePath) {
       });
     }
   });
+
+  // ファイル名の命名規則チェック
+  if (filePath && isSourceFile(filePath)) {
+    const fileName = path.basename(filePath, path.extname(filePath));
+    const fileExt = path.extname(filePath);
+    
+    // Python/Go以外でsnake_caseを使用
+    if (!/\.(py|go)$/.test(fileExt) && /_/.test(fileName)) {
+      errors.push({
+        type: 'filename_underscore',
+        line: 0,
+        message: `TypeScript/JavaScriptではsnake_caseのファイル名は禁止です。kebab-caseを使用してください: ${fileName}${fileExt}`,
+        content: fileName,
+      });
+    }
+    
+    // TypeScript/JavaScriptでcamelCaseを使用
+    if (/\.(ts|tsx|js|jsx)$/.test(fileExt) && /[a-z][A-Z]/.test(fileName)) {
+      errors.push({
+        type: 'filename_camelcase',
+        line: 0,
+        message: `TypeScript/JavaScriptのcamelCaseのファイル名は禁止です。kebab-caseを使用してください: ${fileName}${fileExt}`,
+        content: fileName,
+      });
+    }
+    
+    // 大文字で始まるファイル名（コンポーネント以外）
+    if (/^[A-Z]/.test(fileName) && !/\.(tsx|jsx)$/.test(fileExt)) {
+      errors.push({
+        type: 'filename_uppercase',
+        line: 0,
+        message: `大文字で始まるファイル名は禁止されています。コンポーネント以外は小文字始まりのkebab-caseを使用してください: ${fileName}${fileExt}`,
+        content: fileName,
+      });
+    }
+  }
 
   // console文のチェック
   if (config.blockOnConsole) {
@@ -753,6 +849,46 @@ function printSummary(errors, warnings, filePath) {
       console.error(`     TResponse → Response`);
       console.error(`     UserType → User`);
       console.error(`     PropsInterface → Props`);
+    }
+    if (errorTypes.includes('require_forbidden')) {
+      console.error(
+        `  18. ${colors.yellow}"require"${colors.reset} → ES6のimport文を使用`
+      );
+      console.error(`     const fs = require('fs') → import fs from 'fs'`);
+      console.error(`     const { readFile } = require('fs') → import { readFile } from 'fs'`);
+    }
+    if (errorTypes.includes('loose_equality') || errorTypes.includes('loose_inequality')) {
+      console.error(
+        `  19. ${colors.yellow}"== / !="${colors.reset} → 厳密等価演算子を使用`
+      );
+      console.error(`     == → ===`);
+      console.error(`     != → !==`);
+    }
+    if (errorTypes.includes('type_assertion_forbidden')) {
+      console.error(
+        `  20. ${colors.yellow}"as 型"${colors.reset} → 適切な型定義を使用`
+      );
+      console.error(`     value as string → 型ガード関数や型推論を利用`);
+      console.error(`     response as User → zod等での検証後の型推論`);
+      console.error(`     許可: オブジェクト as const`);
+    }
+    if (errorTypes.includes('non_null_assertion')) {
+      console.error(
+        `  21. ${colors.yellow}"!（非nullアサーション）"${colors.reset} → 適切なnullチェック`
+      );
+      console.error(`     user!.name → if (user) { user.name }`);
+      console.error(`     array.find()! → const result = array.find(); if (result) {...}`);
+      console.error(`     オプショナルチェーン（?.）の使用も検討`);
+    }
+    if (errorTypes.includes('filename_underscore') || errorTypes.includes('filename_camelcase') || errorTypes.includes('filename_uppercase')) {
+      console.error(
+        `  22. ${colors.yellow}"ファイル名の命名規則"${colors.reset} → kebab-caseを使用`
+      );
+      console.error(`     userProfile.ts → user-profile.ts`);
+      console.error(`     UserService.js → user-service.js`);
+      console.error(`     get_user_data.tsx → get-user-data.tsx`);
+      console.error(`     UserHelper.ts → user-helper.ts`);
+      console.error(`     例外: Python/Goではsnake_caseが許可、React Component（.tsx/.jsx）は大文字許可`);
     }
 
     console.error('');
