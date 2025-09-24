@@ -242,6 +242,302 @@ function checkContent(content, filePath) {
     }
   });
 
+  // レイヤー名を含む命名のチェック
+  const layerNamePattern = /(Repo|Repository|UseCase|Service|Controller)(?:$|[A-Z]|\W)/;
+  
+  // ファイル名のチェック
+  if (filePath) {
+    const fileName = path.basename(filePath, path.extname(filePath));
+    if (layerNamePattern.test(fileName)) {
+      errors.push({
+        type: 'layer_name_in_filename',
+        line: 0,
+        message: `ファイル名にレイヤー名（Repo、Repository、UseCase、Service、Controller）を含めることは禁止されています`,
+        content: fileName,
+      });
+    }
+  }
+
+  // 関数名、クラス名、インターフェース名のチェック
+  lines.forEach((line, index) => {
+    // 関数宣言（function、const/let/var）
+    const functionMatch = line.match(/(?:function\s+|(?:const|let|var)\s+)(\w+)(?:\s*[=(:])/);
+    if (functionMatch) {
+      const functionName = functionMatch[1];
+      if (layerNamePattern.test(functionName)) {
+        errors.push({
+          type: 'layer_name_in_function',
+          line: index + 1,
+          message: `関数名にレイヤー名を含めることは禁止されています: ${functionName}`,
+          content: line.trim(),
+        });
+      }
+    }
+
+    // インターフェース宣言
+    const interfaceMatch = line.match(/\binterface\s+(\w+)/);
+    if (interfaceMatch) {
+      const interfaceName = interfaceMatch[1];
+      if (layerNamePattern.test(interfaceName)) {
+        errors.push({
+          type: 'layer_name_in_interface',
+          line: index + 1,
+          message: `インターフェース名にレイヤー名を含めることは禁止されています: ${interfaceName}`,
+          content: line.trim(),
+        });
+      }
+    }
+
+    // type宣言
+    const typeMatch = line.match(/\btype\s+(\w+)\s*=/);
+    if (typeMatch) {
+      const typeName = typeMatch[1];
+      if (layerNamePattern.test(typeName)) {
+        errors.push({
+          type: 'layer_name_in_type',
+          line: index + 1,
+          message: `型名にレイヤー名を含めることは禁止されています: ${typeName}`,
+          content: line.trim(),
+        });
+      }
+    }
+  });
+
+  // fetchの内部APIパス・ローカルファイルチェック
+  lines.forEach((line, index) => {
+    const fetchMatch = line.match(/fetch\s*\(\s*(['"`])(.*?)\1/);
+    
+    if (fetchMatch) {
+      const url = fetchMatch[2];
+      
+      // 外部URL（http/https）は許可
+      if (url.startsWith('http://') || url.startsWith('https://')) {
+        return; // OK
+      }
+      
+      // ローカルファイルパス
+      if (url.startsWith('./') || url.startsWith('../') || 
+          /\.(json|txt|xml|csv|yaml|yml)$/.test(url)) {
+        errors.push({
+          type: 'fetch_local_file',
+          line: index + 1,
+          message: `fetchでローカルファイルへのアクセスは禁止されています: "${url}"`,
+          content: line.trim(),
+        });
+        return;
+      }
+      
+      // 内部APIパス（/で始まる）
+      if (url.startsWith('/')) {
+        errors.push({
+          type: 'fetch_internal_api_literal',
+          line: index + 1,
+          message: `内部APIへの文字列リテラルでのfetchは禁止されています。定数化またはAPIクライアントを使用してください: "${url}"`,
+          content: line.trim(),
+        });
+      }
+    }
+  });
+
+  // useEffectの使用禁止チェック
+  lines.forEach((line, index) => {
+    // useEffectの呼び出しを検出
+    if (/\buseEffect\s*\(/.test(line)) {
+      errors.push({
+        type: 'use_effect_forbidden',
+        line: index + 1,
+        message: `useEffectの使用は禁止されています。データ取得はTanStack Query/SWR、イベントリスナーはカスタムフックを使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // DOM直接操作の禁止チェック
+  lines.forEach((line, index) => {
+    // document系のメソッド
+    const documentMethods = /document\.(getElementById|getElementsByClassName|getElementsByTagName|querySelector|querySelectorAll|createElement)/;
+    if (documentMethods.test(line)) {
+      errors.push({
+        type: 'dom_direct_manipulation',
+        line: index + 1,
+        message: `DOMの直接操作は禁止されています。ReactのuseRefやイベントハンドラを使用してください`,
+        content: line.trim(),
+      });
+    }
+    
+    // window系の直接操作
+    const windowMethods = /window\.(scrollTo|scroll|alert|confirm|prompt|location\.href\s*=)/;
+    if (windowMethods.test(line)) {
+      errors.push({
+        type: 'window_direct_manipulation',
+        line: index + 1,
+        message: `windowオブジェクトの直接操作は禁止されています。適切なReactパターンやライブラリを使用してください`,
+        content: line.trim(),
+      });
+    }
+    
+    // elementのstyle直接操作
+    if (/\.style\.[a-zA-Z]+ *=/.test(line) && !line.includes('ref.current')) {
+      errors.push({
+        type: 'style_direct_manipulation',
+        line: index + 1,
+        message: `styleプロパティの直接操作は禁止されています。CSSクラスやCSS-in-JSを使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // インラインstyleの禁止チェック
+  lines.forEach((line, index) => {
+    // JSX内のstyle属性
+    const inlineStylePattern = /style\s*=\s*\{\{|style\s*=\s*["']/;
+    if (inlineStylePattern.test(line)) {
+      // コメント行ではない場合
+      const trimmedLine = line.trim();
+      if (!trimmedLine.startsWith('//') && !trimmedLine.startsWith('*')) {
+        errors.push({
+          type: 'inline_style_forbidden',
+          line: index + 1,
+          message: `インラインstyleの使用は禁止されています。CSS Modules、styled-components、CSS-in-JSライブラリを使用してください`,
+          content: line.trim(),
+        });
+      }
+    }
+    
+    // HTML内のstyleタグ
+    if (/<style[^>]*>/.test(line) && !filePath.includes('.css') && !filePath.includes('.scss')) {
+      errors.push({
+        type: 'style_tag_forbidden',
+        line: index + 1,
+        message: `<style>タグの使用は禁止されています。外部CSSファイルまたはCSS-in-JSを使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // forループ・forEach禁止チェック
+  lines.forEach((line, index) => {
+    // forループ
+    if (/\bfor\s*\(/.test(line)) {
+      errors.push({
+        type: 'for_loop_forbidden',
+        line: index + 1,
+        message: `forループの使用は禁止されています。map、filter、reduceなどの関数型メソッドを使用してください`,
+        content: line.trim(),
+      });
+    }
+    
+    // forEach
+    if (/\.forEach\s*\(/.test(line)) {
+      errors.push({
+        type: 'foreach_forbidden',
+        line: index + 1,
+        message: `forEachの使用は禁止されています。map、filter、reduceなどの関数型メソッドを使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // 配列の破壊的メソッド禁止チェック
+  lines.forEach((line, index) => {
+    const destructiveMethods = /\.(push|pop|shift|unshift|splice|sort|reverse)\s*\(/;
+    if (destructiveMethods.test(line)) {
+      const method = line.match(destructiveMethods)[1];
+      const alternatives = {
+        push: '[...array, item]',
+        pop: 'array.slice(0, -1)',
+        shift: 'array.slice(1)',
+        unshift: '[item, ...array]',
+        splice: 'array.toSpliced() または filter',
+        sort: '[...array].sort() または array.toSorted()',
+        reverse: '[...array].reverse() または array.toReversed()'
+      };
+      
+      errors.push({
+        type: 'destructive_array_method',
+        line: index + 1,
+        message: `破壊的メソッド "${method}" の使用は禁止されています。代替: ${alternatives[method]}`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // var・let禁止（const強制）チェック
+  lines.forEach((line, index) => {
+    // varの使用
+    if (/\bvar\s+\w+/.test(line)) {
+      errors.push({
+        type: 'var_forbidden',
+        line: index + 1,
+        message: `varの使用は禁止されています。constまたはletを使用してください`,
+        content: line.trim(),
+      });
+    }
+    
+    // letの使用（警告）
+    if (/\blet\s+\w+/.test(line)) {
+      warnings.push({
+        type: 'let_usage',
+        line: index + 1,
+        message: `letの使用を検出しました。再代入が必要ない場合はconstを使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // else禁止（早期リターン推奨）チェック
+  lines.forEach((line, index) => {
+    // elseの使用を検出
+    if (/\belse\s*\{/.test(line)) {
+      // コメント行ではない場合
+      const trimmedLine = line.trim();
+      if (!trimmedLine.startsWith('//') && !trimmedLine.startsWith('*')) {
+        warnings.push({
+          type: 'else_usage',
+          line: index + 1,
+          message: `elseの使用を検出しました。早期リターンでコードを簡素化できる可能性があります`,
+          content: line.trim(),
+        });
+      }
+    }
+  });
+
+  // I/Tプレフィックス禁止チェック
+  lines.forEach((line, index) => {
+    // interface Iプレフィックス
+    const interfaceMatch = line.match(/\binterface\s+(I[A-Z]\w*)/);
+    if (interfaceMatch) {
+      errors.push({
+        type: 'interface_i_prefix',
+        line: index + 1,
+        message: `interface名の"I"プレフィックスは禁止されています: ${interfaceMatch[1]}`,
+        content: line.trim(),
+      });
+    }
+    
+    // type Tプレフィックス
+    const typeMatch = line.match(/\btype\s+(T[A-Z]\w*)\s*=/);
+    if (typeMatch) {
+      errors.push({
+        type: 'type_t_prefix',
+        line: index + 1,
+        message: `type名の"T"プレフィックスは禁止されています: ${typeMatch[1]}`,
+        content: line.trim(),
+      });
+    }
+    
+    // Typeサフィックス、Interfaceサフィックス
+    const typeSuffixMatch = line.match(/\b(type|interface)\s+(\w*(?:Type|Interface))\b/);
+    if (typeSuffixMatch) {
+      errors.push({
+        type: 'type_suffix',
+        line: index + 1,
+        message: `型名の"Type"/"Interface"サフィックスは禁止されています: ${typeSuffixMatch[2]}`,
+        content: line.trim(),
+      });
+    }
+  });
+
   // console文のチェック
   if (config.blockOnConsole) {
     lines.forEach((line, index) => {
@@ -387,6 +683,76 @@ function printSummary(errors, warnings, filePath) {
     }
     if (errorTypes.includes('debugger')) {
       console.error(`  7. ${colors.yellow}"debugger"${colors.reset} → デバッグ文を削除`);
+    }
+    if (errorTypes.includes('layer_name_in_filename') || errorTypes.includes('layer_name_in_function') || errorTypes.includes('layer_name_in_interface') || errorTypes.includes('layer_name_in_type')) {
+      console.error(
+        `  8. ${colors.yellow}"レイヤー名"${colors.reset} → レイヤー名（Repo、Repository、UseCase、Service、Controller）を命名から除外`
+      );
+    }
+    if (errorTypes.includes('fetch_local_file')) {
+      console.error(
+        `  9. ${colors.yellow}"fetch(ローカルファイル)"${colors.reset} → import文またはAPIエンドポイント経由で取得`
+      );
+    }
+    if (errorTypes.includes('fetch_internal_api_literal')) {
+      console.error(
+        `  10. ${colors.yellow}"fetch('/api/...')"${colors.reset} → エンドポイントを定数化またはAPIクライアントを使用`
+      );
+      console.error(`     例: const API_ENDPOINTS = { USERS: '/api/users' } as const;`);
+      console.error(`     例: apiClient.users.get() または trpc.user.getAll.query()`);
+    }
+    if (errorTypes.includes('use_effect_forbidden')) {
+      console.error(
+        `  11. ${colors.yellow}"useEffect"${colors.reset} → TanStack Query/SWR、カスタムフック、またはユーザーに確認`
+      );
+      console.error(`     データ取得: useQuery, useSWR`);
+      console.error(`     イベント: カスタムフック（useWindowEvent等）`);
+      console.error(`     どうしても必要な場合: ユーザーに確認してから追加`);
+    }
+    if (errorTypes.includes('dom_direct_manipulation') || errorTypes.includes('window_direct_manipulation') || errorTypes.includes('style_direct_manipulation')) {
+      console.error(
+        `  12. ${colors.yellow}"DOM直接操作"${colors.reset} → Reactの方法を使用`
+      );
+      console.error(`     document.getElementById → useRef`);
+      console.error(`     window.scrollTo → react-use の useWindowScroll`);
+      console.error(`     element.style.* → className, CSS-in-JS`);
+    }
+    if (errorTypes.includes('inline_style_forbidden') || errorTypes.includes('style_tag_forbidden')) {
+      console.error(
+        `  13. ${colors.yellow}"インラインstyle"${colors.reset} → CSSモジュールやCSS-in-JSを使用`
+      );
+      console.error(`     style={{}} → className={styles.foo}`);
+      console.error(`     CSS Modules, styled-components, emotion, Tailwind CSSなど`);
+      console.error(`     スタイルの分離で保守性を向上`);
+    }
+    if (errorTypes.includes('for_loop_forbidden') || errorTypes.includes('foreach_forbidden')) {
+      console.error(
+        `  14. ${colors.yellow}"for/forEach"${colors.reset} → 関数型メソッドを使用`
+      );
+      console.error(`     forループ → map(), filter(), reduce()`);
+      console.error(`     forEach → map()（副作用が必要な場合は例外）`);
+    }
+    if (errorTypes.includes('destructive_array_method')) {
+      console.error(
+        `  15. ${colors.yellow}"破壊的メソッド"${colors.reset} → イミュータブルな操作を使用`
+      );
+      console.error(`     push() → [...array, item]`);
+      console.error(`     sort() → [...array].sort() または toSorted()`);
+      console.error(`     splice() → toSpliced() または filter()`);
+    }
+    if (errorTypes.includes('var_forbidden')) {
+      console.error(
+        `  16. ${colors.yellow}"var"${colors.reset} → constまたはletを使用`
+      );
+    }
+    if (errorTypes.includes('interface_i_prefix') || errorTypes.includes('type_t_prefix') || errorTypes.includes('type_suffix')) {
+      console.error(
+        `  17. ${colors.yellow}"I/Tプレフィックス・サフィックス"${colors.reset} → プレフィックス/サフィックスなしの名前を使用`
+      );
+      console.error(`     IUser → User`);
+      console.error(`     TResponse → Response`);
+      console.error(`     UserType → User`);
+      console.error(`     PropsInterface → Props`);
     }
 
     console.error('');
