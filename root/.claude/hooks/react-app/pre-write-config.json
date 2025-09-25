@@ -41,6 +41,21 @@
       "severity": "error"
     },
     {
+      "pattern": "<any>",
+      "message": "ジェネリックでの<any>は禁止されています。適切な型パラメータを使用してください",
+      "severity": "error"
+    },
+    {
+      "pattern": ":\\s*unknown\\b",
+      "message": ": unknown型は禁止されています。具体的な型定義を使用してください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\bclass\\s+[A-Z]\\w*",
+      "message": "class構文は禁止されています。関数型コンポーネントまたはファクトリー関数を使用してください",
+      "severity": "error"
+    },
+    {
       "pattern": "localStorage\\.",
       "message": "localStorageの直接使用は避けてください。ストレージサービスを使用してください",
       "severity": "warning"
