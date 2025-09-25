@@ -176,8 +176,8 @@ function checkContent(content, filePath) {
 
   const lines = content.split('\n');
 
-  // as any のチェック
-  if (config.blockOnAsAny) {
+  // as any のチェック（JSONに移行済み、後方互換性のため残す）
+  if (config.blockOnAsAny && false) { // JSONで処理するため無効化
     lines.forEach((line, index) => {
       if (line.includes('as any')) {
         errors.push({
@@ -190,18 +190,20 @@ function checkContent(content, filePath) {
     });
   }
 
-  // any型アノテーションのチェック
-  lines.forEach((line, index) => {
-    // : any パターンをチェック（関数パラメータ、変数宣言、戻り値など）
-    if (/:\s*any\b/.test(line)) {
-      errors.push({
-        type: 'any_type',
-        line: index + 1,
-        message: `any型アノテーションは禁止されています。適切な型定義を使用してください`,
-        content: line.trim(),
-      });
-    }
-  });
+  // any型アノテーションのチェック（JSONに移行済み、後方互換性のため残す）
+  if (false) { // JSONで処理するため無効化
+    lines.forEach((line, index) => {
+      // : any パターンをチェック（関数パラメータ、変数宣言、戻り値など）
+      if (/:\s*any\b/.test(line)) {
+        errors.push({
+          type: 'any_type',
+          line: index + 1,
+          message: `any型アノテーションは禁止されています。適切な型定義を使用してください`,
+          content: line.trim(),
+        });
+      }
+    });
+  }
 
   // ジェネリックでの<any>チェック
   lines.forEach((line, index) => {
