@@ -41,6 +41,21 @@
       "severity": "error"
     },
     {
+      "pattern": "<any>",
+      "message": "ジェネリックでの<any>は禁止されています。適切な型パラメータを使用してください",
+      "severity": "error"
+    },
+    {
+      "pattern": ":\\s*unknown\\b",
+      "message": ": unknown型は禁止されています。具体的な型定義を使用してください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\bclass\\s+[A-Z]\\w*",
+      "message": "class構文は禁止されています。関数型コンポーネントまたはファクトリー関数を使用してください",
+      "severity": "error"
+    },
+    {
       "pattern": "localStorage\\.",
       "message": "localStorageの直接使用は避けてください。ストレージサービスを使用してください",
       "severity": "warning"
@@ -88,6 +103,21 @@
     {
       "pattern": "\\/\\/\\s*@typescript-eslint\\/no-",
       "message": "TypeScript ESLint無視コメントは使用禁止です。根本的な解決を行ってください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\bswitch\\s*\\(",
+      "message": "switch文は使用禁止です。ts-patternライブラリのmatch関数を使用してください",
+      "severity": "error"
+    },
+    {
+      "pattern": "\\bthrow\\s+(new\\s+)?",
+      "message": "throwは使用禁止です。Result型（Result<T, E>）を使用してエラーハンドリングを行ってください",
+      "severity": "error"
+    },
+    {
+      "pattern": ":\\s*(string|number|boolean|object|symbol|bigint)(\\s|\\[|\\)|,|;|\\||&|$)",
+      "message": "プリミティブ型の直接使用は禁止です。Brand型を使用してください（例: UserId, Email, Price等）",
       "severity": "error"
     }
   ]
