@@ -835,12 +835,138 @@ function checkContent(content, filePath) {
       // コメント行ではない場合
       const trimmedLine = line.trim();
       if (!trimmedLine.startsWith('//') && !trimmedLine.startsWith('*')) {
-        warnings.push({
+        errors.push({
           type: 'else_usage',
           line: index + 1,
-          message: `elseの使用を検出しました。早期リターンでコードを簡素化できる可能性があります`,
+          message: `elseの使用は禁止されています。早期リターンでコードを簡素化してください`,
           content: line.trim(),
         });
+      }
+    }
+  });
+
+  // 制御構造のネスト禁止チェック（4層以上）
+  let braceStack = [];
+  let controlFlowNesting = [];
+  
+  lines.forEach((line, index) => {
+    const trimmedLine = line.trim();
+    
+    // 制御構造の開始を検出
+    const controlFlowMatch = trimmedLine.match(/\b(if|for|while|switch|try|catch|finally|else\s+if)\s*\(/);
+    const doMatch = trimmedLine.match(/\bdo\s*\{/);
+    const elseMatch = trimmedLine.match(/\belse\s*\{/);
+    
+    if (controlFlowMatch || doMatch || elseMatch) {
+      // 制御構造の種類を記録
+      const controlType = controlFlowMatch ? controlFlowMatch[1] : (doMatch ? 'do' : 'else');
+      
+      // 同じ行に開き波括弧があるかチェック
+      if (trimmedLine.includes('{')) {
+        braceStack.push({ type: 'control', controlType, line: index });
+        controlFlowNesting.push(controlType);
+        
+        // ネストレベルをチェック
+        if (controlFlowNesting.length >= 4) {
+          errors.push({
+            type: 'deep_control_nesting',
+            line: index + 1,
+            message: `制御構造のネストが深すぎます（${controlFlowNesting.length}層）。if/for/while等のネストは3層までに制限してください`,
+            content: trimmedLine,
+          });
+        }
+      }
+    } else if (trimmedLine === '{' && lines[index - 1]) {
+      // 前の行に制御構造があるかチェック
+      const prevLine = lines[index - 1].trim();
+      const prevControlFlow = prevLine.match(/\b(if|for|while|switch|try|catch|finally|else\s+if)\s*\(/);
+      const prevDo = prevLine.match(/\bdo\s*$/);
+      const prevElse = prevLine.match(/\belse\s*$/);
+      
+      if (prevControlFlow || prevDo || prevElse) {
+        const controlType = prevControlFlow ? prevControlFlow[1] : (prevDo ? 'do' : 'else');
+        braceStack.push({ type: 'control', controlType, line: index });
+        controlFlowNesting.push(controlType);
+        
+        if (controlFlowNesting.length >= 4) {
+          errors.push({
+            type: 'deep_control_nesting',
+            line: index,
+            message: `制御構造のネストが深すぎます（${controlFlowNesting.length}層）。if/for/while等のネストは3層までに制限してください`,
+            content: prevLine,
+          });
+        }
+      }
+    } else if (trimmedLine === '{') {
+      // その他の開き波括弧（関数、クラス、オブジェクトリテラルなど）
+      braceStack.push({ type: 'other', line: index });
+    } else if (trimmedLine === '}' || trimmedLine.startsWith('}')) {
+      // 閉じ波括弧
+      if (braceStack.length > 0) {
+        const lastBrace = braceStack.pop();
+        if (lastBrace.type === 'control') {
+          controlFlowNesting.pop();
+        }
+      }
+    }
+  });
+
+  // 関数の引数が多すぎるチェック（5個以上）
+  lines.forEach((line, index) => {
+    // 関数定義のパターン（function、アロー関数、メソッド）
+    const functionPatterns = [
+      // function宣言
+      /function\s+\w*\s*\(([^)]*)\)/,
+      // アロー関数
+      /(?:const|let|var)\s+\w+\s*=\s*(?:async\s*)?\(([^)]*)\)\s*=>/,
+      // メソッド定義（クラスメソッド、オブジェクトメソッド）
+      /\w+\s*:\s*(?:async\s*)?(?:function\s*)?\(([^)]*)\)/,
+      // TypeScriptのメソッドシグネチャ
+      /\w+\s*\(([^)]*)\)\s*:/,
+    ];
+    
+    for (const pattern of functionPatterns) {
+      const match = line.match(pattern);
+      if (match) {
+        const params = match[1];
+        if (params.trim()) {
+          // 引数を分割（カンマで分割、ただしジェネリクスやオブジェクト内のカンマは考慮）
+          let bracketDepth = 0;
+          let currentParam = '';
+          const paramList = [];
+          
+          for (const char of params) {
+            if (char === '<' || char === '{' || char === '[' || char === '(') {
+              bracketDepth++;
+            } else if (char === '>' || char === '}' || char === ']' || char === ')') {
+              bracketDepth--;
+            }
+            
+            if (char === ',' && bracketDepth === 0) {
+              if (currentParam.trim()) {
+                paramList.push(currentParam.trim());
+              }
+              currentParam = '';
+            } else {
+              currentParam += char;
+            }
+          }
+          
+          if (currentParam.trim()) {
+            paramList.push(currentParam.trim());
+          }
+          
+          // 5個以上の引数がある場合
+          if (paramList.length >= 5) {
+            errors.push({
+              type: 'too_many_parameters',
+              line: index + 1,
+              message: `関数の引数が多すぎます（${paramList.length}個）。5個未満に制限してください。オブジェクトでまとめることを検討してください`,
+              content: line.trim(),
+            });
+          }
+        }
+        break; // 1行につき1つの関数定義のみチェック
       }
     }
   });
@@ -1308,6 +1434,43 @@ function printSummary(errors, warnings, filePath) {
       console.error(`     key={i} → key={user.userId}`);
       console.error(`     key={\`item-\${index}\`} → key={item.uuid}`);
       console.error(`     一意のIDがない場合: crypto.randomUUID() または nanoid`);
+    }
+    if (errorTypes.includes('else_usage')) {
+      console.error(
+        `  31. ${colors.yellow}"else"${colors.reset} → 早期リターンを使用`
+      );
+      console.error(`     if (condition) { doThis(); } else { doThat(); }`);
+      console.error(`     ↓`);
+      console.error(`     if (condition) { doThis(); return; }`);
+      console.error(`     doThat();`);
+      console.error(`     コードの可読性とネストの削減のため早期リターンを使用してください`);
+    }
+    if (errorTypes.includes('too_many_parameters')) {
+      console.error(
+        `  32. ${colors.yellow}"引数が多すぎる"${colors.reset} → オブジェクトパラメータを使用`
+      );
+      console.error(`     function create(name, age, email, address, phone) {...}`);
+      console.error(`     ↓`);
+      console.error(`     function create({ name, age, email, address, phone }) {...}`);
+      console.error(`     または`);
+      console.error(`     function create(user: UserData) {...}`);
+      console.error(`     5個以上の引数は保守性を損なうため、オブジェクトでまとめてください`);
+    }
+    if (errorTypes.includes('deep_control_nesting')) {
+      console.error(
+        `  33. ${colors.yellow}"制御構造の深いネスト"${colors.reset} → 早期リターンや関数分割を使用`
+      );
+      console.error(`     if/for/while/switch/try-catchのネストは3層までに制限`);
+      console.error(`     深いネスト例:`);
+      console.error(`     if (a) {`);
+      console.error(`       for (i) {`);
+      console.error(`         while (b) {`);
+      console.error(`           if (c) { // 4層目でエラー`);
+      console.error(`     `);
+      console.error(`     解決方法:`);
+      console.error(`     - 早期リターン（ガード節）を使用`);
+      console.error(`     - 複雑なロジックを別関数に分割`);
+      console.error(`     - 条件を反転して早期終了`);
     }
 
     console.error('');
