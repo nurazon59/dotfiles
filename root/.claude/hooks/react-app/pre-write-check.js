@@ -303,6 +303,349 @@ function checkContent(content, filePath) {
     }
   });
 
+  // コンポーネント名・関数名に数字を含むことのチェック
+  lines.forEach((line, index) => {
+    // コンポーネント名（大文字で始まるPascalCase関数）
+    const componentMatch = line.match(/(?:function|const|export\s+(?:default\s+)?function|export\s+const)\s+([A-Z]\w*\d+\w*|\w*\d+[A-Z]\w*)(?:\s*[=(:])/);
+    if (componentMatch) {
+      const componentName = componentMatch[1];
+      if (/\d/.test(componentName)) {
+        errors.push({
+          type: 'number_in_component_name',
+          line: index + 1,
+          message: `コンポーネント名に数字を含むことは禁止されています: ${componentName}`,
+          content: line.trim(),
+        });
+      }
+    }
+
+    // 一般の関数名（小文字で始まるcamelCase関数）
+    const functionMatch2 = line.match(/(?:function|const|let|var)\s+([a-z]\w*)(?:\s*[=(:])/);
+    if (functionMatch2) {
+      const functionName = functionMatch2[1];
+      if (/\d/.test(functionName)) {
+        errors.push({
+          type: 'number_in_function_name',
+          line: index + 1,
+          message: `関数名に数字を含むことは禁止されています: ${functionName}`,
+          content: line.trim(),
+        });
+      }
+    }
+
+    // アロー関数・メソッド定義での数字チェック
+    const arrowOrMethodMatch = line.match(/(?:const|let|var)\s+(\w+)\s*=\s*(?:\([^)]*\)|[^=])\s*=>/);
+    if (arrowOrMethodMatch) {
+      const name = arrowOrMethodMatch[1];
+      if (/\d/.test(name)) {
+        // 大文字始まりはコンポーネント、小文字始まりは関数
+        if (/^[A-Z]/.test(name)) {
+          errors.push({
+            type: 'number_in_component_name',
+            line: index + 1,
+            message: `コンポーネント名に数字を含むことは禁止されています: ${name}`,
+            content: line.trim(),
+          });
+        } else {
+          errors.push({
+            type: 'number_in_function_name',
+            line: index + 1,
+            message: `関数名に数字を含むことは禁止されています: ${name}`,
+            content: line.trim(),
+          });
+        }
+      }
+    }
+  });
+
+  // eval/new Functionの禁止チェック
+  lines.forEach((line, index) => {
+    // evalの使用を検出
+    if (/\beval\s*\(/.test(line)) {
+      errors.push({
+        type: 'eval_usage',
+        line: index + 1,
+        message: `evalの使用は禁止されています。セキュリティリスクが高いため、別の方法を検討してください`,
+        content: line.trim(),
+      });
+    }
+
+    // new Functionの使用を検出
+    if (/new\s+Function\s*\(/.test(line)) {
+      errors.push({
+        type: 'new_function_usage',
+        line: index + 1,
+        message: `new Functionの使用は禁止されています。動的なコード生成はセキュリティリスクが高いです`,
+        content: line.trim(),
+      });
+    }
+
+    // setTimeout/setIntervalで文字列を渡すパターンを検出
+    const timerStringMatch = line.match(/\b(setTimeout|setInterval)\s*\(\s*["'`]/);
+    if (timerStringMatch) {
+      errors.push({
+        type: 'timer_string_usage',
+        line: index + 1,
+        message: `${timerStringMatch[1]}に文字列を渡すことは禁止されています。関数を渡してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // dangerouslySetInnerHTMLの検証チェック
+  lines.forEach((line, index) => {
+    // dangerouslySetInnerHTMLの使用を検出
+    if (/dangerouslySetInnerHTML/.test(line)) {
+      // 同じ行または近い行でDOMPurifyやサニタイズ処理があるかチェック
+      let hasSanitization = false;
+      
+      // 前後5行をチェック
+      for (let i = Math.max(0, index - 5); i < Math.min(lines.length, index + 5); i++) {
+        if (/DOMPurify|sanitize|dompurify|xss|escape/i.test(lines[i])) {
+          hasSanitization = true;
+          break;
+        }
+      }
+
+      if (!hasSanitization) {
+        errors.push({
+          type: 'dangerous_html_unverified',
+          line: index + 1,
+          message: `dangerouslySetInnerHTMLの使用にはサニタイズ処理が必要です。DOMPurifyなどでサニタイズしてください`,
+          content: line.trim(),
+        });
+      }
+    }
+  });
+
+  // 型の緩いコード禁止チェック
+  lines.forEach((line, index) => {
+    // Object型の使用を検出
+    if (/:\s*Object\b/.test(line)) {
+      errors.push({
+        type: 'loose_object_type',
+        line: index + 1,
+        message: `Object型の使用は禁止されています。具体的なインターフェースや型を定義してください`,
+        content: line.trim(),
+      });
+    }
+
+    // Function型の使用を検出
+    if (/:\s*Function\b/.test(line)) {
+      errors.push({
+        type: 'loose_function_type',
+        line: index + 1,
+        message: `Function型の使用は禁止されています。具体的な関数シグネチャを定義してください`,
+        content: line.trim(),
+      });
+    }
+
+    // any[]配列の使用を検出
+    if (/:\s*any\[\]/.test(line)) {
+      errors.push({
+        type: 'any_array_type',
+        line: index + 1,
+        message: `any[]型の使用は禁止されています。配列要素の具体的な型を定義してください`,
+        content: line.trim(),
+      });
+    }
+
+    // ジェネリクスなしのPromise型を検出
+    if (/:\s*Promise(?:\s|$|[^<])/.test(line)) {
+      errors.push({
+        type: 'untyped_promise',
+        line: index + 1,
+        message: `ジェネリクスなしのPromise型は禁止されています。Promise<T>の形式で戻り値の型を指定してください`,
+        content: line.trim(),
+      });
+    }
+
+    // Array型（Array<T>ではない）の使用を検出
+    if (/:\s*Array(?:\s|$|[^<])/.test(line)) {
+      errors.push({
+        type: 'untyped_array',
+        line: index + 1,
+        message: `ジェネリクスなしのArray型は禁止されています。Array<T>または T[] の形式で要素の型を指定してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // エラーハンドリング不足のチェック
+  lines.forEach((line, index) => {
+    // try-catchのないawait
+    if (/\bawait\s+/.test(line) && !lines.slice(Math.max(0, index - 5), index + 5).some(l => /\btry\s*\{/.test(l))) {
+      // async関数内かつfetch/Promise関連のawaitの場合
+      if (/await\s+(fetch|axios|api|.*Promise|.*\(\))/.test(line)) {
+        errors.push({
+          type: 'await_without_try_catch',
+          line: index + 1,
+          message: `awaitにはtry-catchが必要です。エラーハンドリングを追加してください`,
+          content: line.trim(),
+        });
+      }
+    }
+
+    // .thenのみで.catchなし
+    if (/\.then\s*\(/.test(line)) {
+      // 同じステートメント内に.catchがあるかチェック
+      let hasСatch = false;
+      let checkLine = line;
+      let lineIndex = index;
+      
+      // 複数行にわたる場合をチェック
+      while (lineIndex < lines.length && !checkLine.includes(';') && lineIndex < index + 5) {
+        if (/\.catch\s*\(/.test(checkLine)) {
+          hasСatch = true;
+          break;
+        }
+        lineIndex++;
+        checkLine = lines[lineIndex] || '';
+      }
+      
+      if (!hasСatch) {
+        errors.push({
+          type: 'promise_without_catch',
+          line: index + 1,
+          message: `Promiseチェーンには.catchが必要です。エラーハンドリングを追加してください`,
+          content: line.trim(),
+        });
+      }
+    }
+
+    // 空のcatchブロック
+    if (/\bcatch\s*\([^)]*\)\s*\{/.test(line)) {
+      // 次の行が閉じ括弧のみかチェック
+      const nextLine = lines[index + 1] || '';
+      if (/^\s*\}/.test(nextLine)) {
+        errors.push({
+          type: 'empty_catch_block',
+          line: index + 1,
+          message: `空のcatchブロックは禁止されています。エラーを適切に処理してください`,
+          content: line.trim(),
+        });
+      }
+    }
+  });
+
+  // localStorageセキュリティチェック
+  lines.forEach((line, index) => {
+    const storageMatch = line.match(/localStorage\.setItem\s*\(\s*['"`]([^'"`]+)['"`]/);
+    if (storageMatch) {
+      const key = storageMatch[1].toLowerCase();
+      
+      // 機密情報のキーワードをチェック
+      const sensitiveKeywords = [
+        'password', 'pwd', 'pass', 'secret', 'token', 'auth',
+        'key', 'api', 'credential', 'private', 'ssn', 'card'
+      ];
+      
+      if (sensitiveKeywords.some(keyword => key.includes(keyword))) {
+        errors.push({
+          type: 'localstorage_sensitive_data',
+          line: index + 1,
+          message: `localStorageに機密情報を保存することは禁止されています。セキュアな方法を使用してください`,
+          content: line.trim(),
+        });
+      }
+    }
+    
+    // sessionStorageも同様にチェック
+    const sessionMatch = line.match(/sessionStorage\.setItem\s*\(\s*['"`]([^'"`]+)['"`]/);
+    if (sessionMatch) {
+      const key = sessionMatch[1].toLowerCase();
+      
+      const sensitiveKeywords = [
+        'password', 'pwd', 'pass', 'secret', 'token', 'auth',
+        'key', 'api', 'credential', 'private', 'ssn', 'card'
+      ];
+      
+      if (sensitiveKeywords.some(keyword => key.includes(keyword))) {
+        errors.push({
+          type: 'sessionstorage_sensitive_data',
+          line: index + 1,
+          message: `sessionStorageに機密情報を保存することは禁止されています。セキュアな方法を使用してください`,
+          content: line.trim(),
+        });
+      }
+    }
+  });
+
+  // React indexをkeyに使用禁止チェック
+  lines.forEach((line, index) => {
+    // key={index} パターンを検出
+    if (/key\s*=\s*\{?\s*index\s*\}?/.test(line)) {
+      errors.push({
+        type: 'react_index_as_key',
+        line: index + 1,
+        message: `indexをkeyに使用することは禁止されています。一意で安定したIDを使用してください`,
+        content: line.trim(),
+      });
+    }
+    
+    // key={i} のような変数名も検出
+    if (/key\s*=\s*\{?\s*[ij]\s*\}?/.test(line)) {
+      // mapの引数がiやjの場合
+      const mapPattern = /\.map\s*\(\s*\([^,]+,\s*([ij])\)/;
+      const prevLines = lines.slice(Math.max(0, index - 3), index).join('\n');
+      if (mapPattern.test(prevLines)) {
+        errors.push({
+          type: 'react_index_as_key',
+          line: index + 1,
+          message: `indexをkeyに使用することは禁止されています。一意で安定したIDを使用してください`,
+          content: line.trim(),
+        });
+      }
+    }
+    
+    // key={`prefix-${index}`} のようなパターンも検出
+    if (/key\s*=\s*\{[`'"].*\$\{?\s*(index|[ij])\s*\}?.*[`'"]/.test(line)) {
+      errors.push({
+        type: 'react_index_as_key',
+        line: index + 1,
+        message: `indexをkeyに使用することは禁止されています。一意で安定したIDを使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // @ts-ignore/@ts-nocheck/@ts-expect-errorの禁止チェック
+  lines.forEach((line, index) => {
+    // @ts-ignoreの検出
+    if (/@ts-ignore/.test(line)) {
+      errors.push({
+        type: 'ts_ignore_usage',
+        line: index + 1,
+        message: `@ts-ignoreの使用は禁止されています。適切な型定義を追加して型エラーを解決してください`,
+        content: line.trim(),
+      });
+    }
+
+    // @ts-nocheckの検出
+    if (/@ts-nocheck/.test(line)) {
+      errors.push({
+        type: 'ts_nocheck_usage',
+        line: index + 1,
+        message: `@ts-nocheckの使用は禁止されています。ファイル全体の型チェックを無効化せず、個別に型定義を修正してください`,
+        content: line.trim(),
+      });
+    }
+
+    // @ts-expect-errorの検出（より制限的に）
+    if (/@ts-expect-error/.test(line)) {
+      // コメントで理由が書かれているかチェック
+      const hasReason = /@ts-expect-error\s+\S/.test(line);
+      if (!hasReason) {
+        errors.push({
+          type: 'ts_expect_error_no_reason',
+          line: index + 1,
+          message: `@ts-expect-errorを使用する場合は、理由を明記してください。可能な限り型定義で解決してください`,
+          content: line.trim(),
+        });
+      }
+    }
+  });
+
   // fetchの内部APIパス・ローカルファイルチェック
   lines.forEach((line, index) => {
     const fetchMatch = line.match(/fetch\s*\(\s*(['"`])(.*?)\1/);
@@ -603,8 +946,8 @@ function checkContent(content, filePath) {
     const fileName = path.basename(filePath, path.extname(filePath));
     const fileExt = path.extname(filePath);
     
-    // Python/Go以外でsnake_caseを使用
-    if (!/\.(py|go)$/.test(fileExt) && /_/.test(fileName)) {
+    // Python/Go以外でsnake_caseを使用（_から始まるファイルは許可）
+    if (!/\.(py|go)$/.test(fileExt) && /_/.test(fileName) && !/^_/.test(fileName)) {
       errors.push({
         type: 'filename_underscore',
         line: 0,
@@ -889,6 +1232,82 @@ function printSummary(errors, warnings, filePath) {
       console.error(`     get_user_data.tsx → get-user-data.tsx`);
       console.error(`     UserHelper.ts → user-helper.ts`);
       console.error(`     例外: Python/Goではsnake_caseが許可、React Component（.tsx/.jsx）は大文字許可`);
+      console.error(`     _から始まるファイルは許可（例: _app.tsx, _document.tsx）`);
+    }
+    if (errorTypes.includes('number_in_component_name') || errorTypes.includes('number_in_function_name')) {
+      console.error(
+        `  23. ${colors.yellow}"名前に数字を含む"${colors.reset} → 数字を含まない命名を使用`
+      );
+      console.error(`     Button2 → ButtonSecondary、ButtonAlternative`);
+      console.error(`     Component1 → PrimaryComponent、MainComponent`);
+      console.error(`     useAuth2 → useAuthExtended、useAuthEnhanced`);
+      console.error(`     handleClick3 → handleTripleClick、handleThirdClick`);
+      console.error(`     説明的な名前を使用して、数字による区別を避けてください`);
+    }
+    if (errorTypes.includes('eval_usage') || errorTypes.includes('new_function_usage') || errorTypes.includes('timer_string_usage')) {
+      console.error(
+        `  24. ${colors.yellow}"動的コード実行"${colors.reset} → セキュアな代替手法を使用`
+      );
+      console.error(`     eval() → JSON.parse()、関数定義、設定オブジェクト`);
+      console.error(`     new Function() → 事前定義した関数、ファクトリパターン`);
+      console.error(`     setTimeout("code", ...) → setTimeout(() => { code }, ...)`);
+      console.error(`     動的なコード生成は重大なセキュリティリスクです`);
+    }
+    if (errorTypes.includes('dangerous_html_unverified')) {
+      console.error(
+        `  25. ${colors.yellow}"dangerouslySetInnerHTML"${colors.reset} → サニタイズ処理を追加`
+      );
+      console.error(`     import DOMPurify from 'dompurify';`);
+      console.error(`     const clean = DOMPurify.sanitize(dirty);`);
+      console.error(`     <div dangerouslySetInnerHTML={{__html: clean}} />`);
+      console.error(`     XSS攻撃を防ぐため、必ずサニタイズしてください`);
+    }
+    if (errorTypes.includes('ts_ignore_usage') || errorTypes.includes('ts_nocheck_usage') || errorTypes.includes('ts_expect_error_no_reason')) {
+      console.error(
+        `  26. ${colors.yellow}"TypeScriptディレクティブ"${colors.reset} → 適切な型定義で解決`
+      );
+      console.error(`     @ts-ignore → 型定義を修正、型ガードを使用`);
+      console.error(`     @ts-nocheck → 個別のエラーを修正`);
+      console.error(`     @ts-expect-error → 理由を明記、または型定義で解決`);
+      console.error(`     型エラーは無視せず、根本的に解決してください`);
+    }
+    if (errorTypes.includes('loose_object_type') || errorTypes.includes('loose_function_type') || errorTypes.includes('any_array_type') || errorTypes.includes('untyped_promise') || errorTypes.includes('untyped_array')) {
+      console.error(
+        `  27. ${colors.yellow}"型の緩いコード"${colors.reset} → 具体的な型定義を使用`
+      );
+      console.error(`     Object → interface User { name: string; age: number; }`);
+      console.error(`     Function → (x: number, y: number) => number`);
+      console.error(`     any[] → string[]、User[]、Array<{id: number; name: string}>`);
+      console.error(`     Promise → Promise<User>、Promise<void>、Promise<string[]>`);
+      console.error(`     Array → Array<string>、Array<User>、またはstring[]、User[]`);
+      console.error(`     型安全性を確保するため、常に具体的な型を使用してください`);
+    }
+    if (errorTypes.includes('await_without_try_catch') || errorTypes.includes('promise_without_catch') || errorTypes.includes('empty_catch_block')) {
+      console.error(
+        `  28. ${colors.yellow}"エラーハンドリング不足"${colors.reset} → 適切なエラー処理を追加`
+      );
+      console.error(`     await → try-catchで囲む`);
+      console.error(`     .then() → .catch()を追加`);
+      console.error(`     catch (e) {} → console.error(e) またはエラー処理を実装`);
+      console.error(`     例: try { await fetch() } catch (error) { handleError(error) }`);
+    }
+    if (errorTypes.includes('localstorage_sensitive_data') || errorTypes.includes('sessionstorage_sensitive_data')) {
+      console.error(
+        `  29. ${colors.yellow}"Storage機密情報"${colors.reset} → セキュアな保存方法を使用`
+      );
+      console.error(`     localStorage/sessionStorage → HTTPOnly Cookie`);
+      console.error(`     暗号化して保存 → crypto-jsなどを使用`);
+      console.error(`     サーバーサイドセッション → セッションIDのみ保存`);
+      console.error(`     機密情報（password, token, apiKey等）は絶対に保存しない`);
+    }
+    if (errorTypes.includes('react_index_as_key')) {
+      console.error(
+        `  30. ${colors.yellow}"indexをkeyに使用"${colors.reset} → 安定した一意のIDを使用`
+      );
+      console.error(`     key={index} → key={item.id}`);
+      console.error(`     key={i} → key={user.userId}`);
+      console.error(`     key={\`item-\${index}\`} → key={item.uuid}`);
+      console.error(`     一意のIDがない場合: crypto.randomUUID() または nanoid`);
     }
 
     console.error('');
