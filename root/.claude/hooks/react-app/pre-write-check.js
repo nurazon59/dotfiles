@@ -513,19 +513,6 @@ function checkContent(content, filePath) {
       }
     }
 
-    // 空のcatchブロック
-    if (/\bcatch\s*\([^)]*\)\s*\{/.test(line)) {
-      // 次の行が閉じ括弧のみかチェック
-      const nextLine = lines[index + 1] || '';
-      if (/^\s*\}/.test(nextLine)) {
-        errors.push({
-          type: 'empty_catch_block',
-          line: index + 1,
-          message: `空のcatchブロックは禁止されています。エラーを適切に処理してください`,
-          content: line.trim(),
-        });
-      }
-    }
   });
 
   // localStorageセキュリティチェック
@@ -783,25 +770,47 @@ function checkContent(content, filePath) {
 
   // 配列の破壊的メソッド禁止チェック
   lines.forEach((line, index) => {
-    const destructiveMethods = /\.(push|pop|shift|unshift|splice|sort|reverse)\s*\(/;
-    if (destructiveMethods.test(line)) {
-      const method = line.match(destructiveMethods)[1];
-      const alternatives = {
-        push: '[...array, item]',
-        pop: 'array.slice(0, -1)',
-        shift: 'array.slice(1)',
-        unshift: '[item, ...array]',
-        splice: 'array.toSpliced() または filter',
-        sort: '[...array].sort() または array.toSorted()',
-        reverse: '[...array].reverse() または array.toReversed()'
-      };
+    // 配列の破壊的メソッドを検出
+    // 配列変数名の一般的なパターンにマッチするよう改善
+    const arrayPattern = /(?:(?:array|list|items|elements|data|values|results|collection|arr)\w*|[a-z]+(?:Array|List|Items|Elements|Data|Values|Results|Collection))\.(push|pop|shift|unshift|splice|sort|reverse)\s*\(/i;
+    
+    // router.push, history.push, navigation.push などのルーティング関連は除外
+    const routerPattern = /(?:router|route|history|navigation|navigate|nav|location)\.\w*\.?push\s*\(/i;
+    
+    // stack.push, queue.push などのデータ構造操作も除外
+    const dataStructurePattern = /(?:stack|queue|heap|tree|graph)\.\w*\.?push\s*\(/i;
+    
+    const match = line.match(arrayPattern);
+    
+    if (match && !routerPattern.test(line) && !dataStructurePattern.test(line)) {
+      // さらに厳密にチェック: 本当に配列操作かを確認
+      // 変数名が明らかに配列を示す場合のみエラーとする
+      const fullMatch = match[0];
+      const variableName = fullMatch.split('.')[0];
       
-      errors.push({
-        type: 'destructive_array_method',
-        line: index + 1,
-        message: `破壊的メソッド "${method}" の使用は禁止されています。代替: ${alternatives[method]}`,
-        content: line.trim(),
-      });
+      // 明確に配列を示す変数名パターン
+      const isLikelyArray = /(?:array|list|items|elements|data|values|results|collection|^arr$)/i.test(variableName) ||
+                            /(?:Array|List|Items|Elements|Data|Values|Results|Collection)$/.test(variableName);
+      
+      if (isLikelyArray) {
+        const method = match[1];
+        const alternatives = {
+          push: '[...array, item]',
+          pop: 'array.slice(0, -1)',
+          shift: 'array.slice(1)',
+          unshift: '[item, ...array]',
+          splice: 'array.toSpliced() または filter',
+          sort: '[...array].sort() または array.toSorted()',
+          reverse: '[...array].reverse() または array.toReversed()'
+        };
+        
+        errors.push({
+          type: 'destructive_array_method',
+          line: index + 1,
+          message: `破壊的メソッド "${method}" の使用は禁止されています。代替: ${alternatives[method]}`,
+          content: line.trim(),
+        });
+      }
     }
   });
 
@@ -908,6 +917,88 @@ function checkContent(content, filePath) {
           controlFlowNesting.pop();
         }
       }
+    }
+  });
+
+  // JSX/HTMLのネスト禁止チェック（6層以上）
+  let jsxNestingLevel = 0;
+  let jsxTagStack = [];
+  let deepNestLineReported = new Set(); // 同じ行で複数回エラーを出さないためのトラッキング
+  
+  lines.forEach((line, index) => {
+    // コメント行は無視
+    if (line.trim().startsWith('//') || line.trim().startsWith('/*') || line.trim().startsWith('*')) {
+      return;
+    }
+    
+    // JSX/HTMLタグの検出（複数タグが1行にある場合も処理）
+    let remainingLine = line;
+    let charIndex = 0;
+    let lineHasDeepNest = false;
+    
+    while (remainingLine.length > 0) {
+      // 開始タグを検出（セルフクロージング以外）
+      const openTagMatch = remainingLine.match(/<([A-Za-z][A-Za-z0-9._-]*|[a-z][a-z0-9-]*)[^>]*(?<!\/)>/);
+      // 閉じタグを検出
+      const closeTagMatch = remainingLine.match(/<\/([A-Za-z][A-Za-z0-9._-]*|[a-z][a-z0-9-]*)>/);
+      // セルフクロージングタグを検出
+      const selfClosingMatch = remainingLine.match(/<([A-Za-z][A-Za-z0-9._-]*|[a-z][a-z0-9-]*)[^>]*\/>/);
+      
+      let earliestMatch = null;
+      let matchType = null;
+      let matchIndex = Infinity;
+      
+      // 最も早い位置のマッチを見つける
+      if (openTagMatch && openTagMatch.index < matchIndex) {
+        earliestMatch = openTagMatch;
+        matchType = 'open';
+        matchIndex = openTagMatch.index;
+      }
+      if (closeTagMatch && closeTagMatch.index < matchIndex) {
+        earliestMatch = closeTagMatch;
+        matchType = 'close';
+        matchIndex = closeTagMatch.index;
+      }
+      if (selfClosingMatch && selfClosingMatch.index < matchIndex) {
+        earliestMatch = selfClosingMatch;
+        matchType = 'selfClosing';
+        matchIndex = selfClosingMatch.index;
+      }
+      
+      if (!earliestMatch) {
+        break; // もうタグがない
+      }
+      
+      if (matchType === 'open') {
+        jsxNestingLevel++;
+        jsxTagStack.push(earliestMatch[1]);
+        
+        // 6層以上のネストを検出し、その行でまだ報告していない場合のみエラーを追加
+        if (jsxNestingLevel >= 6 && !deepNestLineReported.has(index)) {
+          lineHasDeepNest = true;
+        }
+      } else if (matchType === 'close') {
+        if (jsxTagStack.length > 0) {
+          jsxNestingLevel--;
+          jsxTagStack.pop();
+        }
+      }
+      // セルフクロージングタグは無視（ネストレベルに影響しない）
+      
+      // 処理した部分を削除して次を探す
+      charIndex += matchIndex + earliestMatch[0].length;
+      remainingLine = remainingLine.substring(matchIndex + earliestMatch[0].length);
+    }
+    
+    // この行で深いネストが検出された場合、一度だけエラーを追加
+    if (lineHasDeepNest) {
+      deepNestLineReported.add(index);
+      errors.push({
+        type: 'deep_jsx_nesting',
+        line: index + 1,
+        message: `JSX/HTMLのネストが深すぎます（6層以上）。JSX/HTMLのネストは5層までに制限してください`,
+        content: line.trim(),
+      });
     }
   });
 
@@ -1028,6 +1119,91 @@ function checkContent(content, filePath) {
         message: `非nullアサーション（!）は禁止されています。適切なnullチェックを行ってください`,
         content: line.trim(),
       });
+    }
+  });
+
+  // switch文の禁止（ts-pattern推奨）
+  lines.forEach((line, index) => {
+    // switch文を検出
+    if (/\bswitch\s*\(/.test(line)) {
+      errors.push({
+        type: 'switch_statement_forbidden',
+        line: index + 1,
+        message: `switch文は禁止されています。ts-patternライブラリのmatch関数を使用してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // 三項演算子のネスト禁止
+  lines.forEach((line, index) => {
+    // 三項演算子のネストを検出
+    // ? と : の数を数えて、2つ以上の ? があればネストしている
+    const questionMarkCount = (line.match(/\?/g) || []).length;
+    const colonCount = (line.match(/:/g) || []).length;
+    
+    // 型定義の : は除外するため、三項演算子の特徴的なパターンをチェック
+    if (questionMarkCount >= 2) {
+      // より正確な検出のため、三項演算子のパターンをチェック
+      // 条件 ? 値 : 値 のパターンが2つ以上あるか
+      const ternaryPattern = /[^?]+\?[^:?]+:[^?]+\?[^:]+:/;
+      if (ternaryPattern.test(line)) {
+        errors.push({
+          type: 'nested_ternary',
+          line: index + 1,
+          message: `三項演算子のネストは禁止されています。if文や早期リターンを使用してください`,
+          content: line.trim(),
+        });
+      }
+    }
+  });
+
+  // 空のcatchブロック禁止（既存のチェックを強化）
+  lines.forEach((line, index) => {
+    // catchブロックの開始を検出
+    if (/\bcatch\s*\([^)]*\)\s*\{/.test(line)) {
+      // 同じ行に閉じ括弧があるかチェック（1行の空catch）
+      if (/\bcatch\s*\([^)]*\)\s*\{\s*\}/.test(line)) {
+        errors.push({
+          type: 'empty_catch_block',
+          line: index + 1,
+          message: `空のcatchブロックは禁止されています。エラーを適切に処理するか、少なくともログ出力してください`,
+          content: line.trim(),
+        });
+        return;
+      }
+      
+      // 次の数行をチェック（複数行の空catch）
+      let braceCount = 1;
+      let hasContent = false;
+      
+      for (let i = index + 1; i < Math.min(lines.length, index + 10); i++) {
+        const nextLine = lines[i].trim();
+        
+        // コメント以外の内容があるかチェック
+        if (nextLine && !nextLine.startsWith('//') && !nextLine.startsWith('/*') && !nextLine.startsWith('*')) {
+          if (nextLine !== '}') {
+            hasContent = true;
+          }
+        }
+        
+        // 波括弧のカウント
+        braceCount += (nextLine.match(/\{/g) || []).length;
+        braceCount -= (nextLine.match(/\}/g) || []).length;
+        
+        if (braceCount === 0) {
+          // catchブロックの終了
+          if (!hasContent) {
+            errors.push({
+              type: 'empty_catch_block',
+              line: index + 1,
+              message: `空のcatchブロックは禁止されています。エラーを適切に処理するか、少なくともログ出力してください`,
+              content: line.trim(),
+            });
+          }
+          break;
+        }
+      }
     }
   })
 
@@ -1170,6 +1346,102 @@ function checkContent(content, filePath) {
         }
       });
     });
+  }
+
+  // JSX/TSXファイルの行数制限チェック
+  if (filePath && /\.(jsx|tsx)$/.test(filePath)) {
+    const totalLines = lines.length;
+    
+    if (totalLines > 200) {
+      errors.push({
+        type: 'jsx_file_too_large',
+        line: 0,
+        message: `JSX/TSXファイルが大きすぎます（${totalLines}行）。200行以内に収めてください。コンポーネントを分割することを検討してください`,
+        content: `ファイル全体: ${totalLines}行`,
+      });
+    } else if (totalLines > 150) {
+      warnings.push({
+        type: 'jsx_file_large',
+        line: 0,
+        message: `JSX/TSXファイルが大きくなっています（${totalLines}行）。150行を超えるとコンポーネントの分割を検討してください`,
+        content: `ファイル全体: ${totalLines}行`,
+      });
+    }
+  }
+
+  // return文内のJSX構造の行数チェック（JSX/TSXファイルのみ）
+  if (filePath && /\.(jsx|tsx)$/.test(filePath)) {
+    // 全てのreturn文を検索して、その範囲をチェック
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      // return文を検出
+      if (/\breturn\s*[(<]/.test(line)) {
+        let returnStart = i;
+        let returnEnd = i;
+        let openParens = 0;
+        let openTags = 0;
+        
+        // 最初の行の括弧とタグをカウント
+        openParens += (line.match(/\(/g) || []).length - (line.match(/\)/g) || []).length;
+        
+        // JSXタグのカウント（セルフクローズは除外）
+        const openingTags = (line.match(/<[A-Za-z][^>]*(?<!\/)\s*>/g) || []).length;
+        const closingTags = (line.match(/<\/[A-Za-z][^>]*>/g) || []).length;
+        openTags += openingTags - closingTags;
+        
+        // return文の終了を探す
+        for (let j = i + 1; j < lines.length; j++) {
+          const currentLine = lines[j];
+          
+          // 括弧のカウント
+          openParens += (currentLine.match(/\(/g) || []).length - (currentLine.match(/\)/g) || []).length;
+          
+          // タグのカウント
+          const currentOpeningTags = (currentLine.match(/<[A-Za-z][^>]*(?<!\/)\s*>/g) || []).length;
+          const currentClosingTags = (currentLine.match(/<\/[A-Za-z][^>]*>/g) || []).length;
+          openTags += currentOpeningTags - currentClosingTags;
+          
+          // return文の終了条件
+          // 1. セミコロンで終了
+          // 2. 全ての括弧とタグが閉じられて、次の行が } で始まる
+          if (/;\s*$/.test(currentLine) || 
+              (openParens <= 0 && openTags <= 0 && j + 1 < lines.length && /^\s*\}/.test(lines[j + 1]))) {
+            returnEnd = j;
+            break;
+          }
+          
+          // ファイルの最後
+          if (j === lines.length - 1) {
+            returnEnd = j;
+            break;
+          }
+        }
+        
+        // return文の行数を計算
+        const returnLines = returnEnd - returnStart + 1;
+        
+        // 100行以上で警告、200行以上でエラー
+        if (returnLines > 200) {
+          errors.push({
+            type: 'large_jsx_return',
+            line: returnStart + 1,
+            message: `return文内のJSX構造が大きすぎます（${returnLines}行）。200行以内に収めてください。子コンポーネントに分割することを検討してください`,
+            content: `return文のJSX: ${returnLines}行`,
+          });
+        } else if (returnLines > 100) {
+          warnings.push({
+            type: 'large_jsx_return_warning',
+            line: returnStart + 1,
+            message: `return文内のJSX構造が大きくなっています（${returnLines}行）。100行を超える場合は子コンポーネントへの分割を検討してください`,
+            content: `return文のJSX: ${returnLines}行`,
+          });
+        }
+        
+        // 次のreturn文を探すため、iを更新
+        i = returnEnd;
+      }
+    }
   }
 
   return { errors, warnings };
@@ -1471,6 +1743,109 @@ function printSummary(errors, warnings, filePath) {
       console.error(`     - 早期リターン（ガード節）を使用`);
       console.error(`     - 複雑なロジックを別関数に分割`);
       console.error(`     - 条件を反転して早期終了`);
+    }
+    if (errorTypes.includes('deep_jsx_nesting')) {
+      console.error(
+        `  34. ${colors.yellow}"JSX/HTMLの深いネスト"${colors.reset} → コンポーネントを分割`
+      );
+      console.error(`     JSX/HTMLのネストは5層までに制限`);
+      console.error(`     深いネスト例:`);
+      console.error(`     <div>         // 1層`);
+      console.error(`       <section>   // 2層`);
+      console.error(`         <article> // 3層`);
+      console.error(`           <div>   // 4層`);
+      console.error(`             <div> // 5層`);
+      console.error(`               <p> // 6層でエラー`);
+      console.error(`     `);
+      console.error(`     解決方法:`);
+      console.error(`     - 子コンポーネントに分割`);
+      console.error(`     - 論理的な単位でコンポーネント化`);
+      console.error(`     - フラグメント（<>...</>）で不要なdivを削減`);
+    }
+    if (errorTypes.includes('switch_statement_forbidden')) {
+      console.error(
+        `  35. ${colors.yellow}"switch文"${colors.reset} → ts-patternライブラリを使用`
+      );
+      console.error(`     switch文は禁止されています。ts-patternのmatch関数を使用してください`);
+      console.error(`     `);
+      console.error(`     NG: switch (type) {`);
+      console.error(`           case 'A': return 1;`);
+      console.error(`           case 'B': return 2;`);
+      console.error(`           default: return 0;`);
+      console.error(`         }`);
+      console.error(`     `);
+      console.error(`     OK: import { match } from 'ts-pattern';`);
+      console.error(`         match(type)`);
+      console.error(`           .with('A', () => 1)`);
+      console.error(`           .with('B', () => 2)`);
+      console.error(`           .otherwise(() => 0);`);
+      console.error(`     `);
+      console.error(`     ts-patternの利点:`);
+      console.error(`     - 型安全なパターンマッチング`);
+      console.error(`     - 網羅性チェック（exhaustive check）`);
+      console.error(`     - より表現力豊かな条件分岐`);
+    }
+    if (errorTypes.includes('nested_ternary')) {
+      console.error(
+        `  36. ${colors.yellow}"三項演算子のネスト"${colors.reset} → if文や早期リターンを使用`
+      );
+      console.error(`     三項演算子のネストは可読性を著しく低下させます`);
+      console.error(`     NG: const x = a ? b ? c : d : e;`);
+      console.error(`     OK: if (a) { return b ? c : d; }`);
+      console.error(`         return e;`);
+      console.error(`     `);
+      console.error(`     または、関数に分割:`);
+      console.error(`     function getValue() {`);
+      console.error(`       if (!a) return e;`);
+      console.error(`       return b ? c : d;`);
+      console.error(`     }`);
+    }
+    if (errorTypes.includes('empty_catch_block')) {
+      console.error(
+        `  36. ${colors.yellow}"空のcatchブロック"${colors.reset} → エラーを適切に処理`
+      );
+      console.error(`     NG: catch (error) { }`);
+      console.error(`     NG: catch (error) {`);
+      console.error(`           // 何もしない`);
+      console.error(`         }`);
+      console.error(`     `);
+      console.error(`     OK: catch (error) {`);
+      console.error(`           console.error('エラー:', error);`);
+      console.error(`           // または`);
+      console.error(`           logError(error);`);
+      console.error(`           // または`);
+      console.error(`           throw new CustomError('処理失敗', error);`);
+      console.error(`         }`);
+    }
+    if (errorTypes.includes('jsx_file_too_large')) {
+      console.error(
+        `  37. ${colors.yellow}"JSXファイルが大きすぎる"${colors.reset} → ファイルを分割`
+      );
+      console.error(`     JSX/TSXファイルは200行以内に収めてください`);
+      console.error(`     現在のファイルが200行を超えています`);
+      console.error(`     `);
+      console.error(`     解決方法:`);
+      console.error(`     - 関連するコンポーネントを別ファイルに分割`);
+      console.error(`     - カスタムフックに分離`);
+      console.error(`     - ユーティリティ関数を別ファイルに移動`);
+    }
+    if (errorTypes.includes('large_jsx_return')) {
+      console.error(
+        `  38. ${colors.yellow}"return文のJSX構造が大きすぎる"${colors.reset} → コンポーネントを分割`
+      );
+      console.error(`     1つのreturn文内のJSX構造は200行以内に収めてください`);
+      console.error(`     `);
+      console.error(`     例: 大きすぎるreturn文`);
+      console.error(`     return (`);
+      console.error(`       <div>`);
+      console.error(`         {/* 200行以上のJSX */}`);
+      console.error(`       </div>`);
+      console.error(`     );`);
+      console.error(`     `);
+      console.error(`     解決方法:`);
+      console.error(`     - 論理的な単位で子コンポーネントに分割`);
+      console.error(`     - 繰り返し部分を別コンポーネントに抽出`);
+      console.error(`     - 条件分岐が多い場合は個別のrender関数に分割`);
     }
 
     console.error('');
