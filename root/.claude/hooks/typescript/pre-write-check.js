@@ -181,7 +181,7 @@ function checkContent(content, filePath) {
 
 
   // レイヤー名を含む命名のチェック
-  const layerNamePattern = /(Repo|Repository|UseCase|Service|Controller)(?:$|[A-Z]|\W)/;
+  const layerNamePattern = /(^|-)?(repo|repository|usecase|use-case|service|controller)($|-)/i;
   
   // ファイル名のチェック
   if (filePath) {
@@ -190,7 +190,7 @@ function checkContent(content, filePath) {
       errors.push({
         type: 'layer_name_in_filename',
         line: 0,
-        message: `ファイル名にレイヤー名（Repo、Repository、UseCase、Service、Controller）を含めることは禁止されています`,
+        message: `ファイル名にレイヤー名（repo、repository、usecase、use-case、service、controller - 大文字小文字問わず）を含めることは禁止されています`,
         content: fileName,
       });
     }
