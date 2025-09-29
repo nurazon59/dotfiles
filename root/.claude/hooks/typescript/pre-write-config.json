@@ -114,11 +114,6 @@
       "pattern": "\\bthrow\\s+(new\\s+)?",
       "message": "throwは使用禁止です。Result型（Result<T, E>）を使用してエラーハンドリングを行ってください",
       "severity": "error"
-    },
-    {
-      "pattern": ":\\s*(string|number|boolean|object|symbol|bigint)(\\s|\\[|\\)|,|;|\\||&|$)",
-      "message": "プリミティブ型の直接使用は禁止です。Brand型を使用してください（例: UserId, Email, Price等）",
-      "severity": "error"
     }
   ]
 }
