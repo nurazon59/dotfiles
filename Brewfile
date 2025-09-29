@@ -1,7 +1,7 @@
 tap "FelixKratz/formulae"
 
 brew "sheldon"
-brew "colima"
+brew "lima"
 brew "borders"
 brew "sketchybar"
 brew "switchaudio-osx"
