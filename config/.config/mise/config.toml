@@ -1,6 +1,6 @@
 [tools]
 aqua = "2.53.7"
-aws-cli = "2.27.61"
+aws-cli = "latest"
 bat = "0.25.0"
 delta = "0.18.2"
 direnv = "2.37.1"
@@ -36,3 +36,5 @@ bun = "1.2.22"
 terraform = "1.13.2"
 "aqua:suzuki-shunsuke/ghalint" = "1.5.3"
 starship = "1.23.0"
+colima = "latest"
+"npm:@github/copilot" = "latest"
