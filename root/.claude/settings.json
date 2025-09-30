@@ -153,11 +153,20 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Write|Edit",
+        "matcher": "Write",
         "hooks": [
           {
             "type": "command",
-            "command": "node ~/.claude/hooks/typescript/pre-write-check.js"
+            "command": "node /Users/itsuki54/src/github.com/nurazon59/dotfiles/root/.claude/hooks/typescript/pre-write-check.js"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node /Users/itsuki54/src/github.com/nurazon59/dotfiles/root/.claude/hooks/typescript/pre-write-check.js"
           }
         ]
       }
