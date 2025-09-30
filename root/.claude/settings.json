@@ -157,7 +157,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node ~/.claude/hooks/typescript/pre-write-check.js"
+            "command": "bash ~/.claude/hooks/typescript/pre-write-check.sh"
           }
         ]
       }
