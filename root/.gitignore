@@ -238,6 +238,8 @@ tags
 # End of https://www.toptal.com/developers/gitignore/api/intellij,linux,macos,vim,visualstudiocode
 
 **/.claude/settings.local.json
+**/.claude/file-history
+**/.claude/history.jsonl
 
 zzz/
 .serena/

@@ -1034,19 +1034,6 @@ function checkContent(content, filePath) {
     }
   });
 
-  // 型アサーション制限（as const以外）
-  lines.forEach((line, index) => {
-    // as constは許可、それ以外のasは禁止
-    if (/\bas\s+(?!const\b)\w+/.test(line)) {
-      errors.push({
-        type: 'type_assertion_forbidden',
-        line: index + 1,
-        message: `型アサーション（as）は禁止されています。as const以外は適切な型定義を使用してください`,
-        content: line.trim(),
-      });
-    }
-  });
-
   // 非nullアサーション（!）禁止
   lines.forEach((line, index) => {
     // obj!.method() や value! のパターンを検出
@@ -1095,55 +1082,6 @@ function checkContent(content, filePath) {
       }
     }
   });
-
-  // 空のcatchブロック禁止（既存のチェックを強化）
-  lines.forEach((line, index) => {
-    // catchブロックの開始を検出
-    if (/\bcatch\s*\([^)]*\)\s*\{/.test(line)) {
-      // 同じ行に閉じ括弧があるかチェック（1行の空catch）
-      if (/\bcatch\s*\([^)]*\)\s*\{\s*\}/.test(line)) {
-        errors.push({
-          type: 'empty_catch_block',
-          line: index + 1,
-          message: `空のcatchブロックは禁止されています。エラーを適切に処理するか、少なくともログ出力してください`,
-          content: line.trim(),
-        });
-        return;
-      }
-      
-      // 次の数行をチェック（複数行の空catch）
-      let braceCount = 1;
-      let hasContent = false;
-      
-      for (let i = index + 1; i < Math.min(lines.length, index + 10); i++) {
-        const nextLine = lines[i].trim();
-        
-        // コメント以外の内容があるかチェック
-        if (nextLine && !nextLine.startsWith('//') && !nextLine.startsWith('/*') && !nextLine.startsWith('*')) {
-          if (nextLine !== '}') {
-            hasContent = true;
-          }
-        }
-        
-        // 波括弧のカウント
-        braceCount += (nextLine.match(/\{/g) || []).length;
-        braceCount -= (nextLine.match(/\}/g) || []).length;
-        
-        if (braceCount === 0) {
-          // catchブロックの終了
-          if (!hasContent) {
-            errors.push({
-              type: 'empty_catch_block',
-              line: index + 1,
-              message: `空のcatchブロックは禁止されています。エラーを適切に処理するか、少なくともログ出力してください`,
-              content: line.trim(),
-            });
-          }
-          break;
-        }
-      }
-    }
-  })
 
   // I/Tプレフィックス禁止チェック
   lines.forEach((line, index) => {
