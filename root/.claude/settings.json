@@ -153,11 +153,11 @@
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Write|Edit|MultiEdit",
+        "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "node .claude/hooks/typescript/pre-write-check.js"
+            "command": "node ${CLAUDE_PROJECT_DIR}/.claude/hooks/typescript/pre-write-check.js"
           }
         ]
       }
