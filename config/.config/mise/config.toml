@@ -38,3 +38,7 @@ terraform = "1.13.2"
 starship = "1.23.0"
 colima = "latest"
 "npm:@github/copilot" = "latest"
+tmux = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
