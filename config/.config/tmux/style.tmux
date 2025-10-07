@@ -26,8 +26,8 @@ set -g status-left-length 40
 set -g status-left "#[fg=colour75,bold] #S "
 
 # ステータスバーの右側
-set -g status-right-length 60
-set -g status-right "#[fg=colour245] %Y-%m-%d %H:%M "
+set -g status-right-length 100
+set -g status-right "#[fg=colour75]#{?#{==:#{pane_current_path},#{HOME}},~,#{b:pane_current_path}} #[fg=colour180]#(cd #{pane_current_path} && git rev-parse --abbrev-ref HEAD 2>/dev/null | sed 's/^/ /') #[fg=colour245] %Y-%m-%d %H:%M "
 
 # ウィンドウリストの位置
 set -g status-justify left
