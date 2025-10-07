@@ -14,9 +14,13 @@ setw -g window-status-current-format " #I:#W "
 setw -g window-status-style fg=colour245,bg=default
 setw -g window-status-current-style fg=colour255,bg=default,bold
 
-# ペインボーダーの色
+# ペインボーダーの色とスタイル
 set -g pane-border-style fg=colour240
-set -g pane-active-border-style fg=colour75
+set -g pane-active-border-style fg=colour75,bold
+set -g pane-border-lines heavy
+set -g pane-border-indicators both
+set -g pane-border-status top
+set -g pane-border-format " #P: #{pane_current_command} "
 
 # コマンドラインの色
 set -g message-style fg=colour255,bg=colour235,bold
