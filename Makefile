@@ -2,7 +2,7 @@
 DOTFILES_DIR := $(shell pwd)
 UNAME := $(shell uname -s)
 
-.PHONY: all help macos tex install
+.PHONY: all help macos install
 
 # デフォルトターゲット
 help:
@@ -10,17 +10,16 @@ help:
 	@echo "  dotfiles インストールコマンド"
 	@echo "========================================="
 	@echo ""
-	@echo "  make install - 基本セットアップ（macOS/TeX以外）"
+	@echo "  make install - 基本セットアップ"
 	@echo "  make macos   - macOS設定とサービスのインストール"
-	@echo "  make tex     - TeXのインストール"
 	@echo "  make all     - 全てインストール"
 	@echo ""
 
 # 全てインストール
-all: install macos tex
+all: install macos
 	@echo "✨ 全てのインストールが完了しました"
 
-# 基本セットアップ（macOS/TeX以外）
+# 基本セットアップ
 install:
 	@echo "Starting dotfiles installation..."
 	@# miseのインストール
@@ -53,7 +52,7 @@ install:
 	@# .configディレクトリ
 	@echo "Creating symlinks for .config directories..."
 	@mkdir -p ~/.config
-	@for dir in aerospace any-script-mcp better-auth borders direnv gh gh-dash git github-copilot karabiner kitty lazygit linearmouse mise nvim sheldon sketchybar sketchybar-kainoa sketchybar-prajinkhadka tex tmux yazi; do \
+	@for dir in aerospace any-script-mcp better-auth borders direnv gh gh-dash git github-copilot karabiner kitty lazygit linearmouse mise nvim sheldon sketchybar sketchybar-kainoa sketchybar-prajinkhadka tmux yazi; do \
 		if [ -d $(DOTFILES_DIR)/config/.config/$$dir ]; then \
 			echo "  -> Linking $$dir..."; \
 			if [ -e ~/.config/$$dir ] && [ ! -L ~/.config/$$dir ]; then \
@@ -144,22 +143,3 @@ macos:
 		echo "  -> SketchyBar started"; \
 	fi
 	@echo "macOS installation completed!"
-
-# TeXインストール
-tex:
-	@echo "Setting up TeX environment..."
-	@# .latexmkrcのシンボリックリンク
-	@echo "Creating symlink for .latexmkrc..."
-	@ln -sf $(DOTFILES_DIR)/root/.latexmkrc ~/.latexmkrc
-	@# TeXパッケージのインストール
-	@if command -v tlmgr &> /dev/null; then \
-		echo "  -> Installing TeX packages..."; \
-		while IFS= read -r package; do \
-			echo "    -> Installing $$package..."; \
-			sudo tlmgr install "$$package" || echo "    -> Warning: Failed to install $$package"; \
-		done < $(DOTFILES_DIR)/config/.config/tex/tex-packages.txt; \
-		echo "  -> TeX packages installation completed"; \
-	else \
-		echo "  -> tlmgr not found. Please install BasicTeX first and run 'sudo tlmgr update --self' before running this script again."; \
-	fi
-	@echo "TeX environment setup completed!"

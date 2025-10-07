@@ -201,7 +201,6 @@ return {
   ["Brave Browser"] = ":brave_browser:",
   ["Preview"] = ":pdf:",
   ["预览"] = ":pdf:",
-  ["Skim"] = ":pdf:",
   ["zathura"] = ":pdf:",
   ["Obsidian"] = ":obsidian:",
   ["Thunderbird"] = ":thunderbird:",

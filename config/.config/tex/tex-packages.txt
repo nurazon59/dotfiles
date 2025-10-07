@@ -1,4 +1,0 @@
-latexmk
-collection-langjapanese
-platex
-jsclasses

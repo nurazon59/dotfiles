@@ -7,7 +7,6 @@
 # -----------------------------------------------------------------------------
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.local/share/mise/installs/tree-sitter/latest
-fish_add_path /Library/TeX/texbin
 
 # -----------------------------------------------------------------------------
 # Development Tools
