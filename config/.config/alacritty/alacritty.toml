@@ -195,18 +195,6 @@ key = "Return"
 mods = "Shift"
 chars = "\n"
 
-# tmux: Cmd+Dで縦分割
-[[keyboard.bindings]]
-key = "D"
-mods = "Command"
-chars = "\u001bd"
-
-# tmux: Cmd+Shift+Dで横分割
-[[keyboard.bindings]]
-key = "D"
-mods = "Command|Shift"
-chars = "\u001bD"
-
 [env]
 # 環境変数
 TERM = "xterm-256color"
