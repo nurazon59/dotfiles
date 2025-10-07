@@ -29,6 +29,9 @@ alias bat='nocorrect bat'
 alias cat='bat --paging=never'
 alias tree='lsd --icon always --git --group-directories-first --tree'
 
+# tmux: セッションがある場合は最後のセッションにattach、なければ新規作成
+alias tmux='tmux attach || tmux new'
+
 # git log をデフォルトでreverse表示
 git() {
   if [[ "$1" == "log" ]]; then
