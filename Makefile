@@ -53,7 +53,7 @@ install:
 	@# .configディレクトリ
 	@echo "Creating symlinks for .config directories..."
 	@mkdir -p ~/.config
-	@for dir in aerospace any-script-mcp better-auth borders direnv gh gh-dash git github-copilot karabiner kitty lazygit linearmouse mise nvim sheldon sketchybar sketchybar-kainoa sketchybar-prajinkhadka tex yazi; do \
+	@for dir in aerospace any-script-mcp better-auth borders direnv gh gh-dash git github-copilot karabiner kitty lazygit linearmouse mise nvim sheldon sketchybar sketchybar-kainoa sketchybar-prajinkhadka tex tmux yazi; do \
 		if [ -d $(DOTFILES_DIR)/config/.config/$$dir ]; then \
 			echo "  -> Linking $$dir..."; \
 			if [ -e ~/.config/$$dir ] && [ ! -L ~/.config/$$dir ]; then \
