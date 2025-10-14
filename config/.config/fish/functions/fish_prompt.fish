@@ -106,6 +106,9 @@ function _prompt_git_upstream
     set -l ahead (git rev-list --count "$upstream..HEAD" 2>/dev/null)
     set -l behind (git rev-list --count "HEAD..$upstream" 2>/dev/null)
 
+    test -z "$ahead"; and set ahead 0
+    test -z "$behind"; and set behind 0
+
     if test $ahead -gt 0
         set_color -o green
         echo -n "⇡$ahead "
