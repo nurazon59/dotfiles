@@ -59,6 +59,10 @@ return {
         end,
       }
 
+      -- lsp_signature.nvimとの競合を避けるため、blinkのシグネチャヘルプを無効化
+      opts.signature = opts.signature or {}
+      opts.signature.enabled = false
+
       return opts
     end,
   },
