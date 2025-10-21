@@ -18,7 +18,7 @@
     "allow": [
       "Read(~/src)",
       "Edit(~/src)",
-      "WebFetch(https://*)",
+      "WebFetch",
       "Bash(ls:*)",
       "Bash(rg:*)",
       "Bash(mv:*)",
@@ -88,10 +88,8 @@
       "Bash(rm -rf /*)",
       "Bash(rm -rf .git)",
       "Bash(sudo:*)",
-      "Bash(curl * | sh)",
-      "Bash(curl * | bash)",
-      "Bash(wget * | sh)",
-      "Bash(wget * | bash)",
+      "Bash(curl:*)",
+      "Bash(wget:*)",
       "Bash(git push -f:*)",
       "Bash(git push --force-with-lease:*)",
       "Bash(dd:*)",
@@ -149,7 +147,6 @@
     ],
     "defaultMode": "acceptEdits"
   },
-  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -176,5 +173,5 @@
     "type": "command",
     "command": "bash ~/.claude/statusline.sh"
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": false
 }
