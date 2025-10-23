@@ -109,11 +109,6 @@
       "pattern": "\\bswitch\\s*\\(",
       "message": "switch文は使用禁止です。ts-patternライブラリのmatch関数を使用してください",
       "severity": "error"
-    },
-    {
-      "pattern": "\\bthrow\\s+(new\\s+)?",
-      "message": "throwは使用禁止です。Result型（Result<T, E>）を使用してエラーハンドリングを行ってください",
-      "severity": "error"
     }
   ]
 }

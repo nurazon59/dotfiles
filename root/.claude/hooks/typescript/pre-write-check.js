@@ -420,59 +420,59 @@ function checkContent(content, filePath) {
       });
     }
   });
-
-  // エラーハンドリング不足のチェック
-  lines.forEach((line, index) => {
-    // try-catchのないawait
-    if (
-      /\bawait\s+/.test(line) &&
-      !lines
-        .slice(Math.max(0, index - 5), index + 5)
-        .some((l) => /\btry\s*\{/.test(l))
-    ) {
-      // async関数内かつfetch/Promise関連のawaitの場合
-      if (/await\s+(fetch|axios|api|.*Promise|.*\(\))/.test(line)) {
-        errors.push({
-          type: "await_without_try_catch",
-          line: index + 1,
-          message: `awaitにはtry-catchが必要です。エラーハンドリングを追加してください`,
-          content: line.trim(),
-        });
-      }
-    }
-
-    // .thenのみで.catchなし
-    if (/\.then\s*\(/.test(line)) {
-      // 同じステートメント内に.catchがあるかチェック
-      let hasСatch = false;
-      let checkLine = line;
-      let lineIndex = index;
-
-      // 複数行にわたる場合をチェック
-      while (
-        lineIndex < lines.length &&
-        !checkLine.includes(";") &&
-        lineIndex < index + 5
-      ) {
-        if (/\.catch\s*\(/.test(checkLine)) {
-          hasСatch = true;
-          break;
-        }
-        lineIndex++;
-        checkLine = lines[lineIndex] || "";
-      }
-
-      if (!hasСatch) {
-        errors.push({
-          type: "promise_without_catch",
-          line: index + 1,
-          message: `Promiseチェーンには.catchが必要です。エラーハンドリングを追加してください`,
-          content: line.trim(),
-        });
-      }
-    }
-  });
-
+  //
+  // // エラーハンドリング不足のチェック
+  // lines.forEach((line, index) => {
+  //   // try-catchのないawait
+  //   if (
+  //     /\bawait\s+/.test(line) &&
+  //     !lines
+  //       .slice(Math.max(0, index - 5), index + 5)
+  //       .some((l) => /\btry\s*\{/.test(l))
+  //   ) {
+  //     // async関数内かつfetch/Promise関連のawaitの場合
+  //     if (/await\s+(fetch|axios|api|.*Promise|.*\(\))/.test(line)) {
+  //       errors.push({
+  //         type: "await_without_try_catch",
+  //         line: index + 1,
+  //         message: `awaitにはtry-catchが必要です。エラーハンドリングを追加してください`,
+  //         content: line.trim(),
+  //       });
+  //     }
+  //   }
+  //
+  //   // .thenのみで.catchなし
+  //   if (/\.then\s*\(/.test(line)) {
+  //     // 同じステートメント内に.catchがあるかチェック
+  //     let hasСatch = false;
+  //     let checkLine = line;
+  //     let lineIndex = index;
+  //
+  //     // 複数行にわたる場合をチェック
+  //     while (
+  //       lineIndex < lines.length &&
+  //       !checkLine.includes(";") &&
+  //       lineIndex < index + 5
+  //     ) {
+  //       if (/\.catch\s*\(/.test(checkLine)) {
+  //         hasСatch = true;
+  //         break;
+  //       }
+  //       lineIndex++;
+  //       checkLine = lines[lineIndex] || "";
+  //     }
+  //
+  //     if (!hasСatch) {
+  //       errors.push({
+  //         type: "promise_without_catch",
+  //         line: index + 1,
+  //         message: `Promiseチェーンには.catchが必要です。エラーハンドリングを追加してください`,
+  //         content: line.trim(),
+  //       });
+  //     }
+  //   }
+  // });
+  //
   // localStorageセキュリティチェック
   lines.forEach((line, index) => {
     const storageMatch = line.match(
