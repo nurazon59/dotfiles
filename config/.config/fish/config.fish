@@ -27,8 +27,8 @@ docker completion fish | source
 source "$HOME/.local/bin/env"
 
 set -x LANG en_US.UTF-8
-set -x EDITOR 'nvim'
-set -x PAGER 'bat'
+set -x EDITOR nvim
+set -x PAGER bat
 set -x BAT_PAGER 'less -R'
 set -x FZF_DEFAULT_OPTS '--height 40% --reverse'
 
@@ -72,4 +72,3 @@ set -g __fish_git_prompt_showcolorhints 1
 # -----------------------------------------------------------------------------
 source ~/.config/fish/functions/catppuccin_frappe.fish
 catppuccin_frappe
-

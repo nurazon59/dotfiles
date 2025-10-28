@@ -242,3 +242,4 @@ tags
 zzz/
 .serena/
 .playwright-mcp/
+.dotter/local.toml

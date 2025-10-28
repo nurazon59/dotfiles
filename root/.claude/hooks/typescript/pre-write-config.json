@@ -36,6 +36,11 @@
       "severity": "error"
     },
     {
+      "pattern": "as\\s+any",
+      "message": "'as any'の使用は禁止されています。適切な型定義を使用してください",
+      "severity": "error"
+    },
+    {
       "pattern": ":\\s*any(\\s|\\[|\\)|,|;|$)",
       "message": ": any型アノテーションは禁止されています。適切な型定義を使用してください",
       "severity": "error"
