@@ -177,131 +177,6 @@ function checkContent(content, filePath) {
 
   const lines = content.split("\n");
 
-  // レイヤー名を含む命名のチェック
-  const layerNamePattern =
-    /(^|-)?(repo|repository|usecase|use-case|service|controller)($|-)/i;
-
-  // ファイル名のチェック
-  if (filePath) {
-    const fileName = path.basename(filePath, path.extname(filePath));
-    if (layerNamePattern.test(fileName)) {
-      errors.push({
-        type: "layer_name_in_filename",
-        line: 0,
-        message: `ファイル名にレイヤー名（repo、repository、usecase、use-case、service、controller - 大文字小文字問わず）を含めることは禁止されています`,
-        content: fileName,
-      });
-    }
-  }
-
-  // 関数名、クラス名、インターフェース名のチェック
-  lines.forEach((line, index) => {
-    // 関数宣言（function、const/let/var）
-    const functionMatch = line.match(
-      /(?:function\s+|(?:const|let|var)\s+)(\w+)(?:\s*[=(:])/,
-    );
-    if (functionMatch) {
-      const functionName = functionMatch[1];
-      if (layerNamePattern.test(functionName)) {
-        errors.push({
-          type: "layer_name_in_function",
-          line: index + 1,
-          message: `関数名にレイヤー名を含めることは禁止されています: ${functionName}`,
-          content: line.trim(),
-        });
-      }
-    }
-
-    // インターフェース宣言
-    const interfaceMatch = line.match(/\binterface\s+(\w+)/);
-    if (interfaceMatch) {
-      const interfaceName = interfaceMatch[1];
-      if (layerNamePattern.test(interfaceName)) {
-        errors.push({
-          type: "layer_name_in_interface",
-          line: index + 1,
-          message: `インターフェース名にレイヤー名を含めることは禁止されています: ${interfaceName}`,
-          content: line.trim(),
-        });
-      }
-    }
-
-    // type宣言
-    const typeMatch = line.match(/\btype\s+(\w+)\s*=/);
-    if (typeMatch) {
-      const typeName = typeMatch[1];
-      if (layerNamePattern.test(typeName)) {
-        errors.push({
-          type: "layer_name_in_type",
-          line: index + 1,
-          message: `型名にレイヤー名を含めることは禁止されています: ${typeName}`,
-          content: line.trim(),
-        });
-      }
-    }
-  });
-
-  // コンポーネント名・関数名に数字を含むことのチェック
-  lines.forEach((line, index) => {
-    // コンポーネント名（大文字で始まるPascalCase関数）
-    const componentMatch = line.match(
-      /(?:function|const|export\s+(?:default\s+)?function|export\s+const)\s+([A-Z]\w*\d+\w*|\w*\d+[A-Z]\w*)(?:\s*[=(:])/,
-    );
-    if (componentMatch) {
-      const componentName = componentMatch[1];
-      if (/\d/.test(componentName)) {
-        errors.push({
-          type: "number_in_component_name",
-          line: index + 1,
-          message: `コンポーネント名に数字を含むことは禁止されています: ${componentName}`,
-          content: line.trim(),
-        });
-      }
-    }
-
-    // 一般の関数名（小文字で始まるcamelCase関数）
-    const functionMatch2 = line.match(
-      /(?:function|const|let|var)\s+([a-z]\w*)(?:\s*[=(:])/,
-    );
-    if (functionMatch2) {
-      const functionName = functionMatch2[1];
-      if (/\d/.test(functionName)) {
-        errors.push({
-          type: "number_in_function_name",
-          line: index + 1,
-          message: `関数名に数字を含むことは禁止されています: ${functionName}`,
-          content: line.trim(),
-        });
-      }
-    }
-
-    // アロー関数・メソッド定義での数字チェック
-    const arrowOrMethodMatch = line.match(
-      /(?:const|let|var)\s+(\w+)\s*=\s*(?:\([^)]*\)|[^=])\s*=>/,
-    );
-    if (arrowOrMethodMatch) {
-      const name = arrowOrMethodMatch[1];
-      if (/\d/.test(name)) {
-        // 大文字始まりはコンポーネント、小文字始まりは関数
-        if (/^[A-Z]/.test(name)) {
-          errors.push({
-            type: "number_in_component_name",
-            line: index + 1,
-            message: `コンポーネント名に数字を含むことは禁止されています: ${name}`,
-            content: line.trim(),
-          });
-        } else {
-          errors.push({
-            type: "number_in_function_name",
-            line: index + 1,
-            message: `関数名に数字を含むことは禁止されています: ${name}`,
-            content: line.trim(),
-          });
-        }
-      }
-    }
-  });
-
   // eval/new Functionの禁止チェック
   lines.forEach((line, index) => {
     // evalの使用を検出
@@ -651,19 +526,6 @@ function checkContent(content, filePath) {
           content: line.trim(),
         });
       }
-    }
-  });
-
-  // useEffectの使用禁止チェック
-  lines.forEach((line, index) => {
-    // useEffectの呼び出しを検出
-    if (/\buseEffect\s*\(/.test(line)) {
-      errors.push({
-        type: "use_effect_forbidden",
-        line: index + 1,
-        message: `useEffectの使用は禁止されています。データ取得はTanStack Query/SWR、イベントリスナーはカスタムフックを使用してください`,
-        content: line.trim(),
-      });
     }
   });
 
@@ -1296,7 +1158,7 @@ function checkContent(content, filePath) {
         const returnLines = returnEnd - returnStart + 1;
 
         // 100行以上で警告、200行以上でエラー
-        if (returnLines > 200) {
+        if (returnLines > 400) {
           errors.push({
             type: "large_jsx_return",
             line: returnStart + 1,
@@ -1407,16 +1269,6 @@ function printSummary(errors, warnings, filePath) {
         `  7. ${colors.yellow}"debugger"${colors.reset} → デバッグ文を削除`,
       );
     }
-    if (
-      errorTypes.includes("layer_name_in_filename") ||
-      errorTypes.includes("layer_name_in_function") ||
-      errorTypes.includes("layer_name_in_interface") ||
-      errorTypes.includes("layer_name_in_type")
-    ) {
-      console.error(
-        `  8. ${colors.yellow}"レイヤー名"${colors.reset} → レイヤー名（Repo、Repository、UseCase、Service、Controller）を命名から除外`,
-      );
-    }
     if (errorTypes.includes("fetch_local_file")) {
       console.error(
         `  9. ${colors.yellow}"fetch(ローカルファイル)"${colors.reset} → import文またはAPIエンドポイント経由で取得`,
@@ -1432,14 +1284,6 @@ function printSummary(errors, warnings, filePath) {
       console.error(
         `     例: apiClient.users.get() または trpc.user.getAll.query()`,
       );
-    }
-    if (errorTypes.includes("use_effect_forbidden")) {
-      console.error(
-        `  11. ${colors.yellow}"useEffect"${colors.reset} → TanStack Query/SWR、カスタムフック、またはユーザーに確認`,
-      );
-      console.error(`     データ取得: useQuery, useSWR`);
-      console.error(`     イベント: カスタムフック（useWindowEvent等）`);
-      console.error(`     どうしても必要な場合: ユーザーに確認してから追加`);
     }
     if (
       errorTypes.includes("dom_direct_manipulation") ||

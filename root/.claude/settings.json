@@ -61,6 +61,7 @@
       "Bash(gh pr diff:*)",
       "Bash(gh issue create:*)",
       "Bash(gh issue edit:*)",
+      "Bash(gh issue view:*)",
       "Bash(git commit:*)",
       "Bash(git add:*)",
       "Bash(git rm --cached:*)",
@@ -80,7 +81,9 @@
       "mcp__github__add_issue_comment",
       "mcp__github__get_issue_comments",
       "mcp__o3-search__o3-search",
-      "mcp__ui-react-mcp"
+      "mcp__ui-react-mcp",
+      "mcp__chrome-dev-tools",
+      "mcp__playwright-mcp"
     ],
     "deny": [
       "Bash(rm -rf /)",
