@@ -1,7 +1,6 @@
-local lspconfig = require("lspconfig")
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+local M = {}
 
-local servers = {
+M.servers = {
   "lua_ls",
   "ts_ls",
   "eslint",
@@ -13,10 +12,16 @@ local servers = {
   "yamlls",
   "html",
   "cssls",
+  "terraformls",
 }
 
-for _, lsp in ipairs(servers) do
+local lspconfig = require("lspconfig")
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+for _, lsp in ipairs(M.servers) do
   lspconfig[lsp].setup({
     capabilities = capabilities,
   })
 end
+
+return M
