@@ -114,6 +114,16 @@
       "pattern": "\\bswitch\\s*\\(",
       "message": "switch文は使用禁止です。ts-patternライブラリのmatch関数を使用してください",
       "severity": "error"
+    },
+    {
+      "pattern": "^\\s*\\/\\/",
+      "message": "単一行コメント（//）の使用は禁止されています。コードで意図を表現してください",
+      "severity": "error"
+    },
+    {
+      "pattern": "^\\s*\\/\\*",
+      "message": "複数行コメント（/* */ および /** */）の使用は禁止されています。コードで意図を表現してください",
+      "severity": "error"
     }
   ]
 }

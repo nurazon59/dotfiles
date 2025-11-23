@@ -924,6 +924,75 @@ function checkContent(content, filePath) {
     }
   });
 
+  // コメント禁止チェック
+  lines.forEach((line, index) => {
+    const trimmedLine = line.trim();
+
+    // 単一行コメント（//）を検出
+    if (/^\s*\/\//.test(line)) {
+      errors.push({
+        type: "single_line_comment",
+        line: index + 1,
+        message: `単一行コメント（//）の使用は禁止されています。コードで意図を表現してください`,
+        content: line.trim(),
+      });
+    }
+
+    // インラインコメント（行の途中の //）を検出
+    // 文字列リテラル内のスラッシュは除外
+    const codeBeforeComment = line.split(/["'`]/)[0];
+    if (/\S.*\/\//.test(codeBeforeComment) && !trimmedLine.startsWith("//")) {
+      errors.push({
+        type: "inline_comment",
+        line: index + 1,
+        message: `インラインコメント（//）の使用は禁止されています。コードで意図を表現してください`,
+        content: line.trim(),
+      });
+    }
+  });
+
+  // 複数行コメント（/* */ および /** */）の検出
+  let inMultiLineComment = false;
+  let commentStartLine = 0;
+
+  lines.forEach((line, index) => {
+    const trimmedLine = line.trim();
+
+    // 複数行コメント開始を検出（/** も含む）
+    if (/^\s*\/\*/.test(line) && !inMultiLineComment) {
+      inMultiLineComment = true;
+      commentStartLine = index + 1;
+
+      // 同じ行で閉じている場合
+      if (trimmedLine.includes('*/')) {
+        const commentType = /^\s*\/\*\*/.test(line) ? "JSDocコメント（/** */）" : "複数行コメント（/* */）";
+        errors.push({
+          type: "multi_line_comment",
+          line: index + 1,
+          message: `${commentType}の使用は禁止されています。コードで意図を表現してください`,
+          content: line.trim(),
+        });
+        inMultiLineComment = false;
+        commentStartLine = 0;
+      }
+      return;
+    }
+
+    // 複数行コメント終了を検出
+    if (inMultiLineComment && trimmedLine.includes('*/')) {
+      const firstLine = lines[commentStartLine - 1];
+      const commentType = /^\s*\/\*\*/.test(firstLine) ? "JSDocコメント（/** */）" : "複数行コメント（/* */）";
+      errors.push({
+        type: "multi_line_comment",
+        line: commentStartLine,
+        message: `${commentType}の使用は禁止されています。コードで意図を表現してください`,
+        content: firstLine.trim(),
+      });
+      inMultiLineComment = false;
+      commentStartLine = 0;
+    }
+  });
+
   // I/Tプレフィックス禁止チェック
   lines.forEach((line, index) => {
     // interface Iプレフィックス
@@ -1070,116 +1139,6 @@ function checkContent(content, filePath) {
       });
     });
   }
-
-  // JSX/TSXファイルの行数制限チェック
-  if (filePath && /\.(jsx|tsx)$/.test(filePath)) {
-    const totalLines = lines.length;
-
-    if (totalLines > 200) {
-      errors.push({
-        type: "jsx_file_too_large",
-        line: 0,
-        message: `JSX/TSXファイルが大きすぎます（${totalLines}行）。200行以内に収めてください。コンポーネントを分割することを検討してください`,
-        content: `ファイル全体: ${totalLines}行`,
-      });
-    } else if (totalLines > 150) {
-      warnings.push({
-        type: "jsx_file_large",
-        line: 0,
-        message: `JSX/TSXファイルが大きくなっています（${totalLines}行）。150行を超えるとコンポーネントの分割を検討してください`,
-        content: `ファイル全体: ${totalLines}行`,
-      });
-    }
-  }
-
-  // return文内のJSX構造の行数チェック（JSX/TSXファイルのみ）
-  if (filePath && /\.(jsx|tsx)$/.test(filePath)) {
-    // 全てのreturn文を検索して、その範囲をチェック
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-
-      // return文を検出
-      if (/\breturn\s*[(<]/.test(line)) {
-        let returnStart = i;
-        let returnEnd = i;
-        let openParens = 0;
-        let openTags = 0;
-
-        // 最初の行の括弧とタグをカウント
-        openParens +=
-          (line.match(/\(/g) || []).length - (line.match(/\)/g) || []).length;
-
-        // JSXタグのカウント（セルフクローズは除外）
-        const openingTags = (line.match(/<[A-Za-z][^>]*(?<!\/)\s*>/g) || [])
-          .length;
-        const closingTags = (line.match(/<\/[A-Za-z][^>]*>/g) || []).length;
-        openTags += openingTags - closingTags;
-
-        // return文の終了を探す
-        for (let j = i + 1; j < lines.length; j++) {
-          const currentLine = lines[j];
-
-          // 括弧のカウント
-          openParens +=
-            (currentLine.match(/\(/g) || []).length -
-            (currentLine.match(/\)/g) || []).length;
-
-          // タグのカウント
-          const currentOpeningTags = (
-            currentLine.match(/<[A-Za-z][^>]*(?<!\/)\s*>/g) || []
-          ).length;
-          const currentClosingTags = (
-            currentLine.match(/<\/[A-Za-z][^>]*>/g) || []
-          ).length;
-          openTags += currentOpeningTags - currentClosingTags;
-
-          // return文の終了条件
-          // 1. セミコロンで終了
-          // 2. 全ての括弧とタグが閉じられて、次の行が } で始まる
-          if (
-            /;\s*$/.test(currentLine) ||
-            (openParens <= 0 &&
-              openTags <= 0 &&
-              j + 1 < lines.length &&
-              /^\s*\}/.test(lines[j + 1]))
-          ) {
-            returnEnd = j;
-            break;
-          }
-
-          // ファイルの最後
-          if (j === lines.length - 1) {
-            returnEnd = j;
-            break;
-          }
-        }
-
-        // return文の行数を計算
-        const returnLines = returnEnd - returnStart + 1;
-
-        // 100行以上で警告、200行以上でエラー
-        if (returnLines > 400) {
-          errors.push({
-            type: "large_jsx_return",
-            line: returnStart + 1,
-            message: `return文内のJSX構造が大きすぎます（${returnLines}行）。200行以内に収めてください。子コンポーネントに分割することを検討してください`,
-            content: `return文のJSX: ${returnLines}行`,
-          });
-        } else if (returnLines > 100) {
-          warnings.push({
-            type: "large_jsx_return_warning",
-            line: returnStart + 1,
-            message: `return文内のJSX構造が大きくなっています（${returnLines}行）。100行を超える場合は子コンポーネントへの分割を検討してください`,
-            content: `return文のJSX: ${returnLines}行`,
-          });
-        }
-
-        // 次のreturn文を探すため、iを更新
-        i = returnEnd;
-      }
-    }
-  }
-
   return { errors, warnings };
 }
 
@@ -1611,6 +1570,38 @@ function printSummary(errors, warnings, filePath) {
       console.error(`       if (!a) return e;`);
       console.error(`       return b ? c : d;`);
       console.error(`     }`);
+    }
+    if (
+      errorTypes.includes("single_line_comment") ||
+      errorTypes.includes("inline_comment") ||
+      errorTypes.includes("multi_line_comment")
+    ) {
+      console.error(
+        `  37. ${colors.yellow}"コメント（//, /* */, /** */）"${colors.reset} → コードで意図を表現`,
+      );
+      console.error(`     すべてのコメントの使用は禁止されています。以下の方法でコードを明確にしてください:`);
+      console.error(`     `);
+      console.error(`     NG: // ユーザーを取得`);
+      console.error(`         const data = fetchData();`);
+      console.error(`     `);
+      console.error(`     OK: const user = fetchUser();`);
+      console.error(`     `);
+      console.error(`     NG: /* 複雑なロジック */`);
+      console.error(`         if (a && b || c) { ... }`);
+      console.error(`     `);
+      console.error(`     OK: const shouldProcess = (a && b) || c;`);
+      console.error(`         if (shouldProcess) { ... }`);
+      console.error(`     `);
+      console.error(`     NG: /** @param {string} name - ユーザー名 */`);
+      console.error(`         function greet(name) { ... }`);
+      console.error(`     `);
+      console.error(`     OK: function greetUser(userName: string) { ... }`);
+      console.error(`     `);
+      console.error(`     推奨される代替手法:`);
+      console.error(`     - 説明的な変数名・関数名を使用`);
+      console.error(`     - 複雑なロジックを小さな関数に分割`);
+      console.error(`     - TypeScriptの型定義で意図を表現`);
+      console.error(`     - インターフェースや型エイリアスで構造を明確化`);
     }
     if (errorTypes.includes("empty_catch_block")) {
       console.error(
