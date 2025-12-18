@@ -17,7 +17,7 @@
 "pipx:semgrep" = "1.131.0"
 # starship = "1.23.0"
 aqua = "2.53.7"
-aws-cli = "2.32.19"
+aws-cli = "2.32.20"
 bat = "0.25.0"
 bun = "1.2.22"
 colima = "0.9.1"
