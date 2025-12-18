@@ -4,7 +4,7 @@
 "cargo:fresh-editor" = "0.1.52"
 "cargo:himalaya" = "1.1.0"
 "npm:@anthropic-ai/claude-code" = "2.0.72"
-"npm:@github/copilot" = "0.0.369"
+"npm:@github/copilot" = "0.0.370"
 "npm:@google/gemini-cli" = "0.17.0"
 "npm:@openai/codex" = "0.73.0"
 "npm:difit" = "2.2.5"
