@@ -10,7 +10,7 @@
 "npm:difit" = "2.2.6"
 "npm:vercel" = "50.1.3"
 "npm:vibe-kanban" = "0.0.138"
-"npm:@ast-grep/cli" = "0.40.3"
+"npm:@ast-grep/cli" = "0.40.4"
 "npm:@bitwarden/cli" = "2025.12.0"
 "npm:@antfu/ni" = "28.0.0"
 "npm:@mermaid-js/mermaid-cli" = "11.12.0"
