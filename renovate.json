@@ -9,7 +9,6 @@
   ],
   "timezone": "Asia/Tokyo",
   "labels": ["renovate"],
-  "assignees": ["nurazon59"],
   "automerge": true,
   "automergeType": "pr",
   "rebaseWhen": "automerging"
