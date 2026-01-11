@@ -14,7 +14,7 @@
 "npm:@bitwarden/cli" = "2025.12.0"
 "npm:@antfu/ni" = "28.0.0"
 "npm:@mermaid-js/mermaid-cli" = "11.12.0"
-"pipx:semgrep" = "1.131.0"
+"pipx:semgrep" = "1.147.0"
 # starship = "1.23.0"
 aqua = "2.53.7"
 aws-cli = "2.32.32"
