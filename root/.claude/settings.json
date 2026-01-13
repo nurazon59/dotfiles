@@ -83,9 +83,12 @@
       "mcp__o3-search__o3-search",
       "mcp__ui-react-mcp",
       "mcp__chrome-dev-tools",
-      "mcp__playwright-mcp"
+      "mcp__playwright-mcp",
+      "mcp__notion__notion-fetch"
     ],
     "deny": [
+      "Bash(aws:*)",
+      "Bash(terraform:*)",
       "Bash(rm -rf /)",
       "Bash(rm -rf ~)",
       "Bash(rm -rf /*)",
@@ -148,7 +151,8 @@
       "Write(/etc/shadow)",
       "Write(/etc/sudoers)"
     ],
-    "defaultMode": "acceptEdits"
+    "ask": [],
+    "defaultMode": "dontAsk"
   },
   "hooks": {
     "PreToolUse": [
@@ -174,7 +178,17 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "bash ~/.claude/statusline.sh"
+    "command": "bunx -y ccstatusline@latest",
+    "padding": 0
   },
-  "alwaysThinkingEnabled": false
+  "enabledPlugins": {
+    "ast-grep@ast-grep-marketplace": true,
+    "dev-workflows-frontend@claude-code-workflows": true,
+    "document-skills@anthropic-agent-skills": true,
+    "code-review@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true
+  },
+  "alwaysThinkingEnabled": true
 }
