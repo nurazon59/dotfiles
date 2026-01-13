@@ -9,7 +9,7 @@
 "npm:@openai/codex" = "0.80.0"
 "npm:difit" = "2.2.7"
 "npm:vercel" = "50.1.6"
-"npm:vibe-kanban" = "0.0.148"
+"npm:vibe-kanban" = "0.0.150"
 "npm:@ast-grep/cli" = "0.40.5"
 "npm:@bitwarden/cli" = "2025.12.0"
 "npm:@antfu/ni" = "28.1.0"
