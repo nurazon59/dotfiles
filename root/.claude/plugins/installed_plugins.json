@@ -1,0 +1,82 @@
+{
+  "version": 2,
+  "plugins": {
+    "ast-grep@ast-grep-marketplace": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/ast-grep-marketplace/ast-grep/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2025-12-17T13:04:56.182Z",
+        "lastUpdated": "2025-12-17T13:04:56.182Z",
+        "gitCommitSha": "d46b7d0cd238000e35bfcd57aa95edb3ed6a573c",
+        "isLocal": true
+      }
+    ],
+    "dev-workflows-frontend@claude-code-workflows": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-code-workflows/dev-workflows-frontend/0.6.1",
+        "version": "0.6.1",
+        "installedAt": "2025-12-17T13:04:56.182Z",
+        "lastUpdated": "2025-12-17T13:04:56.182Z",
+        "gitCommitSha": "defd050e9a083b1505c4ddf741536894a5affd5f",
+        "isLocal": true
+      }
+    ],
+    "document-skills@anthropic-agent-skills": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/anthropic-agent-skills/document-skills/unknown",
+        "version": "unknown",
+        "installedAt": "2025-12-17T13:04:56.182Z",
+        "lastUpdated": "2025-12-17T13:04:56.182Z",
+        "gitCommitSha": "f232228244495c018b3c1857436cf491ebb79bbb",
+        "isLocal": true
+      }
+    ],
+    "code-review@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/code-review/unknown",
+        "version": "unknown",
+        "installedAt": "2025-12-17T13:04:56.182Z",
+        "lastUpdated": "2025-12-17T13:04:56.182Z",
+        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e",
+        "isLocal": true
+      }
+    ],
+    "commit-commands@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/commit-commands/unknown",
+        "version": "unknown",
+        "installedAt": "2025-12-17T13:04:56.182Z",
+        "lastUpdated": "2025-12-17T13:04:56.182Z",
+        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e",
+        "isLocal": true
+      }
+    ],
+    "playwright@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/playwright/unknown",
+        "version": "unknown",
+        "installedAt": "2025-12-17T13:04:56.182Z",
+        "lastUpdated": "2025-12-17T13:04:56.182Z",
+        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e",
+        "isLocal": true
+      }
+    ],
+    "pr-review-toolkit@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/pr-review-toolkit/unknown",
+        "version": "unknown",
+        "installedAt": "2025-12-17T13:04:56.182Z",
+        "lastUpdated": "2025-12-17T13:04:56.182Z",
+        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e",
+        "isLocal": true
+      }
+    ]
+  }
+}
