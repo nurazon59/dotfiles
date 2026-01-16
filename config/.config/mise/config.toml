@@ -3,7 +3,7 @@
 "cargo:dotter" = "0.13.4"
 "cargo:fresh-editor" = "0.1.52"
 "cargo:himalaya" = "1.1.0"
-"npm:@anthropic-ai/claude-code" = "2.1.7"
+"npm:@anthropic-ai/claude-code" = "2.1.9"
 "npm:@github/copilot" = "0.0.382"
 "npm:@google/gemini-cli" = "0.24.0"
 "npm:@openai/codex" = "0.80.0"
