@@ -6,7 +6,7 @@
 "npm:@anthropic-ai/claude-code" = "2.1.9"
 "npm:@github/copilot" = "0.0.384"
 "npm:@google/gemini-cli" = "0.24.0"
-"npm:@openai/codex" = "0.80.0"
+"npm:@openai/codex" = "0.87.0"
 "npm:difit" = "2.2.7"
 "npm:vercel" = "50.4.5"
 "npm:vibe-kanban" = "0.0.153"
