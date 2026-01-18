@@ -52,6 +52,15 @@ bind \ck accept-autosuggestion
 bind -M insert jj 'set fish_bind_mode default; commandline -f repaint'
 bind -M insert \ck accept-autosuggestion
 
+# zeno keybindings (fish_vi_key_bindingsの後に読み込む必要がある)
+if test "$ZENO_LOADED" = 1
+    bind -M insert ' ' zeno-auto-snippet
+    bind -M insert \r zeno-auto-snippet-and-accept-line
+    bind -M insert \n zeno-auto-snippet-and-accept-line
+    bind -M insert \t zeno-completion
+    bind -M insert \cx\x20 zeno-insert-space
+end
+
 # -----------------------------------------------------------------------------
 # Shell Configuration
 # -----------------------------------------------------------------------------
@@ -72,3 +81,16 @@ set -g __fish_git_prompt_showcolorhints 1
 # -----------------------------------------------------------------------------
 source ~/.config/fish/functions/catppuccin_frappe.fish
 catppuccin_frappe
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+set --export --prepend PATH "/Users/itsuki54/.rd/bin"
+
+# TeX PATH
+fish_add_path /Library/TeX/texbin
+
+# pnpm
+set -gx PNPM_HOME "/Users/itsuki54/Library/pnpm"
+if not string match -q -- $PNPM_HOME $PATH
+  set -gx PATH "$PNPM_HOME" $PATH
+end
+# pnpm end
