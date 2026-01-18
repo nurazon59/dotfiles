@@ -16,3 +16,9 @@ config/.config/karabiner/automatic_backups/
 .local.*
 config/.config/github-copilot/apps.json
 root/.claude/debug
+.dotter/cache.toml
+root/.claude/plans
+cache/
+root/.claude/paste-cache
+root/.claude/stats-cache.json
+root/.claude/stats-cache.json
