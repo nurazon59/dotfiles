@@ -1,8 +1,7 @@
 # Starship configuration
 
 format = """
-${custom.git_repo}\
-${custom.non_git_dir}\
+$directory\
 $git_branch\
 $git_status\
 $nodejs\
@@ -15,38 +14,16 @@ $docker_context\
 $line_break\
 $character"""
 
-[custom.git_repo]
-when = true
-require_repo = true
-command = '''
-repo_path=$(git rev-parse --show-toplevel 2>/dev/null)
-current_path=$(pwd)
-relative_path=$(echo "$current_path" | sed "s|^$repo_path||" | sed 's|^/||')
-
-# ghqで管理されているか確認
-ghq_root=$(ghq root 2>/dev/null)
-if [ -n "$ghq_root" ] && echo "$repo_path" | grep -q "^$ghq_root/github.com/"; then
-  # ghq管理下のリポジトリ
-  owner_repo=$(echo "$repo_path" | sed "s|$ghq_root/github.com/||")
-else
-  # ghq管理外のリポジトリ - リポジトリ名のみ表示
-  owner_repo=$(basename "$repo_path")
-fi
-
-if [ -z "$relative_path" ]; then
-  echo "$owner_repo"
-else
-  echo "$owner_repo $relative_path"
-fi
-'''
+[directory]
+truncation_length = 3
+truncate_to_repo = false
 style = 'bold cyan'
-format = '[$output]($style) '
+format = '[$path]($style)[$read_only]($read_only_style) '
+repo_root_style = 'bold cyan'
+repo_root_format = '[$before_root_path]($before_repo_root_style)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style) '
 
-[custom.non_git_dir]
-when = '! git rev-parse --show-toplevel &>/dev/null'
-command = 'pwd | sed "s|$HOME|~|"'
-style = 'cyan'
-format = '[$output]($style) '
+[directory.substitutions]
+'~/src/github.com/' = ''
 
 [git_branch]
 format = "[$symbol$branch]($style) "
