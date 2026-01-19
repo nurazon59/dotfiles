@@ -2,7 +2,7 @@
 # why: LaunchAgentのPATHにmiseのLuaが含まれず、`/usr/bin/env lua`で解決できないため
 #      フルパスのmise LuaでLua構成(`init.lua`)を実行するシムを用意する
 
-MiseLua="$HOME/.local/share/mise/installs/lua/5.4.6/bin/lua"
+MiseLua="$HOME/.local/share/mise/installs/lua/5.4.8/bin/lua"
 if [ ! -x "$MiseLua" ]; then
   echo "sketchybarrc: miseのLuaが見つかりません: $MiseLua" >&2
   exit 1
