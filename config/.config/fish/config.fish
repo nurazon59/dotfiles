@@ -16,10 +16,10 @@ direnv hook fish | source
 zoxide init fish | source
 
 # -----------------------------------------------------------------------------
-# Shell Completions
+# Prompt
 # -----------------------------------------------------------------------------
-gh completion -s fish | source
-docker completion fish | source
+set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
+starship init fish | source
 
 # -----------------------------------------------------------------------------
 # Environment Variables
@@ -65,16 +65,6 @@ end
 # Shell Configuration
 # -----------------------------------------------------------------------------
 set -U fish_history_size 10000
-
-# -----------------------------------------------------------------------------
-# Git Prompt Configuration
-# -----------------------------------------------------------------------------
-set -g __fish_git_prompt_showdirtystate 1
-set -g __fish_git_prompt_showstashstate 1
-set -g __fish_git_prompt_showuntrackedfiles 1
-set -g __fish_git_prompt_showupstream 1
-set -g __fish_git_prompt_show_informative_status 1
-set -g __fish_git_prompt_showcolorhints 1
 
 # -----------------------------------------------------------------------------
 # Theme Configuration
