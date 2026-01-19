@@ -84,7 +84,8 @@
       "mcp__ui-react-mcp",
       "mcp__chrome-dev-tools",
       "mcp__playwright-mcp",
-      "mcp__notion__notion-fetch"
+      "mcp__notion__notion-fetch",
+      "Bash(pnpm --filter @tuna/contest vitest run:*)"
     ],
     "deny": [
       "Bash(aws:*)",
@@ -155,6 +156,16 @@
     "defaultMode": "dontAsk"
   },
   "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pkill -f 'vitest|vite|next-server|next-router|turbo|drizzle-kit|playwright|tsx watch' 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "Write",
@@ -189,6 +200,5 @@
     "commit-commands@claude-plugins-official": true,
     "playwright@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true
-  },
-  "alwaysThinkingEnabled": true
+  }
 }
