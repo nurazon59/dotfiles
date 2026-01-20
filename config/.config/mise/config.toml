@@ -8,7 +8,7 @@
 "npm:@google/gemini-cli" = "0.24.4"
 "npm:@openai/codex" = "0.87.0"
 "npm:difit" = "3.0.3"
-"npm:vercel" = "50.4.5"
+"npm:vercel" = "50.4.6"
 "npm:vibe-kanban" = "0.0.155"
 "npm:@ast-grep/cli" = "0.40.5"
 "npm:@bitwarden/cli" = "2025.12.1"
