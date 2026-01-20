@@ -5,7 +5,7 @@
 "cargo:himalaya" = "1.1.0"
 "npm:@anthropic-ai/claude-code" = "2.1.12"
 "npm:@github/copilot" = "0.0.387"
-"npm:@google/gemini-cli" = "0.24.4"
+"npm:@google/gemini-cli" = "0.24.5"
 "npm:@openai/codex" = "0.87.0"
 "npm:difit" = "3.0.3"
 "npm:vercel" = "50.4.6"
