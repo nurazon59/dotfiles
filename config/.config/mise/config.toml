@@ -7,7 +7,7 @@
 "npm:@github/copilot" = "0.0.385"
 "npm:@google/gemini-cli" = "0.24.4"
 "npm:@openai/codex" = "0.87.0"
-"npm:difit" = "3.0.2"
+"npm:difit" = "3.0.3"
 "npm:vercel" = "50.4.5"
 "npm:vibe-kanban" = "0.0.155"
 "npm:@ast-grep/cli" = "0.40.5"
