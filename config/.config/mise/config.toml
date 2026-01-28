@@ -6,7 +6,7 @@
 "npm:@anthropic-ai/claude-code" = "2.1.12"
 "npm:@github/copilot" = "0.0.387"
 "npm:@google/gemini-cli" = "0.24.4"
-"npm:@openai/codex" = "0.87.0"
+"npm:@openai/codex" = "latest"
 "npm:difit" = "3.0.3"
 "npm:vercel" = "50.4.6"
 "npm:vibe-kanban" = "0.0.155"
@@ -65,6 +65,8 @@ mprocs = "latest"
 aws = "latest"
 act = "latest"
 pre-commit = "latest"
+flutter = "3.38.8"
+ruby = "3.3.10"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
