@@ -1,5 +1,5 @@
 [tools]
-"aqua:suzuki-shunsuke/ghalint" = "1.5.4"
+"aqua:suzuki-shunsuke/ghalint" = "1.5.5"
 "cargo:dotter" = "0.13.4"
 "cargo:fresh-editor" = "0.1.52"
 "cargo:himalaya" = "1.1.0"
