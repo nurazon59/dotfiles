@@ -65,7 +65,7 @@ mprocs = "latest"
 aws = "latest"
 act = "latest"
 pre-commit = "latest"
-flutter = "3.38.8"
+flutter = "3.38.9"
 ruby = "3.3.10"
 
 [settings]
