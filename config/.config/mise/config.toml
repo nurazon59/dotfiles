@@ -67,6 +67,7 @@ act = "latest"
 pre-commit = "latest"
 flutter = "3.38.9"
 ruby = "3.3.10"
+"npm:@playwright/cli" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
