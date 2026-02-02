@@ -166,7 +166,6 @@ f = [
 #s = ['layout sticky tiling', 'mode main']
 
 
-
 # Workspace-to-monitor assignmentalt-shift-h = ['join-with left', 'mode main']
 alt-shift-j = ['join-with down', 'mode main']
 alt-shift-k = ['join-with up', 'mode main']
@@ -177,10 +176,22 @@ alt-shift-l = ['join-with right', 'mode main']
 3 = 3
 
 # Application workspace assignments
-# [[on-window-detected]]
-# if.app-id = 'company.thebrowser.Browser'
-# run = 'move-node-to-workspace 2'
+[[on-window-detected]]
+if.app-id = 'org.alacritty'
+run = 'move-node-to-workspace 1'
 
-# [[on-window-detected]]
-# if.app-id = 'net.kovidgoyal.kitty'
-# run = 'move-node-to-workspace 1'
+[[on-window-detected]]
+if.app-id = 'company.thebrowser.Browser'
+run = 'move-node-to-workspace 2'
+
+[[on-window-detected]]
+if.app-id = 'com.tinyspeck.slackmacgap'
+run = 'move-node-to-workspace 3'
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = 'move-node-to-workspace R'
+
+[[on-window-detected]]
+if.app-id = 'net.whatsapp.WhatsApp'
+run = 'move-node-to-workspace W'
