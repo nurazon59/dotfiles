@@ -8,8 +8,7 @@
         "version": "1.0.0",
         "installedAt": "2025-12-17T13:04:56.182Z",
         "lastUpdated": "2025-12-17T13:04:56.182Z",
-        "gitCommitSha": "d46b7d0cd238000e35bfcd57aa95edb3ed6a573c",
-        "isLocal": true
+        "gitCommitSha": "d46b7d0cd238000e35bfcd57aa95edb3ed6a573c"
       }
     ],
     "dev-workflows-frontend@claude-code-workflows": [
@@ -19,8 +18,7 @@
         "version": "0.6.1",
         "installedAt": "2025-12-17T13:04:56.182Z",
         "lastUpdated": "2025-12-17T13:04:56.182Z",
-        "gitCommitSha": "defd050e9a083b1505c4ddf741536894a5affd5f",
-        "isLocal": true
+        "gitCommitSha": "defd050e9a083b1505c4ddf741536894a5affd5f"
       }
     ],
     "document-skills@anthropic-agent-skills": [
@@ -30,8 +28,7 @@
         "version": "unknown",
         "installedAt": "2025-12-17T13:04:56.182Z",
         "lastUpdated": "2025-12-17T13:04:56.182Z",
-        "gitCommitSha": "f232228244495c018b3c1857436cf491ebb79bbb",
-        "isLocal": true
+        "gitCommitSha": "f232228244495c018b3c1857436cf491ebb79bbb"
       }
     ],
     "code-review@claude-plugins-official": [
@@ -41,8 +38,7 @@
         "version": "unknown",
         "installedAt": "2025-12-17T13:04:56.182Z",
         "lastUpdated": "2025-12-17T13:04:56.182Z",
-        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e",
-        "isLocal": true
+        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e"
       }
     ],
     "commit-commands@claude-plugins-official": [
@@ -52,19 +48,7 @@
         "version": "unknown",
         "installedAt": "2025-12-17T13:04:56.182Z",
         "lastUpdated": "2025-12-17T13:04:56.182Z",
-        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e",
-        "isLocal": true
-      }
-    ],
-    "playwright@claude-plugins-official": [
-      {
-        "scope": "user",
-        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/playwright/unknown",
-        "version": "unknown",
-        "installedAt": "2025-12-17T13:04:56.182Z",
-        "lastUpdated": "2025-12-17T13:04:56.182Z",
-        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e",
-        "isLocal": true
+        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e"
       }
     ],
     "pr-review-toolkit@claude-plugins-official": [
@@ -74,8 +58,57 @@
         "version": "unknown",
         "installedAt": "2025-12-17T13:04:56.182Z",
         "lastUpdated": "2025-12-17T13:04:56.182Z",
-        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e",
-        "isLocal": true
+        "gitCommitSha": "ab2b6d0cad88ead3da5466ef2acef0c4a351971e"
+      }
+    ],
+    "playwright-cli@playwright-cli": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/playwright-cli/playwright-cli/0.0.1",
+        "version": "0.0.1",
+        "installedAt": "2026-01-30T02:44:37.949Z",
+        "lastUpdated": "2026-01-30T02:44:37.949Z",
+        "gitCommitSha": "9d6e58359aac3b88f3217fb6345a3c902cbe7931"
+      }
+    ],
+    "frontend-design@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/frontend-design/27d2b86d72da",
+        "version": "27d2b86d72da",
+        "installedAt": "2026-01-30T02:48:30.665Z",
+        "lastUpdated": "2026-01-30T02:48:30.665Z",
+        "gitCommitSha": "27d2b86d72da27c64585150857cee8472ad47abb"
+      }
+    ],
+    "context7@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/context7/27d2b86d72da",
+        "version": "27d2b86d72da",
+        "installedAt": "2026-01-30T02:48:30.720Z",
+        "lastUpdated": "2026-01-30T02:48:30.720Z",
+        "gitCommitSha": "27d2b86d72da27c64585150857cee8472ad47abb"
+      }
+    ],
+    "feature-dev@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/feature-dev/27d2b86d72da",
+        "version": "27d2b86d72da",
+        "installedAt": "2026-01-30T02:48:30.772Z",
+        "lastUpdated": "2026-01-30T02:48:30.772Z",
+        "gitCommitSha": "27d2b86d72da27c64585150857cee8472ad47abb"
+      }
+    ],
+    "code-simplifier@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/code-simplifier/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-01-30T02:48:30.851Z",
+        "lastUpdated": "2026-01-30T02:48:30.851Z",
+        "gitCommitSha": "27d2b86d72da27c64585150857cee8472ad47abb"
       }
     ]
   }
