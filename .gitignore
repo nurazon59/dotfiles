@@ -1,10 +1,10 @@
 # Claude directory ignores
-root/.claude/statsig/
-root/.claude/todos/
-root/.claude/projects/
-root/.claude/shell-snapshots/
-root/.claude/ide/
-root/.claude/hooks/*/tsconfig-cache.json
+config/root/.claude/statsig/
+config/root/.claude/todos/
+config/root/.claude/projects/
+config/root/.claude/shell-snapshots/
+config/root/.claude/ide/
+config/root/.claude/hooks/*/tsconfig-cache.json
 
 # Working directory
 zzz/
@@ -15,10 +15,10 @@ config/.config/karabiner/automatic_backups/
 # Local files
 .local.*
 config/.config/github-copilot/apps.json
-root/.claude/debug
+config/root/.claude/debug
 .dotter/cache.toml
-root/.claude/plans
+config/root/.claude/plans
 cache/
-root/.claude/paste-cache
-root/.claude/stats-cache.json
-root/.claude/stats-cache.json
+config/root/.claude/paste-cache
+config/root/.claude/stats-cache.json
+config/root/.claude/stats-cache.json
