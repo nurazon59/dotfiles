@@ -1,0 +1,46 @@
+[credential]
+	helper = store
+[user]
+	name = nurazon59
+	email = nurazon59@users.noreply.github.com
+[push]
+	default = current
+[init]
+	defaultBranch = main
+[color]
+	ui = auto
+[pull]
+	default = current
+[ghq]
+  root = ~/src/
+[core]
+  pager = delta
+	excludesFile = /Users/itsuki54/.gitignore
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+  side-by-side = true
+  dark = true
+  true-color = always
+  features = catppuccin-frappe
+  syntax-theme = Sublime Snazzy
+	paging = never
+[alias]
+  co = checkout
+  cb = checkout -b
+  ic = commit --allow-empty -m 'Initial commit'
+  wc = wip-commit
+  ct = checkout-topic
+  # https://medium.com/@jmatsu.drm/avoid-direct-value-of-default-branch-name-f24ec6e6b52
+  get-branch-cache = "!f() { git config --local misc.$1-branch; }; f"
+  set-branch-cache = "!f() { git config --local misc.$1-branch \"$2\"; }; f"
+  fetch-default-branch = "!f() { git ls-remote --symref $(git remote get-url origin) HEAD | grep 'refs/heads' | awk '$0=$2' | sed 's/refs\\/heads\\///'; }; f"
+  refresh-default-branch= "!f() { git set-branch-cache default $(git fetch-default-branch); }; f"
+  default-branch = "!f() { git get-branch-cache default || (git refresh-default-branch; git get-branch-cache default); }; f"
+  pr = "gh pr create --web"
+  dft = difftool
+	log = log --reverse
+
+[coderabbit]
+	machineId = cli/fd8d641df30442d7bdfa8bb13d5347cb
