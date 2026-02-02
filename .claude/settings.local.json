@@ -1,0 +1,67 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nvim:*)",
+      "mcp__voicebox__speak"
+    ],
+    "deny": [],
+    "ask": []
+  },
+  "mcpServers": {
+    "markitdown": {
+      "command": "markitdown-mcp"
+    },
+    "context7": {
+      "type": "sse",
+      "url": "https://mcp.context7.com/sse"
+    },
+    "playwright": {
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "command": "npx",
+      "env": {},
+      "type": "stdio"
+    },
+    "deepwiki": {
+      "type": "http",
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "any-script": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "any-script-mcp"
+      ],
+      "env": {}
+    },
+    "voicebox": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/Users/itsuki54/src/github.com/nurazon59/voicebox-mcp/dist/index.js"
+      ],
+      "env": {}
+    },
+    "chrome-devtools": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "chrome-devtools-mcp@latest"
+      ],
+      "env": {}
+    },
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp"
+    },
+    "arxiv-mcp-server": {
+      "command": "uv",
+      "args": [
+        "tool",
+        "run",
+        "arxiv-mcp-server"
+      ]
+    }
+  }
+}
