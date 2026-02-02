@@ -237,8 +237,10 @@ Sessionx.vim
 **/.claude/settings.local.json
 **/.claude/file-history
 **/.claude/history.jsonl
+**/.claude/tasks
 
 zzz/
 .serena/
 .playwright-mcp/
 .dotter/local.toml
+.playwright-cli/

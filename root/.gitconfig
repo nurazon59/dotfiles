@@ -42,3 +42,5 @@
   dft = difftool
 	log = log --reverse
 
+[coderabbit]
+	machineId = cli/fd8d641df30442d7bdfa8bb13d5347cb
