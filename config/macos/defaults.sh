@@ -35,6 +35,15 @@ source "$(dirname "$0")/security.sh"
 # アニメーション高速化設定
 source "$(dirname "$0")/animation.sh"
 
+# マウス設定
+source "$(dirname "$0")/mouse.sh"
+
+# Control Center設定
+source "$(dirname "$0")/controlcenter.sh"
+
+# Dock固定アプリ設定
+source "$(dirname "$0")/dock-apps.sh"
+
 echo ""
 echo "設定が完了しました！"
 echo "一部の設定は再起動後に反映されます。"
