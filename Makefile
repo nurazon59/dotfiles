@@ -114,9 +114,6 @@ macos:
 	done
 	@# macOSサービスの起動
 	@echo "Starting macOS services..."
-	@if command -v aerospace &> /dev/null; then \
-		aerospace --start-at-login; \
-	fi
 	@if command -v borders &> /dev/null; then \
 		brew services start borders; \
 	fi

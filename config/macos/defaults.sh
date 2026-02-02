@@ -1,49 +1,20 @@
 #!/bin/bash
 
-# macOS システム設定の適用
-# 使用方法: ./defaults.sh
-
 set -e
 
-echo "macOS のシステム設定を適用しています..."
+echo "Applying macOS system settings..."
 
-# グローバル設定
 source "$(dirname "$0")/system.sh"
-
-# キーボード設定
 source "$(dirname "$0")/keyboard.sh"
-
-# Dock設定
 source "$(dirname "$0")/dock.sh"
-
-# Finder設定
 source "$(dirname "$0")/finder.sh"
-
-
-# スクリーンショット設定
 source "$(dirname "$0")/screenshot.sh"
-
-# トラックパッド設定
 source "$(dirname "$0")/trackpad.sh"
-
-# メニューバー設定
 source "$(dirname "$0")/menu.sh"
-
-# セキュリティ設定
 source "$(dirname "$0")/security.sh"
-
-# アニメーション高速化設定
 source "$(dirname "$0")/animation.sh"
-
-# マウス設定
 source "$(dirname "$0")/mouse.sh"
-
-# Control Center設定
 source "$(dirname "$0")/controlcenter.sh"
 
-# Dock固定アプリ設定
-source "$(dirname "$0")/dock-apps.sh"
-
 echo ""
-echo "設定が完了しました！"
-echo "一部の設定は再起動後に反映されます。"
+echo "Done! Some settings require a restart to take effect."
