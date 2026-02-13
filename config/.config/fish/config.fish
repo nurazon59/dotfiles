@@ -8,6 +8,14 @@
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.local/share/mise/installs/tree-sitter/latest
 
+# Repair stale universal fish_function_path values carried from other machines.
+if set -q fish_function_path
+    if not contains -- $__fish_config_dir/functions $fish_function_path
+        set -eU fish_function_path
+        set -g fish_function_path $__fish_config_dir/functions $__fish_sysconf_dir/functions $__fish_vendor_functionsdirs $__fish_data_dir/functions
+    end
+end
+
 # -----------------------------------------------------------------------------
 # Development Tools
 # -----------------------------------------------------------------------------
@@ -18,6 +26,8 @@ zoxide init fish | source
 # -----------------------------------------------------------------------------
 # Prompt
 # -----------------------------------------------------------------------------
+set -g async_prompt_enable 1
+set -g async_prompt_functions fish_prompt fish_right_prompt
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
 
