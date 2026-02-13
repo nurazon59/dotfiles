@@ -21,11 +21,6 @@ zoxide init fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
 
-# -----------------------------------------------------------------------------
-# Environment Variables
-# -----------------------------------------------------------------------------
-source "$HOME/.local/bin/env"
-
 set -x LANG en_US.UTF-8
 set -x EDITOR nvim
 set -x PAGER bat
@@ -43,6 +38,14 @@ alias tree='lsd --icon always --git --group-directories-first --tree'
 alias less='bat --paging=always'
 
 # -----------------------------------------------------------------------------
+# Abbreviations
+# -----------------------------------------------------------------------------
+if status --is-interactive
+    abbr --add gco 'git checkout'
+    abbr --add gcb 'git checkout -b'
+end
+
+# -----------------------------------------------------------------------------
 # Key Bindings
 # -----------------------------------------------------------------------------
 fish_vi_key_bindings
@@ -54,19 +57,13 @@ bind -M insert \ck accept-autosuggestion
 # -----------------------------------------------------------------------------
 # Shell Configuration
 # -----------------------------------------------------------------------------
-set -U fish_history_size 10000
-
-# -----------------------------------------------------------------------------
-# Theme Configuration
-# -----------------------------------------------------------------------------
-source ~/.config/fish/functions/catppuccin_frappe.fish
-catppuccin_frappe
+set -g fish_history_size 10000
 
 # TeX PATH
 fish_add_path /Library/TeX/texbin
 
 # pnpm
-set -gx PNPM_HOME /Users/itsuki54/Library/pnpm
+set -gx PNPM_HOME "$HOME/Library/pnpm"
 if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
