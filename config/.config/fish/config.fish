@@ -57,13 +57,7 @@ bind -M insert \ck accept-autosuggestion
 # -----------------------------------------------------------------------------
 # Shell Configuration
 # -----------------------------------------------------------------------------
-set -U fish_history_size 10000
-
-# -----------------------------------------------------------------------------
-# Theme Configuration
-# -----------------------------------------------------------------------------
-source ~/.config/fish/functions/catppuccin_frappe.fish
-catppuccin_frappe
+set -g fish_history_size 10000
 
 # TeX PATH
 fish_add_path /Library/TeX/texbin
