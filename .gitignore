@@ -26,3 +26,5 @@ cache/
 config/root/.claude/paste-cache
 config/root/.claude/stats-cache.json
 config/root/.claude/stats-cache.json
+config/root/.claude/usage-data
+config/root/.claude/teams
