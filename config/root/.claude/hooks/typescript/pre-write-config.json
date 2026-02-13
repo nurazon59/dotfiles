@@ -125,5 +125,12 @@
       "message": "複数行コメント（/* */ および /** */）の使用は禁止されています。コードで意図を表現してください",
       "severity": "error"
     }
+  ],
+
+  "projectOverrides": [
+    {
+      "pathContains": "soloops",
+      "disablePatterns": ["\\bclass\\s+[A-Z]\\w*"]
+    }
   ]
 }

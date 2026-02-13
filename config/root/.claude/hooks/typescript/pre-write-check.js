@@ -68,6 +68,7 @@ function loadConfig() {
 
     // カスタムルール
     customPatterns: fileConfig.customPatterns || [],
+    projectOverrides: fileConfig.projectOverrides || [],
 
     _fileConfig: fileConfig,
   };
@@ -1119,7 +1120,17 @@ function checkContent(content, filePath) {
 
   // カスタムパターンのチェック
   if (config.customPatterns && config.customPatterns.length > 0) {
+    const disabledPatterns = new Set();
+    if (filePath && config.projectOverrides) {
+      config.projectOverrides.forEach((override) => {
+        if (filePath.includes(override.pathContains)) {
+          override.disablePatterns.forEach((p) => disabledPatterns.add(p));
+        }
+      });
+    }
+
     config.customPatterns.forEach((pattern) => {
+      if (disabledPatterns.has(pattern.pattern)) return;
       const regex = new RegExp(pattern.pattern, pattern.flags || "g");
       lines.forEach((line, index) => {
         if (regex.test(line)) {

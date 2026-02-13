@@ -244,3 +244,4 @@ zzz/
 .playwright-mcp/
 .dotter/local.toml
 .playwright-cli/
+.worktree

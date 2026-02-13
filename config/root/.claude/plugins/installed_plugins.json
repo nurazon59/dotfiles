@@ -110,6 +110,16 @@
         "lastUpdated": "2026-01-30T02:48:30.851Z",
         "gitCommitSha": "27d2b86d72da27c64585150857cee8472ad47abb"
       }
+    ],
+    "coderabbit@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/itsuki54/.claude/plugins/cache/claude-plugins-official/coderabbit/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-02-03T14:41:58.332Z",
+        "lastUpdated": "2026-02-03T14:41:58.332Z",
+        "gitCommitSha": "70daac1485106cf797e873f6c23a1eca40ac1ac1"
+      }
     ]
   }
 }
