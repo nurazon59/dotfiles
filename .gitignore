@@ -15,6 +15,10 @@ config/.config/karabiner/automatic_backups/
 # Local files
 .local.*
 config/.config/github-copilot/apps.json
+config/.config/fish/fish_variables
+config/.config/fish/conf.d/fish_frozen_key_bindings.fish
+config/.config/fish/conf.d/fish_frozen_theme.fish
+config/.config/fish/conf.d/fish_frozen_theme.fish.bak
 config/root/.claude/debug
 .dotter/cache.toml
 config/root/.claude/plans
