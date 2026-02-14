@@ -65,7 +65,7 @@ mprocs = "latest"
 aws = "latest"
 act = "latest"
 pre-commit = "latest"
-flutter = "3.38.9"
+flutter = "3.41.1"
 ruby = "4.0.1"
 "npm:@playwright/cli" = "latest"
 
