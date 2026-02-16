@@ -17,13 +17,14 @@ return {
       terraform = { "terraform_fmt" },
 
       lua = { "stylua" },
-      javascript = { "prettier", "eslint" },
-      typescript = { "prettier", "eslint" },
+      javascript = { "oxfmt", "eslint" },
+      typescript = { "oxfmt", "eslint" },
       go = { "goimports" },
       -- python = { "black" },
       -- rust = { "rustfmt" },
-      json = { "prettier" },
-      yaml = { "prettier" },
+      json = { "oxfmt" },
+      yaml = { "oxfmt" },
+      markdown = { "oxfmt" },
     },
     format_on_save = {
       timeout_ms = 500,
