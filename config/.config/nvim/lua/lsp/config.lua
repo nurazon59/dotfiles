@@ -33,11 +33,12 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
+    event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
+      "hrsh7th/cmp-cmdline",
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
@@ -86,6 +87,28 @@ return {
           { name = "buffer" },
         }),
       })
+
+      cmp.setup.cmdline(":", {
+        completion = {
+          autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
+        },
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = "path" },
+        }, {
+          { name = "cmdline" },
+        }),
+      })
+
+      cmp.setup.cmdline({ "/", "?" }, {
+        completion = {
+          autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
+        },
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = "buffer" },
+        },
+      })
     end,
   },
   {
@@ -94,8 +117,11 @@ return {
       "mason-org/mason-lspconfig.nvim",
       "hrsh7th/cmp-nvim-lsp",
     },
-    config = function()
-      require("config.lsp-servers").setup()
+    opts = function(_, opts)
+      opts.servers = opts.servers or {}
+      for _, s in ipairs(require("config.lsp-servers").servers) do
+        opts.servers[s] = opts.servers[s] or {}
+      end
     end,
   },
 }
