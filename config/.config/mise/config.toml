@@ -3,7 +3,7 @@
 "cargo:dotter" = "latest"
 "cargo:fresh-editor" = "latest"
 "cargo:himalaya" = "latest"
-"npm:@anthropic-ai/claude-code" = "latest"
+
 "npm:@github/copilot" = "latest"
 "npm:@google/gemini-cli" = "latest"
 "npm:@openai/codex" = "latest"
@@ -15,7 +15,12 @@
 "npm:@antfu/ni" = "latest"
 "npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:wrangler" = "latest"
+"npm:@playwright/cli" = "latest"
+"npm:oxfmt" = "latest"
+"npm:happy-coder" = "latest"
+
 "pipx:semgrep" = "latest"
+
 aqua = "latest"
 aws-cli = "latest"
 bat = "latest"
@@ -63,10 +68,6 @@ goreleaser = "latest"
 mprocs = "latest"
 aws = "latest"
 act = "latest"
-pre-commit = "latest"
-flutter = "3.38.9"
-ruby = "4.0.1"
-"npm:@playwright/cli" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
