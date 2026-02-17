@@ -42,13 +42,27 @@ return {
       "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
+      "onsails/lspkind.nvim",
     },
     config = function()
       local cmp = require("cmp")
       local luasnip = require("luasnip")
       require("luasnip.loaders.from_vscode").lazy_load()
 
+      local lspkind = require("lspkind")
+
       cmp.setup({
+        window = {
+          completion = cmp.config.window.bordered(),
+          documentation = cmp.config.window.bordered(),
+        },
+        formatting = {
+          format = lspkind.cmp_format({
+            mode = "symbol_text",
+            maxwidth = 50,
+            ellipsis_char = "...",
+          }),
+        },
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
@@ -115,13 +129,11 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "mason-org/mason-lspconfig.nvim",
+      "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-nvim-lsp",
     },
-    opts = function(_, opts)
-      opts.servers = opts.servers or {}
-      for _, s in ipairs(require("config.lsp-servers").servers) do
-        opts.servers[s] = opts.servers[s] or {}
-      end
+    config = function()
+      require("config.lsp-servers").setup()
     end,
   },
 }
