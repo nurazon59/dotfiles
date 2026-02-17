@@ -22,6 +22,7 @@ end
 $HOME/.local/bin/mise activate fish | source
 direnv hook fish | source
 zoxide init fish | source
+fzf --fish | source
 
 # -----------------------------------------------------------------------------
 # Prompt
@@ -35,7 +36,7 @@ set -x LANG en_US.UTF-8
 set -x EDITOR nvim
 set -x PAGER bat
 set -x BAT_PAGER 'less -R'
-set -x FZF_DEFAULT_OPTS '--height 40% --reverse'
+set -x FZF_DEFAULT_OPTS '--height 40% --reverse --bind tab:down,btab:up'
 
 # -----------------------------------------------------------------------------
 # Aliases
@@ -61,8 +62,10 @@ end
 fish_vi_key_bindings
 
 bind \ck accept-autosuggestion
+bind \cg ghq_fzf
 bind -M insert jj 'set fish_bind_mode default; commandline -f repaint'
 bind -M insert \ck accept-autosuggestion
+bind -M insert \cg ghq_fzf
 
 # -----------------------------------------------------------------------------
 # Shell Configuration
