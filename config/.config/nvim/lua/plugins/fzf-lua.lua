@@ -41,10 +41,5 @@ return {
     vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua resume<CR>", opts)
     vim.keymap.set("n", "<leader>fd", "<cmd>FzfLua diagnostics_document<CR>", opts)
     vim.keymap.set("n", "<leader>fD", "<cmd>FzfLua diagnostics_workspace<CR>", opts)
-    vim.keymap.set("n", "gr", "<cmd>FzfLua lsp_references<CR>", opts)
-    vim.keymap.set("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", opts)
-    vim.keymap.set("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", opts)
-    vim.keymap.set("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", opts)
   end,
 }
-
