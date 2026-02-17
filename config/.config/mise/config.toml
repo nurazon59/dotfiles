@@ -67,6 +67,7 @@ pre-commit = "latest"
 flutter = "3.38.9"
 ruby = "4.0.1"
 "npm:@playwright/cli" = "latest"
+"go:github.com/nurazon59/ghmux" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
