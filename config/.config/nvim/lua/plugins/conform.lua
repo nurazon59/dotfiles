@@ -25,6 +25,7 @@ return {
       json = { "oxfmt" },
       yaml = { "oxfmt" },
       markdown = { "oxfmt" },
+      proto = { "buf" },
     },
     format_on_save = {
       timeout_ms = 500,
