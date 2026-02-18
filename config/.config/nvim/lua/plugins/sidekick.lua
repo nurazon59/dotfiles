@@ -3,6 +3,11 @@ return {
   opts = {
     -- add any options here
     cli = {
+      win = {
+        keys = {
+          stopinsert = false,
+        },
+      },
       mux = {
         backend = "tmux",
         enabled = true,
@@ -102,6 +107,17 @@ return {
       end,
       mode = { "n", "x" },
       desc = "Sidekick Select Prompt",
+    },
+    {
+      "<C-q>",
+      function()
+        local chan = vim.b.terminal_job_id
+        if chan then
+          vim.fn.chansend(chan, "\027")
+        end
+      end,
+      mode = { "t" },
+      desc = "Send ESC to terminal",
     },
     -- Example of a keybinding to open Claude directly
     {
