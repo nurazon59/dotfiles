@@ -8,6 +8,7 @@ M.servers = {
   "lua_ls",
   "markdown_oxide",
   "mdx_analyzer",
+  "postgres_lsp",
   "prismals",
   "pylsp",
   "pyright",
@@ -39,9 +40,20 @@ function M.setup()
   local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
   for _, lsp in ipairs(M.servers) do
-    lspconfig[lsp].setup({
+    local opts = {
       capabilities = capabilities,
-    })
+    }
+
+    if lsp == "postgres_lsp" then
+      opts.cmd = { "postgres-language-server", "lsp-proxy" }
+      opts.root_dir = function(bufnr)
+        return vim.fs.root(bufnr, { "postgres-language-server.jsonc", "postgrestools.jsonc", ".git" })
+      end
+      opts.filetypes = { "sql" }
+      opts.single_file_support = true
+    end
+
+    lspconfig[lsp].setup(opts)
   end
 end
 
