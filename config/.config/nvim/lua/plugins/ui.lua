@@ -46,6 +46,14 @@ return {
     },
   },
   {
+    "tadaa/vimade",
+    opts = {
+      recipe = { "default", { animate = false } },
+      fadelevel = 0.6,
+      saturation = { value = 0.4 },
+    },
+  },
+  {
     "petertriho/nvim-scrollbar",
     dependencies = { "lewis6991/gitsigns.nvim" },
     config = function()
