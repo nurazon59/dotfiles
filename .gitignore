@@ -29,3 +29,4 @@ config/root/.claude/stats-cache.json
 config/root/.claude/usage-data
 config/root/.claude/teams
 config/.config/tmux/plugins
+config/root/.claude/plugins
