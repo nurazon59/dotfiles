@@ -1,27 +1,22 @@
 return {
-  -- Tokyonightテーマ（暗い背景）
   {
-    "folke/tokyonight.nvim",
+    "rebelot/kanagawa.nvim",
     lazy = false,
     priority = 1000,
     opts = {
-      style = "night", -- night, storm, day, moon から選択
-      transparent = true, -- 背景透過を有効（ターミナルの背景が見える）
+      theme = "wave",
+      transparent = true,
+      overrides = function()
+        return {
+          NormalFloat = { bg = "none" },
+          FloatBorder = { bg = "none" },
+          FloatTitle = { bg = "none" },
+        }
+      end,
     },
-  },
-
-  -- 他の人気テーマ（コメントアウトで無効化）
-  -- { "catppuccin/nvim", name = "catppuccin" },
-  -- { "ellisonleao/gruvbox.nvim" },
-  -- { "rebelot/kanagawa.nvim" },
-  -- { "sainnhe/everforest" },
-
-  -- LazyVimでテーマを適用
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "tokyonight", -- ここを変更してテーマを切り替え
-    },
+    config = function(_, opts)
+      require("kanagawa").setup(opts)
+      vim.cmd.colorscheme("kanagawa-wave")
+    end,
   },
 }
-
