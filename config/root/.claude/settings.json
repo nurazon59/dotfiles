@@ -86,7 +86,24 @@
       "mcp__chrome-dev-tools",
       "mcp__playwright-mcp",
       "mcp__notion__notion-fetch",
-      "Bash(pnpm --filter @tuna/contest vitest run:*)"
+      "Bash(pnpm --filter @tuna/contest vitest run:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(task admin-ui:*)",
+      "Bash(task auth-one:*)",
+      "Bash(task fmt:*)",
+      "Bash(task gen)",
+      "Bash(task lint:*)",
+      "Bash(task test:light)",
+      "Bash(task user-api:*)",
+      "List(*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_close",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_take_screenshot"
     ],
     "deny": [
       "Bash(aws:*)",
@@ -151,11 +168,15 @@
       "Write(~/.ssh/*_ed25519)",
       "Write(/etc/passwd)",
       "Write(/etc/shadow)",
-      "Write(/etc/sudoers)"
+      "Write(/etc/sudoers)",
+      "Bash(task admin-ui:deploy:dev)",
+      "Bash(task cdk:*)",
+      "Bash(task rds:*)"
     ],
     "ask": [],
     "defaultMode": "dontAsk"
   },
+  "model": "opus",
   "hooks": {
     "Stop": [
       {
@@ -225,6 +246,9 @@
     "context7@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
-    "coderabbit@claude-plugins-official": true
-  }
+    "coderabbit@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true
+  },
+  "skipDangerousModePermissionPrompt": true
 }
