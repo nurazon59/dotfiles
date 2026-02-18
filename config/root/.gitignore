@@ -245,3 +245,5 @@ zzz/
 .dotter/local.toml
 .playwright-cli/
 .worktree
+.memo/
+.idea/
