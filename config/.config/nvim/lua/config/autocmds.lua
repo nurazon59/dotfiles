@@ -69,3 +69,34 @@ vim.api.nvim_create_autocmd({ "BufLeave", "TermClose" }, {
     end
   end,
 })
+
+-- why: SQL LSPにGo to Definitionがないため、grepでDDL定義にジャンプする
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "sql",
+  callback = function()
+    vim.keymap.set("n", "gd", function()
+      local word = vim.fn.expand("<cword>")
+      if word == "" then
+        return
+      end
+      local pattern = [[CREATE\s+(OR\s+REPLACE\s+)?(TABLE|VIEW|FUNCTION|TYPE|TRIGGER|PROCEDURE)\s+(IF\s+NOT\s+EXISTS\s+)?(\w+\.)?]] .. word .. [[\b]]
+      local obj = vim.system({ "rg", "--vimgrep", "--glob", "*.sql", pattern }):wait()
+      local lines = vim.tbl_filter(function(l)
+        return l ~= ""
+      end, vim.split(obj.stdout or "", "\n"))
+      if #lines == 1 then
+        local file, lnum, col = lines[1]:match("^(.+):(%d+):(%d+):")
+        if file then
+          vim.cmd("edit " .. vim.fn.fnameescape(file))
+          vim.api.nvim_win_set_cursor(0, { tonumber(lnum), tonumber(col) - 1 })
+          return
+        end
+      end
+      require("fzf-lua").grep({
+        search = pattern,
+        no_esc = true,
+        rg_opts = "--glob '*.sql'",
+      })
+    end, { buffer = 0, noremap = true, silent = true, desc = "DDL定義にジャンプ" })
+  end,
+})
