@@ -54,6 +54,10 @@ alias less='bat --paging=always'
 if status --is-interactive
     abbr --add gco 'git checkout'
     abbr --add gcb 'git checkout -b'
+    abbr --add .. 'cd ..'
+    abbr --add ... 'cd ../..'
+    abbr --add .... 'cd ../../..'
+    abbr --add ..... 'cd ../../../..'
 end
 
 # -----------------------------------------------------------------------------
@@ -81,3 +85,5 @@ if not string match -q -- $PNPM_HOME $PATH
     set -gx PATH "$PNPM_HOME" $PATH
 end
 # pnpm end
+
+git wt --init fish | source
