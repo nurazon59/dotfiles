@@ -36,25 +36,19 @@ M.tools = {
 }
 
 function M.setup()
-  local lspconfig = require("lspconfig")
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
+  vim.lsp.config("*", {
+    capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  })
 
-  for _, lsp in ipairs(M.servers) do
-    local opts = {
-      capabilities = capabilities,
-    }
+  vim.lsp.config("postgres_lsp", {
+    cmd = { "postgres-language-server", "lsp-proxy" },
+    root_markers = { "postgres-language-server.jsonc", "postgrestools.jsonc", ".git" },
+    filetypes = { "sql" },
+  })
 
-    if lsp == "postgres_lsp" then
-      opts.cmd = { "postgres-language-server", "lsp-proxy" }
-      opts.root_dir = function(bufnr)
-        return vim.fs.root(bufnr, { "postgres-language-server.jsonc", "postgrestools.jsonc", ".git" })
-      end
-      opts.filetypes = { "sql" }
-      opts.single_file_support = true
-    end
-
-    lspconfig[lsp].setup(opts)
-  end
+  vim.lsp.config("terraformls", {
+    filetypes = { "terraform", "tf", "terraform-vars" },
+  })
 end
 
 return M

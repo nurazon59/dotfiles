@@ -13,12 +13,17 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
-    dependencies = { "mason-org/mason.nvim" },
+    dependencies = {
+      "mason-org/mason.nvim",
+      "neovim/nvim-lspconfig",
+      "hrsh7th/cmp-nvim-lsp",
+    },
     config = function()
       local setup = require("config.lsp-servers")
+      setup.setup()
       require("mason-lspconfig").setup({
         ensure_installed = setup.servers,
-        automatic_enable = false,
+        automatic_enable = true,
         automatic_installation = true,
       })
     end,
@@ -106,13 +111,10 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "mason-org/mason-lspconfig.nvim",
-      "hrsh7th/nvim-cmp",
-      "hrsh7th/cmp-nvim-lsp",
-    },
-    config = function()
-      require("config.lsp-servers").setup()
-    end,
+  },
+  {
+    "kaarmu/typst.vim",
+    ft = "typst",
+    lazy = false,
   },
 }
