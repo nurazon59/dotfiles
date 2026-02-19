@@ -77,18 +77,20 @@ return {
     "petertriho/nvim-scrollbar",
     dependencies = { "lewis6991/gitsigns.nvim" },
     config = function()
-      local colors = require("tokyonight.colors").setup()
+      local kanagawa = require("kanagawa.colors").setup()
+      local theme = kanagawa.theme
+      local palette = kanagawa.palette
       require("scrollbar").setup({
         handle = {
-          color = colors.bg_highlight,
+          color = theme.ui.bg_p1,
         },
         marks = {
-          Search = { colot = colors.orange },
-          Error = { color = colors.error },
-          Warn = { color = colors.warning },
-          Info = { color = colors.info },
-          Hint = { color = colors.hint },
-          Misc = { color = colors.purple },
+          Search = { color = palette.surimiOrange },
+          Error = { color = theme.diag.error },
+          Warn = { color = theme.diag.warning },
+          Info = { color = theme.diag.info },
+          Hint = { color = theme.diag.hint },
+          Misc = { color = palette.oniViolet },
         },
       })
       require("scrollbar.handlers.gitsigns").setup()
