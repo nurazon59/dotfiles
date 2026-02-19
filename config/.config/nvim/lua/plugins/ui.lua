@@ -1,8 +1,28 @@
 return {
   {
     "akinsho/bufferline.nvim",
+    lazy = true,
+    event = "BufAdd",
     version = "*",
     dependencies = "nvim-tree/nvim-web-devicons",
+    opts = {
+      options = {
+        always_show_bufferline = false,
+      },
+    },
+    config = function(_, opts)
+      -- why: VeryLazyでsetup()が走るとshowtabline=2になりフラッシュするため、
+      -- リストバッファが2つ以上になるまでsetupを遅延させる
+      vim.api.nvim_create_autocmd("BufAdd", {
+        callback = function()
+          if #vim.fn.getbufinfo({ buflisted = 1 }) < 2 then
+            return
+          end
+          require("bufferline").setup(opts)
+          return true
+        end,
+      })
+    end,
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
