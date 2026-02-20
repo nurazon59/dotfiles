@@ -189,6 +189,43 @@ return {
     end,
   },
   {
+    "folke/snacks.nvim",
+    opts = {
+      scroll = { enabled = false },
+      indent = { enabled = false },
+      scope = { enabled = false },
+      notifier = { enabled = false },
+      words = { enabled = false },
+    },
+    keys = {
+      { "<leader>n", "<cmd>Noice history<cr>", desc = "Notification History" },
+      { "<leader>un", "<cmd>Noice dismiss<cr>", desc = "Dismiss All Notifications" },
+    },
+  },
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      stages = "static",
+      render = "wrapped-compact",
+      timeout = 3000,
+      top_down = true,
+    },
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    event = "LazyFile",
+    opts = {
+      scope = {
+        show_start = false,
+        show_end = false,
+      },
+      exclude = {
+        filetypes = { "help", "dashboard", "neo-tree", "Trouble", "lazy", "mason", "toggleterm" },
+      },
+    },
+  },
+  {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
