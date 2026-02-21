@@ -70,6 +70,7 @@ mysql = "latest"
 "go:github.com/nurazon59/ghmux" = "latest"
 "go:github.com/k1LoW/git-wt" = "latest"
 postgres = "18.2"
+task = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
