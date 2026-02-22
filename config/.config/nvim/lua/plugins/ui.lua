@@ -171,20 +171,18 @@ return {
     "petertriho/nvim-scrollbar",
     dependencies = { "lewis6991/gitsigns.nvim" },
     config = function()
-      local kanagawa = require("kanagawa.colors").setup()
-      local theme = kanagawa.theme
-      local palette = kanagawa.palette
+      local p = require("rose-pine.palette")
       require("scrollbar").setup({
         handle = {
-          color = theme.ui.bg_p1,
+          color = p.highlight_med,
         },
         marks = {
-          Search = { color = palette.surimiOrange },
-          Error = { color = theme.diag.error },
-          Warn = { color = theme.diag.warning },
-          Info = { color = theme.diag.info },
-          Hint = { color = theme.diag.hint },
-          Misc = { color = palette.oniViolet },
+          Search = { color = p.gold },
+          Error = { color = p.love },
+          Warn = { color = p.gold },
+          Info = { color = p.foam },
+          Hint = { color = p.iris },
+          Misc = { color = p.iris },
         },
       })
       require("scrollbar.handlers.gitsigns").setup()
@@ -201,6 +199,112 @@ return {
         lualine_x = { "lsp_status" },
         lualine_y = { "progress" },
         lualine_z = { "location" },
+      },
+    },
+  },
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {
+      cmdline = {
+        enabled = true,
+        view = "cmdline_popup",
+      },
+      messages = {
+        enabled = true,
+      },
+      popupmenu = {
+        enabled = true,
+        backend = "cmp",
+      },
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      presets = {
+        command_palette = true,
+        long_message_to_split = true,
+        lsp_doc_border = true,
+      },
+    },
+  },
+  {
+    "nvim-mini/mini.icons",
+    opts = function(_, opts)
+      opts = opts or {}
+      opts.extension = opts.extension or {}
+      opts.file = opts.file or {}
+      opts.filetype = opts.filetype or {}
+
+      opts.extension.go = { glyph = "" }
+      opts.extension.ts = { glyph = "" }
+      opts.extension.tsx = { glyph = "" }
+      opts.extension.test = { glyph = "" }
+      opts.extension.spec = { glyph = "" }
+      opts.extension["test.js"] = { glyph = "" }
+      opts.extension["test.jsx"] = { glyph = "" }
+      opts.extension["test.ts"] = { glyph = "" }
+      opts.extension["test.tsx"] = { glyph = "" }
+      opts.extension["spec.js"] = { glyph = "" }
+      opts.extension["spec.jsx"] = { glyph = "" }
+      opts.extension["spec.ts"] = { glyph = "" }
+      opts.extension["spec.tsx"] = { glyph = "" }
+      opts.filetype.go = { glyph = "" }
+      opts.filetype.typescript = { glyph = "" }
+      opts.filetype.typescriptreact = { glyph = "" }
+      opts.file["go.mod"] = { glyph = "" }
+      opts.file["go.sum"] = { glyph = "" }
+      opts.file["go.work"] = { glyph = "" }
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    event = "BufRead",
+    config = function()
+      require("colorizer").setup({
+        "*",
+        css = { hsl_fn = true },
+        html = { mode = "background" },
+      }, {
+        RGB = true,
+        RRGGBB = true,
+        names = true,
+        RRGGBBAA = true,
+        AARRGGBB = true,
+        rgb_fn = true,
+        hsl_fn = true,
+        css = true,
+        css_fn = true,
+        mode = "background",
+        tailwind = true,
+        sass = { enable = true, parsers = { "css" } },
+        virtualtext = "■",
+      })
+    end,
+  },
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      win = {
+        width = 40,
+        col = math.huge,
+        row = math.huge,
+        border = "rounded",
+        padding = { 1, 2 },
+      },
+    },
+    keys = {
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
       },
     },
   },
