@@ -2,9 +2,13 @@ return {
   "folke/which-key.nvim",
   event = "VeryLazy",
   opts = {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
+    win = {
+      width = 40,
+      col = math.huge,
+      row = math.huge,
+      border = "rounded",
+      padding = { 1, 2 },
+    },
   },
   keys = {
     {
