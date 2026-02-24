@@ -8,6 +8,9 @@ return {
     opts = {
       options = {
         always_show_bufferline = false,
+        custom_filter = function(buf)
+          return vim.fn.bufname(buf) ~= ""
+        end,
       },
     },
     config = function(_, opts)
@@ -214,7 +217,7 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    event = "LazyFile",
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
       scope = {
         show_start = false,
@@ -229,13 +232,46 @@ return {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
+      options = {
+        disabled_filetypes = {
+          statusline = { "neo-tree" },
+        },
+      },
       sections = {
         lualine_a = { "mode" },
         lualine_b = { "branch", "diff", "diagnostics" },
-        lualine_c = { "filename" },
+        lualine_c = {
+          {
+            function()
+              local name = vim.fn.bufname()
+              if name == "" then
+                return ""
+              end
+              return vim.fn.fnamemodify(name, ":.")
+            end,
+          },
+        },
         lualine_x = { "lsp_status" },
         lualine_y = { "progress" },
         lualine_z = { "location" },
+      },
+      inactive_sections = {
+        lualine_a = {},
+        lualine_b = {},
+        lualine_c = {
+          {
+            function()
+              local name = vim.fn.bufname()
+              if name == "" then
+                return ""
+              end
+              return vim.fn.fnamemodify(name, ":.")
+            end,
+          },
+        },
+        lualine_x = {},
+        lualine_y = {},
+        lualine_z = {},
       },
     },
   },
