@@ -194,6 +194,7 @@ return {
   {
     "folke/snacks.nvim",
     opts = {
+      dim = { enabled = false },
       scroll = { enabled = false },
       indent = { enabled = false },
       scope = { enabled = false },
