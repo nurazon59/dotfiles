@@ -1,22 +1,16 @@
 return {
   {
-    "rebelot/kanagawa.nvim",
+    "rose-pine/neovim",
+    name = "rose-pine",
     lazy = false,
     priority = 1000,
     opts = {
-      theme = "wave",
-      transparent = true,
-      overrides = function()
-        return {
-          NormalFloat = { bg = "none" },
-          FloatBorder = { bg = "none" },
-          FloatTitle = { bg = "none" },
-        }
-      end,
+      variant = "moon",
+      styles = { transparency = true },
     },
     config = function(_, opts)
-      require("kanagawa").setup(opts)
-      vim.cmd.colorscheme("kanagawa-wave")
+      require("rose-pine").setup(opts)
+      vim.cmd.colorscheme("rose-pine-moon")
     end,
   },
 }
