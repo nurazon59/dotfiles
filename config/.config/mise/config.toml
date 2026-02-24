@@ -14,7 +14,7 @@
 "npm:@antfu/ni" = "latest"
 "npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:wrangler" = "latest"
-"pipx:semgrep" = "latest"
+# "pipx:semgrep" = "latest"
 aqua = "latest"
 aws-cli = "latest"
 bat = "latest"
