@@ -6,7 +6,7 @@ M.servers = {
   "jsonls",
   "jsonnet_ls",
   "lua_ls",
-  "markdown_oxide",
+  "marksman",
   "mdx_analyzer",
   "postgres_lsp",
   "prismals",
