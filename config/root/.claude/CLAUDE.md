@@ -72,6 +72,12 @@
 3. **検証**: テスト・lint・型チェック → 並列実行
 4. **レビュー**: 実装後 → code-reviewer/quality-fixer起動
 
+### Task/TaskOutput Tips
+
+- TaskOutputはサブエージェントの最終レスポンスをそのまま返すため、大きくなり得る
+- **TaskOutput → 要約Taskのチェーンは非効率**（起動コストが無駄）
+- **Task起動時のpromptに出力形式を指定する**のが正解（例: 「箇条書き3行以内で」「簡潔にまとめて」）
+
 ## UI
 
 UI作成時はUI心理学にのっとること
