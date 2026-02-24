@@ -3,5 +3,6 @@ return {
   event = "VeryLazy",
   opts = {
     start_immediately = true,
+    notification_level = vim.log.levels.ERROR,
   },
 }
