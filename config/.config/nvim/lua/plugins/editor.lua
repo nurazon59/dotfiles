@@ -132,9 +132,9 @@ return {
     },
     config = function(_, opts)
       require("yanky").setup(opts)
-      local palette = require("kanagawa.colors").setup({ theme = "wave" }).palette
-      vim.api.nvim_set_hl(0, "YankyYanked", { bg = palette.waveBlue1 })
-      vim.api.nvim_set_hl(0, "YankyPut", { bg = palette.waveBlue2 })
+      local p = require("rose-pine.palette")
+      vim.api.nvim_set_hl(0, "YankyYanked", { bg = p.highlight_med })
+      vim.api.nvim_set_hl(0, "YankyPut", { bg = p.highlight_high })
     end,
   },
   {
