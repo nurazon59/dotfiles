@@ -24,6 +24,7 @@ M.tools = {
   "buf",
   "eslint_d",
   "golangci-lint",
+  "markdownlint-cli2",
   "oxlint",
   "prettier",
   "prettierd",
@@ -32,6 +33,7 @@ M.tools = {
   "stylua",
   "textlint",
   "typos",
+  "yamllint",
 }
 
 function M.setup()

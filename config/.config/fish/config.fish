@@ -58,6 +58,10 @@ if status --is-interactive
     abbr --add ... 'cd ../..'
     abbr --add .... 'cd ../../..'
     abbr --add ..... 'cd ../../../..'
+    abbr --add gpr 'git pull'
+    abbr --add gps 'git push'
+    abbr --add gst 'git status'
+    abbr --add lg 'lazygit'
 end
 
 # -----------------------------------------------------------------------------
