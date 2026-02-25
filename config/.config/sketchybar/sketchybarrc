@@ -6,7 +6,6 @@ LUA_BIN=""
 for candidate in "$HOME"/.local/share/mise/installs/lua/*/bin/lua; do
   if [ -x "$candidate" ]; then
     LUA_BIN="$candidate"
-    break
   fi
 done
 
@@ -29,4 +28,8 @@ if [ -z "$LUA_BIN" ]; then
   exit 1
 fi
 
+# why: Luaのrequireはカレントディレクトリ基準で解決するため、cdが必要
+cd "$HOME/.config/sketchybar"
+# why: sbar.exec()はshサブプロセスで実行されるため、CONFIG_DIRを明示的に渡す
+export CONFIG_DIR="$HOME/.config/sketchybar"
 exec "$LUA_BIN" "$HOME/.config/sketchybar/init.lua"
