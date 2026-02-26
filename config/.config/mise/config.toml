@@ -41,7 +41,6 @@ ripgrep = "latest"
 skate = "latest"
 starship = "latest"
 terraform = "1.14.5"
-tmux = "latest"
 tree-sitter = "latest"
 uv = "latest"
 usage = "latest"
@@ -69,8 +68,9 @@ mysql = "latest"
 "npm:docusaurus" = "latest"
 "go:github.com/nurazon59/ghmux" = "latest"
 "go:github.com/k1LoW/git-wt" = "latest"
-postgres = "18.2"
 task = "latest"
+lua = "5.4.7"
+claude = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
