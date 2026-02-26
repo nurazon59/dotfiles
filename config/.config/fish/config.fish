@@ -27,8 +27,6 @@ fzf --fish | source
 # -----------------------------------------------------------------------------
 # Prompt
 # -----------------------------------------------------------------------------
-set -g async_prompt_enable 1
-set -g async_prompt_functions fish_prompt fish_right_prompt
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
 
