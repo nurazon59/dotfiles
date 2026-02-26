@@ -103,6 +103,7 @@ return {
     "rmagatti/auto-session",
     lazy = false,
     opts = {
+      auto_restore = false,
       auto_session_use_git_branch = true,
       suppress_dirs = { "~/", "~/Downloads", "~/Documents", "~/Desktop" },
     },

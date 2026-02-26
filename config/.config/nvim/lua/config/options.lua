@@ -5,7 +5,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 vim.opt.fillchars = { eob = " " }
 
-vim.opt.autowrite = true
+vim.opt.autowrite = false
 vim.opt.clipboard = "unnamedplus"
 vim.opt.number = true
 vim.opt.relativenumber = true
