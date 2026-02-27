@@ -199,7 +199,7 @@ return {
       indent = { enabled = false },
       scope = { enabled = false },
       notifier = { enabled = false },
-      words = { enabled = false },
+      words = { enabled = true },
     },
     keys = {
       { "<leader>n", "<cmd>Noice history<cr>", desc = "Notification History" },
