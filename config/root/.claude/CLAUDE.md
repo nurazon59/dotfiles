@@ -36,7 +36,6 @@
 
 - **mise**: ランタイム管理、グローバルインストール禁止
 - **gh**: PR/issue操作優先
-- **git**: `git add .`禁止、ブランチは`nurazon59/`プレフィックス
 - **検索**: gemini-search（Web）、context7（ライブラリドキュメント）、deepwiki（GitHub調査）
 - **スキル**: available_skillsにマッチすれば黙って使用
 
