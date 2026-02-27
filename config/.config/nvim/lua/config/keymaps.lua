@@ -58,10 +58,8 @@ map("n", "<leader>qq", "<cmd>confirm qa<cr>", { desc = "Quit All" })
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
 -- stylua: ignore start
-if Snacks then
-  map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
-  map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
-end
+map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffer" })
+map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 -- stylua: ignore end
 
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
@@ -70,7 +68,7 @@ map("i", "jj", "<Esc>", { remap = true, silent = true, desc = "Escape insert mod
 
 local opts = { noremap = true, silent = true, nowait = true }
 map("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", vim.tbl_extend("force", opts, { desc = "LSP Definitions" }))
-map("n", "gr", "<cmd>FzfLua lsp_references<CR>", vim.tbl_extend("force", opts, { desc = "LSP References" }))
+map("n", "gr", "<cmd>FzfLua lsp_references includeDeclaration=false<CR>", vim.tbl_extend("force", opts, { desc = "LSP References" }))
 map("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", vim.tbl_extend("force", opts, { desc = "LSP Implementations" }))
 map("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", vim.tbl_extend("force", opts, { desc = "LSP Type Definitions" }))
 map("n", "gra", "<cmd>FzfLua lsp_code_actions<CR>", vim.tbl_extend("force", opts, { desc = "LSP Code Actions" }))
