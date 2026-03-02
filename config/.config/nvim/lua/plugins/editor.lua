@@ -42,7 +42,6 @@ return {
       lint.linters_by_ft = {
         fish = { "fish" },
         go = { "golangcilint" },
-        markdown = { "markdownlint" },
         yaml = { "yamllint" },
       }
 

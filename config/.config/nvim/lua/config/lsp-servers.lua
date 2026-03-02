@@ -24,7 +24,6 @@ M.tools = {
   "buf",
   "eslint_d",
   "golangci-lint",
-  "markdownlint-cli2",
   "oxlint",
   "prettier",
   "prettierd",
