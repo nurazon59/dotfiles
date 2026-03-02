@@ -174,11 +174,11 @@
       "Bash(task rds:*)"
     ],
     "ask": [],
-    "defaultMode": "dontAsk"
+    "defaultMode": "default"
   },
   "model": "opus",
   "hooks": {
-    "Stop": [
+    "SessionEnd": [
       {
         "hooks": [
           {
@@ -224,6 +224,24 @@
           {
             "type": "command",
             "command": "if echo $CLAUDE_FILE_PATH | grep -q '\\.ts$'; then npx tsc --noEmit $CLAUDE_FILE_PATH 2>&1 | head -20; elif echo $CLAUDE_FILE_PATH | grep -q '\\.go$'; then go vet ./... 2>&1 | head -20; fi"
+          }
+        ]
+      },
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/plan-rename-timestamp.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/plan-rename-timestamp.sh"
           }
         ]
       }
