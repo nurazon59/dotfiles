@@ -64,11 +64,16 @@ map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete
 
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
-map("i", "jj", "<Esc>", { remap = true, silent = true, desc = "Escape insert mode" })
+map("i", "jj", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Escape insert mode" })
 
 local opts = { noremap = true, silent = true, nowait = true }
 map("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", vim.tbl_extend("force", opts, { desc = "LSP Definitions" }))
-map("n", "gr", "<cmd>FzfLua lsp_references includeDeclaration=false<CR>", vim.tbl_extend("force", opts, { desc = "LSP References" }))
+map(
+  "n",
+  "gr",
+  "<cmd>FzfLua lsp_references includeDeclaration=false<CR>",
+  vim.tbl_extend("force", opts, { desc = "LSP References" })
+)
 map("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", vim.tbl_extend("force", opts, { desc = "LSP Implementations" }))
 map("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", vim.tbl_extend("force", opts, { desc = "LSP Type Definitions" }))
 map("n", "gra", "<cmd>FzfLua lsp_code_actions<CR>", vim.tbl_extend("force", opts, { desc = "LSP Code Actions" }))
