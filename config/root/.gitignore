@@ -238,6 +238,7 @@ Sessionx.vim
 **/.claude/file-history
 **/.claude/history.jsonl
 **/.claude/tasks
+**/.claude/user/
 
 zzz/
 .serena/

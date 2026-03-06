@@ -33,3 +33,4 @@ config/root/.claude/plugins
 config/root/.claude/backups
 /config/root/.claude/mcp-needs-auth-cache.json
 /config/root/.claude/.credentials.json
+/config/root/.claude/policy-limits.json
