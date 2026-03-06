@@ -45,7 +45,7 @@
 
 ## worktree
 
-- worktreeを用いる必要のあるときは.worktree(.gitignore済み)を使うこと
+- worktreeを用いる必要のあるときは`git wt`(https://github.com/k1LoW/git-wt)を使うこと
 
 ## OSSメモ
 
