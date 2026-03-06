@@ -68,12 +68,12 @@ map("i", "jj", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Escape in
 
 local opts = { noremap = true, silent = true, nowait = true }
 map("n", "gd", "<cmd>FzfLua lsp_definitions<CR>", vim.tbl_extend("force", opts, { desc = "LSP Definitions" }))
-map(
-  "n",
-  "gr",
-  "<cmd>FzfLua lsp_references includeDeclaration=false<CR>",
-  vim.tbl_extend("force", opts, { desc = "LSP References" })
-)
+map("n", "gr", function()
+  require("fzf-lua").lsp_references({
+    includeDeclaration = false,
+    fzf_opts = { ["--query"] = "!^import " },
+  })
+end, vim.tbl_extend("force", opts, { desc = "LSP References" }))
 map("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", vim.tbl_extend("force", opts, { desc = "LSP Implementations" }))
 map("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", vim.tbl_extend("force", opts, { desc = "LSP Type Definitions" }))
 map("n", "gra", "<cmd>FzfLua lsp_code_actions<CR>", vim.tbl_extend("force", opts, { desc = "LSP Code Actions" }))
