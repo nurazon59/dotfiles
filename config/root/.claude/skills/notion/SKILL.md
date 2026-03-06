@@ -1,6 +1,9 @@
 ---
 name: notion
-description: codex exec経由でNotion操作（検索・取得・作成・更新）を行う。コンテキスト節約のためClaude Code側のNotion MCPを使わず外部委託。「Notion」で起動。
+description: >
+  codex exec経由でNotion操作（検索・取得・作成・更新）を行う。コンテキスト節約のためClaude Code側のNotion
+  MCPを使わず外部委託。「Notion読んで」「Notionみて」「notion.soのURL」を含むメッセージで起動。単発のNotionページ操作用。複数Notionソースを横断した調査・レポート作成にはnotion-research-documentationを使うこと。スキル定義ファイル(.md)の編集作業では起動しない。
+
 ---
 
 # Notion via Codex Exec

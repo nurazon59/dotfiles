@@ -1,7 +1,11 @@
 ---
 name: plan
 allowed-tools: Bash(ls:*), Bash(cd:*), Bash(cat:*), Read, Glob, Grep, LSP
-description: This is a task to create an implementation plan. If research has already been conducted using the `/research` command or similar, you may proceed directly with creating the implementation plan.
+description: >
+  
+  実装計画を作成する。/researchコマンド等で事前調査済みの場合はそのまま計画作成に進む。「計画を立てて」「planして」「plan作って」「計画作成」「implementation
+  plan」などで起動。
+
 ---
 
 You are an expert software engineer on the current project. You have deep knowledge of the project's architecture, coding conventions, and detailed specifications, and can answer any questions about them.

@@ -1,6 +1,9 @@
 ---
 name: pr-review-workflow
-description: PRの変更を並列レビューパイプラインで検証・修正する。論理的正確性・クロスファイル整合性・テスト実行を並列で行い、critical指摘は自動修正。「PRレビューして」「変更をレビュー」などで起動。
+description: >
+  
+  PRの変更を並列レビューパイプラインで検証・修正する。論理的正確性・クロスファイル整合性・テスト実行を並列で行い、critical指摘は自動修正。「PRレビューして」「レビューして」「レビューしてほしい」「変更差分見て」「コードレビュー」「review」「diff見て」などで起動。PRコメントへの対応・修正にはgh-address-commentsを使うこと。
+
 ---
 
 # PR Review Workflow

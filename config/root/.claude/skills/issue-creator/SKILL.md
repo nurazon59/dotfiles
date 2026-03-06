@@ -1,6 +1,9 @@
 ---
 name: issue-creator
-description: GitHub issueを作成する。Why/What/How形式で簡潔に記述。「issueを作成」「issue作って」などで起動。
+description: >
+  GitHub
+  issueを作成する。Why/What/How形式で簡潔に記述。「issueを作成」「issue作って」「issue立てて」などで起動。「issue」キーワードを含まない一般的な「作成」「作って」では起動しない。
+
 ---
 
 # Issue Creator
