@@ -2,40 +2,9 @@ local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
 
--- メモリ使用量を取得するヘルパー関数
-local function getMemoryUsage()
-  local handle = io.popen("memory_pressure | grep 'System-wide memory free percentage:' | awk '{print 100-$5}' | sed 's/%//'")
-  local result = handle:read("*a")
-  handle:close()
-  
-  local usage = tonumber(result)
-  if not usage then
-    -- フォールバック: vm_statを使用
-    handle = io.popen([[
-      vm_stat | awk '
-      /Pages free/ {free=$3}
-      /Pages active/ {active=$3}
-      /Pages inactive/ {inactive=$3}
-      /Pages speculative/ {spec=$3}
-      /Pages wired down/ {wired=$4}
-      /Pages compressed/ {compressed=$3}
-      END {
-        total=(free+active+inactive+spec+wired+compressed)
-        used=(active+wired+compressed)
-        printf "%.0f", (used/total)*100
-      }' | sed 's/\\.//g'
-    ]])
-    result = handle:read("*a")
-    handle:close()
-    usage = tonumber(result)
-  end
-  
-  return usage or 0
-end
-
--- メモリウィジェット作成
 local memory = sbar.add("graph", "widgets.memory", 42, {
   position = "right",
+  update_freq = 2,
   graph = { color = colors.green },
   background = {
     height = 22,
@@ -43,7 +12,7 @@ local memory = sbar.add("graph", "widgets.memory", 42, {
     border_color = { alpha = 0 },
     drawing = true,
   },
-  icon = { string = "󰍛" },  -- メモリアイコン
+  icon = { string = "󰍛" },
   label = {
     string = "mem ??%",
     font = {
@@ -59,36 +28,34 @@ local memory = sbar.add("graph", "widgets.memory", 42, {
   padding_right = settings.paddings + 6
 })
 
--- メモリ更新関数
+-- io.popenはsketchybarのLua環境で使えないため、sbar.execのコールバックで取得
 local function updateMemory()
-  local usage = getMemoryUsage()
-  
-  -- グラフにデータをプッシュ
-  memory:push({ usage / 100.0 })
-  
-  -- 使用量に応じて色を変更
-  local color = colors.green
-  if usage > 50 then
-    if usage < 70 then
-      color = colors.yellow
-    elseif usage < 85 then
-      color = colors.orange
-    else
-      color = colors.red
+  sbar.exec("memory_pressure | grep 'System-wide memory free percentage:' | awk '{print 100-$5}' | sed 's/%//'", function(result)
+    local usage = tonumber(result)
+    if not usage then return end
+
+    memory:push({ usage / 100.0 })
+
+    local color = colors.green
+    if usage > 50 then
+      if usage < 70 then
+        color = colors.yellow
+      elseif usage < 85 then
+        color = colors.orange
+      else
+        color = colors.red
+      end
     end
-  end
-  
-  -- ラベルとグラフの色を更新
-  memory:set({
-    graph = { color = color },
-    label = string.format("mem %d%%", usage),
-  })
+
+    memory:set({
+      graph = { color = color },
+      label = string.format("mem %d%%", usage),
+    })
+  end)
 end
 
--- 初回更新
 updateMemory()
 
--- 定期的な更新（5秒ごと）
 memory:subscribe("routine", function(env)
   updateMemory()
 end)
