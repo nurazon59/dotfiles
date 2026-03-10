@@ -15,7 +15,7 @@
   root = ~/src/
 [core]
   pager = delta
-	excludesFile = /Users/itsuki54/.gitignore
+	excludesFile = /Users/koshiishi/.gitignore
 [interactive]
   diffFilter = delta --color-only
 [delta]
@@ -25,7 +25,6 @@
   true-color = always
   features = catppuccin-frappe
   syntax-theme = Sublime Snazzy
-	paging = never
 [alias]
   co = checkout
   cb = checkout -b
@@ -40,7 +39,20 @@
   default-branch = "!f() { git get-branch-cache default || (git refresh-default-branch; git get-branch-cache default); }; f"
   pr = "gh pr create --web"
   dft = difftool
-	log = log --reverse
 
 [coderabbit]
 	machineId = cli/59d31719adcf4d3ca88a544e1f30e2b4
+# >>> ghmux managed (DO NOT EDIT) >>>
+[includeIf "hasconfig:remote.*.url:https://github.com/sansaninc/**"]
+	path = ~/.gitconfig-work
+[includeIf "hasconfig:remote.*.url:git@github.com:sansaninc/**"]
+	path = ~/.gitconfig-work
+# <<< ghmux managed <<<
+[credential "https://github.com"]
+	helper =
+	helper = !/Users/koshiishi/.local/share/mise/installs/github-cli/2.86.0/gh_2.86.0_macOS_arm64/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !/Users/koshiishi/.local/share/mise/installs/github-cli/2.86.0/gh_2.86.0_macOS_arm64/bin/gh auth git-credential
+[branch]
+	autoSetupMerge = false
