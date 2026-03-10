@@ -160,6 +160,18 @@ mods = "Command"
 chars = "\u001b[20;9~"
 
 [[keyboard.bindings]]
+key = "T"
+mods = "Control"
+command = { program = "/opt/homebrew/bin/im-select", args = [
+	"com.apple.keylayout.ABC",
+] }
+
+[[keyboard.bindings]]
+key = "T"
+mods = "Control"
+chars = "\u0014"
+
+[[keyboard.bindings]]
 key = "Return"
 mods = "Shift"
 chars = "\n"
