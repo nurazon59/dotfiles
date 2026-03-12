@@ -7,13 +7,15 @@ function ghq_fzf
         set -a entries $p\t(string replace "$ghq_root/" "" $p)
     end
 
-    # worktrees (.wt directories under ghq repos)
-    for wt_dir in (find $ghq_root -maxdepth 4 -name '.wt' -type d 2>/dev/null)
-        set -l repo_dir (string replace "/.wt" "" $wt_dir)
-        set -l repo_name (string replace "$ghq_root/" "" $repo_dir)
-        for git_entry in (find $wt_dir -maxdepth 3 -name '.git' 2>/dev/null)
-            set -l wt_path (dirname $git_entry)
-            set -l rel (string replace "$wt_dir/" "" $wt_path)
+    # worktrees (git wt経由で取得、スラッシュ入りブランチにも対応)
+    for repo in (ghq list -p)
+        test -d "$repo/.wt"; or continue
+        set -l repo_name (string replace "$ghq_root/" "" $repo)
+        for wt_line in (git -C $repo worktree list --porcelain 2>/dev/null | string match 'worktree *')
+            set -l wt_path (string replace 'worktree ' '' $wt_line)
+            # メインworktreeはghq listで既に含まれるのでスキップ
+            test "$wt_path" = "$repo"; and continue
+            set -l rel (string replace "$repo/.wt/" "" $wt_path)
             set -a entries $wt_path\t$repo_name:$rel
         end
     end
