@@ -268,6 +268,6 @@
     "gopls-lsp@claude-plugins-official": true,
     "lua-lsp@claude-plugins-official": true
   },
-  "skipDangerousModePermissionPrompt": true,
-  "effortLevel": "high"
+  "effortLevel": "medium",
+  "skipDangerousModePermissionPrompt": true
 }
