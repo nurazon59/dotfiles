@@ -30,6 +30,7 @@ fzf --fish | source
 set -gx STARSHIP_CONFIG ~/.config/starship/starship.toml
 starship init fish | source
 
+set -x XDG_CONFIG_HOME ~/.config
 set -x LANG en_US.UTF-8
 set -x EDITOR nvim
 set -x PAGER bat
