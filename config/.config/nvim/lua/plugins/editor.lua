@@ -64,7 +64,7 @@ return {
     },
   },
   {
-    "mini-nvim/mini.ai",
+    "nvim-mini/mini.ai",
     event = "VeryLazy",
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     opts = function()
