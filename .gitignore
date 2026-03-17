@@ -35,3 +35,4 @@ config/root/.claude/backups
 /config/root/.claude/.credentials.json
 /config/root/.claude/policy-limits.json
 /config/.config/gh/hosts.yml
+/config/root/.claude/sessions
