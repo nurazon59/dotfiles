@@ -64,15 +64,15 @@ install: link
 	@# miseでツールインストール
 	@echo "Installing tools with mise..."
 	@cd ~ && mise install
-	@# Kittyのセットアップ（macOSのみ）
-	@if [ "$(UNAME)" = "Darwin" ]; then \
-		if ! command -v kitty &> /dev/null; then \
-			echo "Installing Kitty..."; \
-			curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin; \
-			mkdir -p ~/.local/bin; \
-			ln -sf ~/Applications/kitty.app/Contents/MacOS/kitty ~/.local/bin/kitty; \
-			ln -sf ~/Applications/kitty.app/Contents/MacOS/kitten ~/.local/bin/kitten; \
-		fi; \
+	@# Claude Codeのインストール
+	@if ! command -v claude &> /dev/null; then \
+		echo "Installing Claude Code..."; \
+		curl -fsSL https://claude.ai/install.sh | sh; \
+	fi
+	@# CodeRabbitのインストール
+	@if ! command -v coderabbit &> /dev/null; then \
+		echo "Installing CodeRabbit..."; \
+		curl -fsSL https://coderabbit.ai/install.sh | sh; \
 	fi
 	@# Docker Composeのセットアップ（macOSのみ）
 	@if [ "$(UNAME)" = "Darwin" ]; then \
