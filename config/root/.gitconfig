@@ -15,7 +15,7 @@
   root = ~/src/
 [core]
   pager = delta
-	excludesFile = /Users/koshiishi/.gitignore
+	excludesFile = ~/.gitignore
 [interactive]
   diffFilter = delta --color-only
 [delta]
@@ -50,9 +50,9 @@
 # <<< ghmux managed <<<
 [credential "https://github.com"]
 	helper =
-	helper = !/Users/koshiishi/.local/share/mise/installs/github-cli/2.86.0/gh_2.86.0_macOS_arm64/bin/gh auth git-credential
+	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
 	helper =
-	helper = !/Users/koshiishi/.local/share/mise/installs/github-cli/2.86.0/gh_2.86.0_macOS_arm64/bin/gh auth git-credential
+	helper = !gh auth git-credential
 [branch]
 	autoSetupMerge = false
