@@ -5,6 +5,7 @@
 	email = nurazon59@users.noreply.github.com
 [push]
 	default = current
+	autoSetupRemote = true
 [init]
 	defaultBranch = main
 [color]
