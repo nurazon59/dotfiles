@@ -7,7 +7,7 @@ CONFIG_DIRS := aerospace alacritty any-script-mcp borders fish gh gh-dash \
                github-copilot karabiner kitty lazygit linearmouse mise nvim \
                sheldon sketchybar starship tmux yazi zeno
 
-.PHONY: all help macos install link
+.PHONY: all help macos install link shell
 
 # デフォルトターゲット
 help:
@@ -18,6 +18,7 @@ help:
 	@echo "  make install - 基本セットアップ"
 	@echo "  make link    - symlinkのみ作成"
 	@echo "  make macos   - macOS設定とサービス"
+	@echo "  make shell   - デフォルトシェルをfishに変更"
 	@echo "  make all     - 全てインストール"
 	@echo ""
 
@@ -72,7 +73,7 @@ install: link
 	@# CodeRabbitのインストール
 	@if ! command -v coderabbit &> /dev/null; then \
 		echo "Installing CodeRabbit..."; \
-		curl -fsSL https://coderabbit.ai/install.sh | sh; \
+		curl -fsSL https://cli.coderabbit.ai/install.sh | sh; \
 	fi
 	@# Docker Composeのセットアップ（macOSのみ）
 	@if [ "$(UNAME)" = "Darwin" ]; then \
@@ -90,6 +91,24 @@ install: link
 	@echo "Installation completed!"
 	@echo "Edit ~/.zshrc.local and ~/.gitconfig.local for account-specific settings"
 	@echo "Run: source ~/.zshrc"
+
+# デフォルトシェルをfishに変更
+shell:
+	@FISH_PATH=/opt/homebrew/bin/fish; \
+	if [ ! -x "$$FISH_PATH" ]; then \
+		echo "Error: fish not found at $$FISH_PATH"; \
+		exit 1; \
+	fi; \
+	if ! grep -qxF "$$FISH_PATH" /etc/shells; then \
+		echo "Adding $$FISH_PATH to /etc/shells..."; \
+		echo "$$FISH_PATH" | sudo tee -a /etc/shells; \
+	fi; \
+	if [ "$$SHELL" != "$$FISH_PATH" ]; then \
+		echo "Changing default shell to fish..."; \
+		chsh -s "$$FISH_PATH"; \
+	else \
+		echo "Default shell is already fish."; \
+	fi
 
 # macOS設定とサービス
 macos:
