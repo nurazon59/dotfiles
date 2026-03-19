@@ -33,7 +33,8 @@ fi
 model=$(echo "$input" | jq -r '.model.display_name // ""')
 
 # コンテキスト使用率
-used_pct=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
+# 4倍スケールで表示（品質劣化の意識づけ）
+used_pct=$(echo "$input" | jq -r '(.context_window.used_percentage // empty) | if . != "" then (. * 4 * 10 | round | . / 10) else "" end')
 
 # 出力（ANSI カラー付き）
 # cyan: ディレクトリ / purple: git ブランチ / yellow: git status / dim: モデル

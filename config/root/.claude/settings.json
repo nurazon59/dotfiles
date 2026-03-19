@@ -177,7 +177,6 @@
     "ask": [],
     "defaultMode": "default"
   },
-  "model": "opus",
   "hooks": {
     "SessionEnd": [
       {
@@ -271,5 +270,6 @@
     "rust-analyzer-lsp@claude-plugins-official": true
   },
   "effortLevel": "medium",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "model": "opus[1m]"
 }
