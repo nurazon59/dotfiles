@@ -56,6 +56,7 @@
 
 - **mise**: ランタイム管理、グローバルインストール禁止
 - **gh**: PR/issue操作優先
+- **PR description**: リポジトリにPRテンプレート（`.github/pull_request_template.md`等）がある場合はそれに従う
 - **検索**: gemini-search（Web）、context7（ライブラリドキュメント）、deepwiki（GitHub調査）
 - **スキル**: available_skillsにマッチすれば黙って使用
 
@@ -78,7 +79,7 @@
 | 状況                                 | 判断         | 理由                           |
 | ------------------------------------ | ------------ | ------------------------------ |
 | 複数ファイル編集（2つ以上）          | **subagent** | 並列化でコンテキスト分離       |
-| 探索的な調査（何がどこにあるか不明） | **subagent** | Explore agentに任せる          |
+| 探索的な調査（何がどこにあるか不明） | **subagent** | research agentに任せる         |
 | 複数の独立タスクがある               | **subagent** | 並列実行                       |
 | レビュー系作業                       | **subagent** | 専用agentの方が品質高い        |
 | 単一ファイルの小さな変更（10行以下） | 自分         | 起動オーバーヘッドの方が大きい |
@@ -90,6 +91,12 @@
 2. **実装**: 複数ファイル編集 → ファイルごとにsubagent並列起動
 3. **検証**: テスト・lint・型チェック → 並列実行
 4. **レビュー**: 実装後 → code-reviewer/quality-fixer起動
+
+### コードベース調査エージェント
+
+- **Exploreは使わない。調査は必ず `research` エージェント（`subagent_type: "research"`）を使う**
+- researchはExploreの約半分のツール呼び出し・時間で、コンテキスト消費は1/10以下
+- 定義: `~/.claude/agents/research.md`（maxTurns: 15、20行以内の箇条書き強制）
 
 ### Task/TaskOutput Tips
 
