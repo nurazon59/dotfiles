@@ -4,7 +4,7 @@ local settings = require("settings")
 local popup_width = 400
 local max_prs = 10
 local gh_bin = os.getenv("HOME") .. "/.local/share/mise/shims/gh"
-local gh_user = os.getenv("SKETCHYBAR_GH_USER")
+local gh_user = os.getenv("SKETCHYBAR_GH_USER") or "nurazon59"
 local gh = "GH_TOKEN=$(" .. gh_bin .. " auth token -u " .. gh_user .. ") " .. gh_bin
 
 local gh_pr = sbar.add("item", "widgets.github_pr", {
