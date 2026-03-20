@@ -13,73 +13,23 @@ return {
         end,
       },
     },
-    config = function(_, opts)
-      -- why: VeryLazyでsetup()が走るとshowtabline=2になりフラッシュするため、
-      -- リストバッファが2つ以上になるまでsetupを遅延させる
-      vim.api.nvim_create_autocmd("BufAdd", {
-        callback = function()
-          if #vim.fn.getbufinfo({ buflisted = 1 }) < 2 then
-            return
-          end
-          require("bufferline").setup(opts)
-          return true
-        end,
-      })
-    end,
   },
   {
     "nvim-neo-tree/neo-tree.nvim",
-    cmd = "Neotree",
+    lazy = false,
     dependencies = {
       "MunifTanjim/nui.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
     },
     keys = {
-      {
-        "<leader>fe",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = vim.uv.cwd() })
-        end,
-        desc = "Explorer NeoTree",
-      },
-      { "<leader>e", "<leader>fe", desc = "Explorer NeoTree", remap = true },
-      {
-        "<leader>ge",
-        function()
-          require("neo-tree.command").execute({ source = "git_status", toggle = true })
-        end,
-        desc = "Git Explorer",
-      },
-      {
-        "<leader>be",
-        function()
-          require("neo-tree.command").execute({ source = "buffers", toggle = true })
-        end,
-        desc = "Buffer Explorer",
-      },
+      { "<leader>e", "<Cmd>Neotree<CR>", desc = "Explorer NeoTree" },
     },
-    init = function()
-      vim.api.nvim_create_autocmd("BufEnter", {
-        group = vim.api.nvim_create_augroup("Neotree_start_directory", { clear = true }),
-        desc = "Start Neo-tree with directory",
-        once = true,
-        callback = function()
-          if package.loaded["neo-tree"] then
-            return
-          end
-          local stats = vim.uv.fs_stat(vim.fn.argv(0))
-          if stats and stats.type == "directory" then
-            require("neo-tree")
-          end
-        end,
-      })
-    end,
     opts = {
       sources = { "filesystem", "buffers", "git_status" },
       open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
       window = {
-        width = 30,
+        position = "float",
         mappings = {
           ["l"] = "open",
           ["h"] = "close_node",
