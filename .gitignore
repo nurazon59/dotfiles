@@ -36,3 +36,17 @@ config/root/.claude/backups
 /config/root/.claude/policy-limits.json
 /config/.config/gh/hosts.yml
 /config/root/.claude/sessions
+/config/root/.codex/auth.json
+/config/root/.codex/history.jsonl
+/config/root/.codex/models_cache.json
+/config/root/.codex/version.json
+/config/root/.codex/.personality_migration
+/config/root/.codex/log/
+/config/root/.codex/memories/
+/config/root/.codex/sessions/
+/config/root/.codex/shell_snapshots/
+/config/root/.codex/skills/
+/config/root/.codex/tmp/
+/config/root/.codex/*.sqlite
+/config/root/.codex/*.sqlite-shm
+/config/root/.codex/*.sqlite-wal
