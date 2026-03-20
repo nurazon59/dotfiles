@@ -1,0 +1,10 @@
+# Skill installer
+prefix_rule(pattern=["python", "/Users/itsuki54/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py", "--repo", "openai/skills", "--path", "skills/.curated/gh-address-comments", "skills/.curated/gh-fix-ci", "skills/.curated/notion-knowledge-capture", "skills/.curated/notion-meeting-intelligence", "skills/.curated/notion-research-documentation", "skills/.curated/notion-spec-to-implementation"], decision="allow")
+
+# Claude skill sync
+prefix_rule(pattern=["mkdir", "-p", "/Users/itsuki54/src/github.com/nurazon59/dotfiles/root/.claude/skills"], decision="allow")
+
+# Tooling
+prefix_rule(pattern=["go", "vet", "./..."], decision="allow")
+prefix_rule(pattern=["mise", "install", "flutter@latest"], decision="allow")
+prefix_rule(pattern=["/bin/zsh", "-lc", "sudo chown -R $(whoami) /Users/itsuki54/.local/share/mise/installs/flutter/3.22.1-stable/bin/cache"], decision="allow")
