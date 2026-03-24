@@ -52,7 +52,6 @@ lefthook = "latest"
 lsd = "latest"
 mprocs = "latest"
 mysql = "latest"
-neovim = "latest"
 node = "24.13.1"
 ollama = "latest"
 pipx = "latest"
@@ -72,6 +71,7 @@ xh = "latest"
 yarn = "latest"
 yazi = "latest"
 zoxide = "latest"
+"aqua:neovim/neovim" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
