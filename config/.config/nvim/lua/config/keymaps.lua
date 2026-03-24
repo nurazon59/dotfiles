@@ -1,13 +1,14 @@
 local map = vim.keymap.set
 
-local function del(mode, lhs)
-  pcall(vim.keymap.del, mode, lhs)
-end
-
-del("n", "grr")
-del("n", "gri")
-del("n", "grt")
-del({ "i", "s" }, "<C-S>")
+vim.api.nvim_create_autocmd("VimEnter", {
+  once = true,
+  callback = function()
+    pcall(vim.keymap.del, "n", "grr")
+    pcall(vim.keymap.del, "n", "gri")
+    pcall(vim.keymap.del, "n", "grt")
+    pcall(vim.keymap.del, { "i", "s" }, "<C-S>")
+  end,
+})
 
 map("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window", remap = true })
 map("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window", remap = true })
@@ -73,7 +74,7 @@ map("n", "gr", function()
     includeDeclaration = false,
     fzf_opts = { ["--query"] = "!^import " },
   })
-end, vim.tbl_extend("force", opts, { desc = "LSP References" }))
+end, { noremap = true, silent = true, desc = "LSP References" })
 map("n", "gi", "<cmd>FzfLua lsp_implementations<CR>", vim.tbl_extend("force", opts, { desc = "LSP Implementations" }))
 map("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", vim.tbl_extend("force", opts, { desc = "LSP Type Definitions" }))
 map("n", "gra", "<cmd>FzfLua lsp_code_actions<CR>", vim.tbl_extend("force", opts, { desc = "LSP Code Actions" }))
