@@ -175,8 +175,9 @@
       "Bash(task rds:*)"
     ],
     "ask": [],
-    "defaultMode": "default"
+    "defaultMode": "bypassPermissions"
   },
+  "model": "opus[1m]",
   "hooks": {
     "SessionEnd": [
       {
@@ -188,64 +189,8 @@
         ]
       }
     ],
-    "PreToolUse": [
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node /Users/itsuki54/src/github.com/nurazon59/dotfiles/config/root/.claude/hooks/typescript/pre-write-check.js"
-          }
-        ]
-      },
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "node /Users/itsuki54/src/github.com/nurazon59/dotfiles/config/root/.claude/hooks/typescript/pre-write-check.js"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if echo $CLAUDE_FILE_PATH | grep -q '\\.ts$'; then npx tsc --noEmit $CLAUDE_FILE_PATH 2>&1 | head -20; elif echo $CLAUDE_FILE_PATH | grep -q '\\.go$'; then go vet ./... 2>&1 | head -20; fi"
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "if echo $CLAUDE_FILE_PATH | grep -q '\\.ts$'; then npx tsc --noEmit $CLAUDE_FILE_PATH 2>&1 | head -20; elif echo $CLAUDE_FILE_PATH | grep -q '\\.go$'; then go vet ./... 2>&1 | head -20; fi"
-          }
-        ]
-      },
-      {
-        "matcher": "Write",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ~/.claude/hooks/plan-rename-timestamp.sh"
-          }
-        ]
-      },
-      {
-        "matcher": "Edit",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash ~/.claude/hooks/plan-rename-timestamp.sh"
-          }
-        ]
-      }
-    ]
+    "PreToolUse": [],
+    "PostToolUse": []
   },
   "statusLine": {
     "type": "command",
@@ -266,10 +211,8 @@
     "coderabbit@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,
     "gopls-lsp@claude-plugins-official": true,
-    "lua-lsp@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true
+    "lua-lsp@claude-plugins-official": true
   },
   "effortLevel": "medium",
-  "skipDangerousModePermissionPrompt": true,
-  "model": "opus[1m]"
+  "skipDangerousModePermissionPrompt": true
 }
