@@ -35,35 +35,6 @@ return {
     },
   },
   {
-    "mfussenegger/nvim-lint",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      local lint = require("lint")
-      lint.linters_by_ft = {
-        fish = { "fish" },
-        go = { "golangcilint" },
-        yaml = { "yamllint" },
-      }
-
-      vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-        callback = function()
-          if vim.opt_local.modifiable:get() then
-            lint.try_lint()
-          end
-        end,
-      })
-    end,
-    keys = {
-      {
-        "<leader>cL",
-        function()
-          require("lint").try_lint()
-        end,
-        desc = "Lint",
-      },
-    },
-  },
-  {
     "nvim-mini/mini.ai",
     event = "VeryLazy",
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
@@ -97,21 +68,6 @@ return {
     "folke/ts-comments.nvim",
     event = "VeryLazy",
     opts = {},
-  },
-  {
-    "rmagatti/auto-session",
-    lazy = false,
-    opts = {
-      auto_restore = false,
-      auto_session_use_git_branch = true,
-      suppress_dirs = { "~/", "~/Downloads", "~/Documents", "~/Desktop" },
-    },
-    keys = {
-      { "<leader>qs", "<cmd>SessionSearch<cr>", desc = "Session Search" },
-      { "<leader>qr", "<cmd>SessionRestore<cr>", desc = "Session Restore" },
-      { "<leader>qS", "<cmd>SessionSave<cr>", desc = "Session Save" },
-      { "<leader>qd", "<cmd>SessionDelete<cr>", desc = "Session Delete" },
-    },
   },
   {
     "windwp/nvim-autopairs",
