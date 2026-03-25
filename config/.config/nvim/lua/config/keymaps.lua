@@ -63,6 +63,10 @@ map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete Buffe
 map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete Other Buffers" })
 -- stylua: ignore end
 
+map("n", "<leader>-", "<C-W>s", { desc = "Split Window Below", remap = true })
+map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
+map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
+
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 
 map("i", "jj", "<C-\\><C-n>", { noremap = true, silent = true, desc = "Escape insert mode" })
