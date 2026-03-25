@@ -5,7 +5,7 @@ UNAME := $(shell uname -s)
 # ~/.config 内でリンクするディレクトリ一覧
 CONFIG_DIRS := aerospace alacritty any-script-mcp borders fish gh gh-dash \
                github-copilot karabiner kitty lazygit linearmouse mise nvim \
-               sheldon sketchybar starship tmux yazi zeno
+               sheldon sketchybar starship tmux yazi mprocs
 
 .PHONY: all help macos install link shell
 
