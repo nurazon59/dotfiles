@@ -15,84 +15,88 @@ return {
     },
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
+    "nvim-tree/nvim-tree.lua",
+    version = "*",
     lazy = false,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
     keys = {
-      { "<leader>e", "<Cmd>Neotree<CR>", desc = "Explorer NeoTree" },
+      { "<leader>e", "<Cmd>NvimTreeToggle<CR>", desc = "Explorer NvimTree" },
     },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      sources = { "filesystem", "buffers", "git_status" },
-      open_files_do_not_replace_types = { "terminal", "Trouble", "trouble", "qf", "Outline" },
-      window = {
-        position = "float",
-        mappings = {
-          ["l"] = "open",
-          ["h"] = "close_node",
-          ["<space>"] = "none",
-          ["Y"] = {
-            function(state)
-              local node = state.tree:get_node()
-              local path = node:get_id()
-              vim.fn.setreg("+", path, "c")
-            end,
-            desc = "Copy Path to Clipboard",
-          },
-          ["O"] = {
-            function(state)
-              require("lazy.util").open(state.tree:get_node().path, { system = true })
-            end,
-            desc = "Open with System Application",
-          },
-          ["P"] = { "toggle_preview", config = { use_float = false } },
+      on_attach = function(bufnr)
+        local api = require("nvim-tree.api")
+
+        local function opts(desc)
+          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+        end
+
+        api.map.on_attach.default(bufnr)
+        vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
+        vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
+      end,
+      view = {
+        float = {
+          enable = true,
+          open_win_config = function()
+            local width = 80
+            local height = 50
+            local columns = vim.o.columns
+            local lines = vim.o.lines - vim.o.cmdheight
+
+            return {
+              relative = "editor",
+              border = "rounded",
+              width = width,
+              height = height,
+              row = math.floor((lines - height) / 2),
+              col = math.floor((columns - width) / 2),
+            }
+          end,
         },
       },
-      filesystem = {
-        bind_to_cwd = false,
-        follow_current_file = { enabled = true },
-        use_libuv_file_watcher = true,
-        filtered_items = {
-          hide_dotfiles = false,
-          hide_gitignored = false,
-          never_show = {
-            ".git",
-            ".DS_Store",
-            ".history",
-          },
+      renderer = {
+        highlight_git = "name",
+        highlight_opened_files = "name",
+        indent_markers = {
+          enable = true,
         },
       },
-      default_component_configs = {
-        indent = {
-          with_expanders = true,
-          expander_collapsed = "",
-          expander_expanded = "",
-          expander_highlight = "NeoTreeExpander",
+      update_focused_file = {
+        enable = true,
+        update_root = {
+          enable = false,
         },
-        git_status = {
-          symbols = {
-            unstaged = "󰄱",
-            staged = "󰱒",
+      },
+      filters = {
+        git_ignored = false,
+        custom = {
+          "^\\.git$",
+          "^\\.DS_Store$",
+        },
+      },
+      actions = {
+        open_file = {
+          window_picker = {
+            exclude = {
+              filetype = {
+                "notify",
+                "lazy",
+                "qf",
+                "diff",
+                "fugitive",
+                "fugitiveblame",
+                "Trouble",
+                "trouble",
+                "Outline",
+              },
+              buftype = { "nofile", "terminal", "help" },
+            },
           },
         },
       },
     },
     config = function(_, opts)
-      if Snacks then
-        local function on_move(data)
-          Snacks.rename.on_rename_file(data.source, data.destination)
-        end
-        local events = require("neo-tree.events")
-        opts.event_handlers = opts.event_handlers or {}
-        vim.list_extend(opts.event_handlers, {
-          { event = events.FILE_MOVED, handler = on_move },
-          { event = events.FILE_RENAMED, handler = on_move },
-        })
-      end
-      require("neo-tree").setup(opts)
+      require("nvim-tree").setup(opts)
     end,
   },
   {
@@ -102,7 +106,7 @@ return {
       width = 120,
       enableOnVimEnter = true,
       integrations = {
-        NeoTree = {
+        NvimTree = {
           position = "left",
           reopen = true,
         },
@@ -176,7 +180,7 @@ return {
         show_end = false,
       },
       exclude = {
-        filetypes = { "help", "dashboard", "neo-tree", "Trouble", "lazy", "mason", "toggleterm" },
+        filetypes = { "help", "dashboard", "NvimTree", "Trouble", "lazy", "mason", "toggleterm" },
       },
     },
   },
@@ -186,7 +190,7 @@ return {
     opts = {
       options = {
         disabled_filetypes = {
-          statusline = { "neo-tree" },
+          statusline = { "NvimTree" },
         },
       },
       sections = {
