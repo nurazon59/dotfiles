@@ -8,7 +8,7 @@ padding.y = 10
 opacity = 0.95
 dynamic_padding = true
 decorations = "buttonless" # macOS: タイトルバーなし
-startup_mode = "Windowed"
+startup_mode = "Maximized"
 dynamic_title = true
 
 [window.dimensions]
