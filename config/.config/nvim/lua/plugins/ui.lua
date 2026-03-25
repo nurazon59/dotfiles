@@ -116,6 +116,7 @@ return {
     "tadaa/vimade",
     opts = {
       recipe = { "default", { animate = false } },
+      ncmode = "windows",
       fadelevel = 0.6,
       saturation = { value = 0.4 },
     },
