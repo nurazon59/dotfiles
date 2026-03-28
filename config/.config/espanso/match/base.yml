@@ -1,0 +1,24 @@
+# espanso match file
+
+j For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+
+# yaml-language-server: $schema=https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json
+
+matches:
+  - trigger: "/imo"
+    replace: "![imo](https://img.shields.io/badge/review-imo-orange.svg)"
+
+  - trigger: "/must"
+    replace: "![review:must](https://img.shields.io/badge/review-must-red.svg)"
+
+  - trigger: "/ask"
+    replace: "![ask](https://img.shields.io/badge/review-ask-blue.svg)"
+
+  - trigger: "/nits"
+    replace: "![nits](https://img.shields.io/badge/review-nits-green.svg)"
