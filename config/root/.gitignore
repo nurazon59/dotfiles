@@ -250,3 +250,5 @@ zzz/
 .idea/
 go.work
 go.work.sum
+.claude/worktrees
+.envrc
