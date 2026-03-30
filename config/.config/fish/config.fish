@@ -93,3 +93,4 @@ end
 # pnpm end
 
 git wt --init fish | source
+. /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
