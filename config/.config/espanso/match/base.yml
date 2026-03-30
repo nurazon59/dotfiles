@@ -11,14 +11,19 @@ j For a complete introduction, visit the official docs at: https://espanso.org/d
 # yaml-language-server: $schema=https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json
 
 matches:
-  - trigger: "/imo"
-    replace: "![imo](https://img.shields.io/badge/review-imo-orange.svg)"
-
   - trigger: "/must"
-    replace: "![review:must](https://img.shields.io/badge/review-must-red.svg)"
-
-  - trigger: "/ask"
-    replace: "![ask](https://img.shields.io/badge/review-ask-blue.svg)"
-
+    replace: "![must](https://img.shields.io/badge/review-MUST-red)"
+  - trigger: "/want"
+    replace: "![want](https://img.shields.io/badge/review-WANT-orange)"
+  - trigger: "/imo"
+    replace: "![imo](https://img.shields.io/badge/review-IMO-yellow)"
   - trigger: "/nits"
-    replace: "![nits](https://img.shields.io/badge/review-nits-green.svg)"
+    replace: "![nits](https://img.shields.io/badge/review-NITS-lightgrey)"
+  - trigger: "/ask"
+    replace: "![ask](https://img.shields.io/badge/review-ASK-mediumpurple)"
+  - trigger: "/good"
+    replace: "![good](https://img.shields.io/badge/review-Good-green)"
+  - trigger: "/tweet"
+    replace: "![tweet](https://img.shields.io/badge/review-Tweet-blue)"
+  - trigger: "/fyi"
+    replace: "![fyi](https://img.shields.io/badge/review-FYI-lightblue)"
