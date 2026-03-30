@@ -50,3 +50,4 @@ config/root/.claude/backups
 /config/root/.codex/*.sqlite
 /config/root/.codex/*.sqlite-shm
 /config/root/.codex/*.sqlite-wal
+/config/nix/nix-darwin/result
