@@ -60,7 +60,7 @@
         NSGlobalDomain = {
           AppleInterfaceStyle = "Dark";
           AppleShowAllExtensions = true;
-          InitialKeyRepeat = 5;
+          InitialKeyRepeat = 15;
           KeyRepeat = 2;
           "com.apple.trackpad.forceClick" = false;
           "com.apple.trackpad.scaling" = 2.5;
