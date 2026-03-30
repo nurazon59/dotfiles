@@ -56,7 +56,7 @@ color = "#ffffff"
 save_to_clipboard = true
 
 [general]
-import = ["tokyo-night.toml"]
+import = ["rose-pine.toml"]
 
 [mouse]
 # マウス設定
