@@ -7,7 +7,7 @@ CONFIG_DIRS := aerospace alacritty any-script-mcp borders fish gh gh-dash \
                github-copilot karabiner kitty lazygit linearmouse mise nvim \
                sheldon sketchybar starship tmux yazi mprocs
 
-.PHONY: all help macos install link shell nix-run nix-build nix-link nix-install
+.PHONY: all help macos install link shell nix-run nix-build nix-link nix-install nix-prepare
 
 # デフォルトターゲット
 help:
@@ -149,8 +149,15 @@ nix-link:
 	@sudo ln -s $(DOTFILES_DIR)/config/nix/nix-darwin /private/etc/nix-darwin
 	@echo "  -> /private/etc/nix-darwin linked"
 nix-install:
-	@curl -fsSL https://install.determinate.systems/nix | sh -s -- install
+	@curl -L https://nixos.org/nix/install | sh -s -- --daemon
+nix-prepare:
+	@for f in /etc/bashrc /etc/zshrc /etc/ssl/certs/ca-certificates.crt; do \
+		if [ -f "$$f" ] && [ ! -L "$$f" ]; then \
+			sudo mv "$$f" "$$f.before-nix-darwin"; \
+			echo "  -> $$f backed up"; \
+		fi; \
+	done
 nix-build:
-	@cd /private/etc/nix-darwin && nix run nix-darwin/master#darwin-rebuild -- build --flake .#main
+	@cd /private/etc/nix-darwin && nix --extra-experimental-features 'nix-command flakes' run nix-darwin/master#darwin-rebuild -- build --flake .#main
 nix-run:
-	@cd /private/etc/nix-darwin && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#main
+	@cd /private/etc/nix-darwin && sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin/master#darwin-rebuild -- switch --flake .#main
