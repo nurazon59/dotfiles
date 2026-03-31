@@ -2,6 +2,7 @@ local M = {}
 
 M.servers = {
   "astro",
+  "golangci_lint_ls",
   "gopls",
   "jsonls",
   "jsonnet_ls",
