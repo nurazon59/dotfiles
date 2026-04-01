@@ -73,6 +73,7 @@ zoxide = "latest"
 "aqua:neovim/neovim" = "latest"
 go = "latest"
 "go:golang.org/x/tools/gopls" = "latest"
+usage = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
