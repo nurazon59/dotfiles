@@ -15,11 +15,8 @@
     in {
       imports = [
         ./system.nix
+        ./packages.nix
       ];
-
-      environment.systemPackages =
-        [ pkgs.vim
-        ];
 
       nix.settings.experimental-features = "nix-command flakes";
       nix.settings.auto-optimise-store = true;
