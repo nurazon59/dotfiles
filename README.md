@@ -24,7 +24,6 @@ cd ~/src/github.com/nurazon59/dotfiles
 
 ```
 dotfiles/
-├── Brewfile            # Homebrew packages
 ├── bin/                # Utility scripts
 ├── config/
 │   ├── .config/        # .config symlink
@@ -44,7 +43,6 @@ dotfiles/
 
 When you pull changes from the repository, lefthook automatically detects and installs only the changes:
 
-- **Brewfile changes**: Installs only new packages
 - **mise configuration**: Updates development tools
 - **Config files**: Updates only modified symlinks
 

@@ -159,12 +159,11 @@ setopt HIST_NO_STORE             # Don't store history commands
 
 bindkey '^K' autosuggest-accept
 
-# brew installの個別実行を禁止
+# brew installの個別実行を禁止（nix-darwinのhomebrew.nixで管理）
 brew() {
   if [[ "$1" == "install" ]]; then
     echo "エラー: 'brew install'は禁止されています。"
-    echo "代わりに'brew bundle'を使用してください。"
-    echo "Brewfileに追加してから'brew bundle'を実行してください。"
+    echo "homebrew.nixに追加してから'darwin-rebuild switch'を実行してください。"
     return 1
   else
     command brew "$@"

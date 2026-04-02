@@ -16,6 +16,7 @@
       imports = [
         ./system.nix
         ./packages.nix
+        ./homebrew.nix
       ];
 
       nix.settings.experimental-features = "nix-command flakes";

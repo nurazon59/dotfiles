@@ -122,9 +122,6 @@ macos:
 		echo "Installing Homebrew..."; \
 		/bin/bash -c "$$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; \
 	fi
-	@# Brewfileからパッケージインストール
-	@echo "Installing dependencies from Brewfile..."
-	@brew bundle --file=$(DOTFILES_DIR)/config/root/Brewfile
 	@# macOSデフォルト設定の適用
 	@echo "Applying macOS default settings..."
 	@for script in $(DOTFILES_DIR)/config/macos/*.sh; do \
