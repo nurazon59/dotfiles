@@ -5,7 +5,7 @@ UNAME := $(shell uname -s)
 # ~/.config 内でリンクするディレクトリ一覧
 CONFIG_DIRS := aerospace alacritty any-script-mcp borders fish gh gh-dash \
                github-copilot karabiner kitty lazygit linearmouse mise nvim \
-               sheldon sketchybar starship tmux yazi mprocs
+               sheldon sketchybar starship tmux yazi mprocs nix
 
 .PHONY: all help macos install link shell nix-run nix-build nix-link nix-install nix-prepare
 
@@ -155,6 +155,6 @@ nix-prepare:
 		fi; \
 	done
 nix-build:
-	@cd /private/etc/nix-darwin && nix --extra-experimental-features 'nix-command flakes' run nix-darwin/master#darwin-rebuild -- build --flake .#main
+	@cd /private/etc/nix-darwin && nix run nix-darwin/master#darwin-rebuild -- build --flake .#main
 nix-run:
-	@cd /private/etc/nix-darwin && sudo nix --extra-experimental-features 'nix-command flakes' run nix-darwin/master#darwin-rebuild -- switch --flake .#main
+	@cd /private/etc/nix-darwin && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#main
