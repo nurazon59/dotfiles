@@ -13,5 +13,27 @@
     qemu
     sheldon
     switchaudio-osx
+    bat
+    colima
+    direnv
+    docker-client
+    fd
+    fzf
+    lsd
+    ripgrep
+    sd
+    starship
+    tree-sitter
+    xh
+    zoxide
+    usage
+    mprocs
+    ollama
+    ghq
+    lazygit
+    delta
+    stylua
+    go-task
+    redis
   ];
 }
