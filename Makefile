@@ -3,7 +3,7 @@ DOTFILES_DIR := $(shell pwd)
 UNAME := $(shell uname -s)
 
 # ~/.config 内でリンクするディレクトリ一覧
-CONFIG_DIRS := aerospace alacritty any-script-mcp borders fish gh gh-dash \
+CONFIG_DIRS := aerospace alacritty any-script-mcp borders fish gh gh-dash git \
                github-copilot karabiner kitty lazygit linearmouse mise nvim \
                sheldon sketchybar starship tmux yazi mprocs nix
 
