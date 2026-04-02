@@ -26,6 +26,7 @@ return {
         json = { "oxfmt" },
         yaml = { "oxfmt" },
         markdown = { "oxfmt" },
+        nix = { "nixfmt" },
         proto = { "buf" },
       },
       format_on_save = {
