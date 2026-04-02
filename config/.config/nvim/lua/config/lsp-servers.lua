@@ -36,10 +36,18 @@ M.tools = {
   "yamllint",
 }
 
+M.external_servers = {
+  "nixd",
+}
+
 function M.setup()
   vim.lsp.config("*", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
   })
+
+  for _, server in ipairs(M.external_servers) do
+    vim.lsp.enable(server)
+  end
 
   vim.lsp.config("postgres_lsp", {
     cmd = { "postgres-language-server", "lsp-proxy" },
