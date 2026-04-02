@@ -38,6 +38,7 @@ set -x PAGER bat
 set -x BAT_PAGER 'less -R'
 set -x FZF_DEFAULT_OPTS '--height 40% --reverse --cycle --bind tab:down,btab:up'
 set -x FZF_COMPLETION_OPTS '--select-1 --exit-0 --preview="bat -n --color=always {1} 2>/dev/null || lsd --color=always -a {1} 2>/dev/null" --preview-window=right:50%:wrap:border-left'
+set -x CLAUDE_CONFIG_DIR "$XDG_CONFIG_HOME/claude"
 
 # -----------------------------------------------------------------------------
 # Aliases
