@@ -32,7 +32,6 @@
       "input-source-pro"
       "karabiner-elements"
       "linearmouse"
-      "microsoft-office"
       "monitorcontrol"
       "sf-symbols"
       "shottr"
