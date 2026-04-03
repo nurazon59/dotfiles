@@ -35,5 +35,6 @@
     stylua
     go-task
     redis
+    podman
   ];
 }
