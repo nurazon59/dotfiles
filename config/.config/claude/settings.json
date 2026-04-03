@@ -194,7 +194,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "sh $HOME/.claude/statusline.sh"
+    "command": "sh $HOME/.config/claude/statusline.sh"
   },
   "enabledPlugins": {
     "ast-grep@ast-grep-marketplace": true,
