@@ -154,7 +154,5 @@ nix-prepare:
 			echo "  -> $$f backed up"; \
 		fi; \
 	done
-nix-build:
-	@cd /private/etc/nix-darwin && nix run nix-darwin/master#darwin-rebuild -- build --flake .#main
 nix-run:
 	@cd /private/etc/nix-darwin && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#main
