@@ -2,6 +2,7 @@
 # kittyの設定を移植
 
 [window]
+option_as_alt = "Both"
 # ウィンドウ設定
 padding.x = 10
 padding.y = 10
