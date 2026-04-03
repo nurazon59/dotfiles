@@ -41,26 +41,6 @@ return {
     end,
   },
   {
-    "MagicDuck/grug-far.nvim",
-    cmd = "GrugFar",
-    opts = {},
-    keys = {
-      {
-        "<leader>sr",
-        function()
-          local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
-          require("grug-far").open({
-            prefills = {
-              filesFilter = ext and ext ~= "" and "*." .. ext or nil,
-            },
-          })
-        end,
-        mode = { "n", "v" },
-        desc = "Search and Replace",
-      },
-    },
-  },
-  {
     "folke/trouble.nvim",
     cmd = "Trouble",
     opts = {},
