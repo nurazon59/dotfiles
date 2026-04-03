@@ -1,30 +1,8 @@
 #!/bin/sh
-# why: LaunchAgent環境ではPATHが最小限なので、lua実体を候補順で解決する
-LUA_BIN=""
+LUA_BIN="/run/current-system/sw/bin/lua"
 
-# Prefer an installed mise Lua without requiring global activation.
-for candidate in "$HOME"/.local/share/mise/installs/lua/*/bin/lua; do
-  if [ -x "$candidate" ]; then
-    LUA_BIN="$candidate"
-  fi
-done
-
-# Fallbacks for common package managers/paths.
-if [ -z "$LUA_BIN" ]; then
-  for candidate in \
-    "$HOME/.local/share/mise/shims/lua" \
-    "/opt/homebrew/bin/lua" \
-    "/usr/local/bin/lua"
-  do
-    if [ -x "$candidate" ]; then
-      LUA_BIN="$candidate"
-      break
-    fi
-  done
-fi
-
-if [ -z "$LUA_BIN" ]; then
-  echo "sketchybarrc: lua runtime not found. Install one via 'brew install lua'." >&2
+if [ ! -x "$LUA_BIN" ]; then
+  echo "sketchybarrc: lua not found at $LUA_BIN. Check nix-darwin packages." >&2
   exit 1
 fi
 
@@ -32,4 +10,5 @@ fi
 cd "$HOME/.config/sketchybar"
 # why: sbar.exec()はshサブプロセスで実行されるため、CONFIG_DIRを明示的に渡す
 export CONFIG_DIR="$HOME/.config/sketchybar"
+export SKETCHYBAR_GH_USER="koshiishi_sansan"
 exec "$LUA_BIN" "$HOME/.config/sketchybar/init.lua"
