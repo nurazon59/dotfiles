@@ -154,4 +154,23 @@ return {
       },
     },
   },
+  {
+    "stevearc/resession.nvim",
+    lazy = false,
+    config = function()
+      local r = require("resession")
+      r.setup({
+        autosave = {
+          enabled = true,
+          interval = 120,
+          notify = false,
+        },
+      })
+      vim.api.nvim_create_autocmd("VimLeavePre", {
+        callback = function()
+          r.save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
+        end,
+      })
+    end,
+  },
 }

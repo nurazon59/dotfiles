@@ -334,4 +334,67 @@ return {
       },
     },
   },
+  {
+    "echasnovski/mini.starter",
+    lazy = false,
+    config = function()
+      local starter = require("mini.starter")
+
+      local dir_items = {}
+      local dashboard_dirs = vim.env.DASHBOARD_DIRS
+      if dashboard_dirs then
+        for raw_dir in dashboard_dirs:gmatch("[^,]+") do
+          local dir = vim.fn.expand(raw_dir)
+          local name = dir:match("([^/]+)$")
+          table.insert(dir_items, {
+            name = name,
+            action = function()
+              vim.cmd.cd(dir)
+              vim.cmd("NvimTreeOpen")
+            end,
+            section = "Projects",
+          })
+        end
+      end
+
+      local items = {
+        { name = "Restore Session", action = function()
+            require("resession").load(vim.fn.getcwd(), { dir = "dirsession" })
+            vim.cmd("doautoall BufAdd")
+          end, section = "Session" },
+        { name = "Recent Files", action = "FzfLua oldfiles", section = "Files" },
+        { name = "New File", action = function()
+            vim.ui.input({ prompt = "File name: " }, function(name)
+              if name and name ~= "" then
+                vim.cmd.edit(name)
+              end
+            end)
+          end, section = "Files" },
+        { name = "Open Tree", action = "NvimTreeOpen", section = "Files" },
+        { name = "Quit", action = "qa", section = "" },
+      }
+      vim.list_extend(items, dir_items)
+
+      starter.setup({
+        header = table.concat({
+          "███╗   ██╗██╗   ██╗██╗███╗   ███╗",
+          "████╗  ██║██║   ██║██║████╗ ████║",
+          "██╔██╗ ██║██║   ██║██║██╔████╔██║",
+          "██║╚██╗██║╚██╗ ██╔╝██║██║╚██╔╝██║",
+          "██║ ╚████║ ╚████╔╝ ██║██║ ╚═╝ ██║",
+          "╚═╝  ╚═══╝  ╚═══╝  ╚═╝╚═╝     ╚═╝",
+        }, "\n"),
+        items = items,
+        query_updaters = "abcdefghimnopqrstuvwxyz0123456789_-.",
+        footer = "",
+      })
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "MiniStarterOpened",
+        callback = function()
+          vim.keymap.set("n", "j", "<Cmd>lua MiniStarter.update_current_item('next')<CR>", { buffer = true })
+          vim.keymap.set("n", "k", "<Cmd>lua MiniStarter.update_current_item('prev')<CR>", { buffer = true })
+        end,
+      })
+    end,
+  },
 }
