@@ -1,4 +1,4 @@
-{ config, ... }:
+{ user, config, ... }:
 let
   symlink = config.lib.file.mkOutOfStoreSymlink;
   dotfiles = "${config.home.homeDirectory}/src/github.com/nurazon59/dotfiles";
@@ -7,8 +7,8 @@ let
 in
 {
   home.stateVersion = "24.11";
-  home.username = "koshiishi";
-  home.homeDirectory = "/Users/koshiishi";
+  home.username = user;
+  home.homeDirectory = "/Users/${user}";
 
   home.file = {
     ".config/aerospace".source = symlink "${configDir}/aerospace";
@@ -37,5 +37,6 @@ in
 
     ".rgignore".source = symlink "${rootDir}/.rgignore";
     ".zshrc".source = symlink "${rootDir}/.zshrc";
+    ".codex".source = symlink "${rootDir}/.codex";
   };
 }

@@ -1,7 +1,5 @@
-{ ... }:
-let
-  user = "koshiishi";
-in {
+{ user, ... }:
+{
   system.defaults = {
     dock = {
       autohide = true;
