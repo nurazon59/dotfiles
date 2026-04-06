@@ -4,16 +4,16 @@
     enable = true;
 
     taps = [
-      "daipeihust/tap"
       "felixkratz/formulae"
       "mtgto/macskk"
       "nikitabobko/tap"
+      "laishulu/homebrew"
     ];
 
     brews = [
-      "daipeihust/tap/im-select"
       "felixkratz/formulae/borders"
       "felixkratz/formulae/sketchybar"
+      "laishulu/homebrew/macism"
     ];
 
     casks = [
