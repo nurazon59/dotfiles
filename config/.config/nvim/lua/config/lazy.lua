@@ -19,6 +19,9 @@ require("lazy").setup({
     { import = "plugins" },
     { import = "lsp" },
   },
+  install = {
+    colorscheme = { "rose-pine-moon" },
+  },
   defaults = {
     lazy = false,
     version = false,
