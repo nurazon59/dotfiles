@@ -35,8 +35,8 @@ in
     ".config/yazi".source = symlink "${configDir}/yazi";
     ".config/zeno".source = symlink "${configDir}/zeno";
 
-    ".rgignore".source = symlink "${rootDir}/.rgignore";
     ".zshrc".source = symlink "${rootDir}/.zshrc";
     ".config/codex".source = symlink "${configDir}/codex";
+    ".config/ripgrep".source = symlink "${configDir}/ripgrep";
   };
 }
