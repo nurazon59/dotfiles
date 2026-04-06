@@ -17,6 +17,7 @@ zzz/
 config/.config/karabiner/automatic_backups/
 
 # Local files
+.env
 .local.*
 .dotter/cache.toml
 cache/
