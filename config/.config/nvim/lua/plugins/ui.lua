@@ -291,14 +291,11 @@ return {
     end,
   },
   {
-    "norcalli/nvim-colorizer.lua",
+    "catgoose/nvim-colorizer.lua",
     event = "BufRead",
-    config = function()
-      require("colorizer").setup({
-        "*",
-        css = { hsl_fn = true },
-        html = { mode = "background" },
-      }, {
+    opts = {
+      filetypes = { "*" },
+      user_default_options = {
         RGB = true,
         RRGGBB = true,
         names = true,
@@ -312,8 +309,8 @@ return {
         tailwind = true,
         sass = { enable = true, parsers = { "css" } },
         virtualtext = "■",
-      })
-    end,
+      },
+    },
   },
   {
     "folke/which-key.nvim",
