@@ -1,49 +1,12 @@
 # dotfiles
 
-My personal development environment configuration files.
+macOS dev environment managed with nix-darwin + home-manager.
 
-## Quick Start
-
-### Using ghq (recommended)
-
-```bash
-ghq get nurazon59/dotfiles
-cd $(ghq root)/github.com/nurazon59/dotfiles
-./install.sh
-```
-
-### Manual clone
+## Setup
 
 ```bash
 git clone https://github.com/nurazon59/dotfiles.git ~/src/github.com/nurazon59/dotfiles
 cd ~/src/github.com/nurazon59/dotfiles
-./install.sh
+make init HOST=work    # or HOST=personal
+make rebuild           # after config changes
 ```
-
-## Structure
-
-```
-dotfiles/
-├── bin/                # Utility scripts
-├── config/
-│   ├── .config/        # .config symlink
-│   └── macos/          # macOS settings
-├── root/               # Home directory files
-│   ├── .gitconfig
-│   ├── .gitignore
-│   └── .zshrc
-├── lefthook.yml        # Git hooks configuration
-├── .lefthook/          # Hook scripts
-└── install.sh          # Installation script
-```
-
-## Features
-
-### Automatic Differential Installation
-
-When you pull changes from the repository, lefthook automatically detects and installs only the changes:
-
-- **mise configuration**: Updates development tools
-- **Config files**: Updates only modified symlinks
-
-This feature is enabled automatically after running `install.sh`.
