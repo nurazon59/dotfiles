@@ -68,7 +68,11 @@ mouse = "Right"
 action = "PasteSelection"
 
 [keyboard]
-# キーバインド設定
+
+[[keyboard.bindings]]
+key = "K"
+mods = "Command"
+chars = "clear\r"
 
 [[keyboard.bindings]]
 key = "C"
@@ -79,11 +83,6 @@ action = "Copy"
 key = "V"
 mods = "Command"
 action = "Paste"
-
-[[keyboard.bindings]]
-key = "N"
-mods = "Command"
-action = "CreateNewWindow"
 
 [[keyboard.bindings]]
 key = "W"
