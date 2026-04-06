@@ -21,6 +21,8 @@ config/.config/karabiner/automatic_backups/
 .dotter/cache.toml
 cache/
 config/.config/github-copilot/apps.json
+config/.config/espanso/match/work.yml
+config/.config/espanso/match/personal.yml
 config/.config/fish/fish_variables
 config/.config/fish/conf.d/fish_frozen_key_bindings.fish
 config/.config/fish/conf.d/fish_frozen_theme.fish
