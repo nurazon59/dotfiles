@@ -37,6 +37,6 @@ in
 
     ".rgignore".source = symlink "${rootDir}/.rgignore";
     ".zshrc".source = symlink "${rootDir}/.zshrc";
-    ".codex".source = symlink "${rootDir}/.codex";
+    ".config/codex".source = symlink "${configDir}/codex";
   };
 }

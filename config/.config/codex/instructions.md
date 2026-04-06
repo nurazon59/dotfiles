@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`~/.codex` には永続設定と実行時データが混在するため、静的設定だけを dotfiles で管理する。
+`~/.config/codex` には永続設定と実行時データが混在するため、静的設定だけを dotfiles で管理する。
 
 ## Managed Files
 
