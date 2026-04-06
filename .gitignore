@@ -35,3 +35,4 @@ config/root/.codex/*
 
 # Nix
 config/nix/nix-darwin/result
+/config/.config/claude/.claude.json
