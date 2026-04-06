@@ -7,6 +7,7 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
   };
 
   outputs =
@@ -15,6 +16,7 @@
       nix-darwin,
       nixpkgs,
       home-manager,
+      neovim-nightly-overlay,
     }:
     let
       mkSystem =
@@ -50,6 +52,7 @@
 
                 users.users.${user}.home = "/Users/${user}";
 
+                nixpkgs.overlays = [ neovim-nightly-overlay.overlays.default ];
                 nixpkgs.config.allowUnfree = true;
 
                 system.configurationRevision = self.rev or self.dirtyRev or null;
