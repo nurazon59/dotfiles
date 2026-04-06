@@ -4,7 +4,7 @@
             "complex_modifications": {
                 "rules": [
                     {
-                        "description": "Change caps_lock to control if pressed with other keys, to escape if pressed alone.",
+                        "description": "Change caps_lock to left_control.",
                         "manipulators": [
                             {
                                 "from": {
@@ -12,7 +12,6 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [{ "key_code": "left_control" }],
-                                "to_if_alone": [{ "key_code": "escape" }],
                                 "type": "basic"
                             }
                         ]
