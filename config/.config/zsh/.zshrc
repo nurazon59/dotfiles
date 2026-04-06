@@ -101,6 +101,9 @@ function gcr() {
   cd "$repo_path"
 }
 
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
+export CODEX_HOME="$HOME/.config/codex"
+
 export LANG=en_US.UTF-8
 export EDITOR='nvim'
 export PAGER='bat'
