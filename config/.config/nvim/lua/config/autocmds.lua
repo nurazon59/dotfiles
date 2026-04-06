@@ -35,7 +35,9 @@ vim.api.nvim_create_autocmd("FileType", {
       if word == "" then
         return
       end
-      local pattern = [[CREATE\s+(OR\s+REPLACE\s+)?(TABLE|VIEW|FUNCTION|TYPE|TRIGGER|PROCEDURE)\s+(IF\s+NOT\s+EXISTS\s+)?(\w+\.)?]] .. word .. [[\b]]
+      local pattern = [[CREATE\s+(OR\s+REPLACE\s+)?(TABLE|VIEW|FUNCTION|TYPE|TRIGGER|PROCEDURE)\s+(IF\s+NOT\s+EXISTS\s+)?(\w+\.)?]]
+        .. word
+        .. [[\b]]
       local obj = vim.system({ "rg", "--vimgrep", "--glob", "*.sql", pattern }):wait()
       local lines = vim.tbl_filter(function(l)
         return l ~= ""

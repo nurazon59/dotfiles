@@ -73,7 +73,6 @@ return {
       count = 3,
     })
 
-
     -- キーマップ設定関数
     local function set_terminal_keymaps()
       local opts = { noremap = true, silent = true }
