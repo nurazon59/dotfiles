@@ -113,4 +113,45 @@ return {
       },
     },
   },
+{
+  "mrjones2014/smart-splits.nvim",
+  event = "VeryLazy",
+  opts = {
+    at_edge = "stop",
+  },
+  keys = {
+    {
+      "<C-h>",
+      function()
+        require("smart-splits").move_cursor_left()
+      end,
+      desc = "Move to Left Split",
+      mode = { "n", "t" },
+    },
+    {
+      "<C-j>",
+      function()
+        require("smart-splits").move_cursor_down()
+      end,
+      desc = "Move to Lower Split",
+      mode = { "n", "t" },
+    },
+    {
+      "<C-k>",
+      function()
+        require("smart-splits").move_cursor_up()
+      end,
+      desc = "Move to Upper Split",
+      mode = { "n", "t" },
+    },
+    {
+      "<C-l>",
+      function()
+        require("smart-splits").move_cursor_right()
+      end,
+      desc = "Move to Right Split",
+      mode = { "n", "t" },
+    },
+  },
+
 }
