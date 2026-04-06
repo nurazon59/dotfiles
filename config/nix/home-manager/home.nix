@@ -19,7 +19,6 @@ in
     ".config/fish".source = symlink "${configDir}/fish";
     ".config/gh".source = symlink "${configDir}/gh";
     ".config/gh-dash".source = symlink "${configDir}/gh-dash";
-    ".config/github-copilot".source = symlink "${configDir}/github-copilot";
     ".config/git".source = symlink "${configDir}/git";
     ".config/karabiner".source = symlink "${configDir}/karabiner";
     ".config/kitty".source = symlink "${configDir}/kitty";
