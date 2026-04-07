@@ -33,23 +33,6 @@ return {
       {
         "<leader>as",
         function()
-          -- fzf-luaのtbl_deep_cloneがsidekickのStateオブジェクトの循環参照でstack overflowするため、
-          -- sidekick select時のみネイティブvim.ui.selectに一時的に切り替える
-          local saved = vim.ui.select
-          vim.ui.select = function(items, opts, on_choice)
-            vim.ui.select = saved
-            local choices = { (opts.prompt or "Select:") }
-            for i, item in ipairs(items) do
-              local text = opts.format_item and opts.format_item(item) or tostring(item)
-              choices[#choices + 1] = string.format("%d. %s", i, text)
-            end
-            local nr = vim.fn.inputlist(choices)
-            if nr > 0 and nr <= #items then
-              on_choice(items[nr], nr)
-            else
-              on_choice(nil, nil)
-            end
-          end
           require("sidekick.cli").select()
         end,
         desc = "Select CLI",
@@ -68,14 +51,6 @@ return {
           require("sidekick.cli").send({ msg = "{file}" })
         end,
         desc = "Send File",
-      },
-      {
-        "<leader>ap",
-        function()
-          require("sidekick.cli").prompt()
-        end,
-        mode = { "n", "x" },
-        desc = "Sidekick Select Prompt",
       },
       {
         "<C-q>",
