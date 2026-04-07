@@ -1,10 +1,11 @@
 # Starship configuration
+"$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
 $directory\
 $git_branch\
 $git_status\
-$docker_context\
+${custom.docker}\
 $line_break\
 $character"""
 
@@ -45,15 +46,9 @@ error_symbol = "[❯](bold red)"
 disabled = true
 
 [docker_context]
-format = "[$symbol$context]($style) "
-symbol = "🐳 "
-style = "bold blue"
-only_with_files = true
-detect_files = [
-	"docker-compose.yml",
-	"docker-compose.yaml",
-	"Dockerfile",
-	"compose.yaml",
-	"compose.yml",
-]
-detect_folders = []
+disabled = true
+
+[custom.docker]
+command = "echo colima"
+when = 'test -S ~/.config/colima/default/docker.sock && { test -f docker-compose.yml || test -f docker-compose.yaml || test -f Dockerfile || test -f compose.yaml || test -f compose.yml; }'
+format = "[🐳 $output](bold blue) "
