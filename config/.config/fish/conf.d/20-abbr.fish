@@ -1,0 +1,15 @@
+if status --is-interactive
+    abbr --add gco 'git checkout'
+    abbr --add gcb 'git checkout -b'
+    abbr --add .. 'cd ..'
+    abbr --add ... 'cd ../..'
+    abbr --add .... 'cd ../../..'
+    abbr --add ..... 'cd ../../../..'
+    abbr --add gpr 'git pull'
+    abbr --add gps 'git push'
+    abbr --add gst 'git status'
+    abbr --add lg 'lazygit'
+    abbr --add --position anywhere nvim-conf '~/src/github.com/nurazon59/dotfiles/config/.config/nvim'
+    abbr --add --position anywhere nix-conf '~/src/github.com/nurazon59/dotfiles/config/nix'
+    abbr --add --position anywhere fish-conf '~/src/github.com/nurazon59/dotfiles/config/.config/fish'
+end

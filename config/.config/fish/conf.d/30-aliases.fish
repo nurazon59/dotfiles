@@ -1,0 +1,6 @@
+alias yolo="claude --dangerously-skip-permissions"
+alias ls='lsd --icon always --git --group-directories-first --all'
+alias bat='bat'
+alias cat='bat --paging=never'
+alias tree='lsd --icon always --git --group-directories-first --tree'
+alias less='bat --paging=always'
