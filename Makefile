@@ -40,3 +40,7 @@ init:
 
 rebuild:
 	@cd /private/etc/nix-darwin && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake .#$(HOST)
+
+update:
+	@claude update
+	@mise upgrade
