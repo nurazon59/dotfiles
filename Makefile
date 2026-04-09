@@ -44,3 +44,7 @@ rebuild:
 update:
 	@claude update
 	@mise upgrade
+
+env:
+	@echo "HOST=$(HOST)" > $(DOTFILES_DIR)/.env
+	@echo "  -> .env created (HOST=$(HOST))"
