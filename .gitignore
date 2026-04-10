@@ -19,7 +19,6 @@ config/.config/karabiner/automatic_backups/
 # Local files
 .env
 .local.*
-.dotter/cache.toml
 cache/
 config/.config/espanso/match/work.yml
 config/.config/espanso/match/personal.yml
