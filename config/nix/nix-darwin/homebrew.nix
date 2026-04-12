@@ -36,6 +36,7 @@
       "sf-symbols"
       "shottr"
       "slack"
+      "sol"
     ];
   };
 }
