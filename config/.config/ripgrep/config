@@ -1,2 +1,2 @@
 --ignore-file
-~/.config/ripgrep/rgignore
+/Users/koshiishi/.config/ripgrep/rgignore
