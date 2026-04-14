@@ -39,7 +39,7 @@
     };
 
     screencapture = {
-      location = "/Users/${user}/Downloads/Screenshots";
+      location = "/Users/${user}/Screenshots";
       disable-shadow = true;
     };
 
