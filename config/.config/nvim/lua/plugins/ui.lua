@@ -104,7 +104,9 @@ return {
     version = "*",
     opts = {
       width = 120,
-      enableOnVimEnter = true,
+      autocmds = {
+        enableOnVimEnter = true,
+      },
       integrations = {
         NvimTree = {
           position = "left",
