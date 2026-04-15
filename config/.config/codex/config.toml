@@ -4,9 +4,11 @@ personality = "pragmatic"
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
 web_search = "live"
+approvals_reviewer = "user"
 
 [tui]
 notifications = false
+status_line = ["model-with-reasoning", "current-dir", "context-usage", "five-hour-limit"]
 
 # Trusted paths
 # MCP servers
@@ -25,3 +27,4 @@ hide_gpt5_1_migration_prompt = true
 
 [plugins."github@openai-curated"]
 enabled = true
+
