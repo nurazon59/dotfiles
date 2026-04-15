@@ -10,6 +10,15 @@ in
   home.username = user;
   home.homeDirectory = "/Users/${user}";
 
+  programs.ripgrep = {
+    enable = true;
+    package = null;
+    arguments = [
+      "--ignore-file"
+      "${configDir}/ripgrep/rgignore"
+    ];
+  };
+
   home.file = {
     ".config/aerospace".source = symlink "${configDir}/aerospace";
     ".config/alacritty".source = symlink "${configDir}/alacritty";
@@ -36,7 +45,6 @@ in
     ".config/zeno".source = symlink "${configDir}/zeno";
 
     ".config/codex".source = symlink "${configDir}/codex";
-    ".config/ripgrep".source = symlink "${configDir}/ripgrep";
     ".config/zsh".source = symlink "${configDir}/zsh";
     ".zshenv".source = symlink "${rootDir}/.zshenv";
   };

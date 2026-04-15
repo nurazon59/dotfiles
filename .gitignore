@@ -27,6 +27,7 @@ config/.config/fish/conf.d/fish_frozen_key_bindings.fish
 config/.config/fish/conf.d/fish_frozen_theme.fish
 config/.config/fish/conf.d/fish_frozen_theme.fish.bak
 config/.config/gh/hosts.yml
+config/.config/ripgrep/ripgreprc
 config/.config/tmux/plugins
 
 # Codex
