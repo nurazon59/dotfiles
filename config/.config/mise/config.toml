@@ -17,6 +17,7 @@
 "npm:difit" = "latest"
 "npm:docusaurus" = "latest"
 "npm:oxfmt" = "latest"
+"npm:typescript" = "latest"
 "npm:vercel" = "latest"
 "npm:vibe-kanban" = "latest"
 "npm:wrangler" = "latest"
