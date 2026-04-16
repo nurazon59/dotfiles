@@ -22,6 +22,7 @@
       "alacritty"
       "arc"
       "azookey"
+      "claude"
       "clipy"
       "datagrip"
       "espanso"
