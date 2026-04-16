@@ -132,6 +132,15 @@ return {
     ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     opts = {
+      root_dir = function(bufnr)
+        -- Denoプロジェクトではtypescript-toolsを起動しない
+        local buf_path = vim.api.nvim_buf_get_name(bufnr)
+        local deno_root = vim.fs.root(buf_path, { "deno.json", "deno.jsonc" })
+        if deno_root then
+          return nil
+        end
+        return vim.fs.root(buf_path, { "package.json", "tsconfig.json" })
+      end,
       settings = {
         tsserver_file_preferences = {
           disableFormatting = true,

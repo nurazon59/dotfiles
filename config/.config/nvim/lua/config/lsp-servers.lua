@@ -17,6 +17,7 @@ M.servers = {
   "taplo",
   "terraformls",
   "tinymist",
+  "denols",
 }
 
 M.tools = {
@@ -34,6 +35,7 @@ M.tools = {
   "textlint",
   "typos",
   "yamllint",
+  "denols",
 }
 
 M.external_servers = {
@@ -57,6 +59,10 @@ function M.setup()
 
   vim.lsp.config("terraformls", {
     filetypes = { "terraform", "tf", "terraform-vars" },
+  })
+
+  vim.lsp.config("denols", {
+    root_markers = { "deno.json", "deno.jsonc" },
   })
 end
 

@@ -31,6 +31,7 @@ return {
         "css",
         "diff",
         "dockerfile",
+        "deno",
         "fish",
         "git_rebase",
         "gitcommit",
