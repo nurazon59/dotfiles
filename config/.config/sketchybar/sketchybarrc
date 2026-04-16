@@ -1,5 +1,5 @@
 #!/bin/sh
-LUA_BIN="/run/current-system/sw/bin/lua"
+LUA_BIN="/opt/homebrew/bin/lua5.5"
 
 if [ ! -x "$LUA_BIN" ]; then
   echo "sketchybarrc: lua not found at $LUA_BIN. Check nix-darwin packages." >&2
