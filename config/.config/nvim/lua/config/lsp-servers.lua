@@ -2,6 +2,7 @@ local M = {}
 
 M.servers = {
   "astro",
+  "clangd",
   "golangci_lint_ls",
   "gopls",
   "jsonls",
@@ -11,7 +12,6 @@ M.servers = {
   "mdx_analyzer",
   "postgres_lsp",
   "prismals",
-  "pylsp",
   "pyright",
   "tailwindcss",
   "taplo",
@@ -24,6 +24,7 @@ M.tools = {
   "actionlint",
   "biome",
   "buf",
+  "clang-format",
   "eslint_d",
   "golangci-lint",
   "oxlint",
