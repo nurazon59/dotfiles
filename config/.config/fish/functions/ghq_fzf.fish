@@ -30,53 +30,7 @@ function ghq_fzf
         set -l selected $selected_fields[1]
         set -l session_name $selected_fields[3]
         set -l window_name $selected_fields[4]
-        set -l session_id
-
-        for line in (tmux list-sessions -F "#{session_id}|#{session_name}" 2>/dev/null)
-            set -l session_fields (string split --max 1 '|' -- $line)
-            if test "$session_fields[2]" = "$session_name"
-                set session_id $session_fields[1]
-                break
-            end
-        end
-
-        if test -z "$session_id"
-            tmux new-session -d -s "$session_name" -n "$window_name" -c "$selected"
-            for line in (tmux list-sessions -F "#{session_id}|#{session_name}" 2>/dev/null)
-                set -l session_fields (string split --max 1 '|' -- $line)
-                if test "$session_fields[2]" = "$session_name"
-                    set session_id $session_fields[1]
-                    break
-                end
-            end
-
-            for line in (tmux list-windows -t "$session_id" -F "#{window_id}" 2>/dev/null)
-                tmux set-option -w -t "$line" @ghq_path "$selected"
-                break
-            end
-        end
-
-        set -l window_id
-        for line in (tmux list-windows -t "$session_id" -F "#{window_id}|#{@ghq_path}" 2>/dev/null)
-            set -l window_fields (string split --max 1 '|' -- $line)
-            if test "$window_fields[2]" = "$selected"
-                set window_id $window_fields[1]
-                break
-            end
-        end
-
-        if test -z "$window_id"
-            set window_id (tmux new-window -d -P -F "#{window_id}" -t "$session_id" -n "$window_name" -c "$selected")
-            tmux set-option -w -t "$window_id" @ghq_path "$selected"
-        end
-
-        if set -q TMUX
-            tmux switch-client -t "$session_id"
-            tmux select-window -t "$window_id"
-        else
-            tmux select-window -t "$window_id"
-            tmux attach-session -t "$session_id"
-        end
+        __ghq_tmux_open "$selected" "$session_name" "$window_name"
     end
     commandline -f repaint
 end
