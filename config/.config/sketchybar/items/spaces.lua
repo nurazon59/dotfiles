@@ -11,6 +11,23 @@ local LIST_APPS = "aerospace list-windows --workspace %s | awk -F'|' '{gsub(/^ *
 
 local spaces = {}
 
+-- why: aerospace は list-workspaces をアルファベット順で返すため、
+-- Corne配列に合わせた asdf/hjkl の物理順で表示したい
+local WORKSPACE_ORDER = { "A", "S", "D", "F", "H", "J", "K", "L" }
+local workspaceOrderIndex = {}
+for i, name in ipairs(WORKSPACE_ORDER) do
+    workspaceOrderIndex[name] = i
+end
+
+local function sortWorkspaces(names)
+    table.sort(names, function(a, b)
+        local ai = workspaceOrderIndex[a] or (#WORKSPACE_ORDER + 1)
+        local bi = workspaceOrderIndex[b] or (#WORKSPACE_ORDER + 1)
+        if ai == bi then return a < b end
+        return ai < bi
+    end)
+end
+
 local function getIconForApp(appName)
     -- why: 未知アプリで"?"が出ないように空文字を返す
     return app_icons[appName] or ""
@@ -125,7 +142,13 @@ local function drawSpaces()
             local focusedWorkspace = focusedWorkspaceOutput:match("[^\r\n]+")
 
             -- Show all workspaces on all monitors
+            local workspaceNames = {}
             for workspaceName in allWorkspacesOutput:gmatch("[^\r\n]+") do
+                table.insert(workspaceNames, workspaceName)
+            end
+            sortWorkspaces(workspaceNames)
+
+            for _, workspaceName in ipairs(workspaceNames) do
                 local isSelected = workspaceName == focusedWorkspace
                 addWorkspaceItem(workspaceName, nil, isSelected)
             end
