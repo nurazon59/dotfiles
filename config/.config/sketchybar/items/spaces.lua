@@ -134,14 +134,12 @@ local function addWorkspaceItem(workspaceName, monitorId, isSelected)
     updateSpaceIcons(spaceId, workspaceName)
 end
 
+-- why: workspaceアイテムの生成用。起動時と、稀にworkspaceが増減した時だけ呼ぶ重い処理。
 local function drawSpaces()
-    -- Get all workspaces from all monitors
     sbar.exec(LIST_ALL, function(allWorkspacesOutput)
-        -- Cache the focused workspace to avoid multiple `LIST_CURRENT` queries
         sbar.exec(LIST_CURRENT, function(focusedWorkspaceOutput)
             local focusedWorkspace = focusedWorkspaceOutput:match("[^\r\n]+")
 
-            -- Show all workspaces on all monitors
             local workspaceNames = {}
             for workspaceName in allWorkspacesOutput:gmatch("[^\r\n]+") do
                 table.insert(workspaceNames, workspaceName)
@@ -156,24 +154,66 @@ local function drawSpaces()
     end)
 end
 
+-- why: ハイライト付け替えだけ。LIST_CURRENT 1回のみ実行し、既存itemのhighlightを更新する。
+-- front_app_switched / aerospace_workspace_change の高頻度発火にはこれで応答する。
+local function updateFocusedHighlight()
+    sbar.exec(LIST_CURRENT, function(focusedWorkspaceOutput)
+        local focusedWorkspace = focusedWorkspaceOutput:match("[^\r\n]+")
+        for spaceId, space in pairs(spaces) do
+            local workspaceName = spaceId:match("^workspace_(.+)")
+            if workspaceName then
+                local isSelected = workspaceName == focusedWorkspace
+                space.item:set({
+                    icon = { highlight = isSelected },
+                    label = { highlight = isSelected },
+                })
+                space.bracket:set({
+                    background = { border_color = isSelected and colors.dirty_white or colors.transparent }
+                })
+            end
+        end
+    end)
+end
+
+-- why: space_windows_change 用。アプリアイコンだけ各workspaceに対して再取得する。
+-- LIST_APPS×8並列（キャッシュ済みspaces辞書を使う）でLIST_ALLとLIST_CURRENTは不要。
+local function refreshAppIcons()
+    for spaceId, _ in pairs(spaces) do
+        local workspaceName = spaceId:match("^workspace_(.+)")
+        if workspaceName then
+            updateSpaceIcons(spaceId, workspaceName)
+        end
+    end
+end
+
 drawSpaces()
+
+-- why: バースト発火する3イベントそれぞれに必要最小の更新しか走らせない。
+-- さらにイベント種別ごとにdebounceして、連続発火で同じ処理が並ぶのを防ぐ。
+local function makeDebouncer(fn, seconds)
+    local pending = false
+    return function()
+        if pending then return end
+        pending = true
+        sbar.delay(seconds, function()
+            pending = false
+            fn()
+        end)
+    end
+end
+
+local onWorkspaceChange = makeDebouncer(updateFocusedHighlight, 0.05)
+local onFrontAppSwitched = makeDebouncer(updateFocusedHighlight, 0.10)
+local onWindowsChange = makeDebouncer(refreshAppIcons, 0.30)
 
 local space_window_observer = sbar.add("item", {
     drawing = false,
     updates = true,
 })
 
-space_window_observer:subscribe("aerospace_workspace_change", function(env)
-    drawSpaces()
-end)
-
-space_window_observer:subscribe("front_app_switched", function()
-    drawSpaces()
-end)
-
-space_window_observer:subscribe("space_windows_change", function()
-    drawSpaces()
-end)
+space_window_observer:subscribe("aerospace_workspace_change", onWorkspaceChange)
+space_window_observer:subscribe("front_app_switched", onFrontAppSwitched)
+space_window_observer:subscribe("space_windows_change", onWindowsChange)
 
 
 
