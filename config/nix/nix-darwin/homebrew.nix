@@ -34,6 +34,7 @@
       "karabiner-elements"
       "linearmouse"
       "monitorcontrol"
+      "notunes"
       "sf-symbols"
       "shottr"
       "slack"
