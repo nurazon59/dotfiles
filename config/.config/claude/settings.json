@@ -2,7 +2,6 @@
   "env": {
     "CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR": "1",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
-    "MAX_THINKING_TOKENS": "31999",
     "USE_BUILTIN_RIPGREP": "1",
     "CLAUDE_CODE_AUTO_CONNECT_IDE": "false",
     "CLAUDE_CODE_IDE_SKIP_AUTO_INSTALL": "true",
@@ -172,7 +171,13 @@
       "Write(/etc/sudoers)",
       "Bash(task admin-ui:deploy:dev)",
       "Bash(task cdk:*)",
-      "Bash(task rds:*)"
+      "Bash(task rds:*)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Write(**/.env)",
+      "Write(**/.env.*)"
     ],
     "ask": [],
     "defaultMode": "bypassPermissions"
@@ -210,7 +215,8 @@
     "code-simplifier@claude-plugins-official": true,
     "coderabbit@claude-plugins-official": true
   },
-  "effortLevel": "medium",
-  "skipDangerousModePermissionPrompt": true,
-  "showClearContextOnPlanAccept": true
+  "effortLevel": "high",
+  "awaySummaryEnabled": false,
+  "showClearContextOnPlanAccept": true,
+  "skipDangerousModePermissionPrompt": true
 }
