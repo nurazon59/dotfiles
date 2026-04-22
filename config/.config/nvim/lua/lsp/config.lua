@@ -174,4 +174,9 @@ return {
       end, { desc = "Accept Copilot NES suggestion", expr = true })
     end,
   },
+  {
+    "seblyng/roslyn.nvim",
+    ---@module 'roslyn.config'
+    ---@type RoslynNvimConfig
+  },
 }
