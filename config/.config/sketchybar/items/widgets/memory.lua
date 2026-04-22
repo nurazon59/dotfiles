@@ -12,7 +12,7 @@ local memory = sbar.add("graph", "widgets.memory", 42, {
     border_color = { alpha = 0 },
     drawing = true,
   },
-  icon = { string = "󰍛" },
+  icon = { drawing = false },
   label = {
     string = "mem ??%",
     font = {

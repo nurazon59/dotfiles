@@ -16,25 +16,9 @@ local volume_percent = sbar.add("item", "widgets.volume1", {
 
 local volume_icon = sbar.add("item", "widgets.volume2", {
   position = "right",
-  padding_right = -1,
-  icon = {
-    string = icons.volume._100,
-    width = 0,
-    align = "left",
-    color = colors.grey,
-    font = {
-      style = settings.font.style_map["Regular"],
-      size = 14.0,
-    },
-  },
-  label = {
-    width = 25,
-    align = "left",
-    font = {
-      style = settings.font.style_map["Regular"],
-      size = 14.0,
-    },
-  },
+  drawing = false,
+  icon = { drawing = false },
+  label = { drawing = false },
 })
 
 local volume_bracket = sbar.add("bracket", "widgets.volume.bracket", {
