@@ -145,6 +145,11 @@ return {
         tsserver_file_preferences = {
           disableFormatting = true,
         },
+        single_file_support = false,
+        jsx_close_tag = {
+          enable = true,
+          filetypes = { "javascriptreact", "typescriptreact" },
+        },
       },
     },
   },
