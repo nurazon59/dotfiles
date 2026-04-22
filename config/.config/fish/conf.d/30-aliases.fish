@@ -1,4 +1,3 @@
-alias yolo="claude --dangerously-skip-permissions"
 alias ls='lsd --icon always --git --group-directories-first --all'
 alias bat='bat'
 alias cat='bat --paging=never'
