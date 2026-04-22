@@ -14,7 +14,7 @@ return {
         },
         tools = {
           claude = {
-            cmd = { "claude", "--dangerously-skip-permissions" },
+            cmd = { "claude" },
             env = {
               CLAUDE_CONFIG_DIR = vim.env.CLAUDE_CONFIG_DIR,
             },
