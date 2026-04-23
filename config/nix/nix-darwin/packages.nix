@@ -36,5 +36,6 @@
     go-task
     redis
     podman
+    roslyn-ls
   ];
 }
