@@ -13,6 +13,7 @@
     brews = [
       "felixkratz/formulae/borders"
       "felixkratz/formulae/sketchybar"
+      "ical-buddy"
       "laishulu/homebrew/macism"
     ];
 
