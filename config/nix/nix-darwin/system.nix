@@ -24,6 +24,7 @@
       AppleShowAllExtensions = true;
       InitialKeyRepeat = 15;
       KeyRepeat = 2;
+      "com.apple.keyboard.fnState" = true;
       "com.apple.trackpad.forceClick" = false;
       "com.apple.trackpad.scaling" = 2.5;
       _HIHideMenuBar = true;
