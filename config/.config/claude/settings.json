@@ -179,8 +179,7 @@
       "Write(**/.env)",
       "Write(**/.env.*)"
     ],
-    "ask": [],
-    "defaultMode": "bypassPermissions"
+    "ask": []
   },
   "model": "opus[1m]",
   "hooks": {
