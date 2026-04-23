@@ -49,6 +49,8 @@ go = "1.26.2"
 "go:golang.org/x/tools/gopls" = "latest"
 dotnet = "latest"
 "cargo:mergiraf" = "latest"
+"npm:editprompt" = "latest"
+"npm:ctx7" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]

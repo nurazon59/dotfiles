@@ -62,7 +62,7 @@
 - **mise**: ランタイム管理、グローバルインストール禁止
 - **gh**: PR/issue操作優先
 - **PR description**: リポジトリにPRテンプレート（`.github/pull_request_template.md`等）がある場合はそれに従う
-- **検索**: gemini-search（Web）、context7（ライブラリドキュメント）、deepwiki（GitHub調査）
+- **検索**: gemini-search（Web）、context7（ライブラリドキュメント、MCPではなくCLI `ctx7`を使う）、deepwiki（GitHub調査）
 - **スキル**: available_skillsにマッチすれば黙って使用
 
 ## zzz/ディレクトリ
