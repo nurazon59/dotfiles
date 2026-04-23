@@ -77,20 +77,7 @@ return {
       actions = {
         open_file = {
           window_picker = {
-            exclude = {
-              filetype = {
-                "notify",
-                "lazy",
-                "qf",
-                "diff",
-                "fugitive",
-                "fugitiveblame",
-                "Trouble",
-                "trouble",
-                "Outline",
-              },
-              buftype = { "nofile", "terminal", "help" },
-            },
+            enable = false,
           },
         },
       },
@@ -104,15 +91,6 @@ return {
     version = "*",
     opts = {
       width = 120,
-      autocmds = {
-        enableOnVimEnter = true,
-      },
-      integrations = {
-        NvimTree = {
-          position = "left",
-          reopen = true,
-        },
-      },
     },
     keys = {
       { "<leader>np", "<cmd>NoNeckPain<cr>", desc = "Toggle No Neck Pain" },
