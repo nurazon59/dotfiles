@@ -1,9 +1,10 @@
-{ user, config, ... }:
+{ user, config, pkgs, ... }:
 let
   symlink = config.lib.file.mkOutOfStoreSymlink;
   dotfiles = "${config.home.homeDirectory}/src/github.com/nurazon59/dotfiles";
   configDir = "${dotfiles}/config/.config";
   rootDir = "${dotfiles}/config/root";
+  fishGeneratedCompletions = import ./fish.nix { inherit pkgs; };
 in
 {
   home.stateVersion = "24.11";
@@ -37,6 +38,7 @@ in
     ".config/mprocs".source = symlink "${configDir}/mprocs";
     ".config/nix".source = symlink "${configDir}/nix";
     ".config/nvim".source = symlink "${configDir}/nvim";
+    ".config/taplo".source = symlink "${configDir}/taplo";
     ".config/sheldon".source = symlink "${configDir}/sheldon";
     ".config/sketchybar".source = symlink "${configDir}/sketchybar";
     ".config/starship".source = symlink "${configDir}/starship";
@@ -48,4 +50,6 @@ in
     ".config/zsh".source = symlink "${configDir}/zsh";
     ".zshenv".source = symlink "${rootDir}/.zshenv";
   };
+
+  home.packages = [ fishGeneratedCompletions ];
 }
