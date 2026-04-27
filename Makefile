@@ -3,7 +3,7 @@ DOTFILES_DIR := $(shell pwd)
 
 HOST ?= $(error HOSTが未設定。make init HOST=work を先に実行してください)
 
-.PHONY: help init rebuild
+.PHONY: help init rebuild update env
 
 help:
 	@echo "========================================="
@@ -42,8 +42,13 @@ rebuild:
 	@cd /private/etc/nix-darwin && sudo darwin-rebuild switch --flake .#$(HOST)
 
 update:
-	@claude update
-	@mise upgrade
+	@export GITHUB_TOKEN=$$(gh auth token) && \
+		mise self-update && \
+		claude update && \
+		mise upgrade && \
+		cd $(DOTFILES_DIR)/config/nix/nix-darwin && nix flake update && \
+		cd $(DOTFILES_DIR) && git add config/nix/nix-darwin/flake.lock && \
+		git commit -m "chore(deps): update dependency" && git push
 
 env:
 	@echo "HOST=$(HOST)" > $(DOTFILES_DIR)/.env
