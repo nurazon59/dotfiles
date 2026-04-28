@@ -7,6 +7,8 @@ let
   fishGeneratedCompletions = import ./fish.nix { inherit pkgs; };
 in
 {
+  imports = [ ./mise.nix ];
+
   home.stateVersion = "24.11";
   home.username = user;
   home.homeDirectory = "/Users/${user}";
@@ -34,7 +36,6 @@ in
     ".config/kitty".source = symlink "${configDir}/kitty";
     ".config/lazygit".source = symlink "${configDir}/lazygit";
     ".config/linearmouse".source = symlink "${configDir}/linearmouse";
-    ".config/mise".source = symlink "${configDir}/mise";
     ".config/mprocs".source = symlink "${configDir}/mprocs";
     ".config/nix".source = symlink "${configDir}/nix";
     ".config/nvim".source = symlink "${configDir}/nvim";

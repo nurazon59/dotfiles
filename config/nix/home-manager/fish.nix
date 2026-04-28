@@ -80,12 +80,6 @@ let
       output = "lefthook.fish";
     };
 
-    mise = {
-      package = pkgs.mise;
-      args = [ "completion" "fish" ];
-      output = "mise.fish";
-    };
-
     pnpm = {
       package = pkgs.pnpm;
       args = [ "completion" "fish" ];
