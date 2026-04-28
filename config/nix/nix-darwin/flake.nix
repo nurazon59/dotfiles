@@ -22,7 +22,7 @@
       mkSystem =
         user:
         nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit user; };
+          specialArgs = { inherit user neovim-nightly-overlay; };
           modules = [
             (
               { pkgs, ... }:
@@ -52,7 +52,11 @@
 
                 users.users.${user}.home = "/Users/${user}";
 
-                nixpkgs.overlays = [ neovim-nightly-overlay.overlays.default ];
+                nixpkgs.overlays = [
+                  (final: prev: {
+                    direnv = prev.direnv.overrideAttrs (_: { doCheck = false; });
+                  })
+                ];
                 nixpkgs.config.allowUnfree = true;
 
                 system.configurationRevision = self.rev or self.dirtyRev or null;

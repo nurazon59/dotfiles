@@ -1,9 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, neovim-nightly-overlay, ... }:
+let
+  neovim-nightly = neovim-nightly-overlay.packages.${pkgs.system}.default;
+in
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = (with pkgs; [
     vim
     tmux
-    neovim
     nixd
     nixfmt
     btop
@@ -37,5 +39,7 @@
     redis
     podman
     roslyn-ls
+  ]) ++ [
+    neovim-nightly
   ];
 }
