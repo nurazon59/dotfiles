@@ -11,6 +11,8 @@
         "cargo:himalaya" = "latest";
         "cargo:https://github.com/googleworkspace/cli" = "latest";
         "cargo:mergiraf" = "latest";
+        "dotnet:fantomas" = "latest";
+        "dotnet:fsautocomplete" = "latest";
         "go:github.com/k1LoW/git-wt" = "latest";
         "go:github.com/nurazon59/ghmux" = "latest";
         "go:github.com/nurazon59/rport" = "latest";

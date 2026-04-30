@@ -179,4 +179,8 @@ return {
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
   },
+  {
+    "ionide/Ionide-vim",
+    ft = { "fsharp", "fsharp_project" },
+  },
 }
