@@ -38,7 +38,7 @@ config/root/.codex/*
 # Nix
 config/nix/nix-darwin/result
 /config/.config/claude/.claude.json
-/config/.config/zsh/.zcompdump
+/config/.config/zsh/.zcompdump*
 /config/.config/codex/.tmp
 /config/.config/codex/installation_id
 /config/.config/codex/cloud-requirements-cache.json
