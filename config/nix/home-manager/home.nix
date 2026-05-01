@@ -1,4 +1,9 @@
-{ user, config, pkgs, ... }:
+{
+  user,
+  config,
+  pkgs,
+  ...
+}:
 let
   symlink = config.lib.file.mkOutOfStoreSymlink;
   dotfiles = "${config.home.homeDirectory}/src/github.com/nurazon59/dotfiles";

@@ -54,7 +54,9 @@
 
                 nixpkgs.overlays = [
                   (final: prev: {
-                    direnv = prev.direnv.overrideAttrs (_: { doCheck = false; });
+                    direnv = prev.direnv.overrideAttrs (_: {
+                      doCheck = false;
+                    });
                   })
                 ];
                 nixpkgs.config.allowUnfree = true;
