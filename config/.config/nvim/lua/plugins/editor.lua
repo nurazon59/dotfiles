@@ -136,7 +136,7 @@ return {
           require("smart-splits").move_cursor_down()
         end,
         desc = "Move to Lower Split",
-        mode = { "n", "t" },
+        mode = { "n" },
       },
       {
         "<C-k>",
