@@ -103,7 +103,8 @@
       "mcp__playwright__browser_close",
       "mcp__playwright__browser_snapshot",
       "mcp__playwright__browser_take_screenshot",
-      "mcp__pencil"
+      "mcp__pencil",
+      "Edit(/etc/**)"
     ],
     "deny": [
       "Bash(aws:*)",
@@ -179,7 +180,8 @@
       "Write(**/.env)",
       "Write(**/.env.*)"
     ],
-    "ask": []
+    "ask": [],
+    "defaultMode": "acceptEdits"
   },
   "model": "opus[1m]",
   "hooks": {
@@ -212,10 +214,17 @@
     "context7@claude-plugins-official": true,
     "feature-dev@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
-    "coderabbit@claude-plugins-official": true
+    "coderabbit@claude-plugins-official": true,
+    "vercel@claude-plugins-official": true
   },
   "effortLevel": "high",
   "awaySummaryEnabled": false,
   "showClearContextOnPlanAccept": true,
-  "skipDangerousModePermissionPrompt": true
+  "voice": {
+    "enabled": true,
+    "mode": "hold"
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "autoCompactEnabled": false,
+  "voiceEnabled": true
 }
