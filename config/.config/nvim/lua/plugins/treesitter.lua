@@ -35,6 +35,7 @@ return {
         "dockerfile",
         "deno",
         "fish",
+        "fsharp",
         "git_rebase",
         "gitcommit",
         "go",
