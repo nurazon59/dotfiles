@@ -90,7 +90,7 @@ return {
     "shortcuts/no-neck-pain.nvim",
     version = "*",
     opts = {
-      width = 120,
+      width = 160,
     },
     keys = {
       { "<leader>np", "<cmd>NoNeckPain<cr>", desc = "Toggle No Neck Pain" },
