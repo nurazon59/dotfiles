@@ -62,12 +62,17 @@ battery:subscribe({"routine", "power_source_change", "system_woke"}, function()
       lead = "0"
     end
 
+    local label_color = charging and colors.green or colors.white
+
     battery:set({
       icon = {
         string = icon,
         color = color
       },
-      label = { string = lead .. label },
+      label = {
+        string = lead .. label,
+        color = label_color,
+      },
     })
   end)
 end)
