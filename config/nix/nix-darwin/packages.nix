@@ -40,6 +40,7 @@ in
       redis
       podman
       roslyn-ls
+      just
     ])
     ++ [
       neovim-nightly
