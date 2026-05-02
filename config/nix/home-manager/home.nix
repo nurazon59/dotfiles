@@ -54,6 +54,7 @@ in
 
     ".config/claude".source = symlink "${configDir}/claude";
     ".config/codex".source = symlink "${configDir}/codex";
+    ".config/opencode".source = symlink "${configDir}/opencode";
     ".config/zsh".source = symlink "${configDir}/zsh";
     ".zshenv".source = symlink "${rootDir}/.zshenv";
   };
