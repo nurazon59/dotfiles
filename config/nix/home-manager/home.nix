@@ -52,6 +52,7 @@ in
     ".config/yazi".source = symlink "${configDir}/yazi";
     ".config/zeno".source = symlink "${configDir}/zeno";
 
+    ".config/claude".source = symlink "${configDir}/claude";
     ".config/codex".source = symlink "${configDir}/codex";
     ".config/zsh".source = symlink "${configDir}/zsh";
     ".zshenv".source = symlink "${rootDir}/.zshenv";
