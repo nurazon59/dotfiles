@@ -56,7 +56,9 @@
         rust = "1.93.1";
         terraform = "1.14.5";
         uv = "latest";
+        viteplus = "latest";
         yarn = "latest";
+        opencode = "latest";
       };
 
       settings = {
