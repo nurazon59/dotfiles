@@ -2,7 +2,6 @@
 description: Use this agent when you need a critical review of documentation to verify factual accuracy, identify false claims, and find missing considerations. Acts as an auditor rather than an editor.
 mode: subagent
 model: opencode-go/deepseek-v4-flash
-color: cyan
 permission:
   edit: deny
   bash:

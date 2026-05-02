@@ -18,6 +18,22 @@
         "edit": "ask",
         "bash": "ask"
       }
+    },
+    "research": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "playwright-browser-verifier": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "review-verifier": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash"
+    },
+    "general": {
+      "mode": "subagent",
+      "model": "opencode-go/deepseek-v4-flash"
     }
   },
   "permission": {
