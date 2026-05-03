@@ -41,6 +41,9 @@ in
       podman
       roslyn-ls
       just
+      jankyborders
+      sketchybar
+      macism
     ])
     ++ [
       neovim-nightly

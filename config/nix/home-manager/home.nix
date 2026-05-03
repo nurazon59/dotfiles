@@ -59,5 +59,18 @@ in
     ".zshenv".source = symlink "${rootDir}/.zshenv";
   };
 
-  home.packages = [ fishGeneratedCompletions ];
+  home.packages = [
+    fishGeneratedCompletions
+    pkgs._1password-gui
+    pkgs.aerospace
+    pkgs.alacritty
+    pkgs.jetbrains.datagrip
+    pkgs.espanso
+    pkgs.nerd-fonts._0xproto
+    pkgs.sketchybar-app-font
+    pkgs.karabiner-elements
+    pkgs.monitorcontrol
+    pkgs.shottr
+    pkgs.slack
+  ];
 }
