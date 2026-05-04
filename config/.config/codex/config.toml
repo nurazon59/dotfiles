@@ -1,10 +1,11 @@
 # Global defaults
-model = "gpt-5.4"
+model = "gpt-5.4-mini"
 personality = "pragmatic"
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
 web_search = "live"
 approvals_reviewer = "user"
+model_reasoning_effort = "medium"
 
 [tui]
 notifications = false
@@ -14,6 +15,9 @@ status_line = [
 	"context-usage",
 	"five-hour-limit",
 ]
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
 
 # Trusted paths
 # MCP servers
