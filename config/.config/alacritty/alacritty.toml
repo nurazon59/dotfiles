@@ -176,9 +176,6 @@ key = "Return"
 mods = "Shift"
 chars = "\n"
 
-[terminal]
-shell = { program = "tmux" }
-
 [env]
 # 環境変数
 TERM = "xterm-256color"
