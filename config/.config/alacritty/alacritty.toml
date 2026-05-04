@@ -162,7 +162,7 @@ chars = "\u001b[20;9~"
 [[keyboard.bindings]]
 key = "T"
 mods = "Control"
-command = { program = "/opt/homebrew/bin/macism", args = [
+command = { program = "/run/current-system/sw/bin/macism", args = [
 	"com.apple.keylayout.ABC",
 ] }
 
