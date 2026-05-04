@@ -51,6 +51,7 @@
         lefthook = "latest";
         node = "24.13.1";
         pipx = "latest";
+        pinact = "latest";
         pnpm = "latest";
         python = "3.14.3";
         rust = "1.93.1";
