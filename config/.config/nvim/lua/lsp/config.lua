@@ -182,5 +182,18 @@ return {
   {
     "ionide/Ionide-vim",
     ft = { "fsharp", "fsharp_project" },
+    init = function()
+      -- FSAC が編集中に固まるため、重量級アナライザ/CodeLens を無効化
+      vim.g["fsharp#lsp_auto_setup"] = 1
+      vim.g["fsharp#lsp_codelens"] = 0
+      vim.g["fsharp#unused_opens_analyzer"] = 0
+      vim.g["fsharp#unused_declarations_analyzer"] = 0
+      vim.g["fsharp#simplify_name_analyzer"] = 0
+      vim.g["fsharp#unnecessary_parentheses_analyzer"] = 0
+      vim.g["fsharp#enable_reference_code_lens"] = 0
+      vim.g["fsharp#linter"] = 0
+      vim.g["fsharp#resolve_namespaces"] = 0
+      vim.g["fsharp#line_lens"] = { enabled = "never", prefix = "" }
+    end,
   },
 }
