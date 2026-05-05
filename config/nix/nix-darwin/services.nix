@@ -2,7 +2,10 @@
 {
   services.sketchybar = {
     enable = true;
-    extraPackages = [ pkgs.jq ];
+    extraPackages = [
+      pkgs.jq
+      pkgs.aerospace
+    ];
   };
 
   services.jankyborders = {

@@ -10,7 +10,7 @@ in
       nixd
       nixfmt
       btop
-      lua
+      lua5_5
       lima
       postgresql_18
       qemu
