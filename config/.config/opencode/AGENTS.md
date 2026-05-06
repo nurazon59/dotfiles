@@ -78,6 +78,27 @@
 - **検索**: gemini-search（Web）、context7（ライブラリドキュメント、MCPではなくCLI `ctx7`を使う）、deepwiki（GitHub調査）
 - **スキル**: available_skillsにマッチすれば黙って使用
 
+## 調査優先原則（最重要）
+
+**記憶で答えるな、まず調べろ。** 以下のルールを最上位原則の次に優先する。
+
+### 強制ツール呼び出しタイミング
+
+| タスク | 必須ツール | 理由 |
+|---|---|---|
+| ライブラリ/API仕様 | `ctx7` | 訓練データは古い。最新バージョン・breaking changesを見逃す |
+| 実装方法の調査 | `@research` | コードベースの現状を正確に把握するため |
+| 最新情報・ニュース | gemini-search | 訓練データの cutoff 以降の情報を取得 |
+| 設定ファイル作成 | `ctx7` → `@research` | 公式推奨設定をまず確認、既存プロジェクトの調査 |
+| 未知のエラー | gemini-search → `@research` | 類似事例を検索、次にコードベース調査 |
+
+### ルール
+
+1. **知っているつもりでも調べる**: 「これ知ってる」は禁止。ctx7またはresearchで一次情報を取ってから答える
+2. **コードを書く前に調査**: 新規ライブラリ導入・新機能実装時は、まずctx7で公式docs確認
+3. **並列調査を推奨**: 複数の調査項目がある場合はresearch subagentを並列起動
+4. **検索コストを気にするな**: deepseek-v4-flashは安価。ツール呼び出しのオーバーヘッドより、間違った回答のコストの方が大きい
+
 ## zzz/ディレクトリ
 
 - 一時作業用（.gitignore済み）、Plan modeでは各フェーズ最大3台のresearchを並列起動（システム上限）。実装フェーズではsubagentを積極的に並列起動する
@@ -127,3 +148,23 @@
 
 UI作成時はUI心理学にのっとること
 ユーザーにUIを説明する際はASCIIアートを用いること
+
+<!-- context7 -->
+Use the `ctx7` CLI to fetch current documentation whenever the user asks about a library, framework, SDK, API, CLI tool, or cloud service -- even well-known ones like React, Next.js, Prisma, Express, Tailwind, Django, or Spring Boot. This includes API syntax, configuration, version migration, library-specific debugging, setup instructions, and CLI tool usage. Use even when you think you know the answer -- your training data may not reflect recent changes. Prefer this over web search for library docs.
+
+Do not use for: refactoring, writing scripts from scratch, debugging business logic, code review, or general programming concepts.
+
+## Steps
+
+1. Resolve library: `npx ctx7@latest library <name> "<user's question>"` — use the official library name with proper punctuation (e.g., "Next.js" not "nextjs", "Customer.io" not "customerio", "Three.js" not "threejs")
+2. Pick the best match (ID format: `/org/project`) by: exact name match, description relevance, code snippet count, source reputation (High/Medium preferred), and benchmark score (higher is better). If results don't look right, try alternate names or queries (e.g., "next.js" not "nextjs", or rephrase the question)
+3. Fetch docs: `npx ctx7@latest docs <libraryId> "<user's question>"`
+4. If you weren't satisfied with the answer, re-run the same command with `--research`. This retries with sandboxed agents that git-pull the actual source repos plus a live web search, then synthesizes a fresh answer. More costly than the default
+5. Answer using the fetched documentation
+
+You MUST call `library` first to get a valid ID unless the user provides one directly in `/org/project` format. Use the user's full question as the query -- specific and detailed queries return better results than vague single words. Do not run more than 3 commands per question. Do not include sensitive information (API keys, passwords, credentials) in queries.
+
+For version-specific docs, use `/org/project/version` from the `library` output (e.g., `/vercel/next.js/v14.3.0`).
+
+If a command fails with a quota error, inform the user and suggest `npx ctx7@latest login` or setting `CONTEXT7_API_KEY` env var for higher limits. Do not silently fall back to training data.
+<!-- context7 -->
