@@ -42,6 +42,7 @@ in
       roslyn-ls
       just
       macism
+      cmake
     ])
     ++ [
       neovim-nightly
