@@ -68,7 +68,6 @@ in
     pkgs.espanso
     pkgs.nerd-fonts._0xproto
     pkgs.sketchybar-app-font
-    pkgs.karabiner-elements
     pkgs.monitorcontrol
     pkgs.shottr
     pkgs.slack

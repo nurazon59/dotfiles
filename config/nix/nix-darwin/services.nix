@@ -11,4 +11,8 @@
   services.jankyborders = {
     enable = true;
   };
+
+  services.karabiner-elements = {
+    enable = true;
+  };
 }
