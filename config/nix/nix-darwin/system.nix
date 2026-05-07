@@ -1,10 +1,5 @@
 { user, ... }:
 {
-  system.applications = {
-    enable = true;
-    suffix = " (Nix)";
-  };
-
   system.defaults = {
     dock = {
       autohide = true;

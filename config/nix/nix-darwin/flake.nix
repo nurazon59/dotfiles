@@ -31,7 +31,6 @@
                   ./system.nix
                   ./packages.nix
                   ./homebrew.nix
-                  ./services.nix
                 ];
 
                 nix.settings.experimental-features = "nix-command flakes";

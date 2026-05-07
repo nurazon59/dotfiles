@@ -23,15 +23,6 @@ let
       output = "ghq.fish";
     };
 
-    codex = {
-      package = pkgs.codex;
-      args = [
-        "completion"
-        "fish"
-      ];
-      output = "codex.fish";
-    };
-
     colima = {
       package = pkgs.colima;
       args = [
