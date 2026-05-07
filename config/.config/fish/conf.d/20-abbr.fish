@@ -8,6 +8,7 @@ if status --is-interactive
     abbr --add gpr 'git pull'
     abbr --add gps 'git push'
     abbr --add gst 'git status'
+    abbr --add gsta 'git stash'
     abbr --add lg 'lazygit'
     abbr --add --position anywhere nvim-conf '~/src/github.com/nurazon59/dotfiles/config/.config/nvim'
     abbr --add --position anywhere nix-conf '~/src/github.com/nurazon59/dotfiles/config/nix'
