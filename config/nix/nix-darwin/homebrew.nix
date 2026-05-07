@@ -20,12 +20,14 @@
     ];
 
     casks = [
+      "1password"
       "aerospace"
       "alacritty"
       "arc"
       "azookey"
       "claude"
       "clipy"
+      "datagrip"
       "espanso"
       "finetune"
       "font-sf-pro"

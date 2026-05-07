@@ -61,8 +61,6 @@ in
 
   home.packages = [
     fishGeneratedCompletions
-    pkgs._1password-gui
-    pkgs.jetbrains.datagrip
     pkgs.nerd-fonts._0xproto
     pkgs.sketchybar-app-font
     pkgs.slack
