@@ -30,6 +30,7 @@
       "finetune"
       "font-sf-pro"
       "input-source-pro"
+      "karabiner-elements"
       "linearmouse"
       "monitorcontrol"
       "notunes"
