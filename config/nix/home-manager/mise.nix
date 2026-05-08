@@ -16,6 +16,7 @@
         "go:github.com/k1LoW/git-wt" = "latest";
         "go:github.com/nurazon59/ghmux" = "latest";
         "go:github.com/nurazon59/rport" = "latest";
+        "go:github.com/nurazon59/nippo" = "latest";
         "go:golang.org/x/tools/gopls" = "latest";
         "npm:@antfu/ni" = "latest";
         "npm:@ast-grep/cli" = "latest";
