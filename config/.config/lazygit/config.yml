@@ -1,63 +1,64 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 
 git:
-  branchPrefix: 'nurazon59/'
+  branchPrefix: "nurazon59/"
   pagers:
     - colorArg: always
       pager: delta --dark --paging=never
   mainBranches:
-    - 'main'
-    - 'master'
-    - 'develop'
-    - 'dev'
+    - "main"
+    - "master"
+    - "develop"
+    - "dev"
   parseEmoji: true
 
 gui:
-  nerdFontsVersion: '3'
-  border: 'single'
+  nerdFontsVersion: "3"
+  border: "single"
   authorColors:
-    'renovate[bot]': '#737994'
+    "renovate[bot]": "#737994"
   theme:
     activeBorderColor:
-      - '#3e8fb0'
+      - "#3e8fb0"
       - bold
     inactiveBorderColor:
-      - '#6e6a86'
+      - "#6e6a86"
     searchingActiveBorderColor:
-      - '#ea9a97'
+      - "#ea9a97"
       - bold
     optionsTextColor:
-      - '#9ccfd8'
+      - "#9ccfd8"
     selectedLineBgColor:
-      - '#3e8fb0'
+      - "#3e8fb0"
     inactiveViewSelectedLineBgColor:
-      - '#393552'
+      - "#393552"
       - bold
     cherryPickedCommitFgColor:
-      - '#2a273f'
+      - "#2a273f"
     cherryPickedCommitBgColor:
-      - '#ea9a97'
+      - "#ea9a97"
     markedBaseCommitFgColor:
-      - '#9ccfd8'
+      - "#9ccfd8"
     markedBaseCommitBgColor:
-      - '#f6c177'
+      - "#f6c177"
     unstagedChangesColor:
-      - '#eb6f92'
+      - "#eb6f92"
     defaultFgColor:
-      - '#e0def4'
+      - "#e0def4"
+  language: "en"
 
 os:
-  editPreset: 'nvim-remote'
+  editPreset: "nvim-remote"
 
 quitOnTopLevelReturn: true
 
 customCommands:
-  - key: '<c-s>'
-    context: 'global'
-    command: 'gh repo view --web'
-    description: 'GitHubでリポジトリを開く'
-  - key: '<c-r>'
-    command: 'gh pr create --fill-first --web'
-    context: 'global'
-    loadingText: 'Creating pull request on GitHub'
-    description: 'GitHubでPRを作成'
+  - key: "<c-s>"
+    context: "global"
+    command: "gh repo view --web"
+    description: "GitHubでリポジトリを開く"
+  - key: "<c-r>"
+    command: "gh pr create --fill-first --web"
+    context: "global"
+    loadingText: "Creating pull request on GitHub"
+    description: "GitHubでPRを作成"
