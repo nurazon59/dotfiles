@@ -59,6 +59,20 @@ in
     ".zshenv".source = symlink "${rootDir}/.zshenv";
   };
 
+  programs.gpg = {
+    enable = true;
+    settings = {
+      trust-model = "tofu+pgp";
+      default-key = "82A818377A25B08C";
+    };
+    publicKeys = [
+      {
+        source = ./gpg-public-key.asc;
+        trust = 5;
+      }
+    ];
+  };
+
   home.packages = [
     fishGeneratedCompletions
     pkgs.nerd-fonts._0xproto
