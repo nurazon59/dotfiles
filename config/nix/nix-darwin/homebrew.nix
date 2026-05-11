@@ -3,20 +3,17 @@
   homebrew = {
     enable = true;
 
-    onActivation = {
-      cleanup = "zap";
-    };
-
     taps = [
-      "mtgto/macskk"
       "FelixKratz/formulae"
       "nikitabobko/tap"
+      "k1LoW/tap"
     ];
 
     brews = [
       "ical-buddy"
       "sketchybar"
       "borders"
+      "mo"
     ];
 
     casks = [
