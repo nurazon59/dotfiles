@@ -38,8 +38,8 @@ return {
         float = {
           enable = true,
           open_win_config = function()
-            local width = 80
-            local height = 50
+            local width = 120
+            local height = 100
             local columns = vim.o.columns
             local lines = vim.o.lines - vim.o.cmdheight
 
@@ -90,7 +90,7 @@ return {
     "shortcuts/no-neck-pain.nvim",
     version = "*",
     opts = {
-      width = 160,
+      width = 180,
     },
     keys = {
       { "<leader>np", "<cmd>NoNeckPain<cr>", desc = "Toggle No Neck Pain" },
