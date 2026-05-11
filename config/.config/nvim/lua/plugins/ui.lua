@@ -39,7 +39,7 @@ return {
           enable = true,
           open_win_config = function()
             local width = 120
-            local height = 100
+            local height = 80
             local columns = vim.o.columns
             local lines = vim.o.lines - vim.o.cmdheight
 
