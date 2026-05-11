@@ -5,7 +5,7 @@ approval_policy = "never"
 sandbox_mode = "danger-full-access"
 web_search = "live"
 approvals_reviewer = "user"
-model_reasoning_effort = "medium"
+model_reasoning_effort = "xhigh"
 
 [tui]
 notifications = false
