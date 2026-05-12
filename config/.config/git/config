@@ -3,7 +3,6 @@
 [user]
 	name = nurazon59
 	email = nurazon59@users.noreply.github.com
-	signingkey = 82A818377A25B08C
 [push]
 	default = current
 	autoSetupRemote = true
@@ -54,4 +53,6 @@
 [commit]
 	gpgsign = true
 [gpg]
-	program = /Users/itsuki54/.nix-profile/bin/gpg
+	program = gpg
+[include]
+	path = ~/.config/git/config.local

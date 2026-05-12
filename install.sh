@@ -32,6 +32,27 @@ else
     | sh -s -- install --no-determinate --no-confirm
 fi
 
+echo "Setting up machine-local git config..."
+GIT_LOCAL="${HOME}/.config/git/config.local"
+if [ ! -f "${GIT_LOCAL}" ]; then
+  mkdir -p "$(dirname "${GIT_LOCAL}")"
+  cat > "${GIT_LOCAL}" <<'EOF'
+# このマシン固有の git 設定（dotfiles 管理外）
+# GPG signing 鍵を生成/import 後に signingkey を設定:
+#   gpg --list-secret-keys --keyid-format=long
+# 設定後は commit.gpgsign の上書きを削除する
+
+[user]
+	# signingkey = XXXXXXXXXXXXXXXX
+
+[commit]
+	gpgsign = false
+EOF
+  echo "  -> ${GIT_LOCAL} created (signingkey 未設定)"
+else
+  echo "  -> ${GIT_LOCAL} already exists, skip"
+fi
+
 echo "Backing up conflicting files..."
 for f in /etc/bashrc /etc/zshrc /etc/ssl/certs/ca-certificates.crt; do
   if [ -f "$f" ] && [ ! -L "$f" ] && [ ! -e "$f.before-nix-darwin" ]; then
