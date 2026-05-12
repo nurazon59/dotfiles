@@ -51,6 +51,7 @@
                 };
 
                 users.users.${user}.home = "/Users/${user}";
+                users.users."sandvault-koshiishi".home = "/Users/sandvault-koshiishi";
 
                 nixpkgs.overlays = [
                   (final: prev: {
@@ -73,6 +74,7 @@
               home-manager.backupFileExtension = "bak";
               home-manager.extraSpecialArgs = { inherit user; };
               home-manager.users.${user} = import ../home-manager/home.nix;
+              home-manager.users."sandvault-koshiishi" = import ../home-manager/home-sandvault.nix;
             }
           ];
         };

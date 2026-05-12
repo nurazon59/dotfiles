@@ -14,6 +14,7 @@
       "sketchybar"
       "borders"
       "mo"
+      "sandvault"
     ];
 
     casks = [
