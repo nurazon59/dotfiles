@@ -1,4 +1,5 @@
 set -x XDG_CONFIG_HOME ~/.config
+set -gx XDG_DATA_HOME ~/.local/share
 set -x LANG en_US.UTF-8
 set -x EDITOR nvim
 set -x PAGER bat
