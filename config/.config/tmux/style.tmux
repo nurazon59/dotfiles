@@ -22,6 +22,10 @@ set -g pane-border-indicators both
 set -g pane-border-status top
 set -g pane-border-format " #P: #{pane_current_command} "
 
+# inactive pane を dim (透過維持のため fg のみ変更)
+set -g window-style        'fg=colour248'
+set -g window-active-style 'fg=colour253'
+
 # コマンドラインの色
 set -g message-style fg=colour255,bg=colour235,bold
 
