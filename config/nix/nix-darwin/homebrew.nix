@@ -36,6 +36,7 @@
       "sf-symbols"
       "shottr"
       "sol"
+      "session-manager-plugin"
     ];
   };
 }
