@@ -73,6 +73,12 @@ in
     ];
   };
 
+  services.gpg-agent = {
+    enable = true;
+    enableFishIntegration = true;
+    pinentry.package = pkgs.pinentry_mac;
+  };
+
   home.packages = [
     fishGeneratedCompletions
     pkgs.nerd-fonts._0xproto
