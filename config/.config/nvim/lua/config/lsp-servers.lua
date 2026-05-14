@@ -2,6 +2,7 @@ local M = {}
 
 M.servers = {
   "astro",
+  "buf_ls",
   "clangd",
   "golangci_lint_ls",
   "gopls",
@@ -9,7 +10,6 @@ M.servers = {
   "jsonnet_ls",
   "lua_ls",
   "marksman",
-  "mdx_analyzer",
   "postgres_lsp",
   "prismals",
   "pyright",
@@ -60,10 +60,6 @@ function M.setup()
 
   vim.lsp.config("terraformls", {
     filetypes = { "terraform", "tf", "terraform-vars" },
-  })
-
-  vim.lsp.config("denols", {
-    root_markers = { "deno.json", "deno.jsonc" },
   })
 end
 

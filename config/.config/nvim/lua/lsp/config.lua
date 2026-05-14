@@ -23,8 +23,7 @@ return {
       setup.setup()
       require("mason-lspconfig").setup({
         ensure_installed = setup.servers,
-        automatic_enable = true,
-        automatic_installation = true,
+        automatic_enable = { exclude = { "pylsp" } },
       })
     end,
   },
@@ -126,32 +125,6 @@ return {
     "kaarmu/typst.vim",
     ft = "typst",
     lazy = false,
-  },
-  {
-    "pmizio/typescript-tools.nvim",
-    ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    opts = {
-      root_dir = function(bufnr)
-        -- Denoプロジェクトではtypescript-toolsを起動しない
-        local buf_path = vim.api.nvim_buf_get_name(bufnr)
-        local deno_root = vim.fs.root(buf_path, { "deno.json", "deno.jsonc" })
-        if deno_root then
-          return nil
-        end
-        return vim.fs.root(buf_path, { "package.json", "tsconfig.json" })
-      end,
-      settings = {
-        tsserver_file_preferences = {
-          disableFormatting = true,
-        },
-        single_file_support = false,
-        jsx_close_tag = {
-          enable = true,
-          filetypes = { "javascriptreact", "typescriptreact" },
-        },
-      },
-    },
   },
   {
     "seblyng/roslyn.nvim",
