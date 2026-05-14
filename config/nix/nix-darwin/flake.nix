@@ -25,7 +25,7 @@
           specialArgs = { inherit user neovim-nightly-overlay; };
           modules = [
             (
-              { pkgs, ... }:
+              { pkgs, config, ... }:
               {
                 imports = [
                   ./system.nix
@@ -37,6 +37,9 @@
                 nix.settings.auto-optimise-store = true;
 
                 programs.fish.enable = true;
+                environment.interactiveShellInit = ''
+                  . "${config."home-manager".users.${user}.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh"
+                '';
                 system.primaryUser = user;
 
                 security.pam.services.sudo_local.touchIdAuth = true;
