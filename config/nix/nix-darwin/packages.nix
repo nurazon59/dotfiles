@@ -43,6 +43,7 @@ in
       just
       macism
       cmake
+      mise
     ])
     ++ [
       neovim-nightly
