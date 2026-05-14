@@ -52,7 +52,5 @@
 	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 [commit]
 	gpgsign = true
-[gpg]
-	program = gpg
 [include]
 	path = ~/.config/git/config.local
