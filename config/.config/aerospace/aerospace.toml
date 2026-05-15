@@ -106,8 +106,16 @@ outer.right = [{ monitor."Built-in" = 5 }, 5]
 alt-slash = 'layout tiles horizontal vertical'
 alt-comma = 'layout accordion horizontal vertical'
 
-# focus / move direction はキーボードレイヤー側で後付け予定
-# ここでは workspace 切替と競合するため未定義
+# focus / move direction: uiop を hjkl 相当として割当
+# (alt-h/j/k/l は workspace 切替に消費されているため別キーに退避)
+alt-u = 'focus left'
+alt-i = 'focus down'
+alt-o = 'focus up'
+alt-p = 'focus right'
+alt-shift-u = 'move left'
+alt-shift-i = 'move down'
+alt-shift-o = 'move up'
+alt-shift-p = 'move right'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#resize
 alt-shift-minus = 'resize smart -50'
