@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -15,6 +16,7 @@
       self,
       nix-darwin,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       neovim-nightly-overlay,
     }:
@@ -60,6 +62,7 @@
                     direnv = prev.direnv.overrideAttrs (_: {
                       doCheck = false;
                     });
+                    mise = nixpkgs-unstable.legacyPackages.${prev.system}.mise;
                   })
                 ];
                 nixpkgs.config.allowUnfree = true;
