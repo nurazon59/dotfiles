@@ -22,7 +22,6 @@ rebuild:
 
 update:
 	@export GITHUB_TOKEN=$$(gh auth token) && \
-		mise self-update && \
 		claude update && \
 		mise upgrade && \
 		cd $(DOTFILES_DIR)/config/nix/nix-darwin && nix flake update && \
