@@ -20,10 +20,8 @@ in
 
   programs.ripgrep = {
     enable = true;
-    package = null;
     arguments = [
-      "--ignore-file"
-      "${configDir}/ripgrep/rgignore"
+      "--ignore-file=${config.home.homeDirectory}/src/github.com/nurazon59/dotfiles/config/.config/ripgrep/rgignore"
     ];
   };
 
