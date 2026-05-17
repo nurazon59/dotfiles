@@ -4,6 +4,8 @@
     enable = true;
     package = pkgs.mise;
     enableFishIntegration = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
 
     globalConfig = {
       tools = {
