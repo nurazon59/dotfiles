@@ -10,9 +10,6 @@
     globalConfig = {
       tools = {
         "aqua:suzuki-shunsuke/ghalint" = "latest";
-        "cargo:dotter" = "latest";
-        "cargo:himalaya" = "latest";
-        "cargo:https://github.com/googleworkspace/cli" = "latest";
         "cargo:mergiraf" = "latest";
         "dotnet:fantomas" = "latest";
         "dotnet:fsautocomplete" = "latest";
@@ -22,11 +19,6 @@
         "go:github.com/nurazon59/nippo" = "latest";
         "go:golang.org/x/tools/gopls" = "latest";
         "go:github.com/jorgerojas26/lazysql" = "latest";
-        "npm:@antfu/ni" = "latest";
-        "npm:@ast-grep/cli" = "latest";
-        "npm:@bitwarden/cli" = "latest";
-        "npm:@github/copilot" = "latest";
-        "npm:@google/gemini-cli" = "latest";
         "npm:@mermaid-js/mermaid-cli" = "latest";
         "npm:@openai/codex" = "latest";
         "npm:@playwright/cli" = "latest";
@@ -37,12 +29,10 @@
         "npm:oxfmt" = "latest";
         "npm:typescript" = "latest";
         "npm:vercel" = "latest";
-        "npm:vibe-kanban" = "latest";
         "npm:wrangler" = "latest";
 
         act = "latest";
         aqua = "latest";
-        atlas = "latest";
         aws = "latest";
         bun = "1.3.9";
         deno = "2.6.9";
