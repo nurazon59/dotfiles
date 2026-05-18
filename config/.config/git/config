@@ -29,6 +29,8 @@
 
 [coderabbit]
 	machineId = cli/59d31719adcf4d3ca88a544e1f30e2b4
+[include]
+	path = ~/.config/git/config.local
 # >>> ghmux managed (DO NOT EDIT) >>>
 [includeIf "hasconfig:remote.*.url:https://github.com/sansaninc/**"]
 	path = ~/.gitconfig-work
@@ -52,5 +54,3 @@
 	driver = mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
 [commit]
 	gpgsign = true
-[include]
-	path = ~/.config/git/config.local
