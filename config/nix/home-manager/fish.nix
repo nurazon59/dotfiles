@@ -2,43 +2,14 @@
 let
   lib = pkgs.lib;
 
+  # nixpkgsでpackageを入れている場合 installShellCompletion で
+  # /share/fish/vendor_completions.d/<tool>.fish が自動配置されるため
+  # ここでは「mise管理 = nix外で導入」しているCLIだけを対象にする
   completions = {
-    bat = {
-      package = pkgs.bat;
-      args = [
-        "--completion"
-        "fish"
-      ];
-      output = "bat.fish";
-    };
-
     bun = {
       package = pkgs.bun;
       args = [ "completions" ];
       output = "bun.fish";
-    };
-
-    ghq = {
-      source = "${pkgs.ghq.src}/misc/fish/ghq.fish";
-      output = "ghq.fish";
-    };
-
-    colima = {
-      package = pkgs.colima;
-      args = [
-        "completion"
-        "fish"
-      ];
-      output = "colima.fish";
-    };
-
-    delta = {
-      package = pkgs.delta;
-      args = [
-        "--generate-completion"
-        "fish"
-      ];
-      output = "delta.fish";
     };
 
     deno = {
@@ -48,24 +19,6 @@ let
         "fish"
       ];
       output = "deno.fish";
-    };
-
-    docker = {
-      package = pkgs."docker-client";
-      args = [
-        "completion"
-        "fish"
-      ];
-      output = "docker.fish";
-    };
-
-    fd = {
-      package = pkgs.fd;
-      args = [
-        "--gen-completions"
-        "fish"
-      ];
-      output = "fd.fish";
     };
 
     gh = {
@@ -114,34 +67,6 @@ let
       output = "pnpm.fish";
     };
 
-    rg = {
-      package = pkgs.ripgrep;
-      args = [
-        "--generate"
-        "complete-fish"
-      ];
-      output = "rg.fish";
-    };
-
-    starship = {
-      package = pkgs.starship;
-      args = [
-        "completions"
-        "fish"
-      ];
-      output = "starship.fish";
-    };
-
-    task = {
-      package = pkgs."go-task";
-      program = "task";
-      args = [
-        "--completion"
-        "fish"
-      ];
-      output = "task.fish";
-    };
-
     uv = {
       package = pkgs.uv;
       args = [
@@ -151,6 +76,7 @@ let
       output = "uv.fish";
     };
 
+    # wrangler は nixpkgs が installShellCompletion で fish を入れていない
     wrangler = {
       package = pkgs.wrangler;
       args = [
@@ -158,15 +84,6 @@ let
         "fish"
       ];
       output = "wrangler.fish";
-    };
-
-    xh = {
-      package = pkgs.xh;
-      args = [
-        "--generate"
-        "complete-fish"
-      ];
-      output = "xh.fish";
     };
   };
 
