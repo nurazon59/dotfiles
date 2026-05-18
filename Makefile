@@ -18,7 +18,7 @@ help:
 	@echo ""
 
 rebuild:
-	@cd /private/etc/nix-darwin && sudo darwin-rebuild switch --flake .#$(HOST)
+	@cd /private/etc/nix-darwin && sudo NIX_CONFIG="access-tokens = github.com=$$(gh auth token)" darwin-rebuild switch --flake .#$(HOST)
 
 update:
 	@export GITHUB_TOKEN=$$(gh auth token) && \
