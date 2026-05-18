@@ -89,7 +89,7 @@ return {
             elseif vim.snippet.active({ direction = -1 }) then
               vim.snippet.jump(-1)
             else
-              fallback()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-d>", true, false, true), "n", false)
             end
           end, { "i", "s" }),
         }),
