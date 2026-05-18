@@ -9,6 +9,15 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -19,6 +28,8 @@
       nixpkgs-unstable,
       home-manager,
       neovim-nightly-overlay,
+      zen-browser,
+      firefox-addons,
     }:
     let
       mkSystem =
@@ -64,6 +75,7 @@
                     });
                     mise = nixpkgs-unstable.legacyPackages.${prev.system}.mise;
                   })
+                  firefox-addons.overlays.default
                 ];
                 nixpkgs.config.allowUnfree = true;
 
@@ -77,7 +89,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.backupFileExtension = "bak";
-              home-manager.extraSpecialArgs = { inherit user; };
+              home-manager.extraSpecialArgs = { inherit user inputs; };
               home-manager.users.${user} = import ../home-manager/home.nix;
             }
           ];

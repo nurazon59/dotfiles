@@ -12,7 +12,10 @@ let
   fishGeneratedCompletions = import ./fish.nix { inherit pkgs; };
 in
 {
-  imports = [ ./mise.nix ];
+  imports = [
+    ./mise.nix
+    ./zen.nix
+  ];
 
   home.stateVersion = "24.11";
   home.username = user;
