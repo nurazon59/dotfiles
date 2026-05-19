@@ -2,6 +2,7 @@
   user,
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -85,5 +86,6 @@ in
     pkgs.nerd-fonts._0xproto
     pkgs.sketchybar-app-font
     pkgs.slack
+    inputs.nix-claude-code.packages.${pkgs.system}.default
   ];
 }

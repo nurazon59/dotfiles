@@ -20,6 +20,7 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-claude-code.url = "github:ryoppippi/nix-claude-code";
   };
 
   outputs =
@@ -33,6 +34,7 @@
       neovim-nightly-overlay,
       zen-browser,
       firefox-addons,
+      nix-claude-code,
     }:
     let
       mkSystem =
