@@ -6,6 +6,8 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -24,6 +26,7 @@
     inputs@{
       self,
       nix-darwin,
+      nix-index-database,
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
@@ -84,6 +87,8 @@
                 nixpkgs.hostPlatform = "aarch64-darwin";
               }
             )
+            nix-index-database.darwinModules.nix-index
+            { programs.nix-index-database.comma.enable = true; }
             home-manager.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
