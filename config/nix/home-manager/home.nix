@@ -15,6 +15,7 @@ in
 {
   imports = [
     ./mise.nix
+    ./nh.nix
     ./zen.nix
   ];
 
