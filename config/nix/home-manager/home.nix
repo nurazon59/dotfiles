@@ -16,6 +16,7 @@ in
   imports = [
     ./mise.nix
     ./nh.nix
+    ./nix-your-shell.nix
     ./zen.nix
   ];
 

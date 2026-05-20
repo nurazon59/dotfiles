@@ -20,6 +20,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-claude-code.url = "github:ryoppippi/nix-claude-code";
+    nix-your-shell = {
+      url = "github:MercuryTechnologies/nix-your-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -30,6 +34,7 @@
       home-manager,
       neovim-nightly-overlay,
       firefox-addons,
+      nix-your-shell,
       ...
     }:
     let
@@ -78,6 +83,7 @@
                     });
                   })
                   firefox-addons.overlays.default
+                  nix-your-shell.overlays.default
                 ];
                 nixpkgs.config.allowUnfree = true;
 
