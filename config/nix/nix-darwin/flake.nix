@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -28,13 +27,10 @@
       self,
       nix-darwin,
       nix-index-database,
-      nixpkgs,
-      nixpkgs-unstable,
       home-manager,
       neovim-nightly-overlay,
-      zen-browser,
       firefox-addons,
-      nix-claude-code,
+      ...
     }:
     let
       mkSystem =
@@ -43,7 +39,7 @@
           specialArgs = { inherit user neovim-nightly-overlay; };
           modules = [
             (
-              { pkgs, config, ... }:
+              { config, ... }:
               {
                 imports = [
                   ./system.nix
@@ -56,7 +52,9 @@
 
                 programs.fish.enable = true;
                 environment.interactiveShellInit = ''
-                  . "${config."home-manager".users.${user}.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh"
+                  . "${
+                    config."home-manager".users.${user}.home.sessionVariablesPackage
+                  }/etc/profile.d/hm-session-vars.sh"
                 '';
                 system.primaryUser = user;
 
@@ -74,11 +72,10 @@
                 users.users.${user}.home = "/Users/${user}";
 
                 nixpkgs.overlays = [
-                  (final: prev: {
+                  (_final: prev: {
                     direnv = prev.direnv.overrideAttrs (_: {
                       doCheck = false;
                     });
-                    mise = nixpkgs-unstable.legacyPackages.${prev.system}.mise;
                   })
                   firefox-addons.overlays.default
                 ];
