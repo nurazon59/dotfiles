@@ -17,7 +17,9 @@
         "go:github.com/nurazon59/ghmux" = "latest";
         "go:github.com/nurazon59/rport" = "latest";
         "go:github.com/nurazon59/nippo" = "latest";
-        "go:golang.org/x/tools/gopls" = "latest";
+        # v0.21.1までは Go 1.26 の new(value) 拡張未対応で誤って "is not a type" を吐く。
+        # v0.22.0 正式リリースが出たら "latest" に戻す。
+        "go:golang.org/x/tools/gopls" = "v0.22.0-pre.4";
         "go:github.com/jorgerojas26/lazysql" = "latest";
         "npm:@mermaid-js/mermaid-cli" = "latest";
         "npm:@openai/codex" = "latest";

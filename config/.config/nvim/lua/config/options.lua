@@ -19,3 +19,11 @@ vim.opt.undofile = true
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 vim.opt.splitkeep = "cursor"
+
+vim.opt.cursorline = true
+vim.opt.cursorcolumn = true
+
+vim.diagnostic.config({
+  virtual_text = { source = true },
+  float = { source = "always" },
+})
