@@ -14,6 +14,7 @@ let
 in
 {
   imports = [
+    ./lazygit.nix
     ./mise.nix
     ./nh.nix
     ./nix-your-shell.nix
@@ -31,6 +32,8 @@ in
     ];
   };
 
+  xdg.enable = true;
+
   home.file = {
     ".config/aerospace".source = symlink "${configDir}/aerospace";
     ".config/alacritty".source = symlink "${configDir}/alacritty";
@@ -43,7 +46,6 @@ in
     ".config/git".source = symlink "${configDir}/git";
     ".config/karabiner".source = symlink "${configDir}/karabiner";
     ".config/kitty".source = symlink "${configDir}/kitty";
-    ".config/lazygit".source = symlink "${configDir}/lazygit";
     ".config/linearmouse".source = symlink "${configDir}/linearmouse";
     ".config/mprocs".source = symlink "${configDir}/mprocs";
     ".config/nix".source = symlink "${configDir}/nix";

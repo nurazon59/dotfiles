@@ -33,7 +33,6 @@ in
       mprocs
       ollama
       ghq
-      lazygit
       delta
       stylua
       go-task
