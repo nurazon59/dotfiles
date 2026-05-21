@@ -32,13 +32,22 @@ in
     ];
   };
 
+  services.jankyborders = {
+    enable = true;
+    settings = {
+      style = "round";
+      width = 5.0;
+      hidpi = "on";
+      active_color = "0xc0ffffff";
+    };
+  };
+
   xdg.enable = true;
 
   home.file = {
     ".config/aerospace".source = symlink "${configDir}/aerospace";
     ".config/alacritty".source = symlink "${configDir}/alacritty";
     ".config/any-script-mcp".source = symlink "${configDir}/any-script-mcp";
-    ".config/borders".source = symlink "${configDir}/borders";
     ".config/espanso".source = symlink "${configDir}/espanso";
     ".config/fish".source = symlink "${configDir}/fish";
     ".config/gh".source = symlink "${configDir}/gh";

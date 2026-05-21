@@ -46,7 +46,6 @@ in
     brews = [
       "ical-buddy"
       "sketchybar"
-      "borders"
       "mo"
     ];
 
