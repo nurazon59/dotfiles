@@ -14,11 +14,11 @@ let
 in
 {
   imports = [
-    ./lazygit.nix
-    ./mise.nix
-    ./nh.nix
-    ./nix-your-shell.nix
-    ./zen.nix
+    ./programs/lazygit.nix
+    ./programs/mise.nix
+    ./programs/nh.nix
+    ./programs/nix-your-shell.nix
+    ./programs/zen.nix
   ];
 
   home.stateVersion = "24.11";
