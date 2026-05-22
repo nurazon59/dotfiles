@@ -172,6 +172,54 @@ mods = "Control"
 chars = "\u0014"
 
 [[keyboard.bindings]]
+key = "H"
+mods = "Control"
+command = { program = "/run/current-system/sw/bin/macism", args = [
+	"com.apple.keylayout.ABC",
+] }
+
+[[keyboard.bindings]]
+key = "H"
+mods = "Control"
+chars = "\u0008"
+
+[[keyboard.bindings]]
+key = "J"
+mods = "Control"
+command = { program = "/run/current-system/sw/bin/macism", args = [
+	"com.apple.keylayout.ABC",
+] }
+
+[[keyboard.bindings]]
+key = "J"
+mods = "Control"
+chars = "\u000a"
+
+[[keyboard.bindings]]
+key = "K"
+mods = "Control"
+command = { program = "/run/current-system/sw/bin/macism", args = [
+	"com.apple.keylayout.ABC",
+] }
+
+[[keyboard.bindings]]
+key = "K"
+mods = "Control"
+chars = "\u000b"
+
+[[keyboard.bindings]]
+key = "L"
+mods = "Control"
+command = { program = "/run/current-system/sw/bin/macism", args = [
+	"com.apple.keylayout.ABC",
+] }
+
+[[keyboard.bindings]]
+key = "L"
+mods = "Control"
+chars = "\u000c"
+
+[[keyboard.bindings]]
 key = "Return"
 mods = "Shift"
 chars = "\n"
