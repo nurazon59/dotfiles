@@ -74,3 +74,7 @@ map("n", "gt", "<cmd>FzfLua lsp_typedefs<CR>", vim.tbl_extend("force", opts, { d
 map("n", "gra", "<cmd>FzfLua lsp_code_actions<CR>", vim.tbl_extend("force", opts, { desc = "LSP Code Actions" }))
 map("n", "grn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "LSP Rename" }))
 map("n", "gO", "<cmd>FzfLua lsp_document_symbols<CR>", vim.tbl_extend("force", opts, { desc = "LSP Document Symbols" }))
+map("n", "<leader>s", function()
+  local word = vim.fn.expand("<cword>")
+  vim.api.nvim_feedkeys(":%s/" .. word .. "/", "n", false)
+end)
