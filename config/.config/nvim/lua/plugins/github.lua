@@ -1,5 +1,6 @@
 return {
   "pwntester/octo.nvim",
+  pin = true,
   dependencies = {
     "nvim-lua/plenary.nvim",
     "ibhagwan/fzf-lua",

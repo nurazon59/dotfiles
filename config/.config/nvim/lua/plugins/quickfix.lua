@@ -1,6 +1,7 @@
 return {
   {
     "kevinhwang91/nvim-bqf",
+    pin = true,
     ft = "qf",
     config = function()
       require("bqf").setup({
@@ -13,6 +14,7 @@ return {
   },
   {
     "stevearc/quicker.nvim",
+    pin = true,
     ft = "qf",
     keys = {
       {

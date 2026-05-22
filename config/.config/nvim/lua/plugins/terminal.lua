@@ -1,5 +1,6 @@
 return {
   "akinsho/toggleterm.nvim",
+  pin = true,
   version = "*",
   config = function()
     require("toggleterm").setup({

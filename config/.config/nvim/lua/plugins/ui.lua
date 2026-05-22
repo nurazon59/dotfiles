@@ -1,6 +1,9 @@
 return {
+  { "nvim-tree/nvim-web-devicons", pin = true },
+  { "MunifTanjim/nui.nvim", pin = true },
   {
     "akinsho/bufferline.nvim",
+    pin = true,
     lazy = true,
     event = "BufAdd",
     version = "*",
@@ -16,6 +19,7 @@ return {
   },
   {
     "nvim-tree/nvim-tree.lua",
+    pin = true,
     version = "*",
     lazy = false,
     keys = {
@@ -88,6 +92,7 @@ return {
   },
   {
     "shortcuts/no-neck-pain.nvim",
+    pin = true,
     version = "*",
     opts = {
       width = 180,
@@ -98,6 +103,7 @@ return {
   },
   {
     "tadaa/vimade",
+    pin = true,
     opts = {
       recipe = { "default", { animate = false } },
       ncmode = "windows",
@@ -107,6 +113,7 @@ return {
   },
   {
     "petertriho/nvim-scrollbar",
+    pin = true,
     dependencies = { "lewis6991/gitsigns.nvim" },
     config = function()
       local p = require("rose-pine.palette")
@@ -128,6 +135,7 @@ return {
   },
   {
     "folke/snacks.nvim",
+    pin = true,
     opts = {
       dim = { enabled = false },
       scroll = { enabled = false },
@@ -143,6 +151,7 @@ return {
   },
   {
     "rcarriga/nvim-notify",
+    pin = true,
     opts = {
       stages = "static",
       render = "wrapped-compact",
@@ -152,6 +161,7 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    pin = true,
     main = "ibl",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
     opts = {
@@ -166,6 +176,7 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
+    pin = true,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       options = {
@@ -213,6 +224,7 @@ return {
   },
   {
     "folke/noice.nvim",
+    pin = true,
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = {
@@ -243,6 +255,7 @@ return {
   },
   {
     "nvim-mini/mini.icons",
+    pin = true,
     opts = function(_, opts)
       opts = opts or {}
       opts.extension = opts.extension or {}
@@ -272,6 +285,7 @@ return {
   },
   {
     "catgoose/nvim-colorizer.lua",
+    pin = true,
     event = "BufRead",
     opts = {
       filetypes = { "*" },
@@ -294,6 +308,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    pin = true,
     event = "VeryLazy",
     opts = {
       win = {
@@ -316,6 +331,7 @@ return {
   },
   {
     "echasnovski/mini.starter",
+    pin = true,
     lazy = false,
     config = function()
       local starter = require("mini.starter")

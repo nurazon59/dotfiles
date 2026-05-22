@@ -1,6 +1,7 @@
 return {
   {
     "f-person/git-blame.nvim",
+    pin = true,
     -- load the plugin at startup
     event = "VeryLazy",
     -- Because of the keys part, you will be lazy loading this plugin.
@@ -18,6 +19,7 @@ return {
   },
   {
     "linrongbin16/gitlinker.nvim",
+    pin = true,
     cmd = "GitLink",
     opts = {},
     keys = {
@@ -29,9 +31,11 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    pin = true,
   },
   {
     "sindrets/diffview.nvim",
+    pin = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",

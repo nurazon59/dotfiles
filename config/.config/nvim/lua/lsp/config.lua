@@ -1,9 +1,17 @@
 return {
   -- LazyVimのblink.cmpを無効化（nvim-cmpに置き換え）
-  { "saghen/blink.cmp", enabled = false },
+  { "saghen/blink.cmp", enabled = false, pin = true },
+
+  { "neovim/nvim-lspconfig", pin = true },
+  { "hrsh7th/cmp-nvim-lsp", pin = true },
+  { "hrsh7th/cmp-buffer", pin = true },
+  { "hrsh7th/cmp-path", pin = true },
+  { "hrsh7th/cmp-cmdline", pin = true },
+  { "onsails/lspkind.nvim", pin = true },
 
   {
     "mason-org/mason.nvim",
+    pin = true,
     build = ":MasonUpdate",
     config = function()
       require("mason").setup({
@@ -13,6 +21,7 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
+    pin = true,
     dependencies = {
       "mason-org/mason.nvim",
       "neovim/nvim-lspconfig",
@@ -29,6 +38,7 @@ return {
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    pin = true,
     dependencies = { "mason-org/mason.nvim" },
     config = function()
       require("mason-tool-installer").setup({
@@ -38,6 +48,7 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    pin = true,
     enabled = true,
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
@@ -123,16 +134,19 @@ return {
   },
   {
     "kaarmu/typst.vim",
+    pin = true,
     ft = "typst",
     lazy = false,
   },
   {
     "seblyng/roslyn.nvim",
+    pin = true,
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
   },
   {
     "ionide/Ionide-vim",
+    pin = true,
     ft = { "fsharp", "fsharp_project" },
     init = function()
       -- FSAC が編集中に固まるため、重量級アナライザ/CodeLens を無効化

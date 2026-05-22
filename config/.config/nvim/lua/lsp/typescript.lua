@@ -1,6 +1,7 @@
 return {
   {
     "pmizio/typescript-tools.nvim",
+    pin = true,
     ft = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
     dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     -- Denoプロジェクトでは denols を attach、それ以外は typescript-tools を attach

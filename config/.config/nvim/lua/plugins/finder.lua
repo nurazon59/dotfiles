@@ -1,6 +1,8 @@
 return {
+  { "nvim-lua/plenary.nvim", pin = true },
   {
     "ibhagwan/fzf-lua",
+    pin = true,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("fzf-lua").setup({
@@ -49,6 +51,7 @@ return {
   },
   {
     "folke/todo-comments.nvim",
+    pin = true,
     event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {},

@@ -1,6 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
+    pin = true,
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     keys = {
@@ -39,6 +40,7 @@ return {
   },
   {
     "nvim-mini/mini.ai",
+    pin = true,
     event = "VeryLazy",
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
     opts = function()
@@ -69,11 +71,13 @@ return {
   },
   {
     "folke/ts-comments.nvim",
+    pin = true,
     event = "VeryLazy",
     opts = {},
   },
   {
     "windwp/nvim-autopairs",
+    pin = true,
     event = "InsertEnter",
     opts = {
       check_ts = true,
@@ -82,6 +86,7 @@ return {
   },
   {
     "gbprod/yanky.nvim",
+    pin = true,
     opts = {
       highlight = {
         on_put = true,
@@ -98,6 +103,7 @@ return {
   },
   {
     "folke/snacks.nvim",
+    pin = true,
     priority = 1000,
     lazy = false,
     ---@type snacks.Config
@@ -108,6 +114,7 @@ return {
   },
   {
     "folke/lazydev.nvim",
+    pin = true,
     ft = "lua",
     opts = {
       library = {
@@ -117,6 +124,7 @@ return {
   },
   {
     "mrjones2014/smart-splits.nvim",
+    pin = true,
     event = "VeryLazy",
     opts = {
       at_edge = "stop",
@@ -158,6 +166,7 @@ return {
   },
   {
     "stevearc/resession.nvim",
+    pin = true,
     lazy = false,
     config = function()
       local r = require("resession")

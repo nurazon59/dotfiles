@@ -1,6 +1,7 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter-context",
+    pin = true,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "BufReadPost",
     config = function()
@@ -20,6 +21,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter",
+    pin = true,
     branch = "main",
     lazy = false,
     build = ":TSUpdate",
@@ -72,6 +74,7 @@ return {
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    pin = true,
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     event = "BufReadPost",
     config = function()
@@ -125,6 +128,7 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
+    pin = true,
     event = "InsertEnter",
     ft = { "html", "astro", "xml", "markdown", "mdx" },
     opts = {},
