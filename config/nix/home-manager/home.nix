@@ -64,6 +64,7 @@ in
     ".config/sketchybar".source = symlink "${configDir}/sketchybar";
     ".config/starship".source = symlink "${configDir}/starship";
     ".config/tmux".source = symlink "${configDir}/tmux";
+    ".config/wezterm".source = symlink "${configDir}/wezterm";
     ".config/yazi".source = symlink "${configDir}/yazi";
     ".config/zeno".source = symlink "${configDir}/zeno";
 

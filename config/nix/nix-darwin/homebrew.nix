@@ -10,6 +10,7 @@ let
     "clipy"
     "espanso"
     "finetune"
+    "font-hackgen-nerd"
     "font-sf-pro"
     "input-source-pro"
     "karabiner-elements"
