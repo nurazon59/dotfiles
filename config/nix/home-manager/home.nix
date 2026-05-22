@@ -18,19 +18,13 @@ in
     ./programs/mise.nix
     ./programs/nh.nix
     ./programs/nix-your-shell.nix
+    ./programs/ripgrep.nix
     ./programs/zen.nix
   ];
 
   home.stateVersion = "24.11";
   home.username = user;
   home.homeDirectory = "/Users/${user}";
-
-  programs.ripgrep = {
-    enable = true;
-    arguments = [
-      "--ignore-file=${config.home.homeDirectory}/src/github.com/nurazon59/dotfiles/config/.config/ripgrep/rgignore"
-    ];
-  };
 
   services.jankyborders = {
     enable = true;

@@ -1,0 +1,77 @@
+{ ... }:
+{
+  programs.ripgrep = {
+    enable = true;
+    arguments = map (g: "--glob=!${g}") [
+      ".git/"
+      ".DS_Store"
+      ".idea/"
+      ".vscode/"
+      ".history"
+      "*.swp"
+      "*.iml"
+
+      "node_modules/"
+      "vendor/"
+      "target/"
+      "dist/"
+      "build/"
+      "out/"
+      "coverage/"
+      "__pycache__/"
+      ".venv/"
+      "venv/"
+      ".mypy_cache/"
+      ".pytest_cache/"
+      ".ruff_cache/"
+      ".next/"
+      ".nuxt/"
+      ".turbo/"
+      ".svelte-kit/"
+      ".parcel-cache/"
+      ".cache/"
+      ".terraform/"
+      "Pods/"
+      "DerivedData/"
+      ".gradle/"
+
+      "tmp/"
+      "temp/"
+      "*.tmp"
+      "*.temp"
+      "*.log"
+      "*.cache"
+
+      "*.o"
+      "*.pyc"
+      "*.pyo"
+      "*.class"
+      "*.exe"
+      "*.dll"
+      "*.so"
+      "*.dylib"
+
+      "*.jar"
+      "*.war"
+      "*.ear"
+      "*.zip"
+      "*.tar.gz"
+      "*.rar"
+      "*.7z"
+
+      "*.min.js"
+      "*.min.css"
+      "*.map"
+
+      "go.sum"
+      "Cargo.lock"
+      "package-lock.json"
+      "yarn.lock"
+      "pnpm-lock.yaml"
+      "bun.lockb"
+      "uv.lock"
+      "*.tfstate"
+      "*.tfstate.backup"
+    ];
+  };
+}

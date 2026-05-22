@@ -23,7 +23,6 @@ in
       fd
       fzf
       lsd
-      ripgrep
       sd
       starship
       tree-sitter
