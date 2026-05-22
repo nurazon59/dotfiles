@@ -4,7 +4,6 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("fzf-lua").setup({
-        "telescope",
         winopts = {
           height = 0.85,
           width = 0.80,
@@ -15,10 +14,18 @@ return {
             horizontal = "right:50%",
           },
         },
+        fzf_opts = {
+          ["--multi"] = true,
+        },
         keymap = {
           builtin = {
             ["<C-d>"] = "preview-page-down",
             ["<C-u>"] = "preview-page-up",
+          },
+          fzf = {
+            ["tab"] = "toggle+down",
+            ["shift-tab"] = "toggle+up",
+            ["ctrl-a"] = "toggle-all",
           },
         },
         files = {
@@ -27,7 +34,7 @@ return {
         },
         grep = {
           prompt = "Rg❯ ",
-          cmd = "rg --vimgrep --hidden --glob '!.git'",
+          rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden --glob '!.git' --max-columns=4096 -e",
         },
       })
 

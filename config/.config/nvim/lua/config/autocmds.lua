@@ -53,7 +53,7 @@ vim.api.nvim_create_autocmd("FileType", {
       require("fzf-lua").grep({
         search = pattern,
         no_esc = true,
-        rg_opts = "--glob '*.sql'",
+        rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob '*.sql' -e",
       })
     end, { buffer = 0, noremap = true, silent = true, desc = "DDL定義にジャンプ" })
   end,
