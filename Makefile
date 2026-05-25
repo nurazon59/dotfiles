@@ -24,7 +24,6 @@ rebuild:
 
 update:
 	@export GITHUB_TOKEN=$$(gh auth token) && \
-		claude update && \
 		mise upgrade && \
 		cd $(DOTFILES_DIR)/config/nix/nix-darwin && nix flake update && \
 		cd $(DOTFILES_DIR) && git add config/nix/nix-darwin/flake.lock && \
