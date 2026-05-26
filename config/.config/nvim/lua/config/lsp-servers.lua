@@ -4,6 +4,7 @@ M.servers = {
   "astro",
   "buf_ls",
   "clangd",
+  "gopls",
   "jsonls",
   "jsonnet_ls",
   "lua_ls",
@@ -39,7 +40,6 @@ M.tools = {
 
 M.external_servers = {
   "nixd",
-  "gopls",
 }
 
 function M.setup()
