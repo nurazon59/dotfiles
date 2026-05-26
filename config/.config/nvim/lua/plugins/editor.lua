@@ -184,4 +184,5 @@ return {
       })
     end,
   },
+  { "nvim-mini/mini.surround", version = false, pin = true, event = "VeryLazy", opts = {} },
 }
