@@ -1,6 +1,7 @@
-{ pkgs, neovim-nightly-overlay, ... }:
+{ pkgs, neovim-nightly-overlay, arto, ... }:
 let
   neovim-nightly = neovim-nightly-overlay.packages.${pkgs.system}.default;
+  arto-pkg = arto.packages.${pkgs.system}.default;
 in
 {
   environment.systemPackages =
@@ -46,5 +47,6 @@ in
     ])
     ++ [
       neovim-nightly
+      arto-pkg
     ];
 }

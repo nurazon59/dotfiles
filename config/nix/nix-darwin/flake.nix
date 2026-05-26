@@ -24,6 +24,10 @@
       url = "github:MercuryTechnologies/nix-your-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    arto = {
+      url = "github:arto-app/Arto";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -35,13 +39,14 @@
       neovim-nightly-overlay,
       firefox-addons,
       nix-your-shell,
+      arto,
       ...
     }:
     let
       mkSystem =
         user:
         nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit user neovim-nightly-overlay; };
+          specialArgs = { inherit user neovim-nightly-overlay arto; };
           modules = [
             (
               { config, ... }:
