@@ -14,6 +14,7 @@ let
 in
 {
   imports = [
+    ./programs/agent-skills.nix
     ./programs/lazygit.nix
     ./programs/mise.nix
     ./programs/nh.nix
@@ -23,6 +24,7 @@ in
   ];
 
   home.stateVersion = "24.11";
+  home.enableNixpkgsReleaseCheck = false;
   home.username = user;
   home.homeDirectory = "/Users/${user}";
 
@@ -35,6 +37,8 @@ in
       active_color = "0xc0ffffff";
     };
   };
+
+  launchd.agents.jankyborders.config.KeepAlive = pkgs.lib.mkForce false;
 
   xdg.enable = true;
 

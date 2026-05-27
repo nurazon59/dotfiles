@@ -28,6 +28,11 @@
       url = "github:arto-app/Arto";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agent-skills.url = "github:Kyure-A/agent-skills-nix";
+    mattpocock-skills = {
+      url = "github:mattpocock/skills";
+      flake = false;
+    };
   };
 
   outputs =
@@ -40,6 +45,8 @@
       firefox-addons,
       nix-your-shell,
       arto,
+      agent-skills,
+      mattpocock-skills,
       ...
     }:
     let
