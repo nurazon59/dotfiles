@@ -29,6 +29,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agent-skills.url = "github:Kyure-A/agent-skills-nix";
+    hermes-agent.url = "github:NousResearch/hermes-agent";
     mattpocock-skills = {
       url = "github:mattpocock/skills";
       flake = false;

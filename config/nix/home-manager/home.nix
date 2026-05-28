@@ -99,5 +99,6 @@ in
     pkgs.sketchybar-app-font
     pkgs.slack
     inputs.nix-claude-code.packages.${pkgs.system}.default
+    inputs.hermes-agent.packages.${pkgs.system}.default
   ];
 }
