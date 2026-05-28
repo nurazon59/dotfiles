@@ -44,3 +44,4 @@ config/nix/nix-darwin/result
 /config/.config/codex/installation_id
 /config/.config/codex/cloud-requirements-cache.json
 /config/.config/fish/completions
+/config/.config/nix/access-tokens.conf

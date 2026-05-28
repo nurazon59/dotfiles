@@ -74,4 +74,14 @@ else
   cd /private/etc/nix-darwin && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ".#${HOST}"
 fi
 
+echo "Generating Nix access-tokens.conf..."
+if command -v gh >/dev/null 2>&1 && gh auth status >/dev/null 2>&1; then
+  mkdir -p "${HOME}/.config/nix"
+  printf 'access-tokens = github.com=%s\n' "$(gh auth token)" > "${HOME}/.config/nix/access-tokens.conf"
+  chmod 600 "${HOME}/.config/nix/access-tokens.conf"
+  echo "  -> ${HOME}/.config/nix/access-tokens.conf created"
+else
+  echo "  -> gh not authenticated, run 'gh auth login && make token' later"
+fi
+
 echo "Done!"

@@ -3,7 +3,7 @@ DOTFILES_DIR := $(shell pwd)
 
 HOST ?= $(error HOSTが未設定。./install.sh work を先に実行してください)
 
-.PHONY: help rebuild update env clean
+.PHONY: help rebuild update env token clean
 
 help:
 	@echo "========================================="
@@ -14,19 +14,24 @@ help:
 	@echo "  ./install.sh personal    - 初回セットアップ"
 	@echo "  make rebuild             - nh darwin switch"
 	@echo "  make update              - claude/mise/flake update + commit&push"
+	@echo "  make token               - ~/.config/nix/access-tokens.conf を再生成"
 	@echo ""
 	@echo "  HOST: work (koshiishi) | personal (itsuki54)"
 	@echo ""
 
 rebuild:
-	@NIX_CONFIG="access-tokens = github.com=$$(gh auth token)" nh darwin switch /private/etc/nix-darwin#$(HOST)
+	@nh darwin switch /private/etc/nix-darwin#$(HOST)
 
+token:
+	@mkdir -p $(HOME)/.config/nix
+	@printf 'access-tokens = github.com=%s\n' "$$(gh auth token)" > $(HOME)/.config/nix/access-tokens.conf
+	@chmod 600 $(HOME)/.config/nix/access-tokens.conf
+	@echo "  -> $(HOME)/.config/nix/access-tokens.conf updated"
 
-update:
-	@export GITHUB_TOKEN=$$(gh auth token) && \
-		mise upgrade && \
-		cd $(DOTFILES_DIR)/config/nix/nix-darwin && nix flake update && \
-		cd $(DOTFILES_DIR) && git add config/nix/nix-darwin/flake.lock && \
+update: token
+	@GITHUB_TOKEN=$$(gh auth token) mise upgrade
+	@cd $(DOTFILES_DIR)/config/nix/nix-darwin && nix flake update
+	@cd $(DOTFILES_DIR) && git add config/nix/nix-darwin/flake.lock && \
 		git commit -m "chore(deps): update dependency" && git push
 
 env:
