@@ -49,9 +49,6 @@
       firefox-addons,
       nix-your-shell,
       arto,
-      agent-skills,
-      mattpocock-skills,
-      skills,
       ...
     }:
     let

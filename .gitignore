@@ -7,8 +7,8 @@ config/.config/claude/*
 !config/.config/claude/agents/
 !config/.config/claude/commands/
 !config/.config/claude/hooks/
-!config/.config/claude/skills/
 config/.config/claude/hooks/*/tsconfig-cache.json
+/config/.config/claude/skills
 
 # Working directory
 zzz/
@@ -46,3 +46,4 @@ config/nix/nix-darwin/result
 /config/.config/fish/completions
 /config/.config/nix/access-tokens.conf
 /config/.config/opencode/skills
+/config/.config/codex/skills

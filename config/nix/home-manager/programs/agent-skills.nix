@@ -19,7 +19,6 @@
       "research"
       "notion"
       "architecture-document"
-      "productivity/grill-me"
       "gh-address-comments"
       "gh-fix-ci"
       "issue-creator"
@@ -28,11 +27,22 @@
       "pr-review-workflow"
     ];
 
+    skills.explicit.grill-me = {
+      from = "mattpocock";
+      path = "productivity/grill-me";
+    };
+
     targets = {
       agents.enable = true;
       opencode.enable = true;
-      claude.enable = true;
-      codex.enable = true;
+      claude = {
+        enable = true;
+        dest = "$HOME/.config/claude/skills";
+      };
+      codex = {
+        enable = true;
+        dest = "$HOME/.config/codex/skills";
+      };
     };
   };
 }
