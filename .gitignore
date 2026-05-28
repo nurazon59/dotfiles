@@ -45,3 +45,4 @@ config/nix/nix-darwin/result
 /config/.config/codex/cloud-requirements-cache.json
 /config/.config/fish/completions
 /config/.config/nix/access-tokens.conf
+/config/.config/opencode/skills
