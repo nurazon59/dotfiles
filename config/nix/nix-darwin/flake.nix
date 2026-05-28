@@ -33,6 +33,10 @@
       url = "github:mattpocock/skills";
       flake = false;
     };
+    skills = {
+      url = "github:nurazon59/skills";
+      flake = false;
+    };
   };
 
   outputs =
@@ -47,6 +51,7 @@
       arto,
       agent-skills,
       mattpocock-skills,
+      skills,
       ...
     }:
     let

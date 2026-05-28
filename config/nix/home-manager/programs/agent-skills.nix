@@ -1,7 +1,4 @@
 { config, lib, pkgs, inputs, ... }:
-let
-  dotfiles = ../../../..;
-in
 {
   imports = [ inputs.agent-skills.homeManagerModules.default ];
 
@@ -9,8 +6,8 @@ in
     enable = true;
 
     sources = {
-      dotfiles = {
-        path = "${dotfiles}/config/.agents/skills";
+      skills = {
+        input = "skills";
       };
       mattpocock = {
         input = "mattpocock-skills";

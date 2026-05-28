@@ -396,7 +396,24 @@
         "nix-index-database": "nix-index-database",
         "nix-your-shell": "nix-your-shell",
         "nixpkgs": "nixpkgs_4",
+        "skills": "skills",
         "zen-browser": "zen-browser"
+      }
+    },
+    "skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779941091,
+        "narHash": "sha256-Eydb7IiYRfeLUR7E/RBUz4I4qrWIEMaS59ZGKHj8P/c=",
+        "owner": "nurazon59",
+        "repo": "skills",
+        "rev": "6e592b229b04359930164afd692afc8218827be8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nurazon59",
+        "repo": "skills",
+        "type": "github"
       }
     },
     "systems": {
