@@ -437,7 +437,7 @@
       "Write(~/.docker/config.json)",
       "Read(**/credentials.json)",
       "Read(**/service-account*.json)",
-      "Read(**/*credentials*)",
+      "Read(**/credentials*)",
       "Bash(printenv:*)",
       "Bash(gh auth token:*)",
       "Bash(gh secret:*)",
