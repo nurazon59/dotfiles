@@ -1,5 +1,5 @@
 # Global defaults
-model = "gpt-5.4-mini"
+model = "gpt-5.5"
 personality = "pragmatic"
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
