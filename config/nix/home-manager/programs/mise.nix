@@ -58,6 +58,7 @@
       settings = {
         idiomatic_version_file_enable_tools = [ "python" ];
         experimental = true;
+        minimum_release_age = "7d";
       };
     };
   };
