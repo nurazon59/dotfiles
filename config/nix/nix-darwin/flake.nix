@@ -30,6 +30,7 @@
     };
     agent-skills.url = "github:Kyure-A/agent-skills-nix";
     hermes-agent.url = "github:NousResearch/hermes-agent";
+    safe-chain-nix.url = "github:jeremywgleeson/safe-chain-nix";
     mattpocock-skills = {
       url = "github:mattpocock/skills";
       flake = false;

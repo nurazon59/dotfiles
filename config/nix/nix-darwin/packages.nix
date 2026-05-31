@@ -44,6 +44,9 @@ in
       cmake
       mise
       wezterm
+      trivy
+      osv-scanner
+      gitleaks
     ])
     ++ [
       neovim-nightly

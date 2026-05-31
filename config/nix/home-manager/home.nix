@@ -20,6 +20,7 @@ in
     ./programs/nh.nix
     ./programs/nix-your-shell.nix
     ./programs/ripgrep.nix
+    ./programs/safe-chain.nix
     ./programs/zen.nix
   ];
 
