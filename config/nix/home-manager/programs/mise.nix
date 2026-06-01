@@ -14,6 +14,7 @@
         "dotnet:fantomas" = "latest";
         "dotnet:fsautocomplete" = "latest";
         "go:github.com/k1LoW/git-wt" = "latest";
+        "go:github.com/d-kuro/gwq/cmd/gwq" = "latest";
         "go:github.com/nurazon59/ghmux" = "latest";
         "go:github.com/nurazon59/rport" = "latest";
         "go:github.com/nurazon59/nippo" = "latest";

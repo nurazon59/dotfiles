@@ -44,6 +44,10 @@ let
       "completion"
       "fish"
     ];
+    gwq = [
+      "completion"
+      "fish"
+    ];
     lefthook = [
       "completion"
       "fish"
