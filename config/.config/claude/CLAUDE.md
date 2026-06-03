@@ -84,7 +84,7 @@
 
 ## worktree
 
-- worktreeを用いる必要のあるときは`git wt`(https://github.com/k1LoW/git-wt)を使うこと
+- worktreeを用いる必要のあるときは`gwq`(https://github.com/d-kuro/gwq)を使うこと
 
 ## OSSメモ
 

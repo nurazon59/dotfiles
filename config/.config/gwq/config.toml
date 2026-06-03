@@ -1,0 +1,9 @@
+[worktree]
+basedir = '~/src'
+
+[naming]
+template = '{{.Host}}/{{.Owner}}/{{.Repository}}-{{.Branch}}'
+
+[naming.sanitize_chars]
+'/' = '-'
+':' = '-'
