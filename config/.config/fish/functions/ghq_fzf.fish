@@ -10,7 +10,7 @@ function ghq_fzf
         set -a entries $p\t$session_name\t$session_name\t$window_name
     end
 
-    # worktrees (git wt経由で取得、スラッシュ入りブランチにも対応)
+    # worktrees (スラッシュ入りブランチにも対応)
     for repo in (ghq list -p)
         test -d "$repo/.wt"; or continue
         set -l repo_name (string replace "$ghq_root/" "" $repo)
