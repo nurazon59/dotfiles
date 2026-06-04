@@ -67,10 +67,10 @@ for i = 1, max_prs do
 end
 
 -- バー表示用: "total approved unresolved"
-local bar_cmd = gh .. [[ api graphql -f query='{ search(query: "is:pr author:@me is:open", type: ISSUE, first: 30) { issueCount nodes { ... on PullRequest { reviewDecision reviewThreads(first: 100) { nodes { isResolved } } } } } }' --jq '.data.search | "\(.issueCount) \([.nodes[] | select(.reviewDecision == "APPROVED")] | length) \([.nodes[].reviewThreads.nodes[] | select(.isResolved == false)] | length)"']]
+local bar_cmd = gh .. [[ api graphql -f query='{ search(query: "is:pr assignee:@me is:open", type: ISSUE, first: 30) { issueCount nodes { ... on PullRequest { reviewDecision reviewThreads(first: 100) { nodes { isResolved } } } } } }' --jq '.data.search | "\(.issueCount) \([.nodes[] | select(.reviewDecision == "APPROVED")] | length) \([.nodes[].reviewThreads.nodes[] | select(.isResolved == false)] | length)"']]
 
 -- popup用: repo#num\ttitle\tstatus\tapprovals\tunresolved\tci\turl（1行/PR）
-local popup_cmd = gh .. [[ api graphql -f query='{ search(query: "is:pr author:@me is:open", type: ISSUE, first: ]] .. max_prs .. [[) { nodes { ... on PullRequest { number title url repository { nameWithOwner } reviewDecision latestReviews(first: 20) { nodes { state } } reviewThreads(first: 100) { nodes { isResolved } } commits(last: 1) { nodes { commit { statusCheckRollup { state } } } } } } } }' --jq '.data.search.nodes[] | "\(.repository.nameWithOwner)#\(.number)\t\(.title)\t\(.reviewDecision // "PENDING")\t\([.latestReviews.nodes[] | select(.state == "APPROVED")] | length)\t\([.reviewThreads.nodes[] | select(.isResolved == false)] | length)\t\(.commits.nodes[0].commit.statusCheckRollup.state // "UNKNOWN")\t\(.url)"']]
+local popup_cmd = gh .. [[ api graphql -f query='{ search(query: "is:pr assignee:@me is:open", type: ISSUE, first: ]] .. max_prs .. [[) { nodes { ... on PullRequest { number title url repository { nameWithOwner } reviewDecision latestReviews(first: 20) { nodes { state } } reviewThreads(first: 100) { nodes { isResolved } } commits(last: 1) { nodes { commit { statusCheckRollup { state } } } } } } } }' --jq '.data.search.nodes[] | "\(.repository.nameWithOwner)#\(.number)\t\(.title)\t\(.reviewDecision // "PENDING")\t\([.latestReviews.nodes[] | select(.state == "APPROVED")] | length)\t\([.reviewThreads.nodes[] | select(.isResolved == false)] | length)\t\(.commits.nodes[0].commit.statusCheckRollup.state // "UNKNOWN")\t\(.url)"']]
 
 local function update_bar()
   sbar.exec(bar_cmd, function(result)
