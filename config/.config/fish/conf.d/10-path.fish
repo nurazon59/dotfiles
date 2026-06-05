@@ -2,4 +2,5 @@ fish_add_path /run/current-system/sw/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /etc/profiles/per-user/itsuki54/bin
 fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.local/share/mise/shims
 fish_add_path $HOME/.local/share/mise/installs/tree-sitter/latest
