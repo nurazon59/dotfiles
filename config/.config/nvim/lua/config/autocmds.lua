@@ -59,11 +59,24 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+local function mkdir_for_file(path)
+  local dir = vim.fn.fnamemodify(path, ":h")
+  if dir:find("%a+://") == 1 then
+    return
+  end
+  if vim.fn.isdirectory(dir) == 0 then
+    vim.fn.mkdir(dir, "p")
+  end
+end
+
 vim.api.nvim_create_autocmd("BufNewFile", {
   callback = function(ev)
-    local dir = vim.fn.fnamemodify(ev.file, ":h")
-    if dir ~= "." and vim.fn.isdirectory(dir) == 0 then
-      vim.fn.mkdir(dir, "p")
-    end
+    mkdir_for_file(ev.file)
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  callback = function()
+    mkdir_for_file(vim.fn.expand("<afile>:p"))
   end,
 })
