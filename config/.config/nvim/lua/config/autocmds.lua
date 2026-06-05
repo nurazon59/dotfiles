@@ -58,3 +58,12 @@ vim.api.nvim_create_autocmd("FileType", {
     end, { buffer = 0, noremap = true, silent = true, desc = "DDL定義にジャンプ" })
   end,
 })
+
+vim.api.nvim_create_autocmd("BufNewFile", {
+  callback = function(ev)
+    local dir = vim.fn.fnamemodify(ev.file, ":h")
+    if dir ~= "." and vim.fn.isdirectory(dir) == 0 then
+      vim.fn.mkdir(dir, "p")
+    end
+  end,
+})
