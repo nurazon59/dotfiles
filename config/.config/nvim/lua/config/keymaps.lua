@@ -78,3 +78,17 @@ map("n", "<leader>s", function()
   local word = vim.fn.expand("<cword>")
   vim.api.nvim_feedkeys(":%s/" .. word .. "/", "n", false)
 end)
+vim.keymap.set({ "n" }, "ygF", function()
+  vim.fn.setreg("+", vim.fn.expand("%:t"))
+end, { noremap = true, silent = true, desc = "Copy file name to clipboard" })
+vim.keymap.set({ "n" }, "ygf", function()
+  vim.fn.setreg("+", vim.fn.expand("%:."))
+end, { noremap = true, silent = true, desc = "Copy relative path to clipboard" })
+map({ "n" }, "gf", function()
+  local cfile = vim.fn.expand("<cfile>")
+  if string.match(cfile, "^https?://") then
+    vim.cmd("normal! gx") -- vim.fn.system({ "open", cfile })　で十分かもね
+  else
+    vim.cmd("normal! gF")
+  end
+end)
