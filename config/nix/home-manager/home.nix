@@ -23,7 +23,7 @@ in
     ./programs/ripgrep.nix
     ./programs/safe-chain.nix
     ./programs/zen.nix
-  ];
+  ] ++ (if user == "itsuki54" then [ ./programs/hermes-agent.nix ] else [ ]);
 
   home.stateVersion = "24.11";
   home.enableNixpkgsReleaseCheck = false;
@@ -104,6 +104,5 @@ in
     pkgs.slack
     pkgs.tridactyl-native
     inputs.nix-claude-code.packages.${pkgs.system}."2.1.153"
-    inputs.hermes-agent.packages.${pkgs.system}.default
   ];
 }

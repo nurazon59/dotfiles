@@ -1,7 +1,8 @@
-{ pkgs, neovim-nightly-overlay, arto, ... }:
+{ pkgs, neovim-nightly-overlay, arto, user, ... }:
 let
   neovim-nightly = neovim-nightly-overlay.packages.${pkgs.system}.default;
   arto-pkg = arto.packages.${pkgs.system}.default;
+  isPersonal = user == "itsuki54";
 in
 {
   environment.systemPackages =
@@ -31,7 +32,6 @@ in
       zoxide
       usage
       mprocs
-      ollama
       ghq
       delta
       stylua
@@ -51,5 +51,6 @@ in
     ++ [
       neovim-nightly
       arto-pkg
-    ];
+    ]
+    ++ (if isPersonal then [ pkgs.ollama ] else [ ]);
 }

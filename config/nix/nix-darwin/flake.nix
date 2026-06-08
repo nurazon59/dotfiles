@@ -26,7 +26,6 @@
     };
     arto = {
       url = "github:arto-app/Arto";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     agent-skills.url = "github:Kyure-A/agent-skills-nix";
     hermes-agent.url = "github:NousResearch/hermes-agent";
