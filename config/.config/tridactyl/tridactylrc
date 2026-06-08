@@ -1,0 +1,97 @@
+" tridactylrc - vim-like keyboard navigation for Firefox
+" 適用: Tridactyl の :source または起動時オートロード（native messenger 必須）
+
+" === reset ===
+sanitise tridactyllocal tridactylsync
+unbindall
+
+" === scroll ===
+bind j scrollline 5
+bind k scrollline -5
+bind h scrollline -10 horizontal
+bind l scrollline 10 horizontal
+bind gg scrollto 0
+bind G scrollto 100
+bind d scrollpage 0.5
+bind u scrollpage -0.5
+bind <C-d> scrollpage 0.5
+bind <C-u> scrollpage -0.5
+
+" === tab ===
+bind J tabprev
+bind K tabnext
+bind gT tabprev
+bind gt tabnext
+bind t fillcmdline tabopen
+bind T fillcmdline tabopen -b
+bind x tabclose
+bind X undo
+bind <A-1> tab 1
+bind <A-2> tab 2
+bind <A-3> tab 3
+bind <A-4> tab 4
+bind <A-5> tab 5
+bind <A-6> tab 6
+bind <A-7> tab 7
+bind <A-8> tab 8
+bind <A-9> tab 9
+
+" === navigation ===
+bind H back
+bind L forward
+bind r reload
+bind R reloadhard
+bind gh home
+
+" === find ===
+bind / fillcmdline find
+bind ? fillcmdline find -?
+bind n findnext 1
+bind N findnext -1
+bind <Esc> nohlsearch
+
+" === hint ===
+bind f hint
+bind F hint -b
+bind ;y hint -y
+bind ;e hint -e
+bind ;i hint -i
+bind ;I hint -I
+bind ;k hint -k
+bind ;s hint -s
+bind ;S hint -S
+bind ;a hint -a
+bind ;A hint -A
+
+" === command bar ===
+bind : fillcmdline_notrail
+bind o fillcmdline open
+bind O current_url open
+bind w fillcmdline winopen
+bind W current_url winopen
+
+" === url manipulation ===
+bind yy clipboard yank
+bind p clipboard open
+bind P clipboard tabopen
+
+" === zoom ===
+bind + zoom 0.1 true
+bind - zoom -0.1 true
+bind = zoom 1 false
+
+" === source view ===
+bind gf viewsource
+
+" === settings ===
+set hintchars asdfghjkl
+set hintfiltermode vimperator-reflow
+set tabopenpos last
+set newtabfocus page
+set smoothscroll true
+set update.lastchecktime 0
+
+" === blacklist - Tridactyl を一時無効化するサイト ===
+" GitHub などキーバインドが豊富なサイトは衝突回避で除外可能
+" blacklistadd mail.google.com
+" blacklistadd github.com

@@ -23,6 +23,12 @@
       extensions.packages = [
         pkgs.firefox-addons."1password-x-password-manager"
         pkgs.firefox-addons.wappalyzer
+        pkgs.firefox-addons.to-deepl
+        pkgs.firefox-addons.vimium
+        pkgs.firefox-addons.violentmonkey
+        pkgs.firefox-addons.refined-github
+        pkgs.firefox-addons.ublock-origin
+        pkgs.firefox-addons.ghostery
       ];
       search = {
         force = true;

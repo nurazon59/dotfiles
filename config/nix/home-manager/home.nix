@@ -15,6 +15,7 @@ in
 {
   imports = [
     ./programs/agent-skills.nix
+    ./programs/firefox.nix
     ./programs/lazygit.nix
     ./programs/mise.nix
     ./programs/nh.nix
@@ -64,6 +65,7 @@ in
     ".config/sketchybar".source = symlink "${configDir}/sketchybar";
     ".config/starship".source = symlink "${configDir}/starship";
     ".config/tmux".source = symlink "${configDir}/tmux";
+    ".config/tridactyl".source = symlink "${configDir}/tridactyl";
     ".config/wezterm".source = symlink "${configDir}/wezterm";
     ".config/yazi".source = symlink "${configDir}/yazi";
     ".config/zeno".source = symlink "${configDir}/zeno";
@@ -100,7 +102,8 @@ in
     pkgs.nerd-fonts._0xproto
     pkgs.sketchybar-app-font
     pkgs.slack
-    inputs.nix-claude-code.packages.${pkgs.system}.default
+    pkgs.tridactyl-native
+    inputs.nix-claude-code.packages.${pkgs.system}."2.1.153"
     inputs.hermes-agent.packages.${pkgs.system}.default
   ];
 }
