@@ -103,6 +103,6 @@ in
     pkgs.sketchybar-app-font
     pkgs.slack
     pkgs.tridactyl-native
-    inputs.nix-claude-code.packages.${pkgs.system}."2.1.153"
+    inputs.nix-claude-code.packages.${pkgs.system}.latest
   ];
 }

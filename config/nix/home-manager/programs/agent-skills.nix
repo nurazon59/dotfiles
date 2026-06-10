@@ -17,7 +17,6 @@
 
     skills.enable = [
       "research"
-      "notion"
       "architecture-document"
       "gh-address-comments"
       "gh-fix-ci"
