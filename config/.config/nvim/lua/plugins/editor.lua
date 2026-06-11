@@ -69,12 +69,7 @@ return {
       }
     end,
   },
-  {
-    "folke/ts-comments.nvim",
-    pin = true,
-    event = "VeryLazy",
-    opts = {},
-  },
+  { "nvim-mini/mini.comment", pin = true, event = "VeryLazy", opts = {} },
   {
     "windwp/nvim-autopairs",
     pin = true,
