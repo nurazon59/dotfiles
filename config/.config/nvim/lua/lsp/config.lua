@@ -162,4 +162,8 @@ return {
       vim.g["fsharp#line_lens"] = { enabled = "never", prefix = "" }
     end,
   },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = "InsertEnter",
+  },
 }
