@@ -185,4 +185,5 @@ return {
     end,
   },
   { "nvim-mini/mini.surround", version = false, pin = true, event = "VeryLazy", opts = {} },
+  { "barrettruth/diffs.nvim", version = false, pin = true },
 }
