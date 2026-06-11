@@ -37,6 +37,13 @@
       settings = {
         "extensions.autoDisableScopes" = 0;
         "extensions.enabledScopes" = 15;
+
+        # Essentials / pinned tab をクリック時までロードしない（メモリ節約）
+        "browser.sessionstore.restore_pinned_tabs_on_demand" = true;
+        "browser.sessionstore.restore_on_demand" = true;
+
+        # ブックマークバー常時表示
+        "browser.toolbars.bookmarks.visibility" = "always";
       };
     };
   };
