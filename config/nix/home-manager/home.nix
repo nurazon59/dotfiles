@@ -57,6 +57,7 @@ in
     ".config/karabiner".source = symlink "${configDir}/karabiner";
     ".config/kitty".source = symlink "${configDir}/kitty";
     ".config/linearmouse".source = symlink "${configDir}/linearmouse";
+    ".config/mise".source = symlink "${configDir}/mise";
     ".config/mprocs".source = symlink "${configDir}/mprocs";
     ".config/nix".source = symlink "${configDir}/nix";
     ".config/nvim".source = symlink "${configDir}/nvim";
