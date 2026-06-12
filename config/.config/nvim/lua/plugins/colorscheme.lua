@@ -8,6 +8,9 @@ return {
     opts = {
       variant = "moon",
       styles = { transparency = true },
+      highlight_groups = {
+        CursorLine = { underline = true, bg = "none" },
+      },
     },
     config = function(_, opts)
       require("rose-pine").setup(opts)
