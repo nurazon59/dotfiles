@@ -446,9 +446,9 @@
       "Bash(gh pr merge --admin:*)"
     ],
     "ask": [],
-    "defaultMode": "acceptEdits"
+    "defaultMode": "auto"
   },
-  "model": "opus[1m]",
+  "model": "claude-opus-4-6[1m]",
   "hooks": {
     "SessionEnd": [
       {
