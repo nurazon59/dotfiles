@@ -3,7 +3,7 @@ export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.local/share/mise/installs/tree-sitter/latest:$PATH"
 
 eval "$(sheldon source)"
-eval "$(${HOME}/.local/bin/mise activate zsh)"
+eval "$(mise activate zsh)"
 eval "$(direnv hook zsh)"
 
 # Starship configuration
