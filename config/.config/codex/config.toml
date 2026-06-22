@@ -28,9 +28,6 @@ args = ["-y", "@upstash/context7-mcp@latest"]
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 
-[mcp_servers.notion]
-url = "https://mcp.notion.com/mcp"
-
 # UI notices
 [notice]
 hide_full_access_warning = true
