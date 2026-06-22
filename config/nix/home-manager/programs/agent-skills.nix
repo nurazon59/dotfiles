@@ -31,17 +31,9 @@
         from = "mattpocock";
         path = "productivity/grill-me";
       };
-      caveman = {
-        from = "mattpocock";
-        path = "productivity/caveman";
-      };
       grill-with-docs = {
         from = "mattpocock";
         path = "engineering/grill-with-docs";
-      };
-      zoom-out = {
-        from = "mattpocock";
-        path = "engineering/zoom-out";
       };
     };
 
