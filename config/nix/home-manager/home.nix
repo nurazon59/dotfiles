@@ -23,7 +23,7 @@ in
     ./programs/ripgrep.nix
     ./programs/safe-chain.nix
     ./programs/zen.nix
-  ] ++ (if user == "itsuki54" then [ ./programs/hermes-agent.nix ] else [ ]);
+  ];
 
   home.stateVersion = "24.11";
   home.enableNixpkgsReleaseCheck = false;
