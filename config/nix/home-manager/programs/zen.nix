@@ -2,8 +2,12 @@
   pkgs,
   inputs,
   config,
+  lib,
   ...
 }:
+let
+  zenConfigPath = "${config.home.homeDirectory}/Library/Application Support/Zen";
+in
 {
   imports = [ inputs.zen-browser.homeModules.beta ];
 
@@ -20,6 +24,9 @@
     profiles.default = {
       id = 0;
       isDefault = true;
+      pins = import ./zen-pins.nix;
+      pinsForce = true;
+      pinsForceAction = "demote";
       extensions.packages = [
         pkgs.firefox-addons."1password-x-password-manager"
         pkgs.firefox-addons.wappalyzer
@@ -47,4 +54,15 @@
       };
     };
   };
+
+  # Zen Browserは起動時にprofiles.iniへ書き込むため、Nix symlink（read-only）だと起動できない
+  home.activation.zenMutableProfiles = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+    profiles_ini="${zenConfigPath}/profiles.ini"
+    if [ -L "$profiles_ini" ]; then
+      target=$(readlink "$profiles_ini")
+      run rm "$profiles_ini"
+      run cp "$target" "$profiles_ini"
+      run chmod u+w "$profiles_ini"
+    fi
+  '';
 }
