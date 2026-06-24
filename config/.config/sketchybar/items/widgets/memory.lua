@@ -2,9 +2,16 @@ local icons = require("icons")
 local colors = require("colors")
 local settings = require("settings")
 
+-- why: hw.memsize は固定値なので起動時に1回だけ取得
+local total_pages
+sbar.exec("sysctl -n hw.memsize", function(result)
+  local bytes = tonumber(result)
+  if bytes then total_pages = bytes / 16384 end
+end)
+
 local memory = sbar.add("graph", "widgets.memory", 42, {
   position = "right",
-  update_freq = 2,
+  update_freq = 5,
   graph = { color = colors.green },
   background = {
     height = 22,
@@ -28,11 +35,14 @@ local memory = sbar.add("graph", "widgets.memory", 42, {
   padding_right = settings.paddings + 6
 })
 
--- io.popenはsketchybarのLua環境で使えないため、sbar.execのコールバックで取得
+-- why: memory_pressure | grep | awk | sed は4プロセスforkするため、vm_stat 1つに置換
 local function updateMemory()
-  sbar.exec("memory_pressure | grep 'System-wide memory free percentage:' | awk '{print 100-$5}' | sed 's/%//'", function(result)
-    local usage = tonumber(result)
-    if not usage then return end
+  if not total_pages then return end
+  sbar.exec("vm_stat", function(result)
+    local active = tonumber(result:match("Pages active:%s+(%d+)")) or 0
+    local wired = tonumber(result:match("Pages wired down:%s+(%d+)")) or 0
+    local compressed = tonumber(result:match("Pages occupied by compressor:%s+(%d+)")) or 0
+    local usage = math.floor((active + wired + compressed) / total_pages * 100 + 0.5)
 
     memory:push({ usage / 100.0 })
 

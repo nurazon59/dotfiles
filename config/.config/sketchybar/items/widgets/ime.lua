@@ -2,7 +2,7 @@ local colors = require("colors")
 local settings = require("settings")
 
 -- why: 入力ソース変更を即時に検知するために専用のイベントプロバイダを起動
-sbar.exec("killall ime_source >/dev/null; $CONFIG_DIR/helpers/event_providers/ime_source/bin/ime_source ime_update 0.25")
+sbar.exec("killall ime_source >/dev/null; $CONFIG_DIR/helpers/event_providers/ime_source/bin/ime_source ime_update 1.0")
 
 local ime = sbar.add("item", "widgets.ime", {
   position = "right",
