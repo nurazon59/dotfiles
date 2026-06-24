@@ -2,7 +2,7 @@ local colors = require("colors")
 local settings = require("settings")
 
 local popup_width = 360
-local max_events = 15
+local max_events = 5
 local icalbuddy = "/opt/homebrew/bin/icalBuddy"
 
 -- title行 → 時刻行(インデントあり) のペアで出力される
