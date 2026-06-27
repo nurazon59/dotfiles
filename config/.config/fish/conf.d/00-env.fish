@@ -11,3 +11,5 @@ set -x CLAUDE_CONFIG_DIR "$XDG_CONFIG_HOME/claude"
 set -gx RIPGREP_CONFIG_PATH "$HOME/.config/ripgrep/ripgreprc"
 set -gx CODEX_HOME "$HOME/.config/codex"
 set -g fish_history_size 10000
+
+set -gx DOCKER_HOST "unix://$HOME/.config/colima/default/docker.sock"
