@@ -1,5 +1,6 @@
 [worktree]
 basedir = '~/src'
+auto_mkdir = true
 
 [naming]
 template = '{{.Host}}/{{.Owner}}/{{.Repository}}-{{.Branch}}'
@@ -7,3 +8,14 @@ template = '{{.Host}}/{{.Owner}}/{{.Repository}}-{{.Branch}}'
 [naming.sanitize_chars]
 '/' = '-'
 ':' = '-'
+
+[cd]
+auto_cd_on_add = false
+launch_shell = true
+
+[finder]
+preview = true
+
+[ui]
+icons = true
+tilde_home = true
