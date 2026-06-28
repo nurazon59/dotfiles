@@ -47,6 +47,7 @@ in
       trivy
       osv-scanner
       gitleaks
+      alacritty
     ])
     ++ [
       neovim-nightly
