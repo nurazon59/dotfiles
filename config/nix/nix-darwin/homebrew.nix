@@ -19,6 +19,7 @@ let
     "notunes"
     "session-manager-plugin"
     "sf-symbols"
+    "orbstack"
     "shottr"
     "sol"
   ];
@@ -41,13 +42,11 @@ in
     taps = [
       "FelixKratz/formulae"
       "nikitabobko/tap"
-      "k1LoW/tap"
     ];
 
     brews = [
       "ical-buddy"
       "sketchybar"
-      "mo"
     ];
 
     casks = casks;
