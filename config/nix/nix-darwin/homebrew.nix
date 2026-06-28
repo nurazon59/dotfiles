@@ -38,6 +38,12 @@ in
   homebrew = {
     enable = true;
 
+    onActivation = {
+      cleanup = "uninstall";
+      autoUpdate = true;
+      upgrade = true;
+    };
+
     taps = [
       "FelixKratz/formulae"
       "nikitabobko/tap"
