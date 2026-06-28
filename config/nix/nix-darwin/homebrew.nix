@@ -3,7 +3,6 @@ let
   commonCasks = [
     "1password"
     "aerospace"
-    "alacritty"
     "arc"
     "azookey"
     "claude"
