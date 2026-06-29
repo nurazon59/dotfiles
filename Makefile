@@ -20,7 +20,7 @@ help:
 	@echo ""
 
 rebuild:
-	@nh darwin switch /private/etc/nix-darwin#$(HOST)
+	@sudo darwin-rebuild switch --flake ~/src/github.com/nurazon59/dotfiles/config/nix/nix-darwin#$(HOST)
 
 token:
 	@mkdir -p $(HOME)/.config/nix
