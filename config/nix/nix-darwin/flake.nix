@@ -99,6 +99,10 @@
                     direnv = prev.direnv.overrideAttrs (_: {
                       doCheck = false;
                     });
+                    # macOSではsetuidビットが保持されずテストが失敗する
+                    mise = prev.mise.overrideAttrs (_: {
+                      doCheck = false;
+                    });
                   })
                   firefox-addons.overlays.default
                   nix-your-shell.overlays.default

@@ -51,6 +51,9 @@ in
 
         # ブックマークバー常時表示
         "browser.toolbars.bookmarks.visibility" = "always";
+
+        # DevTools のネットワークレスポンスボディを無制限に表示
+        "devtools.netmonitor.responseBodyLimit" = 0;
       };
     };
   };

@@ -45,8 +45,14 @@ in
     };
 
     taps = [
-      "FelixKratz/formulae"
-      "nikitabobko/tap"
+      {
+        name = "FelixKratz/formulae";
+        trusted = true;
+      }
+      {
+        name = "nikitabobko/tap";
+        trusted = true;
+      }
     ];
 
     brews = [
