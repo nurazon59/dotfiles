@@ -72,6 +72,7 @@
 ## ツール
 
 - **mise**: ランタイム管理、グローバルインストール禁止
+- **comma**: mise/nix管理外のCLIはnpx/pipx等を使わずcomma(`,`)で実行
 - **gh**: PR/issue操作優先
 - **Bash**: 直接実行する
 - **PR description**: リポジトリにPRテンプレート（`.github/pull_request_template.md`等）がある場合はそれに従う
