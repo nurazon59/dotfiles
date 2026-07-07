@@ -71,7 +71,7 @@ return {
 	colors = colors,
 	window_background_opacity = 0.95,
 	text_background_opacity = 1.0, -- Make text background fully opaque to keep text color consistent
-	font_size = 10.0,
+	font_size = 11.0,
 	font = wezterm.font_with_fallback({
 		"0xProto Nerd Font Mono",
 		"JetBrains Mono",
