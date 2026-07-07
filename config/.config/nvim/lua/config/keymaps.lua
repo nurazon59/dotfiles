@@ -33,6 +33,9 @@ map(
   { desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+
 map("i", ",", ",<c-g>u")
 map("i", ".", ".<c-g>u")
 map("i", ";", ";<c-g>u")
