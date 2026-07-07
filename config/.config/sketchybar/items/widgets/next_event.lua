@@ -11,6 +11,7 @@ local cmd = icalbuddy
 
 local next_event = sbar.add("item", "widgets.next_event", {
   position = "right",
+  update_freq = 60,
   scroll_texts = false,
   icon = { drawing = false, padding_left = 0, padding_right = 0 },
   label = {
@@ -132,7 +133,7 @@ end
 
 update_bar()
 
-next_event:subscribe({ "forced", "system_woke" }, update_bar)
+next_event:subscribe({ "routine", "forced", "system_woke" }, update_bar)
 
 next_event:subscribe("mouse.clicked", function()
   local should_draw = next_event_bracket:query().popup.drawing == "off"
