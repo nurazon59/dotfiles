@@ -18,77 +18,57 @@ return {
     },
   },
   {
-    "nvim-tree/nvim-tree.lua",
+    "FylerOrg/fyler.nvim",
     pin = true,
-    version = "*",
     lazy = false,
     keys = {
-      { "<leader>e", "<Cmd>NvimTreeToggle<CR>", desc = "Explorer NvimTree" },
+      {
+        "<leader>e",
+        function()
+          require("fyler").toggle()
+        end,
+        desc = "Explorer Fyler",
+      },
     },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      on_attach = function(bufnr)
-        local api = require("nvim-tree.api")
-
-        local function opts(desc)
-          return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-        end
-
-        api.map.on_attach.default(bufnr)
-        vim.keymap.set("n", "l", api.node.open.edit, opts("Open"))
-        vim.keymap.set("n", "h", api.node.navigate.parent_close, opts("Close Directory"))
-      end,
-      view = {
-        float = {
-          enable = true,
-          open_win_config = function()
-            local width = 120
-            local height = 80
-            local columns = vim.o.columns
-            local lines = vim.o.lines - vim.o.cmdheight
-
-            return {
-              relative = "editor",
-              border = "rounded",
-              width = width,
-              height = height,
-              row = math.floor((lines - height) / 2),
-              col = math.floor((columns - width) / 2),
-            }
-          end,
+      kind = "replace",
+      extensions = {
+        git = { enabled = true },
+      },
+      integrations = {
+        icon = "nvim_web_devicons",
+      },
+      ui = {
+        hidden_items = {
+          switches = {},
+          always_hidden = { "/%.git/", "/%.git$", "%.DS_Store$" },
         },
       },
-      renderer = {
-        highlight_git = "name",
-        highlight_opened_files = "name",
-        indent_markers = {
-          enable = true,
-        },
-      },
-      update_focused_file = {
-        enable = true,
-        update_root = {
-          enable = false,
-        },
-      },
-      filters = {
-        git_ignored = false,
-        custom = {
-          "^\\.git$",
-          "^\\.DS_Store$",
-        },
-      },
-      actions = {
-        open_file = {
-          window_picker = {
-            enable = false,
+      mappings = {
+        n = {
+          ["<Space>"] = {
+            action = "select",
+            args = { close = false, pick = false },
+          },
+          ["gx"] = {
+            action = function(finder)
+              vim.ui.open(finder:cursor_node_entry().path)
+            end,
+          },
+          ["yp"] = {
+            action = function(finder)
+              vim.fn.setreg(vim.v.register, finder:cursor_node_entry().path)
+            end,
+          },
+          ["yr"] = {
+            action = function(finder)
+              vim.fn.setreg(vim.v.register, vim.fn.fnamemodify(finder:cursor_node_entry().path, ":."))
+            end,
           },
         },
       },
     },
-    config = function(_, opts)
-      require("nvim-tree").setup(opts)
-    end,
   },
   {
     "shortcuts/no-neck-pain.nvim",
@@ -170,7 +150,7 @@ return {
         show_end = false,
       },
       exclude = {
-        filetypes = { "help", "dashboard", "NvimTree", "Trouble", "lazy", "mason", "toggleterm" },
+        filetypes = { "help", "dashboard", "fyler_finder", "Trouble", "lazy", "mason", "toggleterm" },
       },
     },
   },
@@ -181,7 +161,7 @@ return {
     opts = {
       options = {
         disabled_filetypes = {
-          statusline = { "NvimTree" },
+          statusline = { "fyler_finder" },
         },
       },
       sections = {
@@ -346,7 +326,7 @@ return {
             name = name,
             action = function()
               vim.cmd.cd(dir)
-              vim.cmd("NvimTreeOpen")
+              require("fyler").open()
             end,
             section = "Projects",
           })
@@ -354,19 +334,33 @@ return {
       end
 
       local items = {
-        { name = "Restore Session", action = function()
+        {
+          name = "Restore Session",
+          action = function()
             require("resession").load(vim.fn.getcwd(), { dir = "dirsession" })
             vim.cmd("doautoall BufAdd")
-          end, section = "Session" },
+          end,
+          section = "Session",
+        },
         { name = "Recent Files", action = "FzfLua oldfiles", section = "Files" },
-        { name = "New File", action = function()
+        {
+          name = "New File",
+          action = function()
             vim.ui.input({ prompt = "File name: " }, function(name)
               if name and name ~= "" then
                 vim.cmd.edit(name)
               end
             end)
-          end, section = "Files" },
-        { name = "Open Tree", action = "NvimTreeOpen", section = "Files" },
+          end,
+          section = "Files",
+        },
+        {
+          name = "Open Tree",
+          action = function()
+            require("fyler").open()
+          end,
+          section = "Files",
+        },
         { name = "Quit", action = "qa", section = "" },
       }
       vim.list_extend(items, dir_items)
