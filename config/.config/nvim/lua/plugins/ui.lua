@@ -32,7 +32,7 @@ return {
     },
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
-      kind = "replace",
+      kind = "floating",
       extensions = {
         git = { enabled = true },
       },
@@ -42,7 +42,7 @@ return {
       ui = {
         hidden_items = {
           switches = {},
-          always_hidden = { "/%.git/", "/%.git$", "%.DS_Store$" },
+          always_hidden = { "/%.git/", "/%.git$", "%.DS_Store$", "node_modules" },
         },
       },
       mappings = {
