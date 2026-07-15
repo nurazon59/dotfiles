@@ -448,7 +448,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "claude-opus-4-6[1m]",
+  "model": "sonnet",
   "hooks": {
     "SessionEnd": [
       {
@@ -463,6 +463,8 @@
     "PreToolUse": [],
     "PostToolUse": []
   },
+  "enableWorkflows": false,
+  "workflowKeywordTriggerEnabled": false,
   "statusLine": {
     "type": "command",
     "command": "sh $HOME/.config/claude/statusline.sh"
@@ -482,6 +484,7 @@
     "coderabbit@claude-plugins-official": true,
     "vercel@claude-plugins-official": true
   },
+  "language": "Japanese",
   "effortLevel": "high",
   "awaySummaryEnabled": false,
   "showClearContextOnPlanAccept": true,
@@ -490,6 +493,8 @@
     "mode": "hold"
   },
   "skipDangerousModePermissionPrompt": true,
+  "editorMode": "normal",
   "autoCompactEnabled": false,
+  "showTurnDuration": true,
   "voiceEnabled": true
 }
