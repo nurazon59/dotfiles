@@ -11,7 +11,8 @@
     "DISABLE_TELEMETRY": "true",
     "DISABLE_AUTOUPDATER": "true",
     "DISABLE_INTERLEAVED_THINKING": "true",
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "BASH_MAX_OUTPUT_LENGTH": "15000"
   },
   "includeCoAuthoredBy": true,
   "permissions": {
@@ -403,7 +404,6 @@
       "Edit(~/.docker/config.json)",
       "Read(**/credentials.json)",
       "Read(**/service-account*.json)",
-      "Read(**/credentials*)",
       "Bash(printenv:*)",
       "Bash(gh auth token:*)",
       "Bash(gh secret:*)",
@@ -426,7 +426,17 @@
         ]
       }
     ],
-    "PreToolUse": [],
+    "PreToolUse": [
+      {
+        "matcher": "Grep|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "deno run --allow-read --allow-write --allow-env $HOME/.config/claude/hooks/enforce-grep-batching.ts"
+          }
+        ]
+      }
+    ],
     "PostToolUse": []
   },
   "enableWorkflows": false,
