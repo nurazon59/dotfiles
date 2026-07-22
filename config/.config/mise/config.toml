@@ -35,9 +35,6 @@ terraform = "1.15.8"
 uv = "latest"
 yarn = "latest"
 opencode = "latest"
-
-[settings]
-idiomatic_version_file_enable_tools = ["python"]
-experimental = true
-# minimum_release_age = "7d"
-lockfile = true
+shellcheck = "0.11.0"
+betterleaks = "1.5.0"
+buf = "1.71.0"
