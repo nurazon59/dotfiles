@@ -34,7 +34,7 @@ return {
     pin = true,
   },
   {
-    "sindrets/diffview.nvim",
+    "dlyongemallo/diffview-plus.nvim",
     pin = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
