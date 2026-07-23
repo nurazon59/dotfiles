@@ -48,6 +48,7 @@ in
       osv-scanner
       gitleaks
       alacritty
+      gitu
     ])
     ++ [
       neovim-nightly

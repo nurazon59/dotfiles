@@ -53,6 +53,7 @@ in
     ".config/gh".source = symlink "${configDir}/gh";
     ".config/gh-dash".source = symlink "${configDir}/gh-dash";
     ".config/git".source = symlink "${configDir}/git";
+    ".config/gitu".source = symlink "${configDir}/gitu";
     ".config/gwq".source = symlink "${configDir}/gwq";
     ".config/karabiner".source = symlink "${configDir}/karabiner";
     ".config/kitty".source = symlink "${configDir}/kitty";
