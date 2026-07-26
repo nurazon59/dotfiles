@@ -342,7 +342,13 @@ return {
           end,
           section = "Session",
         },
-        { name = "Recent Files", action = "FzfLua oldfiles", section = "Files" },
+        {
+          name = "Recent Files",
+          action = function()
+            require("telescope.builtin").oldfiles()
+          end,
+          section = "Files",
+        },
         {
           name = "New File",
           action = function()

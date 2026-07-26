@@ -14,17 +14,17 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.spell = false
   end,
 })
--- fzf UI を素早く閉じる
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "fzf",
-  callback = function()
-    local opts = { buffer = 0, noremap = true, silent = true }
-    vim.keymap.set("t", "jk", "<C-c>", opts)
-    vim.keymap.set("t", "jj", "<C-c>", opts)
-    vim.keymap.set("n", "jk", "<cmd>close<CR>", opts)
-    vim.keymap.set("n", "jj", "<cmd>close<CR>", opts)
-  end,
-})
+-- telescope 移行: fzf端末UI用のautocmdは不要
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "fzf",
+--   callback = function()
+--     local opts = { buffer = 0, noremap = true, silent = true }
+--     vim.keymap.set("t", "jk", "<C-c>", opts)
+--     vim.keymap.set("t", "jj", "<C-c>", opts)
+--     vim.keymap.set("n", "jk", "<cmd>close<CR>", opts)
+--     vim.keymap.set("n", "jj", "<cmd>close<CR>", opts)
+--   end,
+-- })
 
 -- why: SQL LSPにGo to Definitionがないため、grepでDDL定義にジャンプする
 vim.api.nvim_create_autocmd("FileType", {
@@ -50,11 +50,7 @@ vim.api.nvim_create_autocmd("FileType", {
           return
         end
       end
-      require("fzf-lua").grep({
-        search = pattern,
-        no_esc = true,
-        rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --glob '*.sql' -e",
-      })
+      require("telescope.builtin").live_grep({ default_text = pattern, glob_pattern = "*.sql" })
     end, { buffer = 0, noremap = true, silent = true, desc = "DDL定義にジャンプ" })
   end,
 })

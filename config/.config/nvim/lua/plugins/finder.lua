@@ -1,52 +1,54 @@
 return {
   { "nvim-lua/plenary.nvim", pin = true },
+  -- fzf-lua → telescope 移行実験
+  -- {
+  --   "ibhagwan/fzf-lua",
+  --   pin = true,
+  --   ...
+  -- },
   {
-    "ibhagwan/fzf-lua",
-    pin = true,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "nvim-telescope/telescope.nvim",
+    version = "*",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-      require("fzf-lua").setup({
-        winopts = {
-          height = 0.85,
-          width = 0.80,
-          row = 0.35,
-          col = 0.50,
-          preview = {
-            layout = "horizontal",
-            horizontal = "right:50%",
+      local telescope = require("telescope")
+      local actions = require("telescope.actions")
+
+      telescope.setup({
+        defaults = {
+          layout_strategy = "horizontal",
+          sorting_strategy = "ascending",
+          layout_config = {
+            horizontal = {
+              preview_width = 0.5,
+            },
           },
-        },
-        fzf_opts = {
-          ["--multi"] = true,
-        },
-        keymap = {
-          builtin = {
-            ["<C-d>"] = "preview-page-down",
-            ["<C-u>"] = "preview-page-up",
-          },
-          fzf = {
-            ["tab"] = "toggle+down",
-            ["shift-tab"] = "toggle+up",
-            ["ctrl-a"] = "toggle-all",
-          },
-        },
-        files = {
-          prompt = "Files❯ ",
-          cmd = "fd --type f --hidden --follow --exclude .git",
-        },
-        grep = {
-          prompt = "Rg❯ ",
-          rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden --glob '!.git' --max-columns=4096 -e",
+          file_ignore_patterns = { ".git/" },
         },
       })
 
+      local builtin = require("telescope.builtin")
+      local map = vim.keymap.set
       local opts = { noremap = true, silent = true }
-      vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<CR>", opts)
-      vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua live_grep<CR>", opts)
-      vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers<CR>", opts)
-      vim.keymap.set("n", "<leader>fc", "<cmd>FzfLua commands<CR>", opts)
-      vim.keymap.set("n", "<leader>fd", "<cmd>FzfLua diagnostics_document<CR>", opts)
-      vim.keymap.set("n", "<leader>fD", "<cmd>FzfLua diagnostics_workspace<CR>", opts)
+
+      map("n", "<leader>ff", function()
+        builtin.find_files({ hidden = true })
+      end, vim.tbl_extend("force", opts, { desc = "Files (Telescope)" }))
+      map("n", "<leader>fg", function()
+        builtin.live_grep()
+      end, vim.tbl_extend("force", opts, { desc = "Live Grep (Telescope)" }))
+      map("n", "<leader>fb", function()
+        builtin.buffers()
+      end, vim.tbl_extend("force", opts, { desc = "Buffers (Telescope)" }))
+      map("n", "<leader>fc", function()
+        builtin.commands()
+      end, vim.tbl_extend("force", opts, { desc = "Commands (Telescope)" }))
+      map("n", "<leader>fd", function()
+        builtin.diagnostics({ bufnr = 0 })
+      end, vim.tbl_extend("force", opts, { desc = "Document Diagnostics (Telescope)" }))
+      map("n", "<leader>fD", function()
+        builtin.diagnostics()
+      end, vim.tbl_extend("force", opts, { desc = "Workspace Diagnostics (Telescope)" }))
     end,
   },
   {
@@ -59,7 +61,7 @@ return {
     keys = {
       { "]t", function() require("todo-comments").jump_next() end, desc = "Next Todo Comment" },
       { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous Todo Comment" },
-      { "<leader>st", function() require("fzf-lua").grep({ search = "TODO|HACK|FIXME|NOTE", no_esc = true }) end, desc = "Todo (FzfLua)" },
+      { "<leader>st", function() require("telescope.builtin").live_grep({ default_text = "TODO|HACK|FIXME|NOTE" }) end, desc = "Todo (Telescope)" },
     },
   },
 }

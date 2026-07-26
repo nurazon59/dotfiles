@@ -3,7 +3,7 @@ return {
   pin = true,
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "ibhagwan/fzf-lua",
+    "nvim-telescope/telescope.nvim",
     "nvim-tree/nvim-web-devicons",
   },
   cmd = "Octo",
@@ -13,7 +13,7 @@ return {
       enable_builtin = false,
       default_remote = { "upstream", "origin" },
       ssh_aliases = {},
-      picker = "fzf-lua",
+      picker = "telescope",
       picker_config = {
         use_emojis = false,
       },
