@@ -21,6 +21,7 @@ return {
             },
           },
         },
+        picker = "telescope",
       },
     },
     keys = {

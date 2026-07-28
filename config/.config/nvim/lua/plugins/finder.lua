@@ -9,7 +9,10 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     version = "*",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope-ui-select.nvim",
+    },
     config = function()
       local telescope = require("telescope")
       local actions = require("telescope.actions")
@@ -25,7 +28,14 @@ return {
           },
           file_ignore_patterns = { ".git/" },
         },
+        extensions = {
+          ["ui-select"] = {
+            require("telescope.themes").get_dropdown({}),
+          },
+        },
       })
+
+      telescope.load_extension("ui-select")
 
       local builtin = require("telescope.builtin")
       local map = vim.keymap.set
