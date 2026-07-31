@@ -21,6 +21,7 @@ let
     "orbstack"
     "shottr"
     "sol"
+    "bettershot"
   ];
 
   workCasks = [
