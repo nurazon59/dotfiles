@@ -19,7 +19,7 @@ set -g pane-border-style fg=colour240
 set -g pane-active-border-style fg=colour75,bold
 set -g pane-border-lines heavy
 set -g pane-border-indicators both
-set -g pane-border-status top
+set -g pane-border-status off
 set -g pane-border-format " #P: #{pane_current_command} "
 
 # inactive pane を dim (透過維持のため fg のみ変更)
