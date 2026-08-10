@@ -166,7 +166,7 @@ return {
       },
       sections = {
         lualine_a = { "mode" },
-        lualine_b = { "branch", "diff", "diagnostics" },
+        lualine_b = { "diff", "diagnostics" },
         lualine_c = {
           {
             function()
@@ -181,24 +181,6 @@ return {
         lualine_x = { "lsp_status" },
         lualine_y = { "progress" },
         lualine_z = { "location" },
-      },
-      inactive_sections = {
-        lualine_a = {},
-        lualine_b = {},
-        lualine_c = {
-          {
-            function()
-              local name = vim.fn.bufname()
-              if name == "" then
-                return ""
-              end
-              return vim.fn.fnamemodify(name, ":.")
-            end,
-          },
-        },
-        lualine_x = {},
-        lualine_y = {},
-        lualine_z = {},
       },
     },
   },
