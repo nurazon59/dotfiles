@@ -100,8 +100,10 @@
                       doCheck = false;
                     });
                     # macOSではsetuidビットが保持されずテストが失敗する
-                    mise = prev.mise.overrideAttrs (_: {
+                    # cmakeはnativeCheckInputsのみで宣言されているが、依存クレートlibz-ng-sysが通常ビルドでもcmakeを要求するため明示的に追加する
+                    mise = prev.mise.overrideAttrs (old: {
                       doCheck = false;
+                      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.cmake ];
                     });
                   })
                   firefox-addons.overlays.default
