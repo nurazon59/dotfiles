@@ -17,6 +17,7 @@ M.servers = {
   "terraformls",
   "tinymist",
   "denols",
+  "vtsls",
 }
 
 M.tools = {
