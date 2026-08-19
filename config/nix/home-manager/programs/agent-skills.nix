@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   imports = [ inputs.agent-skills.homeManagerModules.default ];
 
@@ -13,6 +19,11 @@
         input = "mattpocock-skills";
         subdir = "skills";
       };
+      caveman = {
+        input = "caveman-skills";
+        subdir = "skills";
+        filter.nameRegex = "^caveman$";
+      };
     };
 
     skills.enable = [
@@ -24,6 +35,7 @@
       "merge-main"
       "pr"
       "pr-review-workflow"
+      "caveman"
     ];
 
     skills.explicit = {

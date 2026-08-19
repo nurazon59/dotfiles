@@ -38,6 +38,10 @@
       url = "github:nurazon59/skills";
       flake = false;
     };
+    caveman-skills = {
+      url = "github:JuliusBrussee/caveman";
+      flake = false;
+    };
   };
 
   outputs =

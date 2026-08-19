@@ -77,6 +77,22 @@
         "type": "github"
       }
     },
+    "caveman-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786908402,
+        "narHash": "sha256-NBq3XCbvvw89pHdSKr2z4KZWS4yaG+O0eR37SjJ8EMc=",
+        "owner": "JuliusBrussee",
+        "repo": "caveman",
+        "rev": "766dce6b1394ebb56a3090748d5a0240a5aefb36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "JuliusBrussee",
+        "repo": "caveman",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1781825982,
@@ -327,11 +343,11 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1786479142,
-        "narHash": "sha256-ZoFhC8n5FRUUqsm+GQSA4M3t0UevUcjDoTfF5j6nMPI=",
+        "lastModified": 1787000722,
+        "narHash": "sha256-HpGirVHmSa7lspKvkzGIqX5rKOd9mE9ushkel0IaVRU=",
         "owner": "ryoppippi",
         "repo": "nix-claude-code",
-        "rev": "e93d23b2f4a50e8e883e85fc8eef069ceae03c79",
+        "rev": "3ac526c2197991892599d2e4316a08b80a7a3cab",
         "type": "github"
       },
       "original": {
@@ -471,11 +487,11 @@
     },
     "nixpkgs_5": {
       "locked": {
-        "lastModified": 1786106723,
-        "narHash": "sha256-zDSUbpoeo/9ZmD2+wXnzxoo1+uhL8vxc0b8yuYMKYq0=",
+        "lastModified": 1786862985,
+        "narHash": "sha256-FBJRXmbGXiSUDvYEbfLYRkckayyZ6SK1UEqhCrIZ2Cs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "f13ff45afd1bb73e640eaa08a7066dbed07e3238",
+        "rev": "e5bdc4a41d4c072fe1e3787eaa0320a384741d44",
         "type": "github"
       },
       "original": {
@@ -592,6 +608,7 @@
       "inputs": {
         "agent-skills": "agent-skills",
         "arto": "arto",
+        "caveman-skills": "caveman-skills",
         "firefox-addons": "firefox-addons",
         "hermes-agent": "hermes-agent",
         "home-manager": "home-manager_2",
