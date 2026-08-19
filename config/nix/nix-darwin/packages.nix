@@ -1,4 +1,10 @@
-{ pkgs, neovim-nightly-overlay, arto, user, ... }:
+{
+  pkgs,
+  neovim-nightly-overlay,
+  arto,
+  user,
+  ...
+}:
 let
   neovim-nightly = neovim-nightly-overlay.packages.${pkgs.system}.default;
   arto-pkg = arto.packages.${pkgs.system}.default;
@@ -49,6 +55,13 @@ in
       gitleaks
       alacritty
       gitu
+      kubectl
+      (google-cloud-sdk.withExtraComponents (
+        with google-cloud-sdk.components;
+        [
+          gke-gcloud-auth-plugin
+        ]
+      ))
     ])
     ++ [
       neovim-nightly
