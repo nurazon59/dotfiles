@@ -302,6 +302,22 @@
         "type": "github"
       }
     },
+    "natural-japanese-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786928212,
+        "narHash": "sha256-msIYE+qitkcoBZEA95iPyE4pvh6u+kuCK9K78uvlxq0=",
+        "owner": "coji",
+        "repo": "natural-japanese",
+        "rev": "0f1cc1c5a4e2aa7590598c88a15c213a60d9545a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "coji",
+        "repo": "natural-japanese",
+        "type": "github"
+      }
+    },
     "neovim-nightly-overlay": {
       "inputs": {
         "flake-parts": "flake-parts_2",
@@ -613,6 +629,7 @@
         "hermes-agent": "hermes-agent",
         "home-manager": "home-manager_2",
         "mattpocock-skills": "mattpocock-skills",
+        "natural-japanese-skills": "natural-japanese-skills",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-claude-code": "nix-claude-code",
         "nix-darwin": "nix-darwin",

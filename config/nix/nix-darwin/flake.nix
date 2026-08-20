@@ -42,6 +42,10 @@
       url = "github:JuliusBrussee/caveman";
       flake = false;
     };
+    natural-japanese-skills = {
+      url = "github:coji/natural-japanese";
+      flake = false;
+    };
   };
 
   outputs =

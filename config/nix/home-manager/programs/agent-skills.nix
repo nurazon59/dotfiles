@@ -24,6 +24,11 @@
         subdir = "skills";
         filter.nameRegex = "^caveman$";
       };
+      natural-japanese = {
+        input = "natural-japanese-skills";
+        subdir = "skills";
+        filter.nameRegex = "^natural-japanese$";
+      };
     };
 
     skills.enable = [
@@ -36,6 +41,7 @@
       "pr"
       "pr-review-workflow"
       "caveman"
+      "natural-japanese"
     ];
 
     skills.explicit = {
