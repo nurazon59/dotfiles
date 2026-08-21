@@ -29,6 +29,10 @@
         subdir = "skills";
         filter.nameRegex = "^natural-japanese$";
       };
+      pull-request-review-context = {
+        input = "pull-request-review-context";
+        subdir = "skills";
+      };
     };
 
     skills.enable = [
@@ -42,6 +46,7 @@
       "pr-review-workflow"
       "caveman"
       "natural-japanese"
+      "pull-request-review-context"
     ];
 
     skills.explicit = {

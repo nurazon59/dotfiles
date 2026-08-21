@@ -46,6 +46,10 @@
       url = "github:coji/natural-japanese";
       flake = false;
     };
+    pull-request-review-context = {
+      url = "github:nurazon59/pull-request-review-context";
+      flake = false;
+    };
   };
 
   outputs =

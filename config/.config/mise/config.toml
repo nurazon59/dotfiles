@@ -5,6 +5,7 @@
 "go:github.com/nurazon59/ghmux" = "latest"
 "go:github.com/nurazon59/rport" = "latest"
 "go:github.com/nurazon59/nippo" = "latest"
+"go:github.com/nurazon59/pull-request-review-context/cmd/pull-request-review-context" = "latest"
 "go:github.com/jorgerojas26/lazysql" = "latest"
 "npm:@mermaid-js/mermaid-cli" = "latest"
 "npm:@openai/codex" = "latest"

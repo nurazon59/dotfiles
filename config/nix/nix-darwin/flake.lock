@@ -570,6 +570,22 @@
         "type": "github"
       }
     },
+    "pull-request-review-context": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786454447,
+        "narHash": "sha256-7YH7tF9vnje1VPcpQCDkMF6X8cqKQohdzU9e54DP6Dc=",
+        "owner": "nurazon59",
+        "repo": "pull-request-review-context",
+        "rev": "69344248120c7bb770da5ee16a8000eb384baf88",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nurazon59",
+        "repo": "pull-request-review-context",
+        "type": "github"
+      }
+    },
     "pyproject-build-systems": {
       "inputs": {
         "nixpkgs": [
@@ -636,6 +652,7 @@
         "nix-index-database": "nix-index-database",
         "nix-your-shell": "nix-your-shell",
         "nixpkgs": "nixpkgs_6",
+        "pull-request-review-context": "pull-request-review-context",
         "safe-chain-nix": "safe-chain-nix",
         "skills": "skills",
         "zen-browser": "zen-browser"
