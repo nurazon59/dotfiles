@@ -1,3 +1,11 @@
+-- nvim起動時にコマンドラインで渡されたパスを固定rootとして使う（argvはconfig読み込み時点で確定済み）。
+-- 未指定時はnilのままにし、fyler側のgetcwdフォールバック(finder.lua)に委ねる。
+local fyler_root_path
+if vim.fn.argv(0) ~= "" then
+  local abs = vim.fn.fnamemodify(vim.fn.argv(0), ":p")
+  fyler_root_path = vim.fn.isdirectory(abs) == 1 and abs or vim.fn.fnamemodify(abs, ":h")
+end
+
 return {
   { "nvim-tree/nvim-web-devicons", pin = true },
   { "MunifTanjim/nui.nvim", pin = true },
@@ -25,7 +33,7 @@ return {
       {
         "<leader>e",
         function()
-          require("fyler").toggle()
+          require("fyler").toggle({ root_path = fyler_root_path })
         end,
         desc = "Explorer Fyler",
       },
