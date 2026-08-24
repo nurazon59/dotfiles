@@ -35,6 +35,8 @@ update: token
 		git commit -m "chore(deps): update dependency" && git push
 update-claude:
 	@nix flake update nix-claude-code --flake ~/src/github.com/nurazon59/dotfiles/config/nix/nix-darwin/
+	@cd $(DOTFILES_DIR) && git add config/nix/nix-darwin/flake.lock && \
+		git commit -m "chore(deps): update dependency" && git push
 
 env:
 	@echo "HOST=$(HOST)" > $(DOTFILES_DIR)/.env
