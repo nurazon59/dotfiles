@@ -6,6 +6,7 @@ $directory\
 $git_branch\
 $git_status\
 ${custom.docker}\
+${custom.github_pr}\
 $line_break\
 $character"""
 
@@ -52,3 +53,10 @@ disabled = true
 command = "echo colima"
 when = 'test -S ~/.config/colima/default/docker.sock && { test -f docker-compose.yml || test -f docker-compose.yaml || test -f Dockerfile || test -f compose.yaml || test -f compose.yml; }'
 format = "[🐳 $output](bold blue) "
+
+[custom.github_pr]
+command = "~/.config/starship/github_pr.sh"
+when = 'true'
+format = "[PR: $output]($style) "
+style = "bold yellow"
+disabled = false
