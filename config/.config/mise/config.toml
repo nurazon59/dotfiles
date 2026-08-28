@@ -1,5 +1,6 @@
 [tools]
 "aqua:suzuki-shunsuke/ghalint" = "latest"
+"cargo-binstall" = "latest"
 "cargo:mergiraf" = "latest"
 "go:github.com/d-kuro/gwq/cmd/gwq" = "latest"
 "go:github.com/nurazon59/ghmux" = "latest"
