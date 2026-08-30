@@ -101,7 +101,7 @@ in
 
   home.packages = [
     fishGeneratedCompletions
-    pkgs.nerd-fonts._0xproto
+    pkgs.nerd-fonts._0xprotoNurazon59
     pkgs.sketchybar-app-font
     pkgs.slack
     pkgs.tridactyl-native
