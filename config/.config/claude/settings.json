@@ -414,7 +414,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "sonnet",
+  "model": "fable",
   "hooks": {
     "SessionEnd": [
       {
@@ -433,6 +433,15 @@
           {
             "type": "command",
             "command": "deno run --allow-read --allow-write --allow-env $HOME/.config/claude/hooks/enforce-grep-batching.ts"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "rtk hook claude"
           }
         ]
       }
@@ -471,6 +480,7 @@
   "skipDangerousModePermissionPrompt": true,
   "editorMode": "normal",
   "autoCompactEnabled": false,
+  "fileCheckpointingEnabled": true,
   "showTurnDuration": true,
   "voiceEnabled": true
 }

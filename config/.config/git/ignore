@@ -247,6 +247,7 @@ zzz/
 .playwright-cli/
 .worktree
 .memo/
+.research/
 .idea/
 go.work
 go.work.sum

@@ -2,6 +2,7 @@
 config/.config/claude/*
 !config/.config/claude/.claude.json
 !config/.config/claude/CLAUDE.md
+!config/.config/claude/RTK.md
 !config/.config/claude/settings.json
 !config/.config/claude/statusline.sh
 !config/.config/claude/agents/
