@@ -30,4 +30,4 @@
 - 仕様・公式名称がある用語は、その表記を使う。
 - コミットメッセージは `<type>(<scope>): <subject>` 形式にする。
 
-@/Users/itsuki54/.config/codex/RTK.md
+@~/.config/codex/RTK.md
