@@ -22,7 +22,7 @@ multiplier = 3
 
 [font]
 # フォント設定
-size = 11.0
+size = 9.5
 
 [font.normal]
 family = "0xProto Nerd Font Mono"
