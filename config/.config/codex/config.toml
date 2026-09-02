@@ -1,11 +1,12 @@
 # Global defaults
-model = "gpt-5.6-sol"
+model = "gpt-5.6-luna"
 personality = "pragmatic"
 approval_policy = "never"
 sandbox_mode = "danger-full-access"
 web_search = "live"
 approvals_reviewer = "user"
-model_reasoning_effort = "xhigh"
+model_reasoning_effort = "high"
+service_tier = "default"
 
 [tui]
 notifications = false
@@ -19,6 +20,10 @@ status_line = [
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 3
+
+[tui.keymap.global]
+open_transcript = "ctrl-o"
+copy = "ctrl-x"
 
 # Trusted paths
 # MCP servers
