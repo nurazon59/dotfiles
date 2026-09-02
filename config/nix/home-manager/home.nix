@@ -16,7 +16,6 @@ in
   imports = [
     ./programs/agent-skills.nix
     ./programs/firefox.nix
-    ./programs/lazygit.nix
     ./programs/mise.nix
     ./programs/nh.nix
     ./programs/nix-your-shell.nix
