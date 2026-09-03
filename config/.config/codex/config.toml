@@ -7,6 +7,16 @@ web_search = "live"
 approvals_reviewer = "user"
 model_reasoning_effort = "high"
 service_tier = "default"
+model_context_window = 872000
+model_auto_compact_token_limit = 784800
+check_for_update_on_startup = false
+
+[features]
+memories = true
+
+[memories]
+generate_memories = true
+use_memories = true
 
 [tui]
 notifications = false
