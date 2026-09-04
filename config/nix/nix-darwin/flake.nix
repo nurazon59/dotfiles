@@ -20,6 +20,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-claude-code.url = "github:ryoppippi/nix-claude-code";
+    codex-cli-nix.url = "github:sadjow/codex-cli-nix";
     nix-your-shell = {
       url = "github:MercuryTechnologies/nix-your-shell";
       inputs.nixpkgs.follows = "nixpkgs";

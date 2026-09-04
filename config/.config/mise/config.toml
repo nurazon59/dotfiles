@@ -9,7 +9,6 @@
 "go:github.com/nurazon59/pull-request-review-context/cmd/pull-request-review-context" = "latest"
 "go:github.com/jorgerojas26/lazysql" = "latest"
 "npm:@mermaid-js/mermaid-cli" = "latest"
-"npm:@openai/codex" = "latest"
 "npm:@playwright/cli" = "latest"
 "npm:ctx7" = "latest"
 "npm:difit" = "latest"

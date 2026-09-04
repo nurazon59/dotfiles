@@ -105,5 +105,6 @@ in
     pkgs.slack
     pkgs.tridactyl-native
     inputs.nix-claude-code.packages.${pkgs.system}.latest
+    inputs.codex-cli-nix.packages.${pkgs.system}.codex
   ];
 }

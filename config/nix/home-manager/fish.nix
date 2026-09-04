@@ -15,10 +15,6 @@ let
       "fish"
     ];
     bun = [ "completions" ];
-    codex = [
-      "completion"
-      "fish"
-    ];
     deno = [
       "completions"
       "fish"
