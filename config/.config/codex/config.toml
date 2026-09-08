@@ -30,13 +30,14 @@ status_line = [
 	"five-hour-limit",
 ]
 
-[tui.model_availability_nux]
-"gpt-5.5" = 4
-"gpt-5.6-sol" = 3
-
 [tui.keymap.global]
 open_transcript = "ctrl-o"
 copy = "ctrl-x"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+"gpt-5.6-sol" = 3
+gpt-6-astra = 2
 
 # Trusted paths
 # MCP servers
@@ -55,3 +56,4 @@ hide_gpt5_1_migration_prompt = true
 
 [plugins."github@openai-curated"]
 enabled = true
+

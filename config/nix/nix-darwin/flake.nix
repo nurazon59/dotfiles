@@ -72,7 +72,7 @@
           specialArgs = { inherit user neovim-nightly-overlay arto; };
           modules = [
             (
-              { config, ... }:
+              { config, pkgs, ... }:
               {
                 imports = [
                   ./system.nix
@@ -106,6 +106,7 @@
                 };
 
                 users.users.${user}.home = "/Users/${user}";
+                users.users.${user}.shell = pkgs.fish;
 
                 nixpkgs.overlays = [
                   (_final: prev: {

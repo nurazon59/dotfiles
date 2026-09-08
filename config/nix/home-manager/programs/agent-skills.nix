@@ -5,9 +5,11 @@
   inputs,
   ...
 }:
+let
+  configDir = "${config.home.homeDirectory}/src/github.com/nurazon59/dotfiles/config/.config";
+in
 {
   imports = [ inputs.agent-skills.homeManagerModules.default ];
-
   programs.agent-skills = {
     enable = true;
 
@@ -62,14 +64,20 @@
 
     targets = {
       agents.enable = true;
-      opencode.enable = true;
+
+      opencode = {
+        enable = true;
+        dest = "${configDir}/opencode/skills";
+      };
+
       claude = {
         enable = true;
-        dest = "$HOME/.config/claude/skills";
+        dest = "${configDir}/claude/skills";
       };
+
       codex = {
         enable = true;
-        dest = "$HOME/.config/codex/skills";
+        dest = "${configDir}/codex/skills";
       };
     };
   };
