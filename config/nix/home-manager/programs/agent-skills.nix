@@ -10,6 +10,11 @@ let
 in
 {
   imports = [ inputs.agent-skills.homeManagerModules.default ];
+
+  home.activation.agent-skills-force = lib.hm.dag.entryBefore [ "agent-skills" ] ''
+    export AGENT_SKILLS_FORCE=1
+  '';
+
   programs.agent-skills = {
     enable = true;
 
