@@ -105,8 +105,10 @@
                   options = "--delete-older-than 30d";
                 };
 
-                users.users.${user}.home = "/Users/${user}";
-                users.users.${user}.shell = pkgs.fish;
+                users.users.${user} = {
+                  home = "/Users/${user}";
+                  shell = pkgs.fish;
+                };
 
                 nixpkgs.overlays = [
                   (_final: prev: {
