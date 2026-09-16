@@ -18,6 +18,7 @@ M.servers = {
   "tinymist",
   "denols",
   "vtsls",
+  "svelte",
 }
 
 M.tools = {
