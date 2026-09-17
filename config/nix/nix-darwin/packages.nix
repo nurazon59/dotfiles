@@ -57,6 +57,7 @@ in
       gitu
       kubectl
       rtk
+      ghgrab
       (google-cloud-sdk.withExtraComponents (
         with google-cloud-sdk.components;
         [
