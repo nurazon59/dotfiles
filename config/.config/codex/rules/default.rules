@@ -8,3 +8,70 @@ prefix_rule(pattern=["mkdir", "-p", "/Users/itsuki54/src/github.com/nurazon59/do
 prefix_rule(pattern=["go", "vet", "./..."], decision="allow")
 prefix_rule(pattern=["mise", "install", "flutter@latest"], decision="allow")
 prefix_rule(pattern=["/bin/zsh", "-lc", "sudo chown -R $(whoami) /Users/itsuki54/.local/share/mise/installs/flutter/3.22.1-stable/bin/cache"], decision="allow")
+
+# BEGIN imported Claude Code command permissions
+# Read/edit path restrictions are enforced by the `claude` permission profile in config.toml.
+# The Claude command allow list is not copied as Codex `allow` rules run commands outside the sandbox.
+# approval_policy = "never" already avoids prompts for commands allowed inside the profile.
+# Codex matches argument prefixes; glob and argument-order policies cannot be represented exactly.
+
+# Claude deny: prohibited local commands.
+prefix_rule(pattern=["aws"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["terraform"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["sudo"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["curl"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["wget"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["dd"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["mkfs"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["fdisk"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["rm", ["-rf", "-fr"], ["/", "~", "/*", ".git"]], decision="forbidden", justification="Block recursive deletion of filesystem and repository roots.")
+# Wildcard shell commands are not split before rule matching, so cover common wrappers explicitly.
+prefix_rule(pattern=["bash", "-lc", "rm -rf /*"], decision="forbidden", justification="Block root-wide recursive deletion through bash -lc.")
+prefix_rule(pattern=["/bin/bash", "-lc", "rm -rf /*"], decision="forbidden", justification="Block root-wide recursive deletion through /bin/bash -lc.")
+prefix_rule(pattern=["zsh", "-lc", "rm -rf /*"], decision="forbidden", justification="Block root-wide recursive deletion through zsh -lc.")
+prefix_rule(pattern=["/bin/zsh", "-lc", "rm -rf /*"], decision="forbidden", justification="Block root-wide recursive deletion through /bin/zsh -lc.")
+prefix_rule(pattern=["chmod", "777", "/*"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["git", "push", "-f"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["git", "push", "--force-with-lease"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["docker", "system", "prune", "-af"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["npm", "publish"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["pnpm", "publish"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["cargo", "publish"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["deno", "publish"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["npx"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["pnpx"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+
+# Equivalent package runners that bypass the npx/pnpx denials.
+prefix_rule(pattern=["npm", "exec"], decision="forbidden", justification="Prevents executing packages through npm exec.")
+prefix_rule(pattern=["pnpm", "dlx"], decision="forbidden", justification="Prevents executing packages through pnpm dlx.")
+prefix_rule(pattern=["yarn", "dlx"], decision="forbidden", justification="Prevents executing packages through yarn dlx.")
+prefix_rule(pattern=["bunx"], decision="forbidden", justification="Prevents executing packages through bunx.")
+
+# Shell and inline interpreter execution.
+prefix_rule(pattern=["bash", "-c"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["sh", "-c"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["zsh", "-c"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["fish", "-c"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["node", ["-e", "--eval", "-p", "--print"]], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["python", "-c"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["python3", "-c"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["uv", "run", "python", "-c"], decision="forbidden", justification="Prevents bypassing the Python inline-execution denial through uv.")
+prefix_rule(pattern=["uv", "run", "python3", "-c"], decision="forbidden", justification="Prevents bypassing the Python inline-execution denial through uv.")
+prefix_rule(pattern=["deno", ["eval", "repl"]], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["bun", ["-e", "--eval"]], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["ruby", "-e"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["perl", "-e"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["php", "-r"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["env"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["printenv"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+
+# Avoid accidental loss of local work.
+prefix_rule(pattern=["git", "reset", "--hard"], decision="forbidden", justification="Prevents discarding tracked work with git reset --hard.")
+prefix_rule(pattern=["git", "clean", ["-f", "-fd", "-df", "-fdx", "-xdf", "-fx", "-xf", "-fX", "-fdX", "-Xf", "-Xdf", "--force"]], decision="forbidden", justification="Prevents deleting untracked files with git clean.")
+
+# GitHub credential and administrative operations.
+prefix_rule(pattern=["gh", "auth", "token"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["gh", "secret"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["gh", "config"], decision="forbidden", justification="Imported from Claude Code deny policy.")
+prefix_rule(pattern=["gh", "pr", "merge", "--admin"], decision="forbidden", justification="Imported from Claude Code deny policy; --admin must immediately follow merge.")
+# END imported Claude Code command permissions
