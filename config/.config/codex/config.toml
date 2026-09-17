@@ -2,7 +2,7 @@
 model = "gpt-5.6-luna"
 personality = "pragmatic"
 approval_policy = "never"
-sandbox_mode = "danger-full-access"
+default_permissions = "codex"
 web_search = "live"
 approvals_reviewer = "user"
 
@@ -37,7 +37,7 @@ copy = "ctrl-x"
 [tui.model_availability_nux]
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 3
-gpt-6-astra = 2
+gpt-6-astra = 4
 
 # Trusted paths
 # MCP servers
@@ -57,3 +57,49 @@ hide_gpt5_1_migration_prompt = true
 [plugins."github@openai-curated"]
 enabled = true
 
+# Default Codex local filesystem permissions.
+# Codex permission profiles are beta; they replace sandbox_mode and cannot extend :danger-full-access.
+[permissions.codex]
+description = "Codex local access with sensitive-path denials"
+extends = ":workspace"
+
+[permissions.codex.workspace_roots]
+"~/src" = true
+"/tmp" = true
+"/private/tmp" = true
+"/var/folders" = true
+
+[permissions.codex.filesystem]
+":minimal" = "read"
+"~" = "read"
+"/etc" = "read"
+"/var" = "read"
+"/usr" = "read"
+"/opt" = "read"
+"/nix/store" = "read"
+"~/src" = "write"
+"/tmp" = "write"
+"/private/tmp" = "write"
+"/var/folders" = "write"
+"~/.ssh" = "deny"
+"~/.aws/credentials" = "deny"
+"~/.aws/config" = "deny"
+"~/.gnupg" = "deny"
+"~/.netrc" = "deny"
+"~/.pgpass" = "deny"
+"~/.npmrc" = "deny"
+"~/.docker/config.json" = "deny"
+"/**/.env" = "deny"
+"/**/.env.*" = "deny"
+"/**/secrets/**" = "deny"
+"/**/*.pem" = "deny"
+"/**/*.key" = "deny"
+"/**/*.p12" = "deny"
+"/**/*.pfx" = "deny"
+"/**/*.jks" = "deny"
+"/**/*.keystore" = "deny"
+"/**/credentials.json" = "deny"
+"/**/service-account*.json" = "deny"
+
+[permissions.codex.network]
+enabled = true

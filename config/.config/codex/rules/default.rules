@@ -10,7 +10,7 @@ prefix_rule(pattern=["mise", "install", "flutter@latest"], decision="allow")
 prefix_rule(pattern=["/bin/zsh", "-lc", "sudo chown -R $(whoami) /Users/itsuki54/.local/share/mise/installs/flutter/3.22.1-stable/bin/cache"], decision="allow")
 
 # BEGIN imported Claude Code command permissions
-# Read/edit path restrictions are enforced by the `claude` permission profile in config.toml.
+# Read/edit path restrictions are enforced by the `codex` permission profile in config.toml.
 # The Claude command allow list is not copied as Codex `allow` rules run commands outside the sandbox.
 # approval_policy = "never" already avoids prompts for commands allowed inside the profile.
 # Codex matches argument prefixes; glob and argument-order policies cannot be represented exactly.
