@@ -1,5 +1,6 @@
 # Starship configuration
 "$schema" = 'https://starship.rs/config-schema.json'
+command_timeout = 5000
 
 format = """
 $directory\
@@ -7,6 +8,7 @@ $git_branch\
 $git_status\
 ${custom.docker}\
 ${custom.github_pr}\
+${custom.codex_usage}\
 $line_break\
 $character"""
 
@@ -59,4 +61,10 @@ command = "~/.config/starship/github_pr.sh"
 when = 'true'
 format = "[PR: $output]($style) "
 style = "bold yellow"
+disabled = false
+
+[custom.codex_usage]
+command = "~/.config/starship/codex-usage.sh"
+when = 'test -x ~/.config/starship/codex-usage.sh'
+format = "$output "
 disabled = false
