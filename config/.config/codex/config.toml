@@ -1,12 +1,12 @@
 # Global defaults
-model = "gpt-5.6-luna"
+model = "gpt-6-luna"
 personality = "pragmatic"
 approval_policy = "never"
 default_permissions = "codex"
 web_search = "live"
 approvals_reviewer = "user"
 
-model_reasoning_effort = "high"
+model_reasoning_effort = "xhigh"
 service_tier = "default"
 model_context_window = 872000
 model_auto_compact_token_limit = 784800
@@ -25,10 +25,14 @@ plan_mode_reasoning_effort = "high"
 notifications = false
 status_line = [
 	"model-with-reasoning",
-	"current-dir",
-	"context-usage",
-	"five-hour-limit",
+	"context-used",
+	"git-branch",
+	"pull-request-number",
+	"branch-changes",
+	"estimated-thread-cost",
 ]
+status_line_use_colors = true
+screen_reader_detection_done = true
 
 [tui.keymap.global]
 open_transcript = "ctrl-o"
@@ -84,7 +88,7 @@ extends = ":workspace"
 "~/.ssh" = "deny"
 "~/.aws/credentials" = "deny"
 "~/.aws/config" = "deny"
-"~/.gnupg" = "deny"
+"~/.gnupg" = "write"
 "~/.netrc" = "deny"
 "~/.pgpass" = "deny"
 "~/.npmrc" = "deny"
@@ -103,3 +107,4 @@ extends = ":workspace"
 
 [permissions.codex.network]
 enabled = true
+
