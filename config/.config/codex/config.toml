@@ -6,7 +6,7 @@ default_permissions = "codex"
 web_search = "live"
 approvals_reviewer = "user"
 
-model_reasoning_effort = "xhigh"
+model_reasoning_effort = "high"
 service_tier = "default"
 model_context_window = 872000
 model_auto_compact_token_limit = 784800
@@ -23,14 +23,7 @@ plan_mode_reasoning_effort = "high"
 
 [tui]
 notifications = false
-status_line = [
-	"model-with-reasoning",
-	"context-used",
-	"git-branch",
-	"pull-request-number",
-	"branch-changes",
-	"estimated-thread-cost",
-]
+status_line = ["model-with-reasoning", "context-used", "pull-request-number", "branch-changes", "estimated-thread-cost"]
 status_line_use_colors = true
 screen_reader_detection_done = true
 
@@ -76,6 +69,7 @@ extends = ":workspace"
 [permissions.codex.filesystem]
 ":minimal" = "read"
 "~" = "read"
+"~/.cache/mise" = "write"
 "/etc" = "read"
 "/var" = "read"
 "/usr" = "read"
