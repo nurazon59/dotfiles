@@ -14,6 +14,9 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 vim.opt.undofile = true
+vim.opt.swapfile = true
+vim.opt.updatetime = 1000
+vim.opt.updatecount = 100
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
