@@ -19,6 +19,7 @@ M.servers = {
   "denols",
   "vtsls",
   "svelte",
+  "yamlls",
 }
 
 M.tools = {
