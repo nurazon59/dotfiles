@@ -6,15 +6,17 @@ default_permissions = "codex"
 web_search = "live"
 approvals_reviewer = "user"
 
-model_reasoning_effort = "high"
+model_reasoning_effort = "xhigh"
 service_tier = "default"
 model_context_window = 872000
 model_auto_compact_token_limit = 784800
 check_for_update_on_startup = false
+plan_mode_reasoning_effort = "xhigh"
 
 [features]
 memories = true
 daemon_auto_start = false
+codex_hooks = true
 
 [memories]
 generate_memories = true
@@ -43,6 +45,7 @@ copy = "ctrl-x"
 "gpt-5.5" = 4
 "gpt-5.6-sol" = 3
 gpt-6-astra = 4
+"gpt-6.1-sol" = 4
 
 # Trusted paths
 # MCP servers
@@ -66,7 +69,8 @@ enabled = true
 # Codex permission profiles are beta; they replace sandbox_mode and cannot extend :danger-full-access.
 [permissions.codex]
 description = "Codex local access with sensitive-path denials"
-extends = ":workspace"
+# Use explicit writable paths below so linked worktree Git directories stay writable.
+extends = ":read-only"
 
 [permissions.codex.workspace_roots]
 "~/src" = true
@@ -78,6 +82,8 @@ extends = ":workspace"
 ":minimal" = "read"
 "~" = "read"
 "~/.cache/mise" = "write"
+"~/go/pkg" = "write"
+"~/Library/Caches/go-build" = "write"
 "/etc" = "read"
 "/var" = "read"
 "/usr" = "read"
@@ -87,6 +93,7 @@ extends = ":workspace"
 "/tmp" = "write"
 "/private/tmp" = "write"
 "/var/folders" = "write"
+# Protect credential locations without blocking certificate and key test fixtures.
 "~/.ssh" = "deny"
 "~/.aws/credentials" = "deny"
 "~/.aws/config" = "deny"
@@ -96,17 +103,32 @@ extends = ":workspace"
 "~/.npmrc" = "deny"
 "~/.docker/config.json" = "deny"
 "/**/.env" = "deny"
-"/**/.env.*" = "deny"
-"/**/secrets/**" = "deny"
-"/**/*.pem" = "deny"
-"/**/*.key" = "deny"
-"/**/*.p12" = "deny"
-"/**/*.pfx" = "deny"
-"/**/*.jks" = "deny"
-"/**/*.keystore" = "deny"
+"/**/secrets" = "deny"
 "/**/credentials.json" = "deny"
-"/**/service-account*.json" = "deny"
+
+[permissions.codex.filesystem.":workspace_roots"]
+# Preserve workspace metadata protections without protecting Git directories.
+".agents" = "read"
+".codex" = "read"
+".aws" = "read"
+# Scoped filename patterns must not block directory removal in dependency caches.
+".env.*" = "deny"
+"service-account*.json" = "deny"
 
 [permissions.codex.network]
 enabled = true
+
+[hooks.state]
+
+[hooks.state."/Users/koshiishi/src/github.com/nurazon59/dotfiles/config/.config/codex/hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:0c197bc6bc2ee1833e173eee8044e711173939cc93c85b7a55794503f7ae9d77"
+
+[hooks.state."/Users/koshiishi/src/github.com/nurazon59/dotfiles/config/.config/codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:089c90f6e671c8506e4296259730a007e56f8557374c2a79dfc2c251ede6bd14"
+
+[hooks.state."/Users/koshiishi/src/github.com/nurazon59/dotfiles/config/.config/codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:2ef7618c3c8107123362ffc13c9dc7a319064791c9aeee1a1552eb491543bf24"
+
+[hooks.state."/Users/koshiishi/src/github.com/nurazon59/dotfiles/config/.config/codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:3cac6f62e71fc55fc387f3fa3f7f5f5047e21405943e84a0d7bee7910ae21586"
 
