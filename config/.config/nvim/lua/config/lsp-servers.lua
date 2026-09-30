@@ -63,6 +63,14 @@ function M.setup()
   vim.lsp.config("terraformls", {
     filetypes = { "terraform", "tf", "terraform-vars" },
   })
+
+  vim.lsp.config("gopls", {
+    settings = {
+      gopls = {
+        templateExtensions = { "tmpl" },
+      },
+    },
+  })
 end
 
 return M
