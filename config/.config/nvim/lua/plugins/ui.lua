@@ -129,6 +129,7 @@ return {
       scroll = { enabled = false },
       indent = { enabled = false },
       scope = { enabled = false },
+      input = { enabled = true },
       notifier = { enabled = false },
       words = { enabled = true },
     },
