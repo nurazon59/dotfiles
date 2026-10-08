@@ -21,6 +21,10 @@
     };
     nix-claude-code.url = "github:ryoppippi/nix-claude-code";
     codex-cli-nix.url = "github:sadjow/codex-cli-nix";
+    pi = {
+      url = "github:lukasl-dev/pi.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-your-shell = {
       url = "github:MercuryTechnologies/nix-your-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -60,6 +64,7 @@
       nix-index-database,
       home-manager,
       neovim-nightly-overlay,
+      pi,
       firefox-addons,
       nix-your-shell,
       arto,
@@ -69,7 +74,7 @@
       mkSystem =
         user:
         nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit user neovim-nightly-overlay arto; };
+          specialArgs = { inherit user neovim-nightly-overlay arto pi; };
           modules = [
             (
               { config, pkgs, ... }:

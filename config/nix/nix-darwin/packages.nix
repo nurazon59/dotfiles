@@ -2,6 +2,7 @@
   pkgs,
   neovim-nightly-overlay,
   arto,
+  pi,
   user,
   ...
 }:
@@ -58,6 +59,7 @@ in
       kubectl
       rtk
       ghgrab
+      pi.packages.${pkgs.system}.coding-agent
       (google-cloud-sdk.withExtraComponents (
         with google-cloud-sdk.components;
         [
