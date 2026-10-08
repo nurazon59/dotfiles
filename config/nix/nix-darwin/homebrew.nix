@@ -21,10 +21,10 @@ let
     "orbstack"
     "shottr"
     "sol"
-    "bettershot"
   ];
 
   workCasks = [
+    "bettershot"
     "tableplus"
   ];
 
