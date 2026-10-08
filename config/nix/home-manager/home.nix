@@ -60,6 +60,7 @@ in
     ".config/mise".source = symlink "${configDir}/mise";
     ".config/mprocs".source = symlink "${configDir}/mprocs";
     ".config/nix".source = symlink "${configDir}/nix";
+    ".config/pi".source = symlink "${configDir}/pi";
     ".config/nvim".source = symlink "${configDir}/nvim";
     ".config/taplo".source = symlink "${configDir}/taplo";
     ".config/sheldon".source = symlink "${configDir}/sheldon";

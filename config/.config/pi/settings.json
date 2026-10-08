@@ -1,0 +1,24 @@
+{
+  "lastChangelogVersion": "0.85.1",
+  "theme": "dark",
+  "compaction": {
+    "enabled": false
+  },
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-6-luna",
+  "defaultThinkingLevel": "high",
+  "tuiMode": "regular",
+  "modelThinkingLevels": {
+    "openai-codex/gpt-6-luna": "high"
+  },
+  "treeFilterMode": "all",
+  "packages": [
+    "npm:pi-memory@0.4.2"
+  ],
+  "extensions": [
+    "-builtin:mcp",
+    "-builtin:llama.cpp",
+    "-builtin:codemode",
+    "-builtin:tool-search"
+  ]
+}

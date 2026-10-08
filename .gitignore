@@ -1,3 +1,9 @@
+# Pi local state (contains credentials and sessions)
+/config/.config/pi/*
+!/config/.config/pi/settings.json
+!/config/.config/pi/extensions/
+!/config/.config/pi/extensions/*.ts
+
 # Claude Code
 config/.config/claude/*
 !config/.config/claude/.claude.json
