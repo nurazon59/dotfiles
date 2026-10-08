@@ -50,7 +50,6 @@ in
       "issue-creator"
       "merge-main"
       "pr"
-      "pr-review-workflow"
       "caveman"
       "natural-japanese"
       "pull-request-review-context"
