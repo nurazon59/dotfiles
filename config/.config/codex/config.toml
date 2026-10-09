@@ -6,10 +6,8 @@ default_permissions = "codex"
 web_search = "live"
 approvals_reviewer = "user"
 
-model_reasoning_effort = "xhigh"
+model_reasoning_effort = "high"
 service_tier = "default"
-model_context_window = 872000
-model_auto_compact_token_limit = 784800
 check_for_update_on_startup = false
 plan_mode_reasoning_effort = "xhigh"
 
