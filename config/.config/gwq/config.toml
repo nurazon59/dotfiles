@@ -19,3 +19,7 @@ preview = true
 [ui]
 icons = true
 tilde_home = true
+
+[[repository_settings]]
+repository = "/**"
+setup_commands = ['if [ "$(git config --bool --get core.sparseCheckout 2>/dev/null || echo false)" = true ]; then git sparse-checkout disable; fi']
