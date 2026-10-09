@@ -1,4 +1,7 @@
 # conf.d/ より後に実行される必要があるため config.fish に残す
+bind --mode default \t fzf_tab_complete
+bind --mode insert \t fzf_tab_complete
+
 if set -q fish_function_path
     if not contains -- $__fish_config_dir/functions $fish_function_path
         set -eU fish_function_path
