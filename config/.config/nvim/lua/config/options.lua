@@ -28,3 +28,4 @@ vim.diagnostic.config({
   virtual_text = { source = true },
   float = { source = "always" },
 })
+vim.lsp.inlay_hint.enable(true)

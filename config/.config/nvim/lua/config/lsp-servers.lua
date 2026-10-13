@@ -68,6 +68,13 @@ function M.setup()
     settings = {
       gopls = {
         templateExtensions = { "tmpl" },
+        semanticTokens = true,
+        usePlaceholders = true,
+        hints = {
+          parameterNames = true,
+          compositeLiteralFields = true,
+          ignoredError = true,
+        },
       },
     },
   })
