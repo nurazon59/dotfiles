@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.85.1",
+  "lastChangelogVersion": "1.1.0",
   "theme": "dark",
   "compaction": {
     "enabled": false
@@ -8,6 +8,7 @@
   "defaultModel": "gpt-6-luna",
   "defaultThinkingLevel": "high",
   "tuiMode": "regular",
+  "quietStartup": true,
   "modelThinkingLevels": {
     "openai-codex/gpt-6-luna": "high"
   },
@@ -20,5 +21,6 @@
     "-builtin:llama.cpp",
     "-builtin:codemode",
     "-builtin:tool-search"
-  ]
+  ],
+  "hideThinkingBlock": true
 }

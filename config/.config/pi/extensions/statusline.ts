@@ -73,11 +73,14 @@ export default function (pi: ExtensionAPI) {
         const percentText = percent == null
           ? theme.fg("muted", "?")
           : theme.fg(percent < 40 ? "success" : percent <= 70 ? "warning" : "error", `${percent.toFixed(1)}%`);
+        const model = live.model;
+        const modelText = model ? theme.fg("accent", model.name || model.id) : theme.fg("muted", "no model");
+        const effortText = theme.fg("muted", live.thinkingLevel ?? "?");
         const costText = theme.fg("muted", `$${getSessionCost(live).toFixed(3)}${usingSubscription ? " (sub)" : ""}`);
         const branch = footerData.getGitBranch();
         const cwd = theme.fg("dim", `${formatCwd(live.cwd)}${branch ? `  ${branch}` : ""}`);
 
-        const line = `${costText}  ${percentText}/${formatTokens(contextWindow)}  ${cwd}`;
+        const line = `${modelText}  ${effortText}  ${costText}  ${percentText}/${formatTokens(contextWindow)}  ${cwd}`;
         return [truncateToWidth(line, width, theme.fg("dim", "…"))];
       },
       dispose: footerData.onBranchChange(() => tui.requestRender()),
@@ -91,6 +94,10 @@ export default function (pi: ExtensionAPI) {
 
   pi.on("model_select", async (_event, ctx) => {
     await updateSubscription(ctx);
+    installFooter(ctx);
+  });
+
+  pi.on("thinking_level_select", (_event, ctx) => {
     installFooter(ctx);
   });
 }
