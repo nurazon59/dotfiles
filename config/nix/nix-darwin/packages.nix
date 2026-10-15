@@ -22,6 +22,7 @@ in
       lua5_5
       lima
       postgresql_18
+      pgformatter
       qemu
       sheldon
       switchaudio-osx
@@ -59,6 +60,7 @@ in
       kubectl
       rtk
       ghgrab
+      _1password-cli
       pi.packages.${pkgs.system}.coding-agent
       (google-cloud-sdk.withExtraComponents (
         with google-cloud-sdk.components;
