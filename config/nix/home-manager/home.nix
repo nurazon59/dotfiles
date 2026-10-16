@@ -101,6 +101,10 @@ in
 
   home.packages = [
     fishGeneratedCompletions
+    pkgs.ghmux
+    pkgs.nippo
+    pkgs.pull-request-review-context
+    pkgs.rport
     pkgs.nerd-fonts._0xprotoNurazon59
     pkgs.sketchybar-app-font
     pkgs.slack

@@ -9,6 +9,10 @@
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nurazon59-packages = {
+      url = "github:nurazon59/nix-packages";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -74,7 +78,14 @@
       mkSystem =
         user:
         nix-darwin.lib.darwinSystem {
-          specialArgs = { inherit user neovim-nightly-overlay arto pi; };
+          specialArgs = {
+            inherit
+              user
+              neovim-nightly-overlay
+              arto
+              pi
+              ;
+          };
           modules = [
             (
               { config, pkgs, ... }:
@@ -153,6 +164,7 @@
                   })
                   firefox-addons.overlays.default
                   nix-your-shell.overlays.default
+                  inputs.nurazon59-packages.overlays.default
                 ];
                 nixpkgs.config.allowUnfree = true;
 

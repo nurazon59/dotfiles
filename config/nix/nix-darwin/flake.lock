@@ -724,6 +724,26 @@
         "type": "github"
       }
     },
+    "nurazon59-packages": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792152942,
+        "narHash": "sha256-0r6jR4CjVQ/JuSRVqFCsoOsTtesss+YM55BM+uyDjs0=",
+        "owner": "nurazon59",
+        "repo": "nix-packages",
+        "rev": "629549592480eee2adda8635749b624f5bffc2ca",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nurazon59",
+        "repo": "nix-packages",
+        "type": "github"
+      }
+    },
     "pi": {
       "inputs": {
         "bun2nix": "bun2nix",
@@ -832,6 +852,7 @@
         "nix-index-database": "nix-index-database",
         "nix-your-shell": "nix-your-shell",
         "nixpkgs": "nixpkgs_7",
+        "nurazon59-packages": "nurazon59-packages",
         "pi": "pi",
         "pull-request-review-context": "pull-request-review-context",
         "safe-chain-nix": "safe-chain-nix",
