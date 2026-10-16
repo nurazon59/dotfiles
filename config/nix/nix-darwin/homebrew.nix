@@ -16,6 +16,7 @@ let
     "linearmouse"
     "monitorcontrol"
     "notunes"
+    "opendisplay"
     "session-manager-plugin"
     "sf-symbols"
     "orbstack"
