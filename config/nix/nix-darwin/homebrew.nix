@@ -16,6 +16,7 @@ let
     "linearmouse"
     "monitorcontrol"
     "notunes"
+    "nurazon59/tap/gather-v2"
     "opendisplay"
     "session-manager-plugin"
     "sf-symbols"
@@ -53,6 +54,11 @@ in
       }
       {
         name = "nikitabobko/tap";
+        trusted = true;
+      }
+      {
+        name = "nurazon59/tap";
+        clone_target = "https://github.com/nurazon59/tap";
         trusted = true;
       }
     ];
