@@ -46,4 +46,8 @@
 - 仕様・公式名称がある用語は、その表記を使う。
 - コミットメッセージは `<type>(<scope>): <subject>` 形式にする。
 
+## PR description
+
+- CIが担保するテストやLintの成功など、自明な検証結果をdescriptionに書かない。
+
 @~/.config/codex/RTK.md
