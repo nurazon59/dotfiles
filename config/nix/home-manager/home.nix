@@ -105,7 +105,7 @@ in
     pkgs.nippo
     pkgs.pull-request-review-context
     pkgs.rport
-    pkgs.nerd-fonts._0xprotoNurazon59
+    pkgs.nerd-fonts-0xproto-nurazon59
     pkgs.sketchybar-app-font
     pkgs.slack
     pkgs.tridactyl-native
