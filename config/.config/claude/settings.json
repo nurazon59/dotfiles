@@ -414,7 +414,7 @@
     "ask": [],
     "defaultMode": "auto"
   },
-  "model": "fable",
+  "model": "opus",
   "hooks": {
     "SessionEnd": [
       {
@@ -433,15 +433,6 @@
           {
             "type": "command",
             "command": "deno run --allow-read --allow-write --allow-env $HOME/.config/claude/hooks/enforce-grep-batching.ts"
-          }
-        ]
-      },
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "rtk hook claude"
           }
         ]
       }
@@ -467,10 +458,24 @@
     "feature-dev@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "coderabbit@claude-plugins-official": true,
-    "vercel@claude-plugins-official": true
+    "vercel@claude-plugins-official": true,
+    "tmux-agent-sidebar@hiroppy": true
+  },
+  "extraKnownMarketplaces": {
+    "hiroppy": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/itsuki54/.config/tmux/plugins/tmux-agent-sidebar"
+      }
+    }
   },
   "language": "Japanese",
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "xhigh"
+    }
+  },
   "awaySummaryEnabled": false,
   "showClearContextOnPlanAccept": true,
   "voice": {
