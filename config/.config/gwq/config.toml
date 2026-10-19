@@ -3,7 +3,7 @@ basedir = '~/src'
 auto_mkdir = true
 
 [naming]
-template = '{{.Host}}/{{.Owner}}/{{.Repository}}-{{.Hash}}'
+template = '{{.Host}}/{{.Owner}}/{{.Repository}}.{{.Branch}}'
 
 [naming.sanitize_chars]
 '/' = '-'
