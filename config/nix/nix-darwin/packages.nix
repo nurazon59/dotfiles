@@ -61,6 +61,7 @@ in
       rtk
       ghgrab
       _1password-cli
+      plantuml
       pi.packages.${pkgs.system}.coding-agent
       (google-cloud-sdk.withExtraComponents (
         with google-cloud-sdk.components;
