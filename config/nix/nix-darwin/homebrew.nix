@@ -23,6 +23,7 @@ let
     "orbstack"
     "shottr"
     "sol"
+    "yksr-melt/Meltype/meltype"
   ];
 
   workCasks = [
@@ -54,6 +55,11 @@ in
       }
       {
         name = "nikitabobko/tap";
+        trusted = true;
+      }
+      {
+        name = "yksr-melt/Meltype";
+        clone_target = "https://github.com/yksr-melt/Meltype";
         trusted = true;
       }
       {
