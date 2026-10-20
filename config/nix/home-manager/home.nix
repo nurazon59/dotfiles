@@ -48,6 +48,7 @@ in
     ".config/alacritty".source = symlink "${configDir}/alacritty";
     ".config/any-script-mcp".source = symlink "${configDir}/any-script-mcp";
     ".config/espanso".source = symlink "${configDir}/espanso";
+    ".config/emacs".source = symlink "${configDir}/emacs";
     ".config/fish".source = symlink "${configDir}/fish";
     ".config/gh".source = symlink "${configDir}/gh";
     ".config/gh-dash".source = symlink "${configDir}/gh-dash";

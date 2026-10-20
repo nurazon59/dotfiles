@@ -62,6 +62,7 @@ in
       ghgrab
       _1password-cli
       plantuml
+      emacs
       pi.packages.${pkgs.system}.coding-agent
       (google-cloud-sdk.withExtraComponents (
         with google-cloud-sdk.components;

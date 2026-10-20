@@ -23,6 +23,15 @@ zzz/
 # Karabiner backup
 config/.config/karabiner/automatic_backups/
 
+# Emacs runtime state
+/config/.config/emacs/#*#
+/config/.config/emacs/*~
+/config/.config/emacs/auto-save-list/
+/config/.config/emacs/custom.el
+/config/.config/emacs/eln-cache/
+/config/.config/emacs/elpa/
+/config/.config/emacs/projects.eld
+
 # Local files
 .env
 .local.*
