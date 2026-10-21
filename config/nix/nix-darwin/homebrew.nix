@@ -23,7 +23,7 @@ let
     "orbstack"
     "shottr"
     "sol"
-    "yksr-melt/Meltype/meltype"
+    # "yksr-melt/Meltype/meltype"
   ];
 
   workCasks = [
@@ -70,6 +70,8 @@ in
     ];
 
     brews = [
+      "ca-certificates"
+      "curl"
       "ical-buddy"
       "sketchybar"
     ];
