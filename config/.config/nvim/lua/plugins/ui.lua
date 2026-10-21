@@ -41,6 +41,9 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       kind = "floating",
+      win_opts = {
+        cursorline = true,
+      },
       extensions = {
         git = { enabled = true },
       },
