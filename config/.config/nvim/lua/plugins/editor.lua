@@ -1,6 +1,7 @@
 return {
   {
     "stevearc/conform.nvim",
+    dir = "@conform-nvim@",
     pin = true,
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
@@ -41,6 +42,7 @@ return {
   },
   {
     "nvim-mini/mini.ai",
+    dir = "@mini-ai@",
     pin = true,
     event = "VeryLazy",
     dependencies = { "nvim-treesitter/nvim-treesitter-textobjects" },
@@ -70,9 +72,10 @@ return {
       }
     end,
   },
-  { "nvim-mini/mini.comment", pin = true, event = "VeryLazy", opts = {} },
+  { "nvim-mini/mini.comment", dir = "@mini-comment@", pin = true, event = "VeryLazy", opts = {} },
   {
     "windwp/nvim-autopairs",
+    dir = "@nvim-autopairs@",
     pin = true,
     event = "InsertEnter",
     opts = {
@@ -82,6 +85,7 @@ return {
   },
   {
     "gbprod/yanky.nvim",
+    dir = "@yanky-nvim@",
     pin = true,
     opts = {
       highlight = {
@@ -99,6 +103,7 @@ return {
   },
   {
     "folke/snacks.nvim",
+    dir = "@snacks-nvim@",
     pin = true,
     priority = 1000,
     lazy = false,
@@ -110,6 +115,7 @@ return {
   },
   {
     "folke/lazydev.nvim",
+    dir = "@lazydev-nvim@",
     pin = true,
     ft = "lua",
     opts = {
@@ -120,6 +126,7 @@ return {
   },
   {
     "stevearc/resession.nvim",
+    dir = "@resession-nvim@",
     pin = true,
     lazy = false,
     config = function()
@@ -138,6 +145,6 @@ return {
       })
     end,
   },
-  { "nvim-mini/mini.surround", version = false, pin = true, event = "VeryLazy", opts = {} },
-  { "barrettruth/diffs.nvim", version = false, pin = true },
+  { "nvim-mini/mini.surround", dir = "@mini-surround@", version = false, pin = true, event = "VeryLazy", opts = {} },
+  { "barrettruth/diffs.nvim", dir = "@diffs-nvim@", version = false, pin = true },
 }

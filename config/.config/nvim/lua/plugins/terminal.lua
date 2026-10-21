@@ -1,5 +1,6 @@
 return {
   "akinsho/toggleterm.nvim",
+  dir = "@toggleterm-nvim@",
   pin = true,
   version = "*",
   config = function()

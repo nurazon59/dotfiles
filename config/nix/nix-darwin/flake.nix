@@ -166,6 +166,12 @@
         };
     in
     {
+      packages.aarch64-darwin.nvim-config = import ../neovim/config.nix {
+        pkgs = import inputs.nixpkgs {
+          system = "aarch64-darwin";
+        };
+      };
+
       darwinConfigurations = {
         work = mkSystem "koshiishi";
         personal = mkSystem "itsuki54";

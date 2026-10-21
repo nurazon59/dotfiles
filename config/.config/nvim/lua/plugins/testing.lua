@@ -1,14 +1,15 @@
 return {
   {
     "nvim-neotest/neotest",
+    dir = "@neotest@",
     pin = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
-      "antoinemadec/FixCursorHold.nvim",
-      "nvim-neotest/nvim-nio",
-      "fredrikaverpil/neotest-golang",
-      "thenbe/neotest-playwright",
+      { "antoinemadec/FixCursorHold.nvim", dir = "@FixCursorHold-nvim@" },
+      { "nvim-neotest/nvim-nio", dir = "@nvim-nio@" },
+      { "fredrikaverpil/neotest-golang", dir = "@neotest-golang@" },
+      { "thenbe/neotest-playwright", dir = "@neotest-playwright@" },
     },
     keys = {
       {

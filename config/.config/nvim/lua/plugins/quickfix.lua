@@ -1,6 +1,7 @@
 return {
   {
     "kevinhwang91/nvim-bqf",
+    dir = "@nvim-bqf@",
     pin = true,
     ft = "qf",
     config = function()
@@ -14,6 +15,7 @@ return {
   },
   {
     "stevearc/quicker.nvim",
+    dir = "@quicker-nvim@",
     pin = true,
     ft = "qf",
     keys = {

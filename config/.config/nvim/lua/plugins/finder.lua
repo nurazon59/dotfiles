@@ -1,5 +1,5 @@
 return {
-  { "nvim-lua/plenary.nvim", pin = true },
+  { "nvim-lua/plenary.nvim", dir = "@plenary-nvim@", pin = true },
   -- fzf-lua → telescope 移行実験
   -- {
   --   "ibhagwan/fzf-lua",
@@ -8,10 +8,11 @@ return {
   -- },
   {
     "nvim-telescope/telescope.nvim",
+    dir = "@telescope-nvim@",
     version = "*",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope-ui-select.nvim",
+      { "nvim-telescope/telescope-ui-select.nvim", dir = "@telescope-ui-select-nvim@" },
     },
     config = function()
       local telescope = require("telescope")
@@ -63,6 +64,7 @@ return {
   },
   {
     "folke/todo-comments.nvim",
+    dir = "@todo-comments-nvim@",
     pin = true,
     event = "VeryLazy",
     dependencies = { "nvim-lua/plenary.nvim" },

@@ -7,10 +7,11 @@ if vim.fn.argv(0) ~= "" then
 end
 
 return {
-  { "nvim-tree/nvim-web-devicons", pin = true },
-  { "MunifTanjim/nui.nvim", pin = true },
+  { "nvim-tree/nvim-web-devicons", dir = "@nvim-web-devicons@", pin = true },
+  { "MunifTanjim/nui.nvim", dir = "@nui-nvim@", pin = true },
   {
     "akinsho/bufferline.nvim",
+    dir = "@bufferline-nvim@",
     pin = true,
     lazy = true,
     event = "BufAdd",
@@ -27,6 +28,7 @@ return {
   },
   {
     "FylerOrg/fyler.nvim",
+    dir = "@fyler-nvim@",
     pin = true,
     lazy = false,
     keys = {
@@ -83,6 +85,7 @@ return {
   },
   {
     "shortcuts/no-neck-pain.nvim",
+    dir = "@no-neck-pain-nvim@",
     pin = true,
     version = "*",
     opts = {
@@ -94,6 +97,7 @@ return {
   },
   {
     "tadaa/vimade",
+    dir = "@vimade@",
     pin = true,
     opts = {
       recipe = { "default", { animate = false } },
@@ -104,6 +108,7 @@ return {
   },
   {
     "petertriho/nvim-scrollbar",
+    dir = "@nvim-scrollbar@",
     pin = true,
     dependencies = { "lewis6991/gitsigns.nvim" },
     config = function()
@@ -126,6 +131,7 @@ return {
   },
   {
     "folke/snacks.nvim",
+    dir = "@snacks-nvim@",
     pin = true,
     opts = {
       dim = { enabled = false },
@@ -143,6 +149,7 @@ return {
   },
   {
     "rcarriga/nvim-notify",
+    dir = "@nvim-notify@",
     pin = true,
     opts = {
       stages = "static",
@@ -153,6 +160,7 @@ return {
   },
   {
     "lukas-reineke/indent-blankline.nvim",
+    dir = "@indent-blankline-nvim@",
     pin = true,
     main = "ibl",
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
@@ -168,6 +176,7 @@ return {
   },
   {
     "nvim-lualine/lualine.nvim",
+    dir = "@lualine-nvim@",
     pin = true,
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
@@ -198,6 +207,7 @@ return {
   },
   {
     "folke/noice.nvim",
+    dir = "@noice-nvim@",
     pin = true,
     event = "VeryLazy",
     dependencies = { "MunifTanjim/nui.nvim" },
@@ -229,6 +239,7 @@ return {
   },
   {
     "nvim-mini/mini.icons",
+    dir = "@mini-icons@",
     pin = true,
     opts = function(_, opts)
       opts = opts or {}
@@ -259,6 +270,7 @@ return {
   },
   {
     "catgoose/nvim-colorizer.lua",
+    dir = "@nvim-colorizer-lua@",
     pin = true,
     event = "BufRead",
     opts = {
@@ -282,6 +294,7 @@ return {
   },
   {
     "folke/which-key.nvim",
+    dir = "@which-key-nvim@",
     pin = true,
     event = "VeryLazy",
     opts = {

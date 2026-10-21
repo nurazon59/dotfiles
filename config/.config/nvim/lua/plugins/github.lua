@@ -1,5 +1,6 @@
 return {
   "pwntester/octo.nvim",
+  dir = "@octo-nvim@",
   pin = true,
   dependencies = {
     "nvim-lua/plenary.nvim",

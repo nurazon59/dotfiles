@@ -17,6 +17,7 @@ in
     ./programs/agent-skills.nix
     ./programs/firefox.nix
     ./programs/mise.nix
+    ./programs/neovim.nix
     ./programs/nh.nix
     ./programs/nix-your-shell.nix
     ./programs/ripgrep.nix
@@ -62,7 +63,6 @@ in
     ".config/mprocs".source = symlink "${configDir}/mprocs";
     ".config/nix".source = symlink "${configDir}/nix";
     ".config/pi".source = symlink "${configDir}/pi";
-    ".config/nvim".source = symlink "${configDir}/nvim";
     ".config/taplo".source = symlink "${configDir}/taplo";
     ".config/sheldon".source = symlink "${configDir}/sheldon";
     ".config/sketchybar".source = symlink "${configDir}/sketchybar";

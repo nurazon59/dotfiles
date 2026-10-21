@@ -1,6 +1,7 @@
 return {
   {
     "rose-pine/neovim",
+    dir = "@rose-pine@",
     name = "rose-pine",
     pin = true,
     lazy = false,

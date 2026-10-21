@@ -1,8 +1,12 @@
 return {
   {
     "folke/sidekick.nvim",
+    dir = "@sidekick-nvim@",
     pin = true,
     opts = {
+      nes = {
+        enabled = false,
+      },
       cli = {
         win = {
           keys = {

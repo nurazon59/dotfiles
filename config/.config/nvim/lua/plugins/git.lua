@@ -1,6 +1,7 @@
 return {
   {
     "f-person/git-blame.nvim",
+    dir = "@git-blame-nvim@",
     pin = true,
     -- load the plugin at startup
     event = "VeryLazy",
@@ -19,6 +20,7 @@ return {
   },
   {
     "linrongbin16/gitlinker.nvim",
+    dir = "@gitlinker-nvim@",
     pin = true,
     cmd = "GitLink",
     opts = {},
@@ -31,10 +33,12 @@ return {
   },
   {
     "lewis6991/gitsigns.nvim",
+    dir = "@gitsigns-nvim@",
     pin = true,
   },
   {
     "dlyongemallo/diffview-plus.nvim",
+    dir = "@diffview-plus-nvim@",
     pin = true,
     dependencies = {
       "nvim-lua/plenary.nvim",

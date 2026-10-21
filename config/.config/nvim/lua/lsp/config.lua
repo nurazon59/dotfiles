@@ -2,15 +2,16 @@ return {
   -- LazyVimのblink.cmpを無効化（nvim-cmpに置き換え）
   { "saghen/blink.cmp", enabled = false, pin = true },
 
-  { "neovim/nvim-lspconfig", pin = true },
-  { "hrsh7th/cmp-nvim-lsp", pin = true },
-  { "hrsh7th/cmp-buffer", pin = true },
-  { "hrsh7th/cmp-path", pin = true },
-  { "hrsh7th/cmp-cmdline", pin = true },
-  { "onsails/lspkind.nvim", pin = true },
+  { "neovim/nvim-lspconfig", dir = "@nvim-lspconfig@", pin = true },
+  { "hrsh7th/cmp-nvim-lsp", dir = "@cmp-nvim-lsp@", pin = true },
+  { "hrsh7th/cmp-buffer", dir = "@cmp-buffer@", pin = true },
+  { "hrsh7th/cmp-path", dir = "@cmp-path@", pin = true },
+  { "hrsh7th/cmp-cmdline", dir = "@cmp-cmdline@", pin = true },
+  { "onsails/lspkind.nvim", dir = "@lspkind-nvim@", pin = true },
 
   {
     "mason-org/mason.nvim",
+    dir = "@mason-nvim@",
     pin = true,
     build = ":MasonUpdate",
     config = function()
@@ -21,6 +22,7 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
+    dir = "@mason-lspconfig-nvim@",
     pin = true,
     dependencies = {
       "mason-org/mason.nvim",
@@ -38,6 +40,7 @@ return {
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
+    dir = "@mason-tool-installer-nvim@",
     pin = true,
     dependencies = { "mason-org/mason.nvim" },
     config = function()
@@ -48,6 +51,7 @@ return {
   },
   {
     "hrsh7th/nvim-cmp",
+    dir = "@nvim-cmp@",
     pin = true,
     enabled = true,
     event = { "InsertEnter", "CmdlineEnter" },
@@ -134,18 +138,21 @@ return {
   },
   {
     "kaarmu/typst.vim",
+    dir = "@typst-vim@",
     pin = true,
     ft = "typst",
     lazy = false,
   },
   {
     "seblyng/roslyn.nvim",
+    dir = "@roslyn-nvim@",
     pin = true,
     ---@module 'roslyn.config'
     ---@type RoslynNvimConfig
   },
   {
     "ionide/Ionide-vim",
+    dir = "@Ionide-vim@",
     pin = true,
     ft = { "fsharp", "fsharp_project" },
     init = function()
@@ -164,6 +171,7 @@ return {
   },
   {
     "ray-x/lsp_signature.nvim",
+    dir = "@lsp_signature-nvim@",
     event = "InsertEnter",
   },
 }
