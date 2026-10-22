@@ -3,6 +3,7 @@
   neovim-nightly-overlay,
   arto,
   pi,
+  mise,
   user,
   ...
 }:
@@ -50,7 +51,6 @@ in
       just
       macism
       cmake
-      mise
       wezterm
       trivy
       osv-scanner
@@ -70,6 +70,10 @@ in
           gke-gcloud-auth-plugin
         ]
       ))
+      (mise.packages.${pkgs.system}.mise.overrideAttrs (oldAttrs: {
+        nativeCheckInputs = (oldAttrs.nativeCheckInputs or [ ])
+          ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.darwin.ps ];
+      }))
     ])
     ++ [
       neovim-nightly

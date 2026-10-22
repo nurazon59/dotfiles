@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    mise.url = "github:jdx/mise";
+    mise.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-index-database.url = "github:nix-community/nix-index-database";
@@ -68,6 +70,7 @@
       nix-index-database,
       home-manager,
       neovim-nightly-overlay,
+      mise,
       pi,
       firefox-addons,
       nix-your-shell,
@@ -84,6 +87,7 @@
               neovim-nightly-overlay
               arto
               pi
+              mise
               ;
           };
           modules = [
@@ -133,12 +137,6 @@
                   (_final: prev: {
                     direnv = prev.direnv.overrideAttrs (_: {
                       doCheck = false;
-                    });
-                    # macOSではsetuidビットが保持されずテストが失敗する
-                    # cmakeはnativeCheckInputsのみで宣言されているが、依存クレートlibz-ng-sysが通常ビルドでもcmakeを要求するため明示的に追加する
-                    mise = prev.mise.overrideAttrs (old: {
-                      doCheck = false;
-                      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ prev.cmake ];
                     });
                   })
                   firefox-addons.overlays.default

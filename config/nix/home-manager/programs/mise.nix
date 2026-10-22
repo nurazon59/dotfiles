@@ -1,8 +1,16 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 {
   programs.mise = {
     enable = true;
-    package = pkgs.mise;
+    package = inputs.mise.packages.${pkgs.system}.mise.overrideAttrs (oldAttrs: {
+      nativeCheckInputs = (oldAttrs.nativeCheckInputs or [ ])
+        ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.darwin.ps ];
+    });
     enableFishIntegration = true;
     enableBashIntegration = true;
     enableZshIntegration = true;
