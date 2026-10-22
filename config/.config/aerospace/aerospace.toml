@@ -10,14 +10,14 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  'exec-and-forget sketchybar --trigger aerospace_workspace_change',
+  'exec-and-forget sketchybar --trigger aerospace_refresh',
 ]
 
 # Workspace change callback
 exec-on-workspace-change = [
   '/bin/bash',
   '-c',
-  'sketchybar --trigger aerospace_workspace_change',
+  'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$AEROSPACE_FOCUSED_WORKSPACE"',
 ]
 
 # Start AeroSpace at login
@@ -132,14 +132,14 @@ alt-k = 'workspace K'
 alt-l = 'workspace L'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
-alt-shift-a = 'move-node-to-workspace A'
-alt-shift-s = 'move-node-to-workspace S'
-alt-shift-d = 'move-node-to-workspace D'
-alt-shift-f = 'move-node-to-workspace F'
-alt-shift-h = 'move-node-to-workspace H'
-alt-shift-j = 'move-node-to-workspace J'
-alt-shift-k = 'move-node-to-workspace K'
-alt-shift-l = 'move-node-to-workspace L'
+alt-shift-a = ['move-node-to-workspace A', 'exec-and-forget sketchybar --trigger aerospace_windows_change']
+alt-shift-s = ['move-node-to-workspace S', 'exec-and-forget sketchybar --trigger aerospace_windows_change']
+alt-shift-d = ['move-node-to-workspace D', 'exec-and-forget sketchybar --trigger aerospace_windows_change']
+alt-shift-f = ['move-node-to-workspace F', 'exec-and-forget sketchybar --trigger aerospace_windows_change']
+alt-shift-h = ['move-node-to-workspace H', 'exec-and-forget sketchybar --trigger aerospace_windows_change']
+alt-shift-j = ['move-node-to-workspace J', 'exec-and-forget sketchybar --trigger aerospace_windows_change']
+alt-shift-k = ['move-node-to-workspace K', 'exec-and-forget sketchybar --trigger aerospace_windows_change']
+alt-shift-l = ['move-node-to-workspace L', 'exec-and-forget sketchybar --trigger aerospace_windows_change']
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -201,3 +201,4 @@ run = 'move-node-to-workspace J'
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
 run = 'layout tiling'
+
