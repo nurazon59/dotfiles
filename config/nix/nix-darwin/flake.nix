@@ -102,10 +102,6 @@
 
                 nix.settings.experimental-features = "nix-command flakes";
                 nix.settings.auto-optimise-store = true;
-                nix.extraOptions = ''
-                  !include /Users/${user}/.config/nix/access-tokens.conf
-                '';
-
                 programs.fish.enable = true;
                 environment.interactiveShellInit = ''
                   . "${
