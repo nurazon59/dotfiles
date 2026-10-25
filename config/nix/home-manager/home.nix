@@ -52,6 +52,7 @@ in
     ".config/emacs".source = symlink "${configDir}/emacs";
     ".config/fish".source = symlink "${configDir}/fish";
     ".config/gh".source = symlink "${configDir}/gh";
+    ".config/ghtkn".source = symlink "${configDir}/ghtkn";
     ".config/gh-dash".source = symlink "${configDir}/gh-dash";
     ".config/git".source = symlink "${configDir}/git";
     ".config/gitu".source = symlink "${configDir}/gitu";

@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/suzuki-shunsuke/ghtkn/main/json-schema/ghtkn.json
+# ghtkn - https://github.com/suzuki-shunsuke/ghtkn
+#
+# backend:
+#   type: agent # backend type. One of keyring(default), agent, or text
+# clipboard:
+#   enable: true # If true, one-time codes are copied to the clipboard
+# min_expiration: 1h # minimum expiration time. Default is 0h
+# skip_account_picker: false # Default is true
+# open_browser:
+#   enable: false # Default is true
+apps:
+  - name: nurazon59/ghtkn # The name to identify the app
+    client_id: Iv23liEcLpAKIKKxwJNh # Your GitHub App Client ID
