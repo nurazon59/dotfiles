@@ -73,7 +73,8 @@ in
         ]
       ))
       (mise.packages.${pkgs.system}.mise.overrideAttrs (oldAttrs: {
-        nativeCheckInputs = (oldAttrs.nativeCheckInputs or [ ])
+        nativeCheckInputs =
+          (oldAttrs.nativeCheckInputs or [ ])
           ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.darwin.ps ];
       }))
     ])

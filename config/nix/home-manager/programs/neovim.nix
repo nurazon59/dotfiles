@@ -13,8 +13,6 @@ in
 
   home.activation.nvimConfigProfile = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     run mkdir -p "$(dirname "${profile}")"
-    if [ ! -e "${profile}" ]; then
-      run nix build --no-link --profile "${profile}" "${nvimConfig}"
-    fi
+    run nix build --no-link --profile "${profile}" "${nvimConfig}"
   '';
 }
