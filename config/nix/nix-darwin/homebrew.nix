@@ -23,7 +23,7 @@ let
     "orbstack"
     "shottr"
     "sol"
-    # "yksr-melt/Meltype/meltype"
+    "yksr-melt/Meltype/meltype"
   ];
 
   workCasks = [
