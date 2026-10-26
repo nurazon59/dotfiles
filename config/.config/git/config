@@ -46,7 +46,7 @@
 [branch]
 	autoSetupMerge = false
 [filter "codex-config"]
-	clean = sed '/^\\[projects\\./,/^$/d'
+	clean = sed -e '/^\\[projects\\./,/^$/d' -e '/^\\[hooks\\.state\\./,/^$/d'
 [merge]
 	conflictStyle = diff3
 [merge "mergiraf"]

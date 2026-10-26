@@ -129,15 +129,3 @@ enabled = true
 
 [hooks.state]
 
-[hooks.state."/Users/koshiishi/src/github.com/nurazon59/dotfiles/config/.config/codex/hooks.json:post_tool_use:0:0"]
-trusted_hash = "sha256:0c197bc6bc2ee1833e173eee8044e711173939cc93c85b7a55794503f7ae9d77"
-
-[hooks.state."/Users/koshiishi/src/github.com/nurazon59/dotfiles/config/.config/codex/hooks.json:session_start:0:0"]
-trusted_hash = "sha256:089c90f6e671c8506e4296259730a007e56f8557374c2a79dfc2c251ede6bd14"
-
-[hooks.state."/Users/koshiishi/src/github.com/nurazon59/dotfiles/config/.config/codex/hooks.json:user_prompt_submit:0:0"]
-trusted_hash = "sha256:2ef7618c3c8107123362ffc13c9dc7a319064791c9aeee1a1552eb491543bf24"
-
-[hooks.state."/Users/koshiishi/src/github.com/nurazon59/dotfiles/config/.config/codex/hooks.json:stop:0:0"]
-trusted_hash = "sha256:3cac6f62e71fc55fc387f3fa3f7f5f5047e21405943e84a0d7bee7910ae21586"
-
