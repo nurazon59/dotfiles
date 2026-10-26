@@ -5,6 +5,7 @@ local app_icons = require("helpers.app_icons")
 
 local LIST_ALL = "aerospace list-workspaces --all"
 local LIST_CURRENT = "aerospace list-workspaces --focused"
+local LIST_INITIAL_APPS = "aerospace list-windows --all --format '%{workspace} %{app-name}' --json"
 local LIST_MONITORS = "aerospace list-monitors | awk '{print $1}'"
 local LIST_WORKSPACES = "aerospace list-workspaces --monitor all"
 local LIST_APPS = "aerospace list-windows --workspace %s | awk -F'|' '{gsub(/^ *| *$/, \"\", $2); print $2}'"
@@ -33,12 +34,12 @@ local function getIconForApp(appName)
     return app_icons[appName] or ""
 end
 
-local function updateSpaceIcons(spaceId, workspaceName)
+local function updateSpaceIcons(spaceId, workspaceName, initialApps)
     local icon_strip = ""
     local shouldDraw = false
     local paddingRight = 12  -- デフォルトの右余白
 
-    sbar.exec(LIST_APPS:format(workspaceName), function(appsOutput)
+    local function applyIcons(appsOutput)
         local hasIcons = false
 
         for app in appsOutput:gmatch("[^\r\n]+") do
@@ -66,11 +67,17 @@ local function updateSpaceIcons(spaceId, workspaceName)
         else
             print("Warning: Space ID '" .. spaceId .. "' not found when updating icons.")
         end
-    end)
+    end
+
+    if initialApps ~= nil then
+        applyIcons(initialApps)
+    else
+        sbar.exec(LIST_APPS:format(workspaceName), applyIcons)
+    end
 end
 
 
-local function addWorkspaceItem(workspaceName, monitorId, isSelected)
+local function addWorkspaceItem(workspaceName, monitorId, isSelected, initialApps)
     local spaceId = "workspace_" .. workspaceName
 
     if not spaces[spaceId] then
@@ -131,7 +138,7 @@ local function addWorkspaceItem(workspaceName, monitorId, isSelected)
         background = { border_color = isSelected and colors.dirty_white or colors.transparent }
     })
 
-    updateSpaceIcons(spaceId, workspaceName)
+    updateSpaceIcons(spaceId, workspaceName, initialApps)
 end
 
 -- why: workspaceアイテムの生成用。起動時と、稀にworkspaceが増減した時だけ呼ぶ重い処理。
@@ -148,8 +155,29 @@ local function drawSpaces()
 
             for _, workspaceName in ipairs(workspaceNames) do
                 local isSelected = workspaceName == focusedWorkspace
-                addWorkspaceItem(workspaceName, nil, isSelected)
+                addWorkspaceItem(workspaceName, nil, isSelected, "")
             end
+
+            sbar.exec(LIST_INITIAL_APPS, function(windows, exit_code)
+                local initialApps
+                if exit_code == 0 and type(windows) == "table" then
+                    initialApps = {}
+                    for _, window in ipairs(windows) do
+                        if type(window) ~= "table" or type(window.workspace) ~= "string"
+                            or type(window["app-name"]) ~= "string" then
+                            initialApps = nil
+                            break
+                        end
+                        local name = window.workspace
+                        initialApps[name] = (initialApps[name] or "") .. window["app-name"] .. "\n"
+                    end
+                end
+
+                for _, workspaceName in ipairs(workspaceNames) do
+                    local apps = initialApps and (initialApps[workspaceName] or "") or nil
+                    updateSpaceIcons("workspace_" .. workspaceName, workspaceName, apps)
+                end
+            end)
         end)
     end)
 end
