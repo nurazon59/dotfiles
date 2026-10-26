@@ -153,7 +153,11 @@ local function drawSpaces()
             end
             sortWorkspaces(workspaceNames)
 
-            -- why: 初回だけ全workspace分を1回で取得。通常のイベント更新は従来のまま。
+            for _, workspaceName in ipairs(workspaceNames) do
+                local isSelected = workspaceName == focusedWorkspace
+                addWorkspaceItem(workspaceName, nil, isSelected, "")
+            end
+
             sbar.exec(LIST_INITIAL_APPS, function(windows, exit_code)
                 local initialApps
                 if exit_code == 0 and type(windows) == "table" then
@@ -170,10 +174,8 @@ local function drawSpaces()
                 end
 
                 for _, workspaceName in ipairs(workspaceNames) do
-                    local isSelected = workspaceName == focusedWorkspace
-                    -- why: 空workspaceは空文字を渡す。取得失敗時だけ従来の個別取得に戻す。
                     local apps = initialApps and (initialApps[workspaceName] or "") or nil
-                    addWorkspaceItem(workspaceName, nil, isSelected, apps)
+                    updateSpaceIcons("workspace_" .. workspaceName, workspaceName, apps)
                 end
             end)
         end)
