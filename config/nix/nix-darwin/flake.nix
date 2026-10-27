@@ -78,6 +78,9 @@
       ...
     }:
     let
+      darwinPkgs = import inputs.nixpkgs {
+        system = "aarch64-darwin";
+      };
       mkSystem =
         user:
         nix-darwin.lib.darwinSystem {
@@ -162,10 +165,9 @@
     in
     {
       packages.aarch64-darwin.nvim-config = import ../neovim/config.nix {
-        pkgs = import inputs.nixpkgs {
-          system = "aarch64-darwin";
-        };
+        pkgs = darwinPkgs;
       };
+      packages.aarch64-darwin.vulnix = darwinPkgs.vulnix;
 
       darwinConfigurations = {
         work = mkSystem "koshiishi";
