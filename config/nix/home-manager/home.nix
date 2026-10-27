@@ -6,6 +6,7 @@
   ...
 }:
 let
+  lib = pkgs.lib;
   symlink = config.lib.file.mkOutOfStoreSymlink;
   dotfiles = "${config.home.homeDirectory}/src/github.com/nurazon59/dotfiles";
   configDir = "${dotfiles}/config/.config";
@@ -43,6 +44,34 @@ in
   launchd.agents.jankyborders.config.KeepAlive = pkgs.lib.mkForce false;
 
   xdg.enable = true;
+
+  home.sessionVariables = {
+    TAPLO_CONFIG = "${config.xdg.configHome}/taplo/taplo.toml";
+    npm_config_cache = "${config.xdg.cacheHome}/npm";
+    pnpm_config_store_dir = "${config.xdg.dataHome}/pnpm/store";
+    GOCACHE = "${config.xdg.cacheHome}/go-build";
+    GOMODCACHE = "${config.xdg.cacheHome}/go/mod";
+    PIP_CACHE_DIR = "${config.xdg.cacheHome}/pip";
+    BUN_INSTALL_CACHE_DIR = "${config.xdg.cacheHome}/bun/install/cache";
+    PI_CODING_AGENT_DIR = "${config.xdg.configHome}/pi";
+    LANG = "en_US.UTF-8";
+    EDITOR = "nvim";
+    PAGER = "bat";
+    BAT_PAGER = "less -R";
+    FZF_DEFAULT_OPTS = "--height 40% --reverse --cycle --bind tab:down,btab:up";
+    FZF_COMPLETION_OPTS = "--select-1 --exit-0 --preview='bat -n --color=always {1} 2>/dev/null || lsd --color=always -a {1} 2>/dev/null' --preview-window=right:50%:wrap:border-left";
+    STARSHIP_CONFIG = "${config.xdg.configHome}/starship/starship.toml";
+    CLAUDE_CONFIG_DIR = "${config.xdg.configHome}/claude";
+    CODEX_HOME = "${config.xdg.configHome}/codex";
+    DOCKER_HOST = "unix://${config.xdg.configHome}/colima/default/docker.sock";
+  };
+
+  home.sessionPath = lib.mkBefore [
+    "${config.home.homeDirectory}/.local/share/mise/installs/tree-sitter/latest"
+    config.xdg.binHome
+    "/opt/homebrew/opt/curl/bin"
+    "/opt/homebrew/bin"
+  ];
 
   home.file = {
     ".config/aerospace".source = symlink "${configDir}/aerospace";
