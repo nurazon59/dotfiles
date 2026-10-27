@@ -42,12 +42,19 @@ M.tools = {
 }
 
 M.external_servers = {
+  "mise",
   "nixd",
 }
 
 function M.setup()
   vim.lsp.config("*", {
     capabilities = require("cmp_nvim_lsp").default_capabilities(),
+  })
+
+  vim.lsp.config("mise", {
+    cmd = { "mise", "lsp" },
+    filetypes = { "toml" },
+    init_options = { formatting = false },
   })
 
   for _, server in ipairs(M.external_servers) do
