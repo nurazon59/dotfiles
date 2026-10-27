@@ -37,6 +37,15 @@ jobs:
           permission-contents: write
           permission-pull-requests: write
 
+      - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510
+        id: skills-token
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          owner: nurazon59
+          repositories: skills
+          permission-contents: read
+
       - uses: DeterminateSystems/update-flake-lock@834c491b2ece4de0bbd00d85214bb5e83b4da5c6
         with:
           token: ${{ steps.app-token.outputs.token }}
@@ -45,3 +54,6 @@ jobs:
           commit-msg: "chore(nix): update flake inputs"
           pr-title: "chore(nix): update flake inputs"
           pr-body: "Updates the pinned Nix flake inputs."
+        env:
+          NIX_CONFIG: |
+            access-tokens = github.com=${{ steps.skills-token.outputs.token }}
