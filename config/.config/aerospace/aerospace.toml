@@ -24,7 +24,7 @@ exec-on-workspace-change = [
 start-at-login = true
 
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
-enable-normalization-flatten-containers = true
+enable-normalization-flatten-containers                         = true
 enable-normalization-opposite-orientation-for-nested-containers = true
 
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
@@ -66,11 +66,11 @@ preset = 'qwerty'
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
 inner.horizontal = 10
-inner.vertical = 10
-outer.left = [{ monitor."Built-in" = 5 }, 5]
-outer.bottom = [{ monitor."Built-in" = 5 }, 5]
-outer.top = [{ monitor."Built-in" = 15 }, 45]
-outer.right = [{ monitor."Built-in" = 5 }, 5]
+inner.vertical   = 10
+outer.left       = [{ monitor."Built-in" = 5 }, 5]
+outer.bottom     = [{ monitor."Built-in" = 5 }, 5]
+outer.top        = [{ monitor."Built-in" = 15 }, 45]
+outer.right      = [{ monitor."Built-in" = 5 }, 5]
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
 # 'main' binding mode must be always presented
@@ -107,10 +107,10 @@ alt-comma = 'layout accordion horizontal vertical'
 
 # focus / move direction: yuio を hjkl 相当として割当
 # (alt-h/j/k/l は workspace 切替に消費されているため別キーに退避)
-alt-y = 'focus left'
-alt-u = 'focus down'
-alt-i = 'focus up'
-alt-o = 'focus right'
+alt-y       = 'focus left'
+alt-u       = 'focus down'
+alt-i       = 'focus up'
+alt-o       = 'focus right'
 alt-shift-y = 'move left'
 alt-shift-u = 'move down'
 alt-shift-i = 'move up'
@@ -180,24 +180,24 @@ L = 1
 # Application workspace assignments
 [[on-window-detected]]
 if.app-id = 'org.alacritty'
-run = 'move-node-to-workspace A'
+run       = 'move-node-to-workspace A'
 
 [[on-window-detected]]
 if.app-id = 'company.thebrowser.Browser'
-run = 'move-node-to-workspace S'
+run       = 'move-node-to-workspace S'
 
 [[on-window-detected]]
 if.app-id = 'com.tinyspeck.slackmacgap'
-run = 'move-node-to-workspace D'
+run       = 'move-node-to-workspace D'
 
 [[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
-run = 'move-node-to-workspace K'
+run       = 'move-node-to-workspace K'
 
 [[on-window-detected]]
 if.app-id = 'net.whatsapp.WhatsApp'
-run = 'move-node-to-workspace J'
+run       = 'move-node-to-workspace J'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
-run = 'layout tiling'
+run       = 'layout tiling'

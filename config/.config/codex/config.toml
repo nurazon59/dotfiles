@@ -1,35 +1,35 @@
 # Global defaults
-model = "gpt-6-luna"
-personality = "pragmatic"
-approval_policy = "never"
+model               = "gpt-6-luna"
+personality         = "pragmatic"
+approval_policy     = "never"
 default_permissions = "codex"
-web_search = "live"
-approvals_reviewer = "user"
+web_search          = "live"
+approvals_reviewer  = "user"
 
-model_reasoning_effort = "high"
-service_tier = "default"
+model_reasoning_effort      = "high"
+service_tier                = "fast"
 check_for_update_on_startup = false
-plan_mode_reasoning_effort = "xhigh"
+plan_mode_reasoning_effort  = "xhigh"
 
 [features]
-memories = true
+memories          = true
 daemon_auto_start = false
-codex_hooks = true
+codex_hooks       = true
 
 [memories]
-generate_memories = true
-use_memories = true
-model_reasoning_effort = "high"
+generate_memories          = true
+use_memories               = true
+model_reasoning_effort     = "high"
 plan_mode_reasoning_effort = "high"
 
 [tui]
 notifications = false
 status_line = [
-	"model-with-reasoning",
-	"context-used",
-	"pull-request-number",
-	"branch-changes",
-	"estimated-thread-cost",
+  "model-with-reasoning",
+  "context-used",
+  "pull-request-number",
+  "branch-changes",
+  "estimated-thread-cost",
 ]
 status_line_use_colors = true
 screen_reader_detection_done = true
@@ -37,27 +37,27 @@ alternate_screen = "never"
 
 [tui.keymap.global]
 open_transcript = "ctrl-o"
-copy = "ctrl-x"
+copy            = "ctrl-x"
 
 [tui.model_availability_nux]
-"gpt-5.5" = 4
+"gpt-5.5"     = 4
 "gpt-5.6-sol" = 3
-gpt-6-astra = 4
+gpt-6-astra   = 4
 "gpt-6.1-sol" = 4
 
 # Trusted paths
 # MCP servers
 [mcp_servers.context7]
 command = "npx"
-args = ["-y", "@upstash/context7-mcp@latest"]
+args    = ["-y", "@upstash/context7-mcp@latest"]
 
 [mcp_servers.openaiDeveloperDocs]
 url = "https://developers.openai.com/mcp"
 
 # UI notices
 [notice]
-hide_full_access_warning = true
-hide_gpt5_1_migration_prompt = true
+hide_full_access_warning                  = true
+hide_gpt5_1_migration_prompt              = true
 "hide_gpt-5.1-codex-max_migration_prompt" = true
 
 [plugins."github@openai-curated"]
@@ -71,57 +71,57 @@ description = "Codex local access with sensitive-path denials"
 extends = ":read-only"
 
 [permissions.codex.workspace_roots]
-"~/src" = true
-"/tmp" = true
+"~/src"        = true
+"/tmp"         = true
 "/private/tmp" = true
 "/var/folders" = true
 
 [permissions.codex.filesystem]
-":minimal" = "read"
-"~" = "read"
-"~/.cache/mise" = "write"
-"~/.cache/npm" = "write"
-"~/.cache/go-build" = "write"
-"~/.cache/go" = "write"
-"~/.cache/pip" = "write"
-"~/.cache/bun" = "write"
+":minimal"                   = "read"
+"~"                          = "read"
+"~/.cache/mise"              = "write"
+"~/.cache/npm"               = "write"
+"~/.cache/go-build"          = "write"
+"~/.cache/go"                = "write"
+"~/.cache/pip"               = "write"
+"~/.cache/bun"               = "write"
 "~/.cache/migration-backups" = "write"
-"~/.npm" = "write"
-"~/.bun/install/cache" = "write"
-"~/go/pkg" = "write"
-"~/Library/Caches/go-build" = "write"
-"~/Library/Caches/pip" = "write"
-"~/Library/pnpm/store" = "write"
-"~/.local/share/pnpm/store" = "write"
-"/etc" = "read"
-"/var" = "read"
-"/usr" = "read"
-"/opt" = "read"
-"/nix/store" = "read"
-"~/src" = "write"
-"/tmp" = "write"
-"/private/tmp" = "write"
-"/var/folders" = "write"
+"~/.npm"                     = "write"
+"~/.bun/install/cache"       = "write"
+"~/go/pkg"                   = "write"
+"~/Library/Caches/go-build"  = "write"
+"~/Library/Caches/pip"       = "write"
+"~/Library/pnpm/store"       = "write"
+"~/.local/share/pnpm/store"  = "write"
+"/etc"                       = "read"
+"/var"                       = "read"
+"/usr"                       = "read"
+"/opt"                       = "read"
+"/nix/store"                 = "read"
+"~/src"                      = "write"
+"/tmp"                       = "write"
+"/private/tmp"               = "write"
+"/var/folders"               = "write"
 # Protect credential locations without blocking certificate and key test fixtures.
-"~/.ssh" = "deny"
-"~/.aws/credentials" = "deny"
-"~/.aws/config" = "deny"
-"~/.gnupg" = "write"
-"~/.netrc" = "deny"
-"~/.pgpass" = "deny"
-"~/.npmrc" = "deny"
+"~/.ssh"                = "deny"
+"~/.aws/credentials"    = "deny"
+"~/.aws/config"         = "deny"
+"~/.gnupg"              = "write"
+"~/.netrc"              = "deny"
+"~/.pgpass"             = "deny"
+"~/.npmrc"              = "deny"
 "~/.docker/config.json" = "deny"
-"/**/.env" = "deny"
-"/**/secrets" = "deny"
-"/**/credentials.json" = "deny"
+"/**/.env"              = "deny"
+"/**/secrets"           = "deny"
+"/**/credentials.json"  = "deny"
 
 [permissions.codex.filesystem.":workspace_roots"]
 # Preserve workspace metadata protections without protecting Git directories.
 ".agents" = "read"
-".codex" = "read"
-".aws" = "read"
+".codex"  = "read"
+".aws"    = "read"
 # Scoped filename patterns must not block directory removal in dependency caches.
-".env.*" = "deny"
+".env.*"                = "deny"
 "service-account*.json" = "deny"
 
 [permissions.codex.network]

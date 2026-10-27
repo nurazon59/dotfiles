@@ -4,20 +4,20 @@
 [window]
 option_as_alt = "Both"
 # ウィンドウ設定
-padding.x = 10
-padding.y = 10
-opacity = 0.95
+padding.x       = 10
+padding.y       = 10
+opacity         = 0.95
 dynamic_padding = true
-decorations = "buttonless" # macOS: タイトルバーなし
-startup_mode = "Maximized"
-dynamic_title = true
+decorations     = "buttonless" # macOS: タイトルバーなし
+startup_mode    = "Maximized"
+dynamic_title   = true
 
 [window.dimensions]
 columns = 160
-lines = 50
+lines   = 50
 
 [scrolling]
-history = 10000
+history    = 10000
 multiplier = 3
 
 [font]
@@ -26,31 +26,31 @@ size = 9.5
 
 [font.normal]
 family = "0xProto Nerd Font Mono"
-style = "Regular"
+style  = "Regular"
 
 [font.bold]
 family = "0xProto Nerd Font Mono"
-style = "Bold"
+style  = "Bold"
 
 [font.italic]
 family = "0xProto Nerd Font Mono"
-style = "Italic"
+style  = "Italic"
 
 [font.bold_italic]
 family = "0xProto Nerd Font Mono"
-style = "Bold Italic"
+style  = "Bold Italic"
 
 [cursor]
 # カーソル設定
-style.shape = "Beam"
-style.blinking = "Off"
+style.shape      = "Beam"
+style.blinking   = "Off"
 unfocused_hollow = true
 
 [bell]
 # ベル設定
 animation = "EaseOutExpo"
-duration = 0
-color = "#ffffff"
+duration  = 0
+color     = "#ffffff"
 
 [selection]
 # 選択設定
@@ -64,164 +64,164 @@ import = ["rose-pine.toml"]
 hide_when_typing = true
 
 [[mouse.bindings]]
-mouse = "Right"
+mouse  = "Right"
 action = "PasteSelection"
 
 [keyboard]
 
 [[keyboard.bindings]]
-key = "K"
-mods = "Command"
+key   = "K"
+mods  = "Command"
 chars = "clear\r"
 
 [[keyboard.bindings]]
-key = "C"
-mods = "Command"
+key    = "C"
+mods   = "Command"
 action = "Copy"
 
 [[keyboard.bindings]]
-key = "V"
-mods = "Command"
+key    = "V"
+mods   = "Command"
 action = "Paste"
 
 [[keyboard.bindings]]
-key = "W"
-mods = "Command"
+key    = "W"
+mods   = "Command"
 action = "Quit"
 
 [[keyboard.bindings]]
-key = "T"
-mods = "Command"
+key    = "T"
+mods   = "Command"
 action = "CreateNewWindow"
 
 [[keyboard.bindings]]
-key = "Plus"
-mods = "Command"
+key    = "Plus"
+mods   = "Command"
 action = "IncreaseFontSize"
 
 [[keyboard.bindings]]
-key = "Minus"
-mods = "Command"
+key    = "Minus"
+mods   = "Command"
 action = "DecreaseFontSize"
 
 [[keyboard.bindings]]
-key = "Key0"
-mods = "Command"
+key    = "Key0"
+mods   = "Command"
 action = "ResetFontSize"
 
 [[keyboard.bindings]]
-key = "F"
-mods = "Command"
+key    = "F"
+mods   = "Command"
 action = "ToggleFullscreen"
 
 [[keyboard.bindings]]
-key = "Key1"
-mods = "Command"
+key   = "Key1"
+mods  = "Command"
 chars = "\u001b[1;9P"
 
 [[keyboard.bindings]]
-key = "Key2"
-mods = "Command"
+key   = "Key2"
+mods  = "Command"
 chars = "\u001b[1;9Q"
 
 [[keyboard.bindings]]
-key = "Key3"
-mods = "Command"
+key   = "Key3"
+mods  = "Command"
 chars = "\u001b[1;9R"
 
 [[keyboard.bindings]]
-key = "Key4"
-mods = "Command"
+key   = "Key4"
+mods  = "Command"
 chars = "\u001b[1;9S"
 
 [[keyboard.bindings]]
-key = "Key5"
-mods = "Command"
+key   = "Key5"
+mods  = "Command"
 chars = "\u001b[15;9~"
 
 [[keyboard.bindings]]
-key = "Key6"
-mods = "Command"
+key   = "Key6"
+mods  = "Command"
 chars = "\u001b[17;9~"
 
 [[keyboard.bindings]]
-key = "Key7"
-mods = "Command"
+key   = "Key7"
+mods  = "Command"
 chars = "\u001b[18;9~"
 
 [[keyboard.bindings]]
-key = "Key8"
-mods = "Command"
+key   = "Key8"
+mods  = "Command"
 chars = "\u001b[19;9~"
 
 [[keyboard.bindings]]
-key = "Key9"
-mods = "Command"
+key   = "Key9"
+mods  = "Command"
 chars = "\u001b[20;9~"
 
 [[keyboard.bindings]]
 key = "T"
 mods = "Control"
 command = { program = "/run/current-system/sw/bin/macism", args = [
-	"com.apple.keylayout.ABC",
+  "com.apple.keylayout.ABC",
 ] }
 
 [[keyboard.bindings]]
-key = "T"
-mods = "Control"
+key   = "T"
+mods  = "Control"
 chars = "\u0014"
 
 [[keyboard.bindings]]
 key = "H"
 mods = "Control"
 command = { program = "/run/current-system/sw/bin/macism", args = [
-	"com.apple.keylayout.ABC",
+  "com.apple.keylayout.ABC",
 ] }
 
 [[keyboard.bindings]]
-key = "H"
-mods = "Control"
+key   = "H"
+mods  = "Control"
 chars = "\u0008"
 
 [[keyboard.bindings]]
 key = "J"
 mods = "Control"
 command = { program = "/run/current-system/sw/bin/macism", args = [
-	"com.apple.keylayout.ABC",
+  "com.apple.keylayout.ABC",
 ] }
 
 [[keyboard.bindings]]
-key = "J"
-mods = "Control"
+key   = "J"
+mods  = "Control"
 chars = "\u000a"
 
 [[keyboard.bindings]]
 key = "K"
 mods = "Control"
 command = { program = "/run/current-system/sw/bin/macism", args = [
-	"com.apple.keylayout.ABC",
+  "com.apple.keylayout.ABC",
 ] }
 
 [[keyboard.bindings]]
-key = "K"
-mods = "Control"
+key   = "K"
+mods  = "Control"
 chars = "\u000b"
 
 [[keyboard.bindings]]
 key = "L"
 mods = "Control"
 command = { program = "/run/current-system/sw/bin/macism", args = [
-	"com.apple.keylayout.ABC",
+  "com.apple.keylayout.ABC",
 ] }
 
 [[keyboard.bindings]]
-key = "L"
-mods = "Control"
+key   = "L"
+mods  = "Control"
 chars = "\u000c"
 
 [[keyboard.bindings]]
-key = "Return"
-mods = "Shift"
+key   = "Return"
+mods  = "Shift"
 chars = "\n"
 
 [env]

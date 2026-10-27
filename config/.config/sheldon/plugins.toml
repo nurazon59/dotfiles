@@ -8,21 +8,21 @@ github = "romkatv/zsh-defer"
 
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
-apply = ["defer"]
+apply  = ["defer"]
 
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
-apply = ["defer"]
+apply  = ["defer"]
 
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
-apply = ["source"]
+apply  = ["source"]
 
 [plugins.zsh-syntax-highlighting-catppuccin]
 github = "catppuccin/zsh-syntax-highlighting"
-apply = ["defer"]
-use = ["themes/catppuccin_frappe-zsh-syntax-highlighting.zsh"]
+apply  = ["defer"]
+use    = ["themes/catppuccin_frappe-zsh-syntax-highlighting.zsh"]
 
 [plugins.fzf-tab]
 github = "Aloxaf/fzf-tab"
-apply = ["source"]
+apply  = ["source"]
