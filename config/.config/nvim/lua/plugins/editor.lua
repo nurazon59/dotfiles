@@ -31,6 +31,7 @@ return {
         json = { "oxfmt" },
         yaml = { "oxfmt" },
         markdown = { "oxfmt" },
+        toml = { "taplo" },
         nix = { "nixfmt" },
         proto = { "buf" },
       },
