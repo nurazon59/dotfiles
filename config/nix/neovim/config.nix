@@ -3,6 +3,7 @@ let
   inherit (pkgs) lib;
   nvimConfig = ../../.config/nvim;
   pluginFiles = [
+    "lua/config/lazy.lua"
     "lua/lsp/config.lua"
     "lua/plugins/ai.lua"
     "lua/plugins/colorscheme.lua"
@@ -29,6 +30,7 @@ let
     };
   };
   pluginPaths = pkgs.vimPlugins // {
+    "lazy-nvim" = pkgs.vimPlugins.lazy-nvim;
     "gitlinker-nvim" = gitlinker;
     "sidekick-nvim" = pkgs.vimPlugins.sidekick-nvim.overrideAttrs {
       runtimeDeps = [ ];
