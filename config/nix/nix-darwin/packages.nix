@@ -8,8 +8,8 @@
   ...
 }:
 let
-  neovim-nightly = neovim-nightly-overlay.packages.${pkgs.system}.default;
-  arto-pkg = arto.packages.${pkgs.system}.default;
+  neovim-nightly = neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  arto-pkg = arto.packages.${pkgs.stdenv.hostPlatform.system}.default;
   isPersonal = user == "itsuki54";
 in
 {
@@ -65,14 +65,14 @@ in
       emacs
       bws
       ghtkn
-      pi.packages.${pkgs.system}.coding-agent
+      pi.packages.${pkgs.stdenv.hostPlatform.system}.coding-agent
       (google-cloud-sdk.withExtraComponents (
         with google-cloud-sdk.components;
         [
           gke-gcloud-auth-plugin
         ]
       ))
-      (mise.packages.${pkgs.system}.mise.overrideAttrs (oldAttrs: {
+      (mise.packages.${pkgs.stdenv.hostPlatform.system}.mise.overrideAttrs (oldAttrs: {
         nativeCheckInputs =
           (oldAttrs.nativeCheckInputs or [ ])
           ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.darwin.ps ];

@@ -140,7 +140,7 @@ in
     pkgs.sketchybar-app-font
     pkgs.slack
     pkgs.tridactyl-native
-    inputs.nix-claude-code.packages.${pkgs.system}.latest
-    inputs.codex-cli-nix.packages.${pkgs.system}.codex
+    inputs.nix-claude-code.packages.${pkgs.stdenv.hostPlatform.system}.latest
+    inputs.codex-cli-nix.packages.${pkgs.stdenv.hostPlatform.system}.codex
   ];
 }

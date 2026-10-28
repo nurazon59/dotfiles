@@ -7,7 +7,7 @@
 {
   programs.mise = {
     enable = true;
-    package = inputs.mise.packages.${pkgs.system}.mise.overrideAttrs (oldAttrs: {
+    package = inputs.mise.packages.${pkgs.stdenv.hostPlatform.system}.mise.overrideAttrs (oldAttrs: {
       nativeCheckInputs = (oldAttrs.nativeCheckInputs or [ ])
         ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isDarwin [ pkgs.darwin.ps ];
     });
