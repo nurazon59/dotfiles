@@ -1,2 +1,6 @@
+let mapleader = " "
+
+syntax on
+
 inoremap jj <Esc>
 nnoremap <Leader>qq :qa<CR>
