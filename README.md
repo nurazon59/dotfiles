@@ -4,7 +4,7 @@ macOS dev environment managed with nix-darwin + home-manager.
 
 ## Setup
 
-After installation, configure your GitHub App with `ghtkn init` and authenticate with `ghtkn auth` before running Make targets. Run `ghtkn auth` again if the token expires.
+After installation, configure your GitHub App with `ghtkn init`. Make targets that need a token run `ghtkn auth` when authentication is required.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/nurazon59/dotfiles/main/install.sh | sh -s -- work

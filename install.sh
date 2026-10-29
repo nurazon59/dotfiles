@@ -74,6 +74,6 @@ else
   cd /private/etc/nix-darwin && sudo nix run nix-darwin/master#darwin-rebuild -- switch --flake ".#${HOST}"
 fi
 
-echo "Configure ghtkn with 'ghtkn init', then run 'ghtkn auth' before using make."
+echo "Configure ghtkn with 'ghtkn init' before using make."
 
 echo "Done!"
