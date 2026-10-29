@@ -99,6 +99,7 @@ in
     ".config/starship".source = symlink "${configDir}/starship";
     ".config/tmux".source = symlink "${configDir}/tmux";
     ".config/tridactyl".source = symlink "${configDir}/tridactyl";
+    ".config/vim".source = symlink "${configDir}/vim";
     ".config/wezterm".source = symlink "${configDir}/wezterm";
     ".config/yazi".source = symlink "${configDir}/yazi";
     ".config/zeno".source = symlink "${configDir}/zeno";
