@@ -67,7 +67,7 @@ jobs:
           repositories: skills
           permission-contents: read
 
-      - uses: natsukium/nix-diff-action@b5c316c6cafc8470037d7f330b178aaeeba96ba4
+      - uses: natsukium/nix-diff-action@4ab5eda848658193fbbd804efb5d4d7c2f166f37
         with:
           directory: config/nix/nix-darwin
           comment-strategy: update
