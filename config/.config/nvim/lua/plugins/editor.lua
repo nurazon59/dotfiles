@@ -18,7 +18,6 @@ return {
     opts = {
       formatters_by_ft = {
         terraform = { "terraform_fmt" },
-        sql = { "pg_format" },
 
         lua = { "stylua" },
         c = { "clang-format" },
