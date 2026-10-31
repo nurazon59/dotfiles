@@ -1,5 +1,5 @@
 # Global defaults
-model               = "gpt-6-luna"
+model               = "gpt-6.1-terra"
 personality         = "pragmatic"
 approval_policy     = "never"
 default_permissions = "codex"
@@ -7,7 +7,7 @@ web_search          = "live"
 approvals_reviewer  = "user"
 
 model_reasoning_effort      = "high"
-service_tier                = "fast"
+service_tier                = "default"
 check_for_update_on_startup = false
 plan_mode_reasoning_effort  = "xhigh"
 
@@ -126,6 +126,4 @@ extends = ":read-only"
 
 [permissions.codex.network]
 enabled = true
-
-[hooks.state]
 
