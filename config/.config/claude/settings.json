@@ -458,16 +458,7 @@
     "feature-dev@claude-plugins-official": true,
     "code-simplifier@claude-plugins-official": true,
     "coderabbit@claude-plugins-official": true,
-    "vercel@claude-plugins-official": true,
-    "tmux-agent-sidebar@hiroppy": true
-  },
-  "extraKnownMarketplaces": {
-    "hiroppy": {
-      "source": {
-        "source": "directory",
-        "path": "/Users/itsuki54/.config/tmux/plugins/tmux-agent-sidebar"
-      }
-    }
+    "vercel@claude-plugins-official": true
   },
   "language": "Japanese",
   "effortLevel": "high",
@@ -487,5 +478,7 @@
   "autoCompactEnabled": false,
   "fileCheckpointingEnabled": true,
   "showTurnDuration": true,
-  "voiceEnabled": true
+  "skipAutoPermissionPrompt": true,
+  "voiceEnabled": true,
+  "theme": "dark"
 }
