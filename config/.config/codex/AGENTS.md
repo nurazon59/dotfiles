@@ -53,4 +53,8 @@
 
 - CIが担保するテストやLintの成功など、自明な検証結果をdescriptionに書かない。
 
+## ERD
+
+- ERDを作成するときは、新しいテーブルとカラムに `:new:` を付ける。
+
 @~/.config/codex/RTK.md
