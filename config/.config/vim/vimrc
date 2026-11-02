@@ -4,3 +4,4 @@ syntax on
 
 inoremap jj <Esc>
 nnoremap <Leader>qq :qa<CR>
+nnoremap <Leader>e :Explore<CR>
