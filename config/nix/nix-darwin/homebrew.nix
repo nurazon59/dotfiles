@@ -5,6 +5,7 @@ let
     "aerospace"
     "arc"
     "azookey"
+    "chatgpt"
     "claude"
     "clipy"
     "espanso"
