@@ -17,6 +17,18 @@ let
     "lua/plugins/treesitter.lua"
     "lua/plugins/ui.lua"
   ];
+  artoRev = "5a00f0e977a035f8b098e0c4142e968a64f8efd2";
+  arto = pkgs.vimUtils.buildVimPlugin {
+    pname = "arto-vim";
+    version = builtins.substring 0 7 artoRev;
+    doCheck = false;
+    src = pkgs.fetchFromGitHub {
+      owner = "arto-app";
+      repo = "arto.vim";
+      rev = artoRev;
+      hash = "sha256-Pet/wjh0Pv6HMPRKPsgNktpMIjqwiFW2zr/IeZ5Ht84=";
+    };
+  };
   gitlinkerRev = "d7adb5e4ba5bab4fd443a3f4c46af3f4c864685d";
   gitlinker = pkgs.vimUtils.buildVimPlugin {
     pname = "gitlinker.nvim";
@@ -30,6 +42,7 @@ let
     };
   };
   pluginPaths = pkgs.vimPlugins // {
+    "arto-vim" = arto;
     "lazy-nvim" = pkgs.vimPlugins.lazy-nvim;
     "gitlinker-nvim" = gitlinker;
     "sidekick-nvim" = pkgs.vimPlugins.sidekick-nvim.overrideAttrs {

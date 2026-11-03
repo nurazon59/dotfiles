@@ -1,5 +1,17 @@
 return {
   {
+    "arto-app/arto.vim",
+    dir = "@arto-vim@",
+    pin = true,
+    cmd = { "Arto", "ArtoVersion" },
+    init = function()
+      local arto = vim.fn.exepath("arto")
+      if vim.fn.has("mac") == 1 and arto ~= "" then
+        vim.g.arto_path = vim.fn.fnamemodify(vim.fn.resolve(arto), ":h:h:h")
+      end
+    end,
+  },
+  {
     "stevearc/conform.nvim",
     dir = "@conform-nvim@",
     pin = true,
