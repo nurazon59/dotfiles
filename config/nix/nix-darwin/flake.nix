@@ -105,6 +105,12 @@
 
                 nix.settings.experimental-features = "nix-command flakes";
                 nix.settings.auto-optimise-store = true;
+                nix.settings.extra-substituters = [
+                  "https://mise-nix-cache.itk-koshiishi.net"
+                ];
+                nix.settings.extra-trusted-public-keys = [
+                  "mise-cache-1:oo46HcMAlPLK9Ew0aOzcpeuLOJot4K+Ko7wr13KqiFs="
+                ];
                 nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
                 programs.fish.enable = true;
                 environment.interactiveShellInit = ''
