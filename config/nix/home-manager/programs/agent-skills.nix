@@ -36,6 +36,11 @@ in
         subdir = "skills";
         filter.nameRegex = "^natural-japanese$";
       };
+      yomiyasu = {
+        input = "yomiyasu-skills";
+        subdir = "skills";
+        filter.nameRegex = "^yomiyasu$";
+      };
       pull-request-review-context = {
         input = "pull-request-review-context";
         subdir = "skills";
@@ -52,6 +57,7 @@ in
       "pr"
       "caveman"
       "natural-japanese"
+      "yomiyasu"
       "pull-request-review-context"
     ];
 

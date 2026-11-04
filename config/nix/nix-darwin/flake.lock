@@ -921,6 +921,7 @@
         "pull-request-review-context": "pull-request-review-context",
         "safe-chain-nix": "safe-chain-nix",
         "skills": "skills",
+        "yomiyasu-skills": "yomiyasu-skills",
         "zen-browser": "zen-browser"
       }
     },
@@ -1107,6 +1108,22 @@
       "original": {
         "owner": "pyproject-nix",
         "repo": "uv2nix",
+        "type": "github"
+      }
+    },
+    "yomiyasu-skills": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1793326902,
+        "narHash": "sha256-9cGUSvLgc1+996i3lWQuQm1aTWOxSY6fbS9+vn5aElw=",
+        "owner": "nanaism",
+        "repo": "yomiyasu",
+        "rev": "29d67ccb05e370b5958d72920a9cd1aa829dee80",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nanaism",
+        "repo": "yomiyasu",
         "type": "github"
       }
     },

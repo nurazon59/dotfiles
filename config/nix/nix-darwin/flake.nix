@@ -57,6 +57,10 @@
       url = "github:coji/natural-japanese";
       flake = false;
     };
+    yomiyasu-skills = {
+      url = "github:nanaism/yomiyasu";
+      flake = false;
+    };
     pull-request-review-context = {
       url = "github:nurazon59/pull-request-review-context";
       flake = false;
