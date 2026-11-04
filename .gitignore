@@ -54,6 +54,7 @@ config/root/.codex/*
 !config/root/.codex/instructions.md
 
 # Nix
+/result
 config/nix/nix-darwin/result
 /config/.config/claude/.claude.json
 /config/.config/zsh/.zcompdump*
