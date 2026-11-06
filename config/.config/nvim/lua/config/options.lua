@@ -10,8 +10,8 @@ vim.treesitter.language.register("markdown", "mdx")
 
 vim.opt.autowrite = false
 vim.opt.clipboard = "unnamedplus"
-vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.number = false
+vim.opt.relativenumber = false
 
 vim.opt.undofile = true
 vim.opt.swapfile = true
