@@ -42,6 +42,7 @@ in
 {
   homebrew = {
     enable = true;
+    greedyCasks = true;
 
     onActivation = {
       cleanup = "uninstall";
