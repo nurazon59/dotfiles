@@ -1,15 +1,17 @@
 # Global defaults
-model               = "gpt-6.1-terra"
+model               = "gpt-6-luna"
 personality         = "pragmatic"
-approval_policy     = "never"
+approval_policy     = "on-request"
 default_permissions = "codex"
 web_search          = "live"
 approvals_reviewer  = "user"
 
-model_reasoning_effort      = "high"
-service_tier                = "default"
-check_for_update_on_startup = false
-plan_mode_reasoning_effort  = "xhigh"
+model_reasoning_effort         = "high"
+service_tier                   = "default"
+check_for_update_on_startup    = false
+plan_mode_reasoning_effort     = "xhigh"
+model_context_window           = 872000
+model_auto_compact_token_limit = 784800
 
 [features]
 memories          = true
@@ -79,6 +81,7 @@ extends = ":read-only"
 [permissions.codex.filesystem]
 ":minimal"                   = "read"
 "~"                          = "read"
+"~/.cache"                   = "write"
 "~/.cache/mise"              = "write"
 "~/.cache/npm"               = "write"
 "~/.cache/go-build"          = "write"
