@@ -14,7 +14,7 @@ permissions:
 jobs:
   vulnerability-scan:
     runs-on: macos-15
-    timeout-minutes: 180
+    timeout-minutes: 360
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -33,8 +33,10 @@ jobs:
         uses: nix-community/cache-nix-action/restore@7df957e333c1e5da7721f60227dbba6d06080569 # v7
         continue-on-error: true
         with:
-          primary-key: macos15-nix-${{ hashFiles('config/nix/nix-darwin/flake.lock') }}
+          # Unique per run/attempt, so failed builds can publish a new checkpoint.
+          primary-key: macos15-nix-${{ hashFiles('config/nix/nix-darwin/flake.lock') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-prefixes-first-match: |
+            macos15-nix-${{ hashFiles('config/nix/nix-darwin/flake.lock') }}-
             macos15-nix-
 
       - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510
@@ -46,7 +48,9 @@ jobs:
           repositories: skills
           permission-contents: read
 
+      # Keep time for uploading a cache even when the build times out.
       - name: Build system closures and vulnix
+        timeout-minutes: 300
         working-directory: config/nix/nix-darwin
         env:
           NIX_CONFIG: |
@@ -56,12 +60,13 @@ jobs:
           nix build .#darwinConfigurations.personal.system --out-link "$RUNNER_TEMP/personal-system"
           nix build .#packages.aarch64-darwin.vulnix --out-link "$RUNNER_TEMP/vulnix"
 
+      # A step timeout fails the build, but leaves time to save completed store paths.
       - name: Save Nix store
-        if: steps.nix-cache.outputs.hit-primary-key != 'true'
+        if: ${{ always() && steps.nix-cache.outputs.hit-primary-key != 'true' }}
         uses: nix-community/cache-nix-action/save@7df957e333c1e5da7721f60227dbba6d06080569 # v7
         continue-on-error: true
         with:
-          primary-key: macos15-nix-${{ hashFiles('config/nix/nix-darwin/flake.lock') }}
+          primary-key: ${{ steps.nix-cache.outputs.primary-key }}
           gc-max-store-size-macos: 8G
 
       - name: Scan system closures for known vulnerabilities
