@@ -20,7 +20,22 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Free disk space for Nix builds
+        run: |
+          df -h /
+          sudo rm -rf "$HOME/Library/Android/sdk"
+          df -h /
+
       - uses: cachix/install-nix-action@75c75c31ebece974e48ebc36b4ad125bd97bd97b
+
+      - name: Restore Nix store
+        id: nix-cache
+        uses: nix-community/cache-nix-action/restore@7df957e333c1e5da7721f60227dbba6d06080569 # v7
+        continue-on-error: true
+        with:
+          primary-key: macos15-nix-${{ hashFiles('config/nix/nix-darwin/flake.lock') }}
+          restore-prefixes-first-match: |
+            macos15-nix-
 
       - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510
         id: skills-token
@@ -40,6 +55,14 @@ jobs:
           nix build .#darwinConfigurations.work.system --out-link "$RUNNER_TEMP/work-system"
           nix build .#darwinConfigurations.personal.system --out-link "$RUNNER_TEMP/personal-system"
           nix build .#packages.aarch64-darwin.vulnix --out-link "$RUNNER_TEMP/vulnix"
+
+      - name: Save Nix store
+        if: steps.nix-cache.outputs.hit-primary-key != 'true'
+        uses: nix-community/cache-nix-action/save@7df957e333c1e5da7721f60227dbba6d06080569 # v7
+        continue-on-error: true
+        with:
+          primary-key: macos15-nix-${{ hashFiles('config/nix/nix-darwin/flake.lock') }}
+          gc-max-store-size-macos: 8G
 
       - name: Scan system closures for known vulnerabilities
         working-directory: config/nix/nix-darwin
