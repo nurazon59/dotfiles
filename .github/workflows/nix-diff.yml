@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   vulnerability-scan:
-    runs-on: macos-14
+    runs-on: macos-15
     timeout-minutes: 180
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
