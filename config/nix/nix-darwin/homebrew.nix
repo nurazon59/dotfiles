@@ -17,24 +17,24 @@ let
     "linearmouse"
     "monitorcontrol"
     "notunes"
-    "nurazon59/tap/gather-v2"
     "opendisplay"
     "session-manager-plugin"
     "sf-symbols"
     "orbstack"
     "shottr"
     "sol"
-    "yksr-melt/Meltype/meltype"
   ];
 
   workCasks = [
     "bettershot"
     "tableplus"
+    "nurazon59/tap/gather-v2"
   ];
 
   personalCasks = [
     "discord"
     "whatsapp"
+    "yksr-melt/Meltype/meltype"
   ];
 
   casks = commonCasks ++ (if user == "koshiishi" then workCasks else personalCasks);
