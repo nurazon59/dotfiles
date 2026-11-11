@@ -23,7 +23,7 @@ in
     ./programs/nix-your-shell.nix
     ./programs/ripgrep.nix
     ./programs/safe-chain.nix
-    ./programs/zen.nix
+    # ./programs/zen.nix  # Temporarily disabled: Zen Browser release download failed in CI
   ];
 
   home.stateVersion = "24.11";
