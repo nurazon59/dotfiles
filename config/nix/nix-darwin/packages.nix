@@ -47,7 +47,6 @@ in
       go-task
       redis
       podman
-      roslyn-ls
       just
       macism
       cmake
