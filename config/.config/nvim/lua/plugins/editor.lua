@@ -137,25 +137,11 @@ return {
     },
   },
   {
-    "stevearc/resession.nvim",
-    dir = "@resession-nvim@",
+    "rmagatti/auto-session",
+    dir = "@auto-session@",
     pin = true,
     lazy = false,
-    config = function()
-      local r = require("resession")
-      r.setup({
-        autosave = {
-          enabled = true,
-          interval = 120,
-          notify = false,
-        },
-      })
-      vim.api.nvim_create_autocmd("VimLeavePre", {
-        callback = function()
-          r.save(vim.fn.getcwd(), { dir = "dirsession", notify = false })
-        end,
-      })
-    end,
+    opts = {},
   },
   { "nvim-mini/mini.surround", dir = "@mini-surround@", version = false, pin = true, event = "VeryLazy", opts = {} },
   { "barrettruth/diffs.nvim", dir = "@diffs-nvim@", version = false, pin = true },
