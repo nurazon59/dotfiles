@@ -25,7 +25,7 @@ vim.opt.splitkeep = "cursor"
 vim.opt.cursorline = true
 
 vim.diagnostic.config({
-  virtual_text = { source = true },
+  virtual_lines = true,
   float = { source = "always" },
 })
 vim.lsp.inlay_hint.enable(true)
