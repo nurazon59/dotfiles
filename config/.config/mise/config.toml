@@ -37,3 +37,11 @@ opencode                             = "1.19.4"
 shellcheck                           = "0.11.0"
 betterleaks                          = "1.9.0"
 buf                                  = "1.75.0"
+
+[tasks.gh-clean]
+run = '''
+ghq list -p | xargs -P 4 -I {} sh -c '
+  cd "$1" || exit
+  git remote prune origin && gh poi
+' _ "{}"
+'''
