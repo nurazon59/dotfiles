@@ -2,6 +2,33 @@ return {
   { "nvim-tree/nvim-web-devicons", dir = "@nvim-web-devicons@", pin = true },
   { "MunifTanjim/nui.nvim", dir = "@nui-nvim@", pin = true },
   {
+    "b0o/incline.nvim",
+    dir = "@incline-nvim@",
+    pin = true,
+    event = "VeryLazy",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {
+      render = function(props)
+        local path = vim.api.nvim_buf_get_name(props.buf)
+        local filename = vim.fn.fnamemodify(path, ":t")
+        if filename == "" then
+          filename = "[No Name]"
+        end
+        local parent = path ~= "" and vim.fn.fnamemodify(path, ":h:t") or ""
+        local icon, color = require("nvim-web-devicons").get_icon_color(filename)
+        local line = vim.api.nvim_win_get_cursor(props.win)[1]
+        local line_count = vim.api.nvim_buf_line_count(props.buf)
+        return {
+          icon and { icon .. " ", guifg = color } or "",
+          parent ~= "" and { parent .. "/", group = "Comment" } or "",
+          { filename, gui = "bold" },
+          vim.bo[props.buf].modified and " [+]" or "",
+          { "  " .. line .. "/" .. line_count, group = "Comment" },
+        }
+      end,
+    },
+  },
+  {
     "akinsho/bufferline.nvim",
     dir = "@bufferline-nvim@",
     pin = true,
@@ -180,20 +207,13 @@ return {
       sections = {
         lualine_a = { "mode" },
         lualine_b = { "diff", "diagnostics" },
-        lualine_c = {
-          {
-            function()
-              local name = vim.fn.bufname()
-              if name == "" then
-                return ""
-              end
-              return vim.fn.fnamemodify(name, ":.")
-            end,
-          },
-        },
+        lualine_c = {},
         lualine_x = { "lsp_status" },
-        lualine_y = { "progress" },
-        lualine_z = { "location" },
+        lualine_y = {},
+        lualine_z = {},
+      },
+      inactive_sections = {
+        lualine_c = {},
       },
     },
   },
