@@ -21,7 +21,6 @@ let
     "session-manager-plugin"
     "sf-symbols"
     "orbstack"
-    "shottr"
     "sol"
   ];
 
