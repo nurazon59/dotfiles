@@ -1,5 +1,6 @@
 let mapleader = " "
 
+set background=dark
 syntax on
 
 inoremap jj <Esc>
