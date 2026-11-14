@@ -1,4 +1,6 @@
 return {
+  ["ChatGPT"] = ":openai:",
+  ["ChatGPT Classic"] = ":openai:",
   ["Typora"] = ":text:",
   ["Orion"] = ":orion:",
   ["Orion RC"] = ":orion:",
