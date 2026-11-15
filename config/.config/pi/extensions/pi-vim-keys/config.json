@@ -1,0 +1,8 @@
+{
+  "$schema": "https://raw.githubusercontent.com/0xKahi/pi-vim-keys/main/assets/config.schema.json",
+  "normalModeRemap": {
+    "type": "sequence",
+    "firstKey": "j",
+    "secondKey": "j"
+  }
+}
