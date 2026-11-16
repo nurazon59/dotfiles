@@ -41,7 +41,20 @@ let
       hash = "sha256-jWoxp/Ux/fb7Diu5b3UaoTKv9a4WOlV9WLQ9TYUjJoI=";
     };
   };
+  hardlineRev = "9b85ebfba065091715676fb440c16a37c465b9a5";
+  hardline = pkgs.vimUtils.buildVimPlugin {
+    pname = "nvim-hardline";
+    version = builtins.substring 0 7 hardlineRev;
+    doCheck = false;
+    src = pkgs.fetchFromGitHub {
+      owner = "ojroques";
+      repo = "nvim-hardline";
+      rev = hardlineRev;
+      hash = "sha256-BY5uo5Fo9bAg0cy1GZLMglcc4lVt22q15PKIRIJgqd8=";
+    };
+  };
   pluginPaths = pkgs.vimPlugins // {
+    "nvim-hardline" = hardline;
     "arto-vim" = arto;
     "lazy-nvim" = pkgs.vimPlugins.lazy-nvim;
     "gitlinker-nvim" = gitlinker;

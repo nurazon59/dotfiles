@@ -1,3 +1,31 @@
+local fyler_always_hidden = { "/%.git/", "/%.git$", "%.DS_Store$", "node_modules" }
+
+local function toggle_fyler()
+  local fyler = require("fyler")
+  if fyler.getcwd() then
+    fyler.close()
+    return
+  end
+
+  local hidden = vim.deepcopy(fyler_always_hidden)
+  local cwd = vim.fn.getcwd(-1, -1)
+  local ok, result = pcall(function()
+    return vim
+      .system({ "git", "-C", cwd, "ls-files", "--others", "--ignored", "--exclude-standard", "--directory", "-z" })
+      :wait()
+  end)
+
+  if ok and result.code == 0 then
+    for path in result.stdout:gmatch("[^%z]+") do
+      path = path:gsub("/$", "")
+      local absolute = vim.fs.joinpath(cwd, path)
+      hidden[#hidden + 1] = "^" .. absolute:gsub("([^%w])", "%%%1") .. "$"
+    end
+  end
+
+  fyler.open({ ui = { hidden_items = { always_hidden = hidden } } })
+end
+
 return {
   { "nvim-tree/nvim-web-devicons", dir = "@nvim-web-devicons@", pin = true },
   { "MunifTanjim/nui.nvim", dir = "@nui-nvim@", pin = true },
@@ -6,24 +34,15 @@ return {
     dir = "@incline-nvim@",
     pin = true,
     event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       render = function(props)
         local path = vim.api.nvim_buf_get_name(props.buf)
-        local filename = vim.fn.fnamemodify(path, ":t")
-        if filename == "" then
-          filename = "[No Name]"
-        end
         local parent = path ~= "" and vim.fn.fnamemodify(path, ":h:t") or ""
-        local icon, color = require("nvim-web-devicons").get_icon_color(filename)
         local line = vim.api.nvim_win_get_cursor(props.win)[1]
         local line_count = vim.api.nvim_buf_line_count(props.buf)
         return {
-          icon and { icon .. " ", guifg = color } or "",
-          parent ~= "" and { parent .. "/", group = "Comment" } or "",
-          { filename, gui = "bold" },
-          vim.bo[props.buf].modified and " [+]" or "",
-          { "  " .. line .. "/" .. line_count, group = "Comment" },
+          parent ~= "" and { parent .. "/ ", group = "Comment" } or "",
+          { line .. "/" .. line_count, group = "Comment" },
         }
       end,
     },
@@ -53,9 +72,7 @@ return {
     keys = {
       {
         "<leader>e",
-        function()
-          require("fyler").toggle()
-        end,
+        toggle_fyler,
         desc = "Explorer Fyler",
       },
     },
@@ -74,7 +91,7 @@ return {
       ui = {
         hidden_items = {
           switches = {},
-          always_hidden = { "/%.git/", "/%.git$", "%.DS_Store$", "node_modules" },
+          always_hidden = fyler_always_hidden,
         },
       },
       mappings = {
@@ -194,28 +211,18 @@ return {
     },
   },
   {
-    "nvim-lualine/lualine.nvim",
-    dir = "@lualine-nvim@",
+    "ojroques/nvim-hardline",
+    dir = "@nvim-hardline@",
     pin = true,
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    opts = {
-      options = {
-        disabled_filetypes = {
-          statusline = { "fyler_finder" },
-        },
-      },
-      sections = {
-        lualine_a = { "mode" },
-        lualine_b = { "diff", "diagnostics" },
-        lualine_c = {},
-        lualine_x = { "lsp_status" },
-        lualine_y = {},
-        lualine_z = {},
-      },
-      inactive_sections = {
-        lualine_c = {},
-      },
-    },
+    main = "hardline",
+    opts = function()
+      local line = require("hardline.parts.line").get_item
+      return {
+        sections = vim.tbl_filter(function(section)
+          return type(section) ~= "table" or section.item ~= line
+        end, require("hardline").options.sections),
+      }
+    end,
   },
   {
     "folke/noice.nvim",
