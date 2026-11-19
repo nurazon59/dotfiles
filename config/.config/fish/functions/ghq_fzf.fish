@@ -25,7 +25,7 @@ function ghq_fzf
         set -a entries $paths[$i]\t$display\t$session_names[$i]\t$window_name
     end
 
-    set -l selected_line (printf '%s\n' $entries | fzf --height 40% --reverse --delimiter=\t --with-nth=2)
+    set -l selected_line (printf '%s\n' $entries | fzf --height 40% --tmux 80%,60% --reverse --delimiter=\t --with-nth=2)
     if test -n "$selected_line"
         set -l selected_fields (string split \t -- $selected_line)
         set -l selected $selected_fields[1]
