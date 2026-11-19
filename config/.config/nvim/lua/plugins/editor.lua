@@ -143,14 +143,9 @@ return {
     lazy = false,
     opts = {
       auto_restore = false,
-      auto_create = false,
-      args_allow_single_directory = false,
-      -- Do not overwrite an existing session when "Start fresh" was selected.
-      pre_save_cmds = {
-        function()
-          return vim.v.this_session ~= ""
-        end,
-      },
+      auto_save = true,
+      auto_create = true,
+      args_allow_single_directory = true,
       session_lens = { picker = "telescope" },
     },
     init = function()
