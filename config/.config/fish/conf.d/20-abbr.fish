@@ -1,8 +1,10 @@
 if status --is-interactive
-   abbr --add .. 'cd ..'
+    abbr --add .. 'cd ..'
     abbr --add ... 'cd ../..'
     abbr --add .... 'cd ../../..'
     abbr --add ..... 'cd ../../../..'
+    abbr --add n 'nvim .'
+    abbr --add c 'codex'
     abbr --add gco 'git checkout'
     abbr --add gcb 'git checkout -b'
     abbr --add gpr 'git pull'
