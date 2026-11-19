@@ -43,7 +43,10 @@ return {
       local opts = { noremap = true, silent = true }
 
       map("n", "<leader>ff", function()
-        builtin.find_files({ hidden = true })
+        builtin.find_files({
+          hidden = true,
+          find_command = { "rg", "--files", "--hidden", "--sort", "path" },
+        })
       end, vim.tbl_extend("force", opts, { desc = "Files (Telescope)" }))
       map("n", "<leader>fg", function()
         builtin.live_grep()
