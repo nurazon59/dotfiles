@@ -141,7 +141,41 @@ return {
     dir = "@auto-session@",
     pin = true,
     lazy = false,
-    opts = {},
+    opts = {
+      auto_restore = false,
+      auto_create = false,
+      args_allow_single_directory = false,
+      -- Do not overwrite an existing session when "Start fresh" was selected.
+      pre_save_cmds = {
+        function()
+          return vim.v.this_session ~= ""
+        end,
+      },
+      session_lens = { picker = "telescope" },
+    },
+    init = function()
+      -- Only offer session restore for bare `nvim`, not `nvim .` or file arguments.
+      if vim.fn.argc() ~= 0 then
+        return
+      end
+
+      vim.api.nvim_create_autocmd("VimEnter", {
+        once = true,
+        callback = function()
+          if #vim.api.nvim_list_uis() == 0 then
+            return
+          end
+
+          vim.schedule(function()
+            vim.ui.select({ "Start fresh", "Restore session" }, { prompt = "Neovim session:" }, function(choice)
+              if choice == "Restore session" then
+                require("auto-session").search()
+              end
+            end)
+          end)
+        end,
+      })
+    end,
   },
   { "nvim-mini/mini.surround", dir = "@mini-surround@", version = false, pin = true, event = "VeryLazy", opts = {} },
   { "barrettruth/diffs.nvim", dir = "@diffs-nvim@", version = false, pin = true },
