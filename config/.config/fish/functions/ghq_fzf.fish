@@ -1,11 +1,4 @@
 function ghq_fzf
-    # Run selection and session switching in the popup; close it on exit.
-    if set -q TMUX; and test "$argv[1]" != --popup
-        tmux display-popup -E -w 80% -h 60% -d (pwd) 'fish -c "ghq_fzf --popup"'
-        commandline -f repaint
-        return
-    end
-
     set -l ghq_root (ghq root)
     set -l paths
     set -l session_names
