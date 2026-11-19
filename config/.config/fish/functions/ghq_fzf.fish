@@ -1,4 +1,11 @@
 function ghq_fzf
+    # Run selection and session switching in the popup; close it on exit.
+    if set -q TMUX; and test "$argv[1]" != --popup
+        tmux display-popup -E -w 80% -h 60% -d (pwd) 'fish -c "ghq_fzf --popup"'
+        commandline -f repaint
+        return
+    end
+
     set -l ghq_root (ghq root)
     set -l paths
     set -l session_names
@@ -25,7 +32,11 @@ function ghq_fzf
         set -a entries $paths[$i]\t$display\t$session_names[$i]\t$window_name
     end
 
-    set -l selected_line (printf '%s\n' $entries | fzf --height 40% --tmux 80%,60% --reverse --delimiter=\t --with-nth=2)
+    set -l picker_height 40%
+    if test "$argv[1]" = --popup
+        set picker_height 100%
+    end
+    set -l selected_line (printf '%s\n' $entries | fzf --height $picker_height --reverse --delimiter=\t --with-nth=2)
     if test -n "$selected_line"
         set -l selected_fields (string split \t -- $selected_line)
         set -l selected $selected_fields[1]
@@ -33,5 +44,7 @@ function ghq_fzf
         set -l window_name $selected_fields[4]
         __ghq_tmux_open "$selected" "$session_name" "$window_name"
     end
-    commandline -f repaint
+    if status is-interactive
+        commandline -f repaint
+    end
 end
