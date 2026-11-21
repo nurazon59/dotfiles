@@ -5,8 +5,8 @@ let
     "aerospace"
     "arc"
     "azookey"
+    "bettershot"
     "chatgpt"
-    "claude"
     "clipy"
     "espanso"
     "finetune"
@@ -25,7 +25,6 @@ let
   ];
 
   workCasks = [
-    "bettershot"
     "tableplus"
     "nurazon59/tap/gather-v2"
   ];
