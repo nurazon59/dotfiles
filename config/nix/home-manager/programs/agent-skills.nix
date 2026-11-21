@@ -62,6 +62,10 @@ in
     ];
 
     skills.explicit = {
+      grilling = {
+        from = "mattpocock";
+        path = "productivity/grilling";
+      };
       grill-me = {
         from = "mattpocock";
         path = "productivity/grill-me";
