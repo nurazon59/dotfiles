@@ -132,17 +132,6 @@ return {
     },
   },
   {
-    "tadaa/vimade",
-    dir = "@vimade@",
-    pin = true,
-    opts = {
-      recipe = { "default", { animate = false } },
-      ncmode = "windows",
-      fadelevel = 0.6,
-      saturation = { value = 0.4 },
-    },
-  },
-  {
     "petertriho/nvim-scrollbar",
     dir = "@nvim-scrollbar@",
     pin = true,
