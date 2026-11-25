@@ -60,7 +60,6 @@ in
       rtk
       ghgrab
       _1password-cli
-      plantuml
       emacs
       bws
       ghtkn
