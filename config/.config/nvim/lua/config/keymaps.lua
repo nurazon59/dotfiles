@@ -35,6 +35,8 @@ map(
 
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
+map("n", "zj", "jzz", { desc = "Move Down and Center" })
+map("n", "zk", "kzz", { desc = "Move Up and Center" })
 
 map("i", ",", ",<c-g>u")
 map("i", ".", ".<c-g>u")
